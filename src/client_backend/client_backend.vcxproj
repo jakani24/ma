@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>Multi-Byte-Zeichensatz verwenden</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -136,10 +136,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="client_backend.cpp" />
+    <ClCompile Include="connect.cpp" />
     <ClCompile Include="md5hash.cpp" />
+    <ClCompile Include="scan.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="connect.h" />
     <ClInclude Include="md5hash.h" />
+    <ClInclude Include="scan.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,9 +21,21 @@
     <ClCompile Include="md5hash.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="connect.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="scan.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="md5hash.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="connect.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="scan.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
