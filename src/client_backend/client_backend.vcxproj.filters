@@ -27,6 +27,18 @@
     <ClCompile Include="scan.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="permissions.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="app_ctrl.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="app_ctrl.h">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="queue _ctrl.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="md5hash.h">
@@ -36,6 +48,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="scan.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="permissions.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="queue_ctrl.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

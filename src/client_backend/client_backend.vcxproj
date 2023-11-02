@@ -135,14 +135,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="app_ctrl.cpp" />
+    <ClCompile Include="app_ctrl.h" />
     <ClCompile Include="client_backend.cpp" />
     <ClCompile Include="connect.cpp" />
     <ClCompile Include="md5hash.cpp" />
+    <ClCompile Include="permissions.cpp" />
+    <ClCompile Include="queue _ctrl.cpp" />
     <ClCompile Include="scan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connect.h" />
     <ClInclude Include="md5hash.h" />
+    <ClInclude Include="permissions.h" />
+    <ClInclude Include="queue_ctrl.h" />
     <ClInclude Include="scan.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
