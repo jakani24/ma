@@ -1,0 +1,4 @@
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\x64\Debug\ma_installer.exe
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\x64\Debug\ma_installer.vcxproj.CopyComplete
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\x64\Debug\libcurl-d.dll
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\x64\Debug\zlibd1.dll

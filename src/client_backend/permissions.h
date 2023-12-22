@@ -10,5 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <windows.h>
+#include <sddl.h>
+#include <stdio.h>
 int protect_file(char* path);
 int unprotect_file(char* path);
