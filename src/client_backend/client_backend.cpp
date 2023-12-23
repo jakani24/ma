@@ -29,8 +29,7 @@ int main() {
         //check for tasks in com
         //check for scheduled tasks
         //execute tasks
-        //check_for_com_tasks(MAIN_COM,MAIN_COM_PATH);
-        log(LOGLEVEL::INFO,"test");
+        log(LOGLEVEL::WARN,"test","test2",222);
         printf("check_from_com:%d\n",check_for_com_tasks(MAIN_COM, MAIN_COM_PATH));
         printf("check_from_task:%d\n", check_for_sched_tasks(SCHED,SCHED_PATH));
         //unlock_task("tsk1"); else it will only be executed once. but this function has to be called at the end of the task. else it will nvr be executed again. this would be bad :(

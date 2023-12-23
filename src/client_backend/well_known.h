@@ -1,4 +1,6 @@
 #pragma once
+#ifndef WELL_KNOWN_H
+#define WELL_KNOWN_H
 #define MAIN_COM "main_com.txt"
 #define MAIN_COM_PATH "C:\\Program Files\\cyberhex\\com\\main_com.txt"
 
@@ -12,3 +14,4 @@
 #define INFOFILE "C:\\Program Files\\cyberhex\\secure\\log\\info.txt"
 #define WARNFILE "C:\\Program Files\\cyberhex\\secure\\log\\warn.txt"
 #define ERRORFILE "C:\\Program Files\\cyberhex\\secure\\log\\error.txt"
+#endif // !WELL_KNOWN_H

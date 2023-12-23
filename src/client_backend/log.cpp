@@ -14,7 +14,7 @@ std::string get_loglevel(LOGLEVEL level) {
         return "UNKNOWN";
     }
 }
-
+/*
 template <typename... Args>
 void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     std::string prefix = get_loglevel(level);
@@ -54,6 +54,6 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
         logFile << logString.c_str();
 		logFile.close();
 	}
-}
+}*/
 
 #endif
