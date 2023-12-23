@@ -1,2 +1,6 @@
-﻿  client_backend.cpp
-  client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe
+﻿  Quellen werden auf Modulabhängigkeiten überprüft...
+  client_backend.cpp
+  log.cpp
+  Code wird generiert...
+client_backend.obj : error LNK2019: Verweis auf nicht aufgelöstes externes Symbol ""void __cdecl log<>(enum LOGLEVEL,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (??$log@$$V@@YAXW4LOGLEVEL@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)" in Funktion "main".
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe : fatal error LNK1120: 1 nicht aufgelöste Externe

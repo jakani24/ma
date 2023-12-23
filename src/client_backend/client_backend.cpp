@@ -4,11 +4,15 @@
 #include <curl/curl.h>
 #include <openssl/md5.h>
 //#include <yara.h>
+#include "app_ctrl.h"
 #include "md5hash.h"
 #include "connect.h"
 #include "scan.h"
-#include "app_ctrl.h"
 #include "queue_ctrl.h"
+#include "well_known.h"
+#include "local_com.h"
+#include "local_schedule.h"
+#include "log.h"
 int main() {
 	printf("welcome to the jakach security tool main thread\n");
     //main thread:
@@ -19,9 +23,28 @@ int main() {
     
     
     */
+
     while (!app_stop()) {
         //run all the tasks described above
+        //check for tasks in com
+        //check for scheduled tasks
+        //execute tasks
+        //check_for_com_tasks(MAIN_COM,MAIN_COM_PATH);
+        log(LOGLEVEL::INFO,"test");
+        printf("check_from_com:%d\n",check_for_com_tasks(MAIN_COM, MAIN_COM_PATH));
+        printf("check_from_task:%d\n", check_for_sched_tasks(SCHED,SCHED_PATH));
+        //unlock_task("tsk1"); else it will only be executed once. but this function has to be called at the end of the task. else it will nvr be executed again. this would be bad :(
+        Sleep(1000);
 
+        int queue_size=get_queue_size();
+        for (int i = 0; i < queue_size; i++) {
+            char* queue_entry = new char[300 * 2 + 5];
+			queue_entry[0] = '\0';
+			queue_pop(queue_entry);
+			printf("%s\n", queue_entry);
+			delete[] queue_entry;
+        }
+        printf("\n\n\n");
     }
 
 

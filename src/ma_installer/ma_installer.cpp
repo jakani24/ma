@@ -89,6 +89,34 @@ BOOL create_dacl(SECURITY_ATTRIBUTES* pSA)
         &(pSA->lpSecurityDescriptor),
         NULL);
 }
+BOOL create_insecure_dacl(SECURITY_ATTRIBUTES* pSA)
+{
+    // Define the SDDL for the DACL. This example sets 
+    // the following access:
+    //     Built-in guests are denied all access.
+    //     Anonymous logon is denied all access.
+    //     Authenticated users are allowed 
+    //     read/write/execute access.
+    //     Administrators are allowed full control.
+    // Modify these values as needed to generate the proper
+    // DACL for your application.   
+    const wchar_t* szSD = TEXT("D:")
+        TEXT("(D;OICI;GA;;;BG)")         // Deny access to authenticated users
+        TEXT("(D;OICI;GA;;;AN)")         // Deny access to authenticated users
+        TEXT("(A;OICI;GA;;;AU)")       // Deny access to authenticated users
+        TEXT("(A;OICI;GA;;;BA)");        // Allow full control to builtinadministrators
+    //TEXT("(A;OICI;GA;;;AA)");        // Allow full control to administrators
+
+
+    if (NULL == pSA)
+        return FALSE;
+
+    return ConvertStringSecurityDescriptorToSecurityDescriptor(
+        szSD,
+        SDDL_REVISION_1,
+        &(pSA->lpSecurityDescriptor),
+        NULL);
+}
 int create_secure_folder(LPCWSTR folderpath) {
     int error = 0;
     SECURITY_ATTRIBUTES  sa;
@@ -100,6 +128,46 @@ int create_secure_folder(LPCWSTR folderpath) {
     // is set in the SECURITY_ATTRIBUTES 
     // lpSecurityDescriptor member.
     if (!create_dacl(&sa))
+    {
+        // Error encountered; generate message and exit.
+        //printf("Failed to create access control list\n");
+        error = 1;
+    }
+
+    // Use the updated SECURITY_ATTRIBUTES to specify
+    // security attributes for securable objects.
+    // This example uses security attributes during
+    // creation of a new directory.
+    if (error == 0) {
+        if (0 == CreateDirectory(folderpath, &sa))
+        {
+            // Error encountered; generate message and exit.
+            //could not create directory
+            error = 2;
+        }
+    }
+    // Free the memory allocated for the SECURITY_DESCRIPTOR.
+    if (error == 0) {
+        if (NULL != LocalFree(sa.lpSecurityDescriptor))
+        {
+            // Error encountered; generate message and exit.
+            //printf("Failed to free the allocated memory\n");
+            error = 3;
+        }
+    }
+    return error;
+}
+int create_insecure_folder(LPCWSTR folderpath) {
+    int error = 0;
+    SECURITY_ATTRIBUTES  sa;
+
+    sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+    sa.bInheritHandle = FALSE;// objects are not inherited
+
+    // Call function to set the DACL. The DACL
+    // is set in the SECURITY_ATTRIBUTES 
+    // lpSecurityDescriptor member.
+    if (!create_insecure_dacl(&sa))
     {
         // Error encountered; generate message and exit.
         //printf("Failed to create access control list\n");
@@ -144,18 +212,22 @@ int main()
             //we started the app as admin. This process can be terminated now
             exit(0);
         }
-    }else {
+    }
+    else {
         // We're admin, so we can do admin stuff here ...
         printf("Creating directorys\n");
         printf("Creating directory for application\n");
-        CreateDirectory(L"C:\\Program Files\\cyberhex", NULL);                                  //create main folder for cyberhex
-        printf("Creating directory for communication\n");
-        CreateDirectory(L"C:\\Program Files\\cyberhex\\com", NULL); 						    //create folder for communication with desktop client
-        printf("Creating directory for desktop client\n");
-        CreateDirectory(L"C:\\Program Files\\cyberhex\\app", NULL); 						    //create folder for desktop client application
-        printf("Creating directory for secure files\n");
-        error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure");					//create secure folder  
-        if (error == 0){
+        error = create_insecure_folder(L"C:\\Program Files\\cyberhex");                         //create main folder for cyberhex
+        if (error == 0) {
+            printf("Creating directory for communication\n");
+            error = create_insecure_folder(L"C:\\Program Files\\cyberhex\\com"); 				//create folder for communication with desktop client
+        }if (error == 0) {
+            printf("Creating directory for desktop client\n");
+            error = create_insecure_folder(L"C:\\Program Files\\cyberhex\\app"); 				//create folder for desktop client application
+        }if (error == 0) {
+            printf("Creating directory for secure files\n");
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure");				//create secure folder  
+        }if (error == 0){
             printf("Creating directory for database\n");
             error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\database");		//create secure folder for hash database
         }if (error == 0){
@@ -206,7 +278,7 @@ int main()
             }
 
             LPCWSTR serviceName = L"cyberhex_background_service";
-            LPCWSTR servicePath = L"C:\\Path\\To\\Your\\Executable.exe";
+            LPCWSTR servicePath = L"C:\\Program Files\\cyberhex\\secure\\app\\cyberhex.exe";
 
             SC_HANDLE hService = CreateService(
                 hSCManager,

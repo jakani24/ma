@@ -39,6 +39,15 @@
     <ClCompile Include="queue _ctrl.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="local_com.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="local_schedule.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="md5hash.h">
@@ -54,6 +63,18 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="queue_ctrl.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="well_known.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="local_com.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="local_schedule.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

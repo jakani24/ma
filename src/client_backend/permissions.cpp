@@ -29,7 +29,7 @@ BOOL create_file_protection(SECURITY_ATTRIBUTES* pSA)
     //     Administrators are allowed full control.
     // Modify these values as needed to generate the proper
     // DACL for your application.   
-    TCHAR* szSD = TEXT("D:")
+    LPCSTR szSD = TEXT("D:")
         TEXT("(D;OICI;GA;;;BG)")         // Deny access to guest users
         TEXT("(D;OICI;GA;;;AN)")         // Deny access to unauthenticated users
         //TEXT("(D;OICI;GA;;;AU)")         // Deny access to authenticated users do not execute else not even admins have rights anymore :(

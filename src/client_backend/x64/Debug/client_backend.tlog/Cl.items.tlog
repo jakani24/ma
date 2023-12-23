@@ -1,7 +1,10 @@
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\app_ctrl.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\app_ctrl.obj
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\app_ctrl.h;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\app_ctrl.obj
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\app_ctrl.h;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\app_ctrl.h.obj
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.obj
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\connect.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\connect.obj
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_com.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\local_com.obj
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\local_schedule.obj
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\log.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\log.obj
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\md5hash.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\md5hash.obj
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\permissions.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\permissions.obj
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\queue _ctrl.cpp;C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\queue _ctrl.obj
