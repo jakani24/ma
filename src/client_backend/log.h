@@ -9,7 +9,9 @@
 enum class LOGLEVEL {
     INFO,
     WARN,
-    ERR
+    ERR,
+    VIRUS,
+    RISK
 };
 
 std::string get_loglevel(LOGLEVEL level);
@@ -18,8 +20,9 @@ template <typename... Args>
 void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     std::string prefix = get_loglevel(level);
     std::time_t now = std::time(nullptr);
-    std::tm tm = *std::localtime(&now);
-
+    std::tm tm;
+    localtime_s(&tm, &now);
+    int error = 0;
     std::ostringstream logStream;
     logStream << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << " " << prefix << " " << message;
     if constexpr (sizeof...(args) > 0) {
@@ -27,31 +30,62 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     }
     logStream << std::endl;
     std::string logString = logStream.str();
-
+    printf("info from logger: %s", logString.c_str());
     // Open the file based on log level
-    std::ofstream logFile;
+    FILE* fp;
     switch (level) {
     case LOGLEVEL::INFO:
-        logFile.open(INFOFILE, std::ios_base::app);
+        error=fopen_s(&fp, INFOFILE, "a");
         break;
     case LOGLEVEL::WARN:
-        logFile.open(WARNFILE, std::ios_base::app);
+        error=fopen_s(&fp, WARNFILE, "a");
         break;
     case LOGLEVEL::ERR:
-        logFile.open(ERRORFILE, std::ios_base::app);
+        error=fopen_s(&fp, ERRORFILE, "a");
         break;
-    }
+    case LOGLEVEL::VIRUS:
+        error=fopen_s(&fp, VIRUSFILE, "a");
+		break;
+    case LOGLEVEL::RISK:
+		error=fopen_s(&fp, RISKFILE, "a");
+		break;
 
-    // Write the log to the file
-    if (logFile.is_open()) {
-        logFile << logString.c_str();
-        logFile.close();
+	default:
+		error=fopen_s(&fp, LOGFILE, "a");
+		break;
+	}
+	if (error != 0) {
+		//panic, create log entry, return 1;
+        //printf("a");
+		return;
     }
-    //write the log to the general file
-    logFile.open(LOGFILE, std::ios_base::app);
-    if (logFile.is_open()) {
-        logFile << logString.c_str();
-        logFile.close();
+    else {
+        switch (level) {
+        case LOGLEVEL::INFO:
+            fprintf_s(fp, "%s", logString.c_str());
+            break;
+        case LOGLEVEL::WARN:
+            fprintf_s(fp, "%s", logString.c_str());
+            break;
+        case LOGLEVEL::ERR:
+            fprintf_s(fp, "%s", logString.c_str());
+            break;
+        case LOGLEVEL::VIRUS:
+            fprintf_s(fp, "%s", logString.c_str());
+            break;
+        case LOGLEVEL::RISK:
+            fprintf_s(fp, "%s", logString.c_str());
+            break;
+
+        default:
+            fprintf_s(fp, "%s", logString.c_str());
+            break;
+        }
+        fclose(fp);
+        if (fopen_s(&fp, LOGFILE, "a") == 0) {
+            fprintf_s(fp, "%s", logString.c_str());
+            fclose(fp);
+        }
     }
 }
 

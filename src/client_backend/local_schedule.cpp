@@ -2,6 +2,7 @@
 #define LOCAL_SCHEDULE_CPP
 #include "local_schedule.h"
 #include "queue_ctrl.h"
+#include "log.h"
 /*
 * To do:
 * read scheduled tasks form file
@@ -88,6 +89,7 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
     if ((fopen_s(&fp, sched_path, "r")) != 0) {
         //panic, create log entry, return 1;
         //no schedule file found. this is not normal
+        log(LOGLEVEL::ERR, "[check_for_sched_tasks()]: Error opening schedule file: ", sched_path, " while checking for scheduled tasks; aborting");
         delete[] command;
         return 1;
     }
@@ -151,16 +153,14 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
                     queue_entry[0] = '\0';
                     strcpy_s(queue_entry, 600, command);							//copy the command
                     strcat_s(queue_entry, 600, ";");							//add a ; to seperate command and path
-                    //printf("%d\n", strlen(path));
                     strcat_s(queue_entry, 600, path);							//add the path
-                    //printf("%s::%d\n",queue_entry,strlen(queue_entry));
 
                     queue_push(queue_entry);
                     delete[] queue_entry;
                 }
             }
             else {
-                //echo something was malformatted
+                log(LOGLEVEL::ERR, "[check_for_sched_tasks()]: Error reading schedule file: ", sched_path, " while checking for scheduled tasks (malformat); aborting");
             }
             delete[] datetime;
             delete[] path;

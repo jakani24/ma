@@ -6,16 +6,30 @@
 #include <iostream>
 #include "md5hash.h"
 #include <string>
+#include "well_known.h"
+#include "log.h"
+#include "virus_ctrl.h"
 #ifndef SCAN_CPP
 #define SCAN_CPP
 int cnt = 0;
+bool file_exists(const std::string& filePath) {
+    DWORD fileAttributes = GetFileAttributes(filePath.c_str());
+
+    if (fileAttributes == INVALID_FILE_ATTRIBUTES) {
+        // The file does not exist or there was an error
+        return false;
+    }
+
+    // Check if it's a regular file and not a directory
+    return (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
+}
 void ListFilesRecursive(const std::string& directory, int thread_id) {
     std::string search_path = directory + "\\*.*";
     WIN32_FIND_DATA find_file_data;
     HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
 
     if (hFind == INVALID_HANDLE_VALUE) {
-        std::cerr << "Error opening directory: " << directory << std::endl;
+        log(LOGLEVEL::ERR, "[ListFilesRecursive()]: Error opening directory: ", directory, " while scanning files inside folder.");
         return;
     }
 
@@ -53,20 +67,20 @@ void ListFilesRecursive(const std::string& directory, int thread_id) {
 int scan_hash(const std::string& filename, const std::string& searchString) {//!!!! does not work with e.g. utf-16 or something like that. either ascii or utf8!!
     HANDLE hFile = CreateFile(filename.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile == INVALID_HANDLE_VALUE) {
-        std::cerr << "Error: Unable to open the file." << std::endl;
+        log(LOGLEVEL::ERR, "[scan_hash()]: Error opening database file: ", filename, " while searching for hash.", searchString);
         return 2;
     }
 
     HANDLE hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
     if (hMapping == NULL) {
-        std::cerr << "Error: Unable to create file mapping." << std::endl;
+        log(LOGLEVEL::ERR, "[scan_hash()]: Error creating database file mapping: ", filename, " while searching for hash.");
         CloseHandle(hFile);
         return 2;
     }
 
     char* fileData = static_cast<char*>(MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, 0));
     if (fileData == NULL) {
-        std::cerr << "Error: Unable to map the file into memory." << std::endl;
+        log(LOGLEVEL::ERR, "[scan_hash()]: Error mapping database file: ", filename, " while searching for hash.");
         CloseHandle(hMapping);
         CloseHandle(hFile);
         return 2;
@@ -89,5 +103,28 @@ int scan_hash(const std::string& filename, const std::string& searchString) {//!
     CloseHandle(hMapping);
     CloseHandle(hFile);
     return 0;
+}
+int scan_hash(const char* hash) {
+    char* path = new char[600];
+    path[0] = '\0';
+    sprintf_s(path, 595, "%s\\%c%c.jdbf", DB_DIR, hash[0],hash[1]);
+    return scan_hash(path,hash);
+}
+
+void action_scanfile(const char*filepath) {
+    if (strlen(filepath) == 0 or strcmp("", filepath) == 0 or file_exists(filepath)==false) {
+        log(LOGLEVEL::ERR, "[action_scanfile()]: Error opening file: ", filepath, " while scanning file for viruses.");
+        return; //no filepath given
+    }
+    char*hash = new char[300];
+    md5_file(filepath, hash);
+    if (scan_hash(hash)==1) { //virus found
+        log(LOGLEVEL::VIRUS, "[action_scanfile()]: Virus found in file: ", filepath);
+        //add it to a database which stores filepaths of infected files
+        virus_ctrl_store(filepath,hash,"sf");
+        //afterwards do the processing with that file
+        virus_ctrl_process("sf");
+    }
+    delete[] hash;
 }
 #endif

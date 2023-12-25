@@ -7,7 +7,6 @@ int check_for_com_tasks(const char* com_name, const char* com_path) {
 	FILE* fp=nullptr;
 	char* command=new char [300];
 	if ((fopen_s(&fp,com_path, "r")) != 0) {
-		//panic, create log entry, return 1;
 		//no com file found = no communication needed
 		delete[] command;
 		return 1;
@@ -16,7 +15,6 @@ int check_for_com_tasks(const char* com_name, const char* com_path) {
 		while (!feof(fp)) {
 			fscanf_s(fp, "%s", command, 295); // get the command
 			if (!feof(fp)) {								//last line =\n we dont want to process that
-				//printf("%s\n", command);
 				//we scanned the command, now we will scan the path. If the process does not need a path the path will be nopath. (set from client)
 				//get a full path. => " = start, second "= end
 				char* path = new char[300];

@@ -78,4 +78,29 @@ int download_file_from_srv(const char* url, const char* outputFileName) {
 
     return 0;
 }
+
+
+int call_srv(const char*server_url,const char*get_request,const char*additional) {
+    CURL* curl;
+	CURLcode res;
+	std::string readBuffer;
+    char*url=new char[1000];
+    url[0] = '\0';
+  
+	curl = curl_easy_init();
+    if (curl) {
+        char* output = curl_easy_escape(curl, additional, strlen(additional));
+        sprintf_s(url, 995, "%s%s%s", server_url, get_request,output);
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+		res = curl_easy_perform(curl);
+        curl_free(output);
+		curl_easy_cleanup(curl);
+        delete[] url;
+		return res;
+	}
+    delete[] url;
+	return 0;
+}
 #endif

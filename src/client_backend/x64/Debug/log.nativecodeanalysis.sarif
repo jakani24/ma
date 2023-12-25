@@ -1,0 +1,51 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.38.33133.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/janis/documents/projekte_mit_c/ma/ma/src/client_backend/log.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "47da46fe0fa2bd5079043d3c1c254b301ef0debe49abc0065d1556469590862e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/janis/documents/projekte_mit_c/ma/ma/src/client_backend/log.h"
+          },
+          "hashes": {
+            "sha-256": "f126f1a4ec55d2abe6a914bb8afe743a9715574e25c7c168dac8a7ecd908e4ae"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/janis/documents/projekte_mit_c/ma/ma/src/client_backend/well_known.h"
+          },
+          "hashes": {
+            "sha-256": "3fc028c03de1be21fe5a60a58de0c9361001517acfceecd5809e755bdfd4cc97"
+          }
+        }
+      ]
+    }
+  ]
+}

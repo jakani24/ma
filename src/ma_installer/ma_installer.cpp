@@ -217,34 +217,37 @@ int main()
         // We're admin, so we can do admin stuff here ...
         printf("Creating directorys\n");
         printf("Creating directory for application\n");
-        error = create_insecure_folder(L"C:\\Program Files\\cyberhex");                         //create main folder for cyberhex
+        error = create_insecure_folder(L"C:\\Program Files\\cyberhex");                                //create main folder for cyberhex
         if (error == 0) {
             printf("Creating directory for communication\n");
-            error = create_insecure_folder(L"C:\\Program Files\\cyberhex\\com"); 				//create folder for communication with desktop client
+            error = create_insecure_folder(L"C:\\Program Files\\cyberhex\\com"); 		        		//create folder for communication with desktop client
         }if (error == 0) {
             printf("Creating directory for desktop client\n");
-            error = create_insecure_folder(L"C:\\Program Files\\cyberhex\\app"); 				//create folder for desktop client application
+            error = create_insecure_folder(L"C:\\Program Files\\cyberhex\\app"); 			        	//create folder for desktop client application
         }if (error == 0) {
             printf("Creating directory for secure files\n");
-            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure");				//create secure folder  
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure");			        	//create secure folder  
         }if (error == 0){
             printf("Creating directory for database\n");
-            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\database");		//create secure folder for hash database
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\database");	        	//create secure folder for hash database
+        }if (error == 0) {
+            printf("Creating directory for folder database\n");
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\database\\folder");		//create secure folder for hash database
         }if (error == 0){
             printf("Creating directory for settings\n");
-            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\settings");		//create secure folder for settings
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\settings");		        //create secure folder for settings
         }if (error == 0){
             printf("Creating directory for quarantined files\n");
-            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\quarantine");	//create secure folder for quarantined files = viruses
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\quarantine");	        //create secure folder for quarantined files = viruses
         }if (error == 0){
             printf("Creating directory for log files\n");
-            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\log");			//create secure folder for log files
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\log");			        //create secure folder for log files
         }if (error == 0){
             printf("Creating directory for communication\n");
-            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\com");			//create secure folder for communication with server
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\com");			        //create secure folder for communication with server
         }if (error == 0) {
             printf("Creating directory for application\n");
-            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\app");			//create secure folder for application files
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\app");		        	//create secure folder for application files
         }
 
         //download files from server

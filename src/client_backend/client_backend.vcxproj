@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="app_ctrl.cpp" />
     <ClCompile Include="app_ctrl.h" />
+    <ClCompile Include="check_dir.cpp" />
     <ClCompile Include="client_backend.cpp" />
     <ClCompile Include="connect.cpp" />
     <ClCompile Include="local_com.cpp" />
@@ -147,8 +148,12 @@
     <ClCompile Include="permissions.cpp" />
     <ClCompile Include="queue _ctrl.cpp" />
     <ClCompile Include="scan.cpp" />
+    <ClCompile Include="settings.cpp" />
+    <ClCompile Include="thread_ctrl.cpp" />
+    <ClCompile Include="virus_ctrl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="check_dir.h" />
     <ClInclude Include="connect.h" />
     <ClInclude Include="local_com.h" />
     <ClInclude Include="local_schedule.h" />
@@ -156,8 +161,15 @@
     <ClInclude Include="md5hash.h" />
     <ClInclude Include="permissions.h" />
     <ClInclude Include="queue_ctrl.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="scan.h" />
+    <ClInclude Include="settings.h" />
+    <ClInclude Include="thread_ctrl.h" />
+    <ClInclude Include="virus_ctrl.h" />
     <ClInclude Include="well_known.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="client_backend.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

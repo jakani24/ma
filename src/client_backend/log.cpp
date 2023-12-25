@@ -10,6 +10,11 @@ std::string get_loglevel(LOGLEVEL level) {
         return "WARNING";
     case LOGLEVEL::ERR:
         return "ERROR";
+    case LOGLEVEL::VIRUS:
+		return "VIRUS";
+    case LOGLEVEL::RISK:
+        return "RISK";
+
     default:
         return "UNKNOWN";
     }
