@@ -5,7 +5,7 @@
 #include "log.h"
 #include "settings.h"
 #include "connect.h"
-int virus_ctrl_store(const char*path,const char*hash,const char*id) {
+int virus_ctrl_store( const char*path, const char*hash, const char*id) {
 	FILE* fp;
 	char *db_path = new char[300];
 	strcpy_s(db_path, 295,VIRUS_CTRL_DB);
@@ -22,12 +22,12 @@ int virus_ctrl_store(const char*path,const char*hash,const char*id) {
 		return 0;
 	}
 }
-int virus_ctrl_process(const char* id) {
+int virus_ctrl_process( const char* id) {
 	//take actions based on settings.
 	//eg delete infected files, quarantine them, etc
 
-	FILE* fp;
-	char* db_path = new char[300];
+	 FILE* fp;
+	 char* db_path = new char[300];
 	strcpy_s(db_path, 295, VIRUS_CTRL_DB);
 	strcat_s(db_path, 295, id);
 	if (fopen_s(&fp, db_path, "r") != 0) {

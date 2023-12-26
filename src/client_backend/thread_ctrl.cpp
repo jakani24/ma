@@ -1,7 +1,9 @@
 #ifndef THREAD_CTRL_CPP
 #define THREAD_CTRL_CPP
 #include "thread_ctrl.h"
-
+#include "log.h"
+#include "well_known.h"
+#include "scan.h"
 void split(char* input,char*delimiter, char* out1, char* out2) {
 	//split a string at the delimiter. the delimiter only occurs once. so the first part is out1 and the second part is out2
 	int i = 0;
@@ -36,7 +38,7 @@ int start_thread(const char*command) {
 	//determine what should be executed
 	if(strcmp(out1,"scanfile")==0){
 		//start a new thread with the scanfile function
-		//std::thread t1(scanfile, out2);
+		std::thread t1(action_scanfile, out2);
 	}
 
 

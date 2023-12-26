@@ -20,13 +20,13 @@
 
 #define FOLDER_DATABASE_DIR "C:\\Program Files\\cyberhex\\secure\\database\\folder"
 
-#define DB_DIR "C:\\Program Files\\cyberhex\\secure\\database\\"
+#define DB_DIR "C:\\Program Files\\cyberhex\\secure\\database"
 
 #define VIRUS_CTRL_DB "C:\\Program Files\\cyberhex\\secure\\database\\virus_ctrl_db.txt"
 
 #define SETTINGS_DB "C:\\Program Files\\cyberhex\\secure\\settings\\settings_db.txt"
 
-#define QUARANTINE_PATH "C:\\Program Files\\cyberhex\\secure\\quarantine\\"
+#define QUARANTINE_PATH "C:\\Program Files\\cyberhex\\secure\\quarantine"
 
 #define PERIODIC_FOLDER_SCAN "C:\\Program Files\\cyberhex\\secure\\database\\folder\\periodic_folder_scan.txt"
 #define PERIODIC_FOLDER_SCAN_TEMP_DB "C:\\Program Files\\cyberhex\\secure\\database\\folder\\temp_db.txt"

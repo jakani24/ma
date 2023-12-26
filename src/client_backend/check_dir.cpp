@@ -137,25 +137,36 @@ int check_scan_dir(char*dirpath,char*dirname) {
 }
 
 */
+bool is_directory(const std::string& path) {
+    DWORD attributes = GetFileAttributes(path.c_str());
+
+    if (attributes == INVALID_FILE_ATTRIBUTES) {
+        // Handle the error, e.g., by printing an error message
+        return false;
+    }
+
+    return (attributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
+}
 void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
     // Allocate a buffer for the file name and copy the content
     std::wstring fileName(pInfo->FileName, pInfo->FileNameLength / sizeof(wchar_t));
-
-    // Print information about the changed file or directory
 
     //convert wstring to string
     std::string filename_str(fileName.begin(), fileName.end());
     filename_str = "c:\\" + filename_str;
     //scan the file and send it to virus_ctrl if it is a virus and then process it
     std::transform(filename_str.begin(), filename_str.end(), filename_str.begin(), ::tolower);
-    if (is_folder_excluded(filename_str.c_str())) {
-		//dont scan excluded files
+    if (is_folder_excluded(filename_str.c_str()) or is_directory(filename_str.c_str())) {
+		//dont scan excluded files or folders
 		return;
-	}else
-    //    action_scanfile(filename_str.c_str());
+    }
+    else {
+        std::thread scan_thread(action_scanfile_t, filename_str);
+        scan_thread.detach();
+    }
     log(LOGLEVEL::INFO, "[process_changes()]: File change: ", filename_str.c_str(), " while monitoring directory for changes");
 }
-/*
+/* this was the old algorithm. it was slower and used up more resources, because it used a database to track which files have been modified instead of using the windows internal functions
 void monitor_directory(LPCSTR directory) {
     // Open the directory for monitoring
     HANDLE hDir = CreateFile(
@@ -262,7 +273,7 @@ void monitor_directory(LPCSTR directory) {
     );
 
     if (hDir == INVALID_HANDLE_VALUE) {
-        std::cerr << "[monitor_directory()]: Error opening directory: " << directory << " while monitoring directory for changes" << std::endl;
+        log(LOGLEVEL::ERR, "[monitor_directory()]: Error opening directory: ", directory, " while monitoring directory for changes");
         return;
     }
 
@@ -273,6 +284,7 @@ void monitor_directory(LPCSTR directory) {
     // Monitor the directory for changes
     OVERLAPPED overlapped;
     memset(&overlapped, 0, sizeof(overlapped));
+    memset(buffer, 0, bufferSize);
     overlapped.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 
     if (ReadDirectoryChangesW(
@@ -280,19 +292,19 @@ void monitor_directory(LPCSTR directory) {
         buffer,
         bufferSize,
         TRUE,
-        FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_DIR_NAME | FILE_NOTIFY_CHANGE_SIZE,
+        FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE,
         NULL,
         &overlapped,
         NULL) == 0) {
-        std::cerr << "[monitor_directory()]: Error reading directory changes: " << GetLastError() << " while monitoring directory for changes" << std::endl;
+        log(LOGLEVEL::ERR, "[monitor_directory()]: Error reading directory changes: ", GetLastError(), " while monitoring directory for changes");
         CloseHandle(hDir);
         return;
     }
 
-    std::cout << "[monitor_directory()]: Monitoring directory: " << directory << " for changes" << std::endl;
+    log(LOGLEVEL::INFO, "[monitor_directory()]: Monitoring directory: ", directory, " for changes");
 
     // Wait for changes
-    while (true) {
+    while (!app_stop()) {
         DWORD bytesReturned;
         DWORD waitStatus = WaitForSingleObject(overlapped.hEvent, INFINITE);
 
@@ -311,6 +323,7 @@ void monitor_directory(LPCSTR directory) {
 
                 // Reset the event for the next wait
                 ResetEvent(overlapped.hEvent);
+                memset(buffer, 0, bufferSize);
 
                 // Continue monitoring
                 if (ReadDirectoryChangesW(
@@ -322,17 +335,17 @@ void monitor_directory(LPCSTR directory) {
                     NULL,
                     &overlapped,
                     NULL) == 0) {
-                    std::cerr << "[monitor_directory()]: Error reading directory changes: " << GetLastError() << " while monitoring directory for changes" << std::endl;
+                    log(LOGLEVEL::ERR, "[monitor_directory()]: Error reading directory changes: ", GetLastError(), " while monitoring directory for changes");
                     break;
                 }
             }
             else {
-                std::cerr << "[monitor_directory()]: Error reading directory changes: " << GetLastError() << " while monitoring directory for changes" << std::endl;
+                log(LOGLEVEL::ERR, "[monitor_directory()]: GetOverlappedResult failed: ", GetLastError());
                 break;
             }
         }
         else {
-            std::cerr << "[monitor_directory()]: WaitForSingleObject failed: " << GetLastError() << std::endl;
+            log(LOGLEVEL::ERR, "[monitor_directory()]: WaitForSingleObject failed: ", GetLastError());
             break;
         }
     }

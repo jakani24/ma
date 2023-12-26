@@ -1,60 +1,8 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
-  app_ctrl.h
-  Kompilieren...
-  app_ctrl.h
-  app_ctrl.cpp
-  check_dir.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(348,7): warning C4101: "fp": Unreferenzierte lokale Variable
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244: "Argument": Konvertierung von "wchar_t" in "const _Elem", möglicher Datenverlust
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:             _Elem=char
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53): warning C4244:         ]
-  (Quelldatei „check_dir.cpp“ wird kompiliert)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2749,53):
-  der Vorlageninstanziierungskontext (der älteste zuerst) ist
-  	C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(147,29):
-  	Siehe Verweis auf die gerade kompilierte Instanziierung "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)" der Funktions-Vorlage.
-          with
-          [
-              _Elem=wchar_t,
-              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
-              _Alloc=std::allocator<char>
-          ]
-  		C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(147,29):
-  		Ersten Verweis auf "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string" in "process_changes" anzeigen
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2590,17):
-  	Siehe Verweis auf die gerade kompilierte Instanziierung "void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)" der Funktions-Vorlage.
-          with
-          [
-              _Size_type=unsigned __int64,
-              _Iter=wchar_t *,
-              _Sent=wchar_t *,
-              _Size=unsigned __int64
-          ]
-  
   client_backend.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(63,24): warning C4244: "Argument": Konvertierung von "_Rep" in "DWORD", möglicher Datenverlust
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(63,24): warning C4244:         with
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(63,24): warning C4244:         [
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(63,24): warning C4244:             _Rep=__int64
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(63,24): warning C4244:         ]
-  connect.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\connect.cpp(92,65): warning C4267: "Argument": Konvertierung von "size_t" nach "int", Datenverlust möglich
-  local_com.cpp
-  local_schedule.cpp
-  log.cpp
-  md5hash.cpp
-  permissions.cpp
-  queue _ctrl.cpp
-  scan.cpp
-  settings.cpp
-  thread_ctrl.cpp
-  virus_ctrl.cpp
-  Code Analysis für C/C++ wird ausgeführt...
-  Code wird generiert...
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\md5hash.cpp(36): warning C4715: "md5_file": Nicht alle Codepfade geben einen Wert zurück.
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244: "Argument": Konvertierung von "_Rep" in "DWORD", möglicher Datenverlust
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:         with
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:         [
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:             _Rep=__int64
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:         ]
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(297): warning C6387: "overlapped.hEvent" könnte "0" sein:  dies entspricht nicht der Spezifikation für Funktion "WaitForSingleObject". 
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(313): warning C6387: "overlapped.hEvent" könnte "0" sein:  dies entspricht nicht der Spezifikation für Funktion "ResetEvent". In Zeile 297 finden Sie einen früheren Ort, an dem dies vorkommen kann.
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(341): warning C6387: "overlapped.hEvent" könnte "0" sein:  dies entspricht nicht der Spezifikation für Funktion "CloseHandle". In Zeile 297 finden Sie einen früheren Ort, an dem dies vorkommen kann.

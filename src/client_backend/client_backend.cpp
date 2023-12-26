@@ -16,13 +16,19 @@
 #include "thread_ctrl.h"
 #include "settings.h"
 #include "check_dir.h"
+#include "virus_ctrl.h"
 int main() {
+    log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
 	printf("welcome to the jakach security tool main thread\n");
     load_settings();
+    initialize(DB_DIR);
     //start a second thread which will scan for new files
-    std::thread folder_scannner_thread(folder_scanner);
-    // 
-    // 
+    if (get_setting("rtp:status") == 1) {
+        log(LOGLEVEL::INFO, "[main()]:Starting real time protection.");
+        std::thread folder_scannner_thread(folder_scanner);
+        folder_scannner_thread.detach();
+    }
+ 
     //main thread:
     /* watches for notifications on bus
     * start threads (scans etc); only one at a time may run
@@ -31,7 +37,6 @@ int main() {
     
     
     */
-
     while (!app_stop()) {
         //run all the tasks described above
         //check for tasks in com
@@ -40,6 +45,8 @@ int main() {
         //call_srv("8.8.8.8","","");
         auto start = std::chrono::high_resolution_clock::now();
     //    printf("check_from_com:%d\n",check_for_com_tasks(MAIN_COM, MAIN_COM_PATH));
+        check_for_com_tasks(MAIN_COM, MAIN_COM_PATH);
+        check_for_sched_tasks(SCHED, SCHED_PATH);
     //    printf("check_from_task:%d\n", check_for_sched_tasks(SCHED,SCHED_PATH));
         //unlock_task("tsk1"); else it will only be executed once. but this function has to be called at the end of the task. else it will nvr be executed again. this would be bad :(
         //start a thread that executes check_scan_dir to scan folders for new files. this thread then should start a ock so only one scanfolder thread runs at a time
@@ -64,8 +71,6 @@ int main() {
 
      //   printf("\n\n\n");
     }
-
-
 
 
 
