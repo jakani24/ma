@@ -22,7 +22,7 @@ $username="test";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
-<body style="height:100%">
+<body>
 	<!-- navbar -->
 	<nav class="navbar navbar-light bg-light">
 	  <div class="container-fluid">
@@ -49,6 +49,12 @@ $username="test";
 		   <li>Item C</li>
 		  </ul>
 		  <p>List B</p>
+		  <ul>
+		   <li>Item A</li>
+		   <li>Item B</li>
+		   <li>Item C</li>
+		  </ul>
+		  <p>List C</p>
 		  <ul>
 		   <li>Item A</li>
 		   <li>Item B</li>
