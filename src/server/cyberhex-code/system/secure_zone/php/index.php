@@ -1,5 +1,4 @@
 <?php
-/*
 session_start();
 
 // Check if the user is logged in
@@ -10,13 +9,13 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 }
 
 $username = $_SESSION['username'];
-*/
+$perms = $_SESSION["perms"];
 if(isset($_GET["page"])){
 	$page=$_GET["page"];
 }else{
 	$page="welcome.php";
 }
-$username="test";
+
 ?>
 
 <!DOCTYPE html>
