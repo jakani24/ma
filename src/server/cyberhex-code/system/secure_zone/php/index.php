@@ -56,6 +56,7 @@ if(isset($_GET["page"])){
 		   <li><a href="index.php?page=profile.php">Profile</a></li>
 		   <li><a href="index.php?page=passwd.php">Change Password</a></li>
 		   <li><a href="index.php?page=add_user.php">Add User</a></li>
+		   <li><a href="index.php?page=user_list.php">User List</a></li>
 		  </ul>
 		  <p>Log</p>
 		  <ul>
