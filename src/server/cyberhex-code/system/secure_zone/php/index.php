@@ -23,7 +23,7 @@ $username="test";
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<!-- Header -->
+	<!-- navbar -->
 	<nav class="navbar navbar-light bg-light">
 	  <div class="container-fluid">
 		<span class="navbar-text">
@@ -37,13 +37,19 @@ $username="test";
 		</span>
 	  </div>
 	</nav>
-	<div class="container mt-5">
-		<!-- Main content -->
-		<h2 class="text-center">Welcome to Bootstrap</h2>
-		<p class="text-center">This is a simple webpage using Bootstrap CSS.</p>
-		<div class="alert alert-primary" role="alert">
-			This is a primary alert—check it out!
+	
+	<div class="container-fluid">
+	  <div class="row">
+		<!-- sidebar -->
+		<div class="col-2" style="background-color: lightblue;">
+		  <p>This container takes up 20% of the width.</p>
 		</div>
+
+		main part, with iframe
+		<div class="col-10" style="background-color: lightgreen;">
+		 <!-- iframe -->
+		</div>
+	  </div>
 	</div>
 </body>
 </html>
