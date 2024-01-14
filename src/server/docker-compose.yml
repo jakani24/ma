@@ -9,8 +9,6 @@ services:
     networks:
       cyberhex-network:
         ipv4_address: 192.168.178.2
-#    ports:
-#      - "3306:3306"
     volumes:
       - cyberhex-db-storage:/var/lib/mysql
 
@@ -31,7 +29,6 @@ services:
       - ./cyberhex-code:/var/www/html
       - ./apache-conf:/etc/apache2/sites-available
       - ./certs:/etc/apache2/certs
-
 networks:
   cyberhex-network:
     driver: bridge

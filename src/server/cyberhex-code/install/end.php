@@ -27,13 +27,13 @@
 <?php
 if(isset($_GET["end"])){
 	$success=1;
-	if(!unlink("create_admin.php")){
+/*	if(!unlink("create_admin.php")){
 		$success=0;
 	}if(!unlink("welcome.php")){
 		$success=0;
 	}if(!unlink("create_db.php")){
 		$success=0;
-	}
+	}*/
 	if($success!==1){
 	echo('<p style="font-size: 20px; color: red;">There was an error finishing the installation. Please try again or contact support at: <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>');
 	}else{
