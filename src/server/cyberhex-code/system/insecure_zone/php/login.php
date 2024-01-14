@@ -27,61 +27,64 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </form>
+					<br>
+					<!-- php code to verify password-->
+					<?php
+						// Check if the form is submitted
+						if ($_SERVER["REQUEST_METHOD"] == "POST") {
+							//include db pw
+							include "../../../config.php";
+							
+							// Retrieve user input
+							$username = htmlspecialchars($_POST["username"]);
+							$password = $_POST["password"];
+
+
+							// Create a connection
+							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+
+							// Check the connection
+							if ($conn->connect_error) {
+								die("Connection failed: " . $conn->connect_error);
+							}
+							$sql = "SELECT * FROM users WHERE username = ?";
+							$stmt = $conn->prepare($sql);
+							$stmt->bind_param("s", $username);
+							
+							// Execute the statement
+							$stmt->execute();
+
+							// Get the result
+							$result = $stmt->get_result();
+							
+							// Check if the user exists and verify the password
+							if ($result->num_rows > 0) {
+								$row = $result->fetch_assoc();
+								if (password_verify($password, $row['password'])) {
+									echo '<div class="alert alert-success" role="alert">
+											Login successful!
+										  </div>';
+								} else {
+									echo '<div class="alert alert-danger" role="alert">
+											Incorrect username or password.
+										  </div>';
+								}
+							} else {
+								echo '<div class="alert alert-danger" role="alert">
+										Incorrect username or password.
+									  </div>';
+							}
+
+							// Close the connection
+							$stmt->close();
+							$conn->close();
+						}
+					?>
+					
                 </div>
             </div>
         </div>
     </div>
 </div>
-<?php
-	// Check if the form is submitted
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		//include db pw
-		include "../../../config.php";
-		
-		// Retrieve user input
-		$username = htmlspecialchars($_POST["username"]);
-		$password = $_POST["password"];
-
-
-		// Create a connection
-		$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
-
-		// Check the connection
-		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-		}
-		$sql = "SELECT * FROM users WHERE username = ?";
-		$stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $username);
-		
-		// Execute the statement
-		$stmt->execute();
-
-		// Get the result
-		$result = $stmt->get_result();
-		
-		// Check if the user exists and verify the password
-		if ($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			if (password_verify($password, $row['password'])) {
-				echo '<div class="alert alert-success" role="alert">
-						Login successful!
-					  </div>';
-			} else {
-				echo '<div class="alert alert-danger" role="alert">
-						Incorrect username or password.
-					  </div>';
-			}
-		} else {
-			echo '<div class="alert alert-danger" role="alert">
-					Incorrect username or password.
-				  </div>';
-		}
-
-		// Close the connection
-		$stmt->close();
-		$conn->close();
-	}
-?>
 </body>
 </html>
