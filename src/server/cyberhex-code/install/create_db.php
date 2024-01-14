@@ -14,12 +14,30 @@
         h1 {
             color: #333;
         }
+		footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+		header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
+	<header>
+		<p>Cyberhex installation (step 2/4)</p>
+	</header>
     <h1>We are creating the databases used in cyberhex, please stand by</h1>
-</body>
-</html>
+	<br>If the creation fails, please wait a minute and try again. The database server might still be starting at the time.</p>
+
 
 <?php
 $success=1;
@@ -151,3 +169,8 @@ if($success!==1){
 
 $conn->close();
 ?>
+    <footer>
+        <p>&copy; 2024 Cyberhex Antivirus by Jakach Software <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
+    </footer>
+</body>
+</html>

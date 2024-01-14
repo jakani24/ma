@@ -34,9 +34,27 @@
             border-radius: 5px;
             cursor: pointer;
         }
+		footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+		header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
+	<header>
+		<p>Cyberhex installation (step 3/4)</p>
+	</header>
     <h1>Please create an admin user:</h1>
     <form action="create_admin.php?create=true" method="post">
         <label for="username">Username:</label>
@@ -50,7 +68,6 @@
 
         <button type="submit">Submit</button>
     </form>
-</body>
 <?php
 	include "../config.php";
 	if(isset($_GET["create"])){
@@ -67,7 +84,7 @@
 			die("Connection failed: " . $conn->connect_error);
 		}
 		$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms) VALUES (?, ?, ?)");
-		$stmt->bind_param("sss", $email, $username, $hash, $permissions);
+		$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
 		
 		$email=htmlspecialchars($_POST["email"]);
 		$username=htmlspecialchars($_POST["username"]);
@@ -81,4 +98,8 @@
 	}
 
 ?>
+    <footer>
+        <p>&copy; 2024 Cyberhex Antivirus by Jakach Software <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
+    </footer>
+</body>
 </html>
