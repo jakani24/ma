@@ -67,7 +67,9 @@ session_start();
 									$_SESSION["username"]=$username;
 									$_SESSION["login"]=true;
 									$_SESSION["perms"]=$row["perms"];
-									header("LOCATION:/system/secure_zone/php/index.php");
+									
+									echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
+									exit();
 								} else {
 									echo '<div class="alert alert-danger" role="alert">
 											Incorrect username or password.
