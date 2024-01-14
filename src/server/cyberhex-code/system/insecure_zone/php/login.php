@@ -64,6 +64,10 @@
 									echo '<div class="alert alert-success" role="alert">
 											Login successful!
 										  </div>';
+									session_start();
+									$_SESSION["username"]=$username;
+									$_SESSION["login"]=true;
+									$_SESSION["perms"]=$row["perms"];
 									header("LOCATION:/system/secure_zone/php/index.php");
 								} else {
 									echo '<div class="alert alert-danger" role="alert">
