@@ -61,9 +61,6 @@
 							if ($result->num_rows > 0) {
 								$row = $result->fetch_assoc();
 								if (password_verify($password, $row['password'])) {
-									echo '<div class="alert alert-success" role="alert">
-											Login successful!
-										  </div>';
 									session_start();
 									$_SESSION["username"]=$username;
 									$_SESSION["login"]=true;
