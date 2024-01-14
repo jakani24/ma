@@ -14,25 +14,14 @@
             color: #333;
         }
 		footer {
-            background-color: #333;
-            color: white;
             text-align: center;
             position: fixed;
             bottom: 0;
             width: 100%;
         }
-		header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            width:100%
-        }
     </style>
 </head>
 <body>
-	<header>
-		<p>Cyberhex installation (step 4/4)</p>
-	</header>
     <h1>You have installed cyberhex! Thank you for choosing us!</h1>
 	<a href="end.php?end=true">Finish installation.</a>
 <?php

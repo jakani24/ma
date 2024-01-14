@@ -15,25 +15,14 @@
             color: #333;
         }
 		footer {
-            background-color: #333;
-            color: white;
             text-align: center;
             position: fixed;
             bottom: 0;
             width: 100%;
         }
-		header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            width:100%
-        }
     </style>
 </head>
 <body>
-	<header>
-		<p>Cyberhex installation (step 2/4)</p>
-	</header>
     <h1>We are creating the databases used in cyberhex, please stand by</h1>
 	<br>If the creation fails, please wait a minute and try again. The database server might still be starting at the time.</p>
 

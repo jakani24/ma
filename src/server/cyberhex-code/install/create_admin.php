@@ -35,25 +35,14 @@
             cursor: pointer;
         }
 		footer {
-            background-color: #333;
-            color: white;
             text-align: center;
             position: fixed;
             bottom: 0;
             width: 100%;
         }
-		header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            width:100%
-        }
     </style>
 </head>
 <body>
-	<header>
-		<p>Cyberhex installation (step 3/4)</p>
-	</header>
     <h1>Please create an admin user:</h1>
     <form action="create_admin.php?create=true" method="post">
         <label for="username">Username:</label>
