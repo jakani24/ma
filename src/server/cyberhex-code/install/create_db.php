@@ -75,7 +75,7 @@ $sql = "CREATE TABLE IF NOT EXISTS log (
     id INT AUTO_INCREMENT PRIMARY KEY,
     logtext VARCHAR(255) NOT NULL,
     loglevel VARCHAR(255) NOT NULL,
-	machine_id VARCHAR(255),
+	machine_id VARCHAR(255)
 )";
 
 if ($conn->query($sql) === TRUE) {
@@ -89,7 +89,7 @@ if ($conn->query($sql) === TRUE) {
 $sql = "CREATE TABLE IF NOT EXISTS settings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    value VARCHAR(255) NOT NULL,
+    value VARCHAR(255) NOT NULL
 )";
 
 if ($conn->query($sql) === TRUE) {
@@ -103,7 +103,7 @@ if ($conn->query($sql) === TRUE) {
 $sql = "CREATE TABLE IF NOT EXISTS api (
     id INT AUTO_INCREMENT PRIMARY KEY,
     apikey VARCHAR(255) NOT NULL,
-    machine_id VARCHAR(255) NOT NULL,
+    machine_id VARCHAR(255) NOT NULL
 )";
 
 if ($conn->query($sql) === TRUE) {
@@ -117,7 +117,7 @@ if ($conn->query($sql) === TRUE) {
 $sql = "CREATE TABLE IF NOT EXISTS secrets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cert VARCHAR(255) NOT NULL,
-    machine_id VARCHAR(255) NOT NULL,
+    machine_id VARCHAR(255) NOT NULL
 )";
 
 if ($conn->query($sql) === TRUE) {
@@ -132,7 +132,7 @@ $sql = "CREATE TABLE IF NOT EXISTS machines (
     id INT AUTO_INCREMENT PRIMARY KEY,
     machine_name VARCHAR(255) NOT NULL,
     machine_location VARCHAR(255) NOT NULL,
-	machine_ip VARCHAR(255) NOT NULL,
+	machine_ip VARCHAR(255) NOT NULL
 )";
 
 if ($conn->query($sql) === TRUE) {
