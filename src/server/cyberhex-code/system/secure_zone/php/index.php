@@ -26,7 +26,7 @@ $username="test";
 	<style>
 		@media (max-width: 500px) {
 		  #smallScreenWarning {
-			display: block !important;
+			display: block important;
 		  }
 		}
 	</style>
