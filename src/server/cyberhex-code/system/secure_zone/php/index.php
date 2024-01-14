@@ -11,7 +11,11 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 
 $username = $_SESSION['username'];
 */
-$page="test.php";
+if(isset($_GET["page"])){
+	$page=$_GET["page"];
+}else{
+	$page="welcome.php";
+}
 $username="test";
 ?>
 
