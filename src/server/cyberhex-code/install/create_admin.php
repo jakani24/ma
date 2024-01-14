@@ -59,7 +59,7 @@
 		$password=htmlspecialchars($_POST["password"]);
 		$permissions="1111111111";
 		// Create connection
-		$conn = new mysqli($servername, $username, $password);
+		$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
 		// Check connection
 		if ($conn->connect_error) {
