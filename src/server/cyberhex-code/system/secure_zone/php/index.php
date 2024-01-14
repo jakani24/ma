@@ -49,28 +49,25 @@ if(isset($_GET["page"])){
 		<div class="col-2">
 		  <p>User</p>
 		  <ul>
-		   <li>Profile</li>
-		   <li>Change password</li>
-		   <li>Add user</li>
+		   <li><a href="index.php?page=profile.php">Profile</a></li>
+		   <li><a href="index.php?page=passwd.php">Change Password</a></li>
+		   <li><a href="index.php?page=add_user.php">Add User</a></li>
 		  </ul>
 		  <p>Log</p>
 		  <ul>
-		   <li>View log</li>
-		   <li>Export log</li>
-		   <li>Item C</li>
+		   <li><a href="index.php?page=view_log.php">View Log</a></li>
+		   <li><a href="index.php?page=export_log.php">Export Log</a></li>
 		  </ul>
 		  <p>Cyberhex settings</p>
 		  <ul>
-		   <li>Server settings</li>
-		   <li>client settings</li>
-		   <li>Item C</li>
+		   <li><a href="index.php?page=server_settings.php">Server Settings</a></li>
+		   <li><a href="index.php?page=cleint_settings.php">Client Settings</a></li>
 		  </ul>
 		  <p>Clients</p>
 		  <ul>
-		   <li>Mass add clients</li>
-		   <li>Add client</li>
-		   <li>Client list</li>
-		   <li>Item C</li>
+		   <li><a href="index.php?page=mass_add_clients.php">Mass Add CLients</a></li>
+		   <li><a href="index.php?page=add_cleint.php">Add Client</a></li>
+		   <li><a href="index.php?page=client_list.php">Client List</a></li>
 		  </ul>
 
 		</div>
