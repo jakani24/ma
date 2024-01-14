@@ -78,9 +78,9 @@
 		
 		$email=htmlspecialchars($_POST["email"]);
 		$username=htmlspecialchars($_POST["username"]);
-		$password=htmlspecialchars($_POST["password"]);
+		$password=$_POST["password"];
 		$permissions="1111111111";
-		$hash=password_hash('user_password_here', PASSWORD_BCRYPT);
+		$hash=password_hash($password, PASSWORD_BCRYPT);
 		
 		$stmt->execute();
 		$stmt->close();
