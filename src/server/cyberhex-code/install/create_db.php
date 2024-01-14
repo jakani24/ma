@@ -1,24 +1,46 @@
-<?php
 
-$servername = "cyberhex-db";
-$username = "root";
-$password = "1234";
-$database = "cyberhex_db";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberhex Installation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>We are creating the databases used in cyberhex, please stand by</h1>
+</body>
+</html>
+
+<?php
+$success=1;
+include "../config.php";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
 
 // Check connection
 if ($conn->connect_error) {
+	$success=0;
     die("Connection failed: " . $conn->connect_error);
 }
 
 // Create database
 $sql = "CREATE DATABASE IF NOT EXISTS $database";
 if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully\n";
+    echo "Database created successfully<br>";
 } else {
-    echo "Error creating database: " . $conn->error;
+	$success=0;
+    echo "Error creating database: " . $conn->error ."<br>";
 }
 
 $conn->close();
@@ -28,6 +50,7 @@ $conn = new mysqli($servername, $username, $password, $database);
 
 // Check connection
 if ($conn->connect_error) {
+	$success=0;
     die("Connection failed: " . $conn->connect_error);
 }
 
@@ -41,9 +64,10 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'users' created successfully\n";
+    echo "Table 'users' created successfully<br>";
 } else {
-    echo "Error creating table: " . $conn->error;
+	$success=0;
+    echo "Error creating table: " . $conn->error ."<br>";
 }
 
 // Create log table
@@ -55,9 +79,10 @@ $sql = "CREATE TABLE IF NOT EXISTS log (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'log' created successfully\n";
+    echo "Table 'log' created successfully<br>";
 } else {
-    echo "Error creating table: " . $conn->error;
+	$success=0;
+    echo "Error creating table: " . $conn->error  ."<br>";
 }
 
 // Create settings table
@@ -68,9 +93,10 @@ $sql = "CREATE TABLE IF NOT EXISTS settings (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'settings' created successfully\n";
+    echo "Table 'settings' created successfully<br>";
 } else {
-    echo "Error creating table: " . $conn->error;
+	$success=0;
+    echo "Error creating table: " . $conn->error  ."<br>";
 }
 
 // Create api table
@@ -81,9 +107,10 @@ $sql = "CREATE TABLE IF NOT EXISTS api (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'api' created successfully\n";
+    echo "Table 'api' created successfully<br>";
 } else {
-    echo "Error creating table: " . $conn->error;
+	$success=0;
+    echo "Error creating table: " . $conn->error  ."<br>";
 }
 
 // Create secrets table
@@ -94,9 +121,10 @@ $sql = "CREATE TABLE IF NOT EXISTS secrets (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'secrets' created successfully\n";
+    echo "Table 'secrets' created successfully<br>";
 } else {
-    echo "Error creating table: " . $conn->error;
+	$success=0;
+    echo "Error creating table: " . $conn->error  ."<br>";
 }
 
 // Create machine table
@@ -108,9 +136,16 @@ $sql = "CREATE TABLE IF NOT EXISTS machines (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'machines' created successfully\n";
+    echo "Table 'machines' created successfully<br>";
 } else {
-    echo "Error creating table: " . $conn->error;
+	$success=0;
+    echo "Error creating table: " . $conn->error  ."<br>";
+}
+
+if($success!==1){
+	echo('<p style="font-size: 20px; color: red;">There was an error creating the databases. Please try again or contact support at: <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>');
+}else{
+	echo('<p style="font-size: 20px; color: green;">Database created successfully! <a href="create_admin.php">Continue installation</a></p>');
 }
 
 $conn->close();

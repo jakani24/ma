@@ -17,6 +17,8 @@
 </head>
 <body>
     <h1>Welcome to the Cyberhex Installation</h1>
-    <p>This is a simple webpage for the Cyberhex installation. Customize it as needed for your specific requirements.</p>
+    <p>The installer will guide you through the installation.</p>
+	<p>If there are any errors during installation or you are stuck, please contatact <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
+	<a href="create_db.php">Start installation.</a>
 </body>
 </html>
