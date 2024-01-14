@@ -64,6 +64,7 @@
 									echo '<div class="alert alert-success" role="alert">
 											Login successful!
 										  </div>';
+									header("LOCATION:/system/secure_zone/php/index.php");
 								} else {
 									echo '<div class="alert alert-danger" role="alert">
 											Incorrect username or password.
