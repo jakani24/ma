@@ -11,6 +11,8 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 
 $username = $_SESSION['username'];
 */
+$page="test.php";
+$username="test";
 ?>
 
 <!DOCTYPE html>
@@ -24,22 +26,20 @@ $username = $_SESSION['username'];
     <script src="https://kit.fontawesome.com/8ab5a73cf2.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container mt-5">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Cyberhex</h1>
-            <div>
-                <span class="mr-3">Welcome, <?php echo $username; ?></span>
-                <a href="logout.php" class="btn btn-danger">Logout</a>
-            </div>
-        </div>
-
-        <!-- Main content -->
-        <h2 class="text-center">Welcome to Bootstrap</h2>
-        <p class="text-center">This is a simple webpage using Bootstrap CSS.</p>
-        <div class="alert alert-primary" role="alert">
-            This is a primary alert—check it out!
-        </div>
-    </div>
+	<!-- Header -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <center><h2>Cyberhex <?php echo($page); ?></h2></center>
+		<span class="navbar-text">
+		  <a href="/logout.php">Logout</a>
+		</span>
+	</nav>
+	<div class="container mt-5">
+		<!-- Main content -->
+		<h2 class="text-center">Welcome to Bootstrap</h2>
+		<p class="text-center">This is a simple webpage using Bootstrap CSS.</p>
+		<div class="alert alert-primary" role="alert">
+			This is a primary alert—check it out!
+		</div>
+	</div>
 </body>
 </html>
