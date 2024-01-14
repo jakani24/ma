@@ -60,6 +60,7 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
 	perms VARCHAR(255),
+	password VARCHAR(255),
 	2fa VARCHAR(255)
 )";
 
