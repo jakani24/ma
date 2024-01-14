@@ -44,6 +44,8 @@
 </head>
 <body>
     <h1>Please create an admin user:</h1>
+	<p>The admin user is later used to create new users, add machines and do all administrative tasks in cyberhex.</p>
+	<p>Please choose a strong password, because the admin user is one of the main attack vectors of cyberhex.</p>
     <form action="create_admin.php?create=true" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
@@ -53,8 +55,8 @@
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-
-        <button type="submit">Submit</button>
+		<br>
+        <button type="submit">Create admin</button>
     </form>
 <?php
 	include "../config.php";
@@ -71,7 +73,7 @@
 			$success=0;
 			die("Connection failed: " . $conn->connect_error);
 		}
-		$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms) VALUES (?, ?, ?)");
+		$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms) VALUES (?, ?, ?, ?)");
 		$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
 		
 		$email=htmlspecialchars($_POST["email"]);
