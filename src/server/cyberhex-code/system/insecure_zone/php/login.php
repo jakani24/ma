@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +64,6 @@
 							if ($result->num_rows > 0) {
 								$row = $result->fetch_assoc();
 								if (password_verify($password, $row['password'])) {
-									session_start();
 									$_SESSION["username"]=$username;
 									$_SESSION["login"]=true;
 									$_SESSION["perms"]=$row["perms"];
