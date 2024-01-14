@@ -24,12 +24,17 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     localtime_s(&tm, &now);
     int error = 0;
     std::ostringstream logStream;
+    std::ostringstream to_srv;
+    to_srv << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << ";" << prefix << ";" << message;
     logStream << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << " " << prefix << " " << message;
     if constexpr (sizeof...(args) > 0) {
         ((logStream << ' ' << std::forward<Args>(args)), ...);
+		((to_srv << ' ' << std::forward<Args>(args)), ...);
     }
     logStream << std::endl;
+    to_srv << std::endl;
     std::string logString = logStream.str();
+    std::string to_srv_string = to_srv.str();
     printf("info from logger: %s", logString.c_str());
     // Open the file based on log level
     FILE* fp;
@@ -84,6 +89,10 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
         fclose(fp);
         if (fopen_s(&fp, LOGFILE, "a") == 0) {
             fprintf_s(fp, "%s", logString.c_str());
+            fclose(fp);
+        }
+        if (fopen_s(&fp, SRV_LOGFILE, "a") == 0) {
+            fprintf_s(fp, "%s", to_srv_string.c_str());
             fclose(fp);
         }
     }

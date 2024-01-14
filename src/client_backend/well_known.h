@@ -16,6 +16,7 @@
 #define ERRORFILE "C:\\Program Files\\cyberhex\\secure\\log\\error.txt"
 #define VIRUSFILE "C:\\Program Files\\cyberhex\\secure\\log\\virus.txt"
 #define RISKFILE "C:\\Program Files\\cyberhex\\secure\\log\\risk.txt"
+#define SRV_LOGFILE "C:\\Program Files\\cyberhex\\secure\\log\\srv_log.txt"
 
 
 #define FOLDER_DATABASE_DIR "C:\\Program Files\\cyberhex\\secure\\database\\folder"

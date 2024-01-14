@@ -150,6 +150,7 @@
     <ClCompile Include="scan.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="thread_ctrl.cpp" />
+    <ClCompile Include="update.cpp" />
     <ClCompile Include="virus_ctrl.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="scan.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="thread_ctrl.h" />
+    <ClInclude Include="update.h" />
     <ClInclude Include="virus_ctrl.h" />
     <ClInclude Include="well_known.h" />
   </ItemGroup>

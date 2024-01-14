@@ -12,6 +12,7 @@
 #include "well_known.h"
 #include "log.h"
 #include "virus_ctrl.h"
+#include "app_ctrl.h"
 #ifndef SCAN_CPP
 #define SCAN_CPP
 std::unordered_map<std::string, HANDLE> fileHandles;
@@ -121,7 +122,7 @@ bool file_exists(const std::string& filePath) {
 }
 
 //this is the main function to scan folders. it will then start multuiple threads based on the number of cores / settings
-void scan_folder_recursive(const std::string& directory) {
+void scan_folder(const std::string& directory) {
     std::string search_path = directory + "\\*.*";
     WIN32_FIND_DATA find_file_data;
     HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
@@ -140,7 +141,7 @@ void scan_folder_recursive(const std::string& directory) {
         const std::string full_path = directory + "\\" + find_file_data.cFileName;
         if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
             // If it's a directory, recurse into it
-            scan_folder_recursive(full_path);
+            scan_folder(full_path);
         }
         else {
            //action scanfile_t will start the trheads for scanning the hashes
@@ -151,7 +152,7 @@ void scan_folder_recursive(const std::string& directory) {
 				Sleep(10);
 			}
             num_threads++;
-            std::thread scan_thread(action_scanfile_t, full_path);
+            std::thread scan_thread(scan_file_t, full_path);
             scan_thread.detach();
 
             cnt++;
@@ -169,10 +170,12 @@ void scan_folder_recursive(const std::string& directory) {
 
 //for singlethreaded scans
 void action_scanfile(const char*filepath) {
+    thread_init();
     char* db_path = new char[300];
 
     //log(LOGLEVEL::INFO, "[action_scanfile_t()]: Scanning file: ", filepath);
     if (strlen(filepath) == 0 or strcmp("", filepath) == 0 or file_exists(filepath) == false) {
+        thread_shutdown();  
         return; //no filepath given or file not accessible
     }
     else {
@@ -184,35 +187,15 @@ void action_scanfile(const char*filepath) {
         delete[] hash;
     }
     delete[] db_path;
-
+    thread_shutdown();
+}
+void action_scanfolder(const char* folderpath) {
+	thread_init();
+	scan_folder(folderpath);
+	thread_shutdown();
 }
 
-/*
-void action_scanfile_t( const char*filepath) {
-    char* db_path = new char[300];
-    int max_threads = std::thread::hardware_concurrency();
-    //log(LOGLEVEL::INFO, "[action_scanfile_t()]: Scanning file: ", filepath);
-    if (strlen(filepath) == 0 or strcmp("", filepath) == 0 or file_exists(filepath) == false) {
-        return; //no filepath given or file not accessible
-    }
-    else {
-        char* hash = new char[300];
-        hash[0] = '\0';
-        hash = md5_file_t(filepath);
-        sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-        while (num_threads >= max_threads) {
-			Sleep(10);
-		}
-        num_threads++;
-        std::thread search_thread(search_hash,db_path, hash, filepath);
-        search_thread.detach();
-        
-        std::this_thread::sleep_for(std::chrono::microseconds(50));
-        delete[] hash;
-    }
-    delete[] db_path;
-}*/
-void action_scanfile_t(const std::string& filepath_) {
+void scan_file_t(const std::string& filepath_) {
     thread_local const std::string filepath (filepath_);
     thread_local char* db_path = new char[300];
     thread_local char*hash = new char[300];

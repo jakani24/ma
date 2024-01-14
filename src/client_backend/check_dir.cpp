@@ -161,10 +161,10 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
 		return;
     }
     else {
-        std::thread scan_thread(action_scanfile_t, filename_str);
+        std::thread scan_thread(scan_file_t, filename_str);
         scan_thread.detach();
     }
-    log(LOGLEVEL::INFO, "[process_changes()]: File change: ", filename_str.c_str(), " while monitoring directory for changes");
+    //log(LOGLEVEL::INFO, "[process_changes()]: File change: ", filename_str.c_str(), " while monitoring directory for changes");
 }
 /* this was the old algorithm. it was slower and used up more resources, because it used a database to track which files have been modified instead of using the windows internal functions
 void monitor_directory(LPCSTR directory) {

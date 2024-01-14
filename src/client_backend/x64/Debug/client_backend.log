@@ -1,8 +1,3 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
-  client_backend.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244: "Argument": Konvertierung von "_Rep" in "DWORD", möglicher Datenverlust
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:         with
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:         [
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:             _Rep=__int64
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(70,24): warning C4244:         ]
+  update.cpp
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe

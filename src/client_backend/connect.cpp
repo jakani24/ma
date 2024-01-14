@@ -41,7 +41,7 @@ size_t write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
     return totalSize;
 }
 
-int download_file_from_srv(const char* url, const char* outputFileName) {
+int download_file_from_srv(const char* url, const char* output_file_path) {
     //use curl to download a file from a server
 
     CURL* curl;
@@ -57,7 +57,7 @@ int download_file_from_srv(const char* url, const char* outputFileName) {
     curl_easy_setopt(curl, CURLOPT_URL, url);
 
     // Create a file to write the downloaded data
-    output_file = fopen(outputFileName, "wb");
+    output_file = fopen(output_file_path, "wb");
     if (!output_file) {
         curl_easy_cleanup(curl);
         return 1;

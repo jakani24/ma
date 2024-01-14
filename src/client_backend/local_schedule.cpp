@@ -64,7 +64,7 @@ bool is_task_due(const std::string& task_name, const std::string& cron_expressio
         is_valid_field(fields[3], current_time.tm_mon + 1) &&
         is_valid_field(fields[4], current_time.tm_wday + 1)) {
 
-        // Check if the task has already been executed in this minute
+        // Check if the task has already been executed
         if (!task_states[task_name]) {
             // Set the flag to indicate that the task has been executed
             task_states[task_name] = true;
@@ -72,7 +72,7 @@ bool is_task_due(const std::string& task_name, const std::string& cron_expressio
         }
     }
     else {
-        // Reset the flag for a new minute
+        // Reset the flag
         task_states[task_name] = false;
     }
 
