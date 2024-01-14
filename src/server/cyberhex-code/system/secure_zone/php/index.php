@@ -44,7 +44,7 @@ if(isset($_GET["page"])){
 
 	<div class="container-fluid">
 	  <div class="row">
-	  <br><br>
+	  <br>
 		<!-- sidebar -->
 		<div class="col-2">
 		  <p>List A</p>
@@ -71,7 +71,7 @@ if(isset($_GET["page"])){
 		<!-- main part, with iframe -->
 		<div class="col-10" >
 		 <!-- iframe -->
-		 <br><br>
+		 <br>
 			<iframe src="<?php echo($page); ?>" width="100%" height="1000px" frameborder="0" style="overflow:hidden"></iframe>
 		</div>
 	  </div>
