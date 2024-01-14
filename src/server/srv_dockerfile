@@ -1,0 +1,7 @@
+# Extend the official PHP image
+FROM php:apache
+
+# Install the mysqli extension
+RUN docker-php-ext-install mysqli
+RUN a2enmod ssl
+RUN service apache2 restart
