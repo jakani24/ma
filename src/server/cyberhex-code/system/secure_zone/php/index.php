@@ -29,6 +29,9 @@ $username="test";
 		<span class="navbar-text">
 		  Cyberhex (<?php echo($page); ?>)
 		</span>
+		<span class="navbar-text text-right">
+			<a href="/logout.php">Logout</a>
+		</span>
 	  </div>
 	</nav>
 	<div class="container mt-5">
