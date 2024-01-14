@@ -26,7 +26,7 @@ $success=1;
 include "../config.php";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD);
 
 // Check connection
 if ($conn->connect_error) {
@@ -46,7 +46,7 @@ if ($conn->query($sql) === TRUE) {
 $conn->close();
 
 // Connect to the new database
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD);
 
 // Check connection
 if ($conn->connect_error) {

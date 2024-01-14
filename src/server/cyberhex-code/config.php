@@ -1,6 +1,6 @@
 <?php
-$servername = "cyberhex-db";
-$username = "root";
-$password = "1234";
-$database = "cyberhex_db";
+$DB_SERVERNAME = "cyberhex-db";
+$DB_USERNAME = "root";
+$DB_PASSWORD = "1234";
+$DB_DATABASE = "cyberhex_db";
 ?>
