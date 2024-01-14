@@ -36,7 +36,7 @@
 	// Check if the form is submitted
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		//include db pw
-		include "../../../config.php"
+		include "../../../config.php";
 		
 		// Retrieve user input
 		$username = htmlspecialchars($_POST["username"]);
