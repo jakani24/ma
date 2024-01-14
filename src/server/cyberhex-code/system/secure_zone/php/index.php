@@ -47,22 +47,29 @@ if(isset($_GET["page"])){
 	  
 		<!-- sidebar -->
 		<div class="col-2">
-		  <p>List A</p>
+		  <p>User</p>
 		  <ul>
-		   <li>Item A</li>
-		   <li>Item B</li>
+		   <li>Profile</li>
+		   <li>Change password</li>
+		   <li>Add user</li>
+		  </ul>
+		  <p>Log</p>
+		  <ul>
+		   <li>View log</li>
+		   <li>Export log</li>
 		   <li>Item C</li>
 		  </ul>
-		  <p>List B</p>
+		  <p>Cyberhex settings</p>
 		  <ul>
-		   <li>Item A</li>
-		   <li>Item B</li>
+		   <li>Server settings</li>
+		   <li>client settings</li>
 		   <li>Item C</li>
 		  </ul>
-		  <p>List C</p>
+		  <p>Clients</p>
 		  <ul>
-		   <li>Item A</li>
-		   <li>Item B</li>
+		   <li>Mass add clients</li>
+		   <li>Add client</li>
+		   <li>Client list</li>
 		   <li>Item C</li>
 		  </ul>
 
