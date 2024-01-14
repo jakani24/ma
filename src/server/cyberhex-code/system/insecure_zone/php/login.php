@@ -16,7 +16,7 @@
                     <h4>Login to Cyberhex</h4>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="login.php" method="post">
                         <div class="form-group">
                             <label for="username">Username:</label>
                             <input type="text" class="form-control" id="username" name="username" required>
