@@ -60,7 +60,7 @@ $username="test";
 		<!-- main part, with iframe -->
 		<div class="col-10" >
 		 <!-- iframe -->
-			<iframe src="https://www.example.com" width="100%" height="auto" frameborder="0"></iframe>
+			<iframe src="example.com" class="iframe-bootstrap-styling"></iframe>
 		</div>
 	  </div>
 	</div>
