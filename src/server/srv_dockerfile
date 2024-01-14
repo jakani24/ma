@@ -5,3 +5,5 @@ FROM php:apache
 RUN docker-php-ext-install mysqli
 RUN a2enmod ssl
 RUN service apache2 restart
+RUN mkdir /var/www/html/install/
+RUN chown -R www-data:www-data /var/www/html/install/
