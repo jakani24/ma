@@ -82,7 +82,8 @@
 		$permissions="1111111111";
 		$hash=password_hash('user_password_here', PASSWORD_BCRYPT);
 		
-		$conn->execute();
+		$stmt->execute();
+		$stmt->close();
 		$conn->close();
 		echo('<p style="font-size: 20px; color: green;">Admin created successfully! <a href="end.php">Continue installation</a></p>');
 	}
