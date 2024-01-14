@@ -41,13 +41,14 @@ $username="test";
 	<div class="container-fluid">
 	  <div class="row">
 		<!-- sidebar -->
-		<div class="col-2" style="background-color: lightblue;">
+		<div class="col-2">
 		  <p>This container takes up 20% of the width.</p>
 		</div>
 
-		main part, with iframe
-		<div class="col-10" style="background-color: lightgreen;">
+		<!-- main part, with iframe -->
+		<div class="col-10" >
 		 <!-- iframe -->
+		 <p>This container takes up 80% of the width.</p>
 		</div>
 	  </div>
 	</div>
