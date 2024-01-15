@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
+						</form>
 						<?php
 							if(isset($_GET["update"])){
 								echo '<br><div class="alert alert-success" role="alert">
@@ -80,7 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										  </div>';
 							}
 						?>
-					</form>
 				</div>
 			</div>
 		</div>
