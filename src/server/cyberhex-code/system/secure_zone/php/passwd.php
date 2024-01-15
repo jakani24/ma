@@ -30,6 +30,7 @@ $email = $_SESSION["email"];
                     <h4>Change Password (<?php echo($username); ?>)</h4>
                 </div>
                 <div class="card-body">
+					<form action="passwd.php?update=true" method="post">
                         <div class="form-group">
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
