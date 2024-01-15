@@ -58,7 +58,7 @@ $email = $_SESSION["email"];
 							$password = $_POST["password"];
 							$new_password1=$_POST["new_password1"];
 							$new_password2=$_POST["new_password2"];
-
+							$hash=password_hash($new_password1, PASSWORD_BCRYPT);
 							// Create a connection
 							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
@@ -84,6 +84,7 @@ $email = $_SESSION["email"];
 								if ($result->num_rows > 0) {
 									$row = $result->fetch_assoc();
 									if (password_verify($password, $row['password'])) {
+										echo($password."::".$row['password']);
 										//password correct update
 										// Create connection
 										$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
@@ -94,7 +95,7 @@ $email = $_SESSION["email"];
 											die("Connection failed: " . $conn->connect_error);
 										}
 										$stmt = $conn->prepare("UPDATE users set password = ? where username = ?");
-										$stmt->bind_param("ss", $new_password1, $username);
+										$stmt->bind_param("ss", $hash, $username);
 										$stmt->execute();
 										$stmt->close();
 										$conn->close();
