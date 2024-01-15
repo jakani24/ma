@@ -67,6 +67,7 @@ session_start();
 									$_SESSION["username"]=$username;
 									$_SESSION["login"]=true;
 									$_SESSION["perms"]=$row["perms"];
+									$_SESSION["email"]=$row["email"];
 									
 									echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
 									exit();
