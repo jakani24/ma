@@ -1,0 +1,10 @@
+1 Add User
+1 User List (delete...)
+1 View Log
+1 Delete Log
+1 Server Settings
+1 Client Settings
+1 Database Settings
+1 Add Cleints (+ add client)
+1 Cleint List (manage)
+1 

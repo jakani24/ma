@@ -68,21 +68,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
 						</div>
 						<div class="form-group">
-							<label for="perms">Permissions:</label>
+							<label for="perms">Permissions:<a href="#" id="popup-link">?</a></label>
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
-						</form>
-						<?php
-							if(isset($_GET["update"])){
-								echo '<br><div class="alert alert-success" role="alert">
-											Information updated successfully!
-										  </div>';
-							}
-						?>
+					</form>
+					<?php
+						if(isset($_GET["update"])){
+							echo '<br><div class="alert alert-success" role="alert">
+										Information updated successfully!
+									  </div>';
+						}
+					?>
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="perms_help" tabindex="-1" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Popup Title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<p>This is a simple Bootstrap popup!</p>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+</div>
+	<script>
+	  // Add click event listener to the link
+	  document.getElementById('popup-link').addEventListener('click', function(event) {
+		event.preventDefault(); // Prevent the default behavior of the link
+		$('#perms_help').modal('show'); // Show the Bootstrap modal
+	  });
+	</script>
 </body>
 </html>
