@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
 								  Launch demo modal
 								</button>
+								<a href="#exampleModal">?</a>
 							</label>
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
@@ -97,10 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			  </div>
 			  <div class="modal-body">
 				...
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
 			  </div>
 			</div>
 		  </div>
