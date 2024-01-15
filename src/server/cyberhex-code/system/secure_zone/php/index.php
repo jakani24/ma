@@ -67,6 +67,7 @@ if(isset($_GET["page"])){
 		  <ul>
 		   <li><a href="index.php?page=server_settings.php">Server Settings</a></li>
 		   <li><a href="index.php?page=cleint_settings.php">Client Settings</a></li>
+		   <li><a href="index.php?page=database_settings.php">Database Settings</a></li>
 		  </ul>
 		  <p>Clients</p>
 		  <ul>
