@@ -37,11 +37,11 @@ $email = $_SESSION["email"];
                         </div>
 						<div class="form-group">
                             <label for="password">New Password:</label>
-                            <input type="password" class="form-control" id="password1" name="password1" required>
+                            <input type="password" class="form-control" id="new_password1" name="new_password1" required>
                         </div>
 						<div class="form-group">
                             <label for="password">Repeat New Password:</label>
-                            <input type="password" class="form-control" id="password2" name="password2" required>
+                            <input type="password" class="form-control" id="new_password2" name="new_password2" required>
                         </div>
 						<br>
                         <button type="submit" class="btn btn-primary btn-block">Update</button>
