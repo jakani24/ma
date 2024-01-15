@@ -1,5 +1,16 @@
 <?php
 session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
+    // Redirect to the login page or handle unauthorized access
+    header("Location: /login.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+$perms = $_SESSION["perms"];
+$email = $_SESSION["email"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
