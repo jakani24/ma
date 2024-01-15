@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	$stmt = $conn->prepare("UPDATE users set email = ?, username = ? where username = ?");
-	$stmt->bind_param("ssss", $email, $username_new, $username);
+	$stmt->bind_param("sss", $email, $username_new, $username);
 	
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
