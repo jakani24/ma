@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</div>
 						<div class="form-group">
 							<label for="perms">Permissions: 
-								<a data-bs-target="#exampleModal" data-bs-toggle="modal" href="#exampleModal">?</a>
+								<a data-bs-target="#perms_help" data-bs-toggle="modal" href="#perms_help">?</a>
 							</label>
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="perms_help" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
 		  <div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
@@ -94,7 +94,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			  </div>
 			  <div class="modal-body">
-				...
+				1 Add User<br>
+				1 User List (delete...)<br>
+				1 View Log<br>
+				1 Delete Log<br>
+				1 Server Settings<br>
+				1 Client Settings<br>
+				1 Database Settings<br>
+				1 Add Cleints (+ add client)<br>
+				1 Cleint List (manage)<br>
+				1 Reserved for later use
 			  </div>
 			</div>
 		  </div>
