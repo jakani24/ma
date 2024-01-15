@@ -22,7 +22,6 @@ $email = $_SESSION["email"];
 	 <title>Profile</title>
 </head>
 <body>
-	<h4>Your Profile (<?php echo($username); ?>)</h4>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -39,6 +38,10 @@ $email = $_SESSION["email"];
 						<div class="form-group">
 							<label for="email">Email:</label>
 							<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
+						</div>
+						<div class="form-group">
+							<label for="perms">Permissions:</label>
+							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
 					</form>
