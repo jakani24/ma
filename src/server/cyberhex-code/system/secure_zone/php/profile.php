@@ -12,7 +12,35 @@ $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
 ?>
+<?php
+//update the info, if provided.
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	//include db pw
+	include "../../../config.php";
+	$email=htmlspecialchars($_POST["email"]);
+	$username_new=htmlspecialchars($_POST["username"]);
+	// Create connection
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
+	// Check connection
+	if ($conn->connect_error) {
+		$success=0;
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$stmt = $conn->prepare("UPDATE users set email = ?, username = ? where username = ?");
+	$stmt->bind_param("ssss", $email, $username_new, $username);
+	
+	$email=htmlspecialchars($_POST["email"]);
+	$username_new=htmlspecialchars($_POST["username"]);
+	$stmt->execute();
+	$stmt->close();
+	$conn->close();
+	$username=$username_new;
+	$_SESSION["username"]=$username;
+	$_SESSION["email"]=$email;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +58,7 @@ $email = $_SESSION["email"];
 					<h4>Your Profile (<?php echo($username); ?>)</h4>
 				</div>
 				<div class="card-body">
-					<form action="profile.php" method="post">
+					<form action="profile.php?update=true" method="post">
 						<div class="form-group">
 							<label for="username">Username:</label>
 							<input type="text" class="form-control" id="username" name="username" value="<?php echo($username); ?>" required>
@@ -44,6 +72,13 @@ $email = $_SESSION["email"];
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
+						<?php
+							if(isset($_GET["update"])){
+								echo '<div class="alert alert-success" role="alert">
+											Information updated successfully!
+										  </div>';
+							}
+						?>
 					</form>
 				</div>
 			</div>
