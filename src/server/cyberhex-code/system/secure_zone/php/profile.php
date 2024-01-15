@@ -23,18 +23,27 @@ $email = $_SESSION["email"];
 </head>
 <body>
 	<h4>Your Profile (<?php echo($username); ?>)</h4>
-	<div class="card-body">
-		<form action="profile.php" method="post">
-			<div class="form-group">
-				<label for="username">Username:</label>
-				<input type="text" class="form-control" id="username" name="username" value="<?php echo($username); ?>" required>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+				<div class="card-header">
+					<h4>Your Profile (<?php echo($username); ?>)</h4>
+				</div>
+				<div class="card-body">
+					<form action="profile.php" method="post">
+						<div class="form-group">
+							<label for="username">Username:</label>
+							<input type="text" class="form-control" id="username" name="username" value="<?php echo($username); ?>" required>
+						</div>
+						<div class="form-group">
+							<label for="email">Email:</label>
+							<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
+						</div>
+						<button type="submit" class="btn btn-primary btn-block">Update</button>
+					</form>
+				</div>
 			</div>
-			<div class="form-group">
-				<label for="email">Email:</label>
-				<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
-			</div>
-			<button type="submit" class="btn btn-primary btn-block">Update</button>
-		</form>
-	</div>
+		</div>
 </body>
 </html>
