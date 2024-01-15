@@ -68,7 +68,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
 						</div>
 						<div class="form-group">
-							<label for="perms">Permissions:<a href="#" id="popup-link">?</a></label>
+							<label for="perms">Permissions: 
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+								  Launch demo modal
+								</button>
+							</label>
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
 						<br>
@@ -84,29 +88,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="perms_help" tabindex="-1" role="dialog" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Popup Title</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				  <span aria-hidden="true">&times;</span>
-				</button>
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			  </div>
 			  <div class="modal-body">
-				<p>This is a simple Bootstrap popup!</p>
+				...
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
 			  </div>
 			</div>
 		  </div>
 		</div>
 	</div>
 </div>
-	<script>
-	  // Add click event listener to the link
-	  document.getElementById('popup-link').addEventListener('click', function(event) {
-		event.preventDefault(); // Prevent the default behavior of the link
-		$('#perms_help').modal('show'); // Show the Bootstrap modal
-	  });
-	</script>
+
 </body>
 </html>
