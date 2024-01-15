@@ -83,8 +83,8 @@ $email = $_SESSION["email"];
 							if($new_password1===$new_password2){
 								if ($result->num_rows > 0) {
 									$row = $result->fetch_assoc();
+									echo($password."::".$row['password']);
 									if (password_verify($password, $row['password'])) {
-										echo($password."::".$row['password']);
 										//password correct update
 										// Create connection
 										$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
