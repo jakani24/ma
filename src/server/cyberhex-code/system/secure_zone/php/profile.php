@@ -22,18 +22,19 @@ $email = $_SESSION["email"];
 	 <title>Profile</title>
 </head>
 <body>
-	<h4>Your Profile</h4>
-	<h5><?php echo($username); ?></h5>
-	<form action="profile.php" method="post">
-		<div class="form-group">
-			<label for="username">Username:</label>
-			<input type="text" class="form-control" id="username" name="username" value="<?php echo($username); ?>" required>
-		</div>
-		<div class="form-group">
-			<label for="email">Email:</label>
-			<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
-		</div>
-		<button type="submit" class="btn btn-primary btn-block">Update</button>
-    </form>
+	<h4>Your Profile (<?php echo($username); ?>)</h4>
+	<div class="card-body">
+		<form action="profile.php" method="post">
+			<div class="form-group">
+				<label for="username">Username:</label>
+				<input type="text" class="form-control" id="username" name="username" value="<?php echo($username); ?>" required>
+			</div>
+			<div class="form-group">
+				<label for="email">Email:</label>
+				<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
+			</div>
+			<button type="submit" class="btn btn-primary btn-block">Update</button>
+		</form>
+	</div>
 </body>
 </html>
