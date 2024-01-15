@@ -69,10 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						</div>
 						<div class="form-group">
 							<label for="perms">Permissions: 
-								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-								  Launch demo modal
-								</button>
-								<a data-bs-target="#exampleModal" data-bs-toggle="modal">?</a>
+								<a data-bs-target="#exampleModal" data-bs-toggle="modal" href="#exampleModal">?</a>
 							</label>
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
