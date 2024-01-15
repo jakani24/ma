@@ -71,10 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<label for="perms">Permissions:</label>
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
 						</div>
+						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
 						<?php
 							if(isset($_GET["update"])){
-								echo '<div class="alert alert-success" role="alert">
+								echo '<br><div class="alert alert-success" role="alert">
 											Information updated successfully!
 										  </div>';
 							}
