@@ -59,8 +59,50 @@ include "perms_functions.php";
 						$result = $stmt->get_result();
 						$row = $result->fetch_assoc();
 						$num_of_users=$row["user_count"];
-						echo($num_of_users."aaaa");
 						$stmt->close();
+						$conn->close();
+						
+						//now list of all the users => userid, username, email, perms, delete
+						// Create a connection
+						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+
+						// Check the connection
+						if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+						}
+						$last_id=-1;
+						//create the table header
+						echo('<table class="table">');
+						echo('<thead>');
+						echo('<tr>');
+						echo('<th>Userid</th><th>Username</th><th>Email</th><th>Permissions</th><th>Delete user</th>');
+						echo('</tr>');
+						echo('</thead>');
+						echo('<tbody>');
+						while($num_of_users!=0){
+							$sql = "SELECT * FROM users where id > $last_id";
+							$stmt = $conn->prepare($sql);
+							// Execute the statement
+							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							$row = $result->fetch_assoc();
+							$last_id=$row["id"];
+							$username=$row["username"];
+							$email=$row["email"];
+							$perms=$row["perms"];
+							echo('<tr>');
+								echo('<td>'.$id.'</td>');
+								echo('<td>'.$username.'</td>');
+								echo('<td>'.$email.'</td>');
+								echo('<td>'.$perms.'</td>');
+								echo('<td><a href="user_list?delete='.$id.'">delete</a></td>');
+							echo('</tr>');
+							$stmt->close();
+							$num_of_users--;
+						}
+						echo('</tbody>');
+						echo('</table>');
 						$conn->close();
 					
 					?>
