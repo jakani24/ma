@@ -55,22 +55,56 @@ if($perms[0]!=="1"){
 						  <thead>
 							<tr>
 							  <th>#</th>
-							  <th>Item</th>
-							  <th>Checkbox</th>
+							  <th>Description</th>
+							  <th>Allow/Deny</th>
 							</tr>
 						  </thead>
 						  <tbody>
 							<tr>
 							  <th scope="row">1</th>
-							  <td>Item 1</td>
-							  <td><input type="checkbox" name="item1"></td>
+							  <td>Add user (Warning!)</td>
+							  <td><input type="checkbox" name="add_user"></td>
 							</tr>
 							<tr>
 							  <th scope="row">2</th>
-							  <td>Item 2</td>
-							  <td><input type="checkbox" name="item2"></td>
+							  <td>Delete/list user</td>
+							  <td><input type="checkbox" name="delete_user"></td>
 							</tr>
-							<!-- Add more rows as needed -->
+							<tr>
+							  <th scope="row">3</th>
+							  <td>View log</td>
+							  <td><input type="checkbox" name="view_log"></td>
+							</tr>
+							<tr>
+							  <th scope="row">4</th>
+							  <td>Delete log</td>
+							  <td><input type="checkbox" name="delete_log"></td>
+							</tr>
+							<tr>
+							  <th scope="row">5</th>
+							  <td>Server Settings</td>
+							  <td><input type="checkbox" name="server_settings"></td>
+							</tr>
+							<tr>
+							  <th scope="row">6</th>
+							  <td>Client settings</td>
+							  <td><input type="checkbox" name="client_settings"></td>
+							</tr>
+							<tr>
+							  <th scope="row">7</th>
+							  <td>Database settings</td>
+							  <td><input type="checkbox" name="database_settings"></td>
+							</tr>
+							<tr>
+							  <th scope="row">8</th>
+							  <td>Add clients</td>
+							  <td><input type="checkbox" name="add_clients"></td>
+							</tr>
+							<tr>
+							  <th scope="row">8</th>
+							  <td>Delete/list clients</td>
+							  <td><input type="checkbox" name="delete_clients"></td>
+							</tr>
 						  </tbody>
 						</table>
 
