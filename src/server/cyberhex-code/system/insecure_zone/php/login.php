@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(isset($_SESSION["login"])){
+	header("LOCATION:/system/secure_zone/php/index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
