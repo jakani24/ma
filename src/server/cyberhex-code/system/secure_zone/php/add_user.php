@@ -12,7 +12,9 @@ $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
 if($perms[0]!=="0"){
+	header("location:index.php?page=no_access.php");
 	$block=1;
+	exit();
 }else{
 	$block=0;
 }
