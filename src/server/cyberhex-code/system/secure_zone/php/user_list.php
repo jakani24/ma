@@ -41,9 +41,26 @@ include "perms_functions.php";
                 <div class="card-body">
 					<!-- table with all users => delete button -->
 					<?php
-						//get count of users
 						//include db pw
 						include "../../../config.php";
+						//delete user if requested
+						if(isset($_GET["delete"])){
+							$userid=htmlspecialchars($_GET["delete"]);
+							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+							if ($conn->connect_error) {
+								die("Connection failed: " . $conn->connect_error);
+							}
+							$sql = "DELETE FROM users WHERE id = ?";
+							$stmt = $conn->prepare($sql);
+							$stmt->bind_param("i", $userid);
+							// Execute the statement
+							$stmt->execute();
+							$stmt->close();
+							$conn->close();
+						}
+						
+						
+						//get count of users
 						// Create a connection
 						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
@@ -104,7 +121,6 @@ include "perms_functions.php";
 						echo('</tbody>');
 						echo('</table>');
 						$conn->close();
-					
 					?>
                 </div>
             </div>
