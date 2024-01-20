@@ -36,10 +36,39 @@ include "perms_functions.php";
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Add a user</h4>
+                    <h4>User list</h4>
                 </div>
                 <div class="card-body">
+					<!-- table with all users => delete button -->
+					<?php
+						//get count of users
+						//include db pw
+						include "../../../config.php";
+						// Retrieve user input
+						$password = $_POST["password"];
+						$email=$_POST["email"];
+						$username=$_POST["username"];
+						$hash=password_hash($password, PASSWORD_BCRYPT);
+						// Create a connection
+						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+
+						// Check the connection
+						if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+						}
+						$sql = "SELECT count(*) FROM users";
+						$stmt = $conn->prepare($sql);
+						// Execute the statement
+						$stmt->execute();
+						// Get the result
+						$result = $stmt->get_result();
+						$row = $result->fetch_assoc();
+						$num_of_users=$row["count"];
+						echo($num_of_users."aaaa");
+						$stmt->close();
+						$conn->close();
 					
+					?>
                 </div>
             </div>
         </div>
