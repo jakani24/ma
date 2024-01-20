@@ -55,8 +55,8 @@ if($perms[0]!=="1"){
 						  <thead>
 							<tr>
 							  <th>#</th>
-							  <th scope="col">Item</th>
-							  <th scope="col">Checkbox</th>
+							  <th>Item</th>
+							  <th>Checkbox</th>
 							</tr>
 						  </thead>
 						  <tbody>
