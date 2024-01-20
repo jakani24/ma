@@ -113,7 +113,7 @@ include "perms_functions.php";
 								echo('<td>'.$username.'</td>');
 								echo('<td>'.$email.'</td>');
 								echo('<td>'.$perms.'</td>');
-								echo('<td><a href="user_list?delete='.$last_id.'">delete</a></td>');
+								echo('<td><a href="user_list.php?delete='.$last_id.'">delete</a></td>');
 							echo('</tr>');
 							$stmt->close();
 							$num_of_users--;
