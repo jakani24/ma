@@ -14,9 +14,10 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4>Add a user</h4>
+                    <h4>Add an admin user</h4>
                 </div>
                 <div class="card-body">
+				<p>Please create an initial admin user. This user the can create new users etc.<br>Please use a strong password for this user!</p>
 					<form action="create_admin.php?create=true" method="post">
                         <div class="form-group">
                             <label for="username">Username:</label>
