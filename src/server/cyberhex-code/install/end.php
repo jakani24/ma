@@ -18,27 +18,25 @@
                 <div class="card-body">
 					<a href="end.php?end=true">Finish installation.</a>
 					<?php
-					if(isset($_GET["end"])){
-						$success=1;
-					/*	if(!unlink("create_admin.php")){
-							$success=0;
-						}if(!unlink("welcome.php")){
-							$success=0;
-						}if(!unlink("create_db.php")){
-							$success=0;
-						}*/
-						if($success!==1){
-							echo '<br><div class="alert alert-danger" role="alert">
-								There was an error finishing the installation. Please try again or contact support at: <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a>
-							</div>';
-						}else{
-							echo '<br><div class="alert alert-danger" role="alert">
-								All done, you can now start using cyberhex! <a href="/login.php">Go to login page</a>
-							</div>';
+						if(isset($_GET["end"])){
+							$success=1;
+						/*	if(!unlink("create_admin.php")){
+								$success=0;
+							}if(!unlink("welcome.php")){
+								$success=0;
+							}if(!unlink("create_db.php")){
+								$success=0;
+							}*/
+							if($success!==1){
+								echo '<br><div class="alert alert-danger" role="alert">
+									There was an error finishing the installation. Please try again or contact support at: <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a>
+								</div>';
+							}else{
+								echo '<br><div class="alert alert-success" role="alert">
+									All done, you can now start using cyberhex! <a href="/login.php">Go to login page</a>
+								</div>';
+							}
 						}
-						
-						
-					}
 					?>
                 </div>
             </div>
