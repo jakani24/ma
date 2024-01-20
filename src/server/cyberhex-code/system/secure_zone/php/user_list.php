@@ -51,14 +51,14 @@ include "perms_functions.php";
 						if ($conn->connect_error) {
 							die("Connection failed: " . $conn->connect_error);
 						}
-						$sql = "SELECT count(*) FROM users";
+						$sql = "SELECT count(*) AS user_count FROM users";
 						$stmt = $conn->prepare($sql);
 						// Execute the statement
 						$stmt->execute();
 						// Get the result
 						$result = $stmt->get_result();
 						$row = $result->fetch_assoc();
-						$num_of_users=$row["count"];
+						$num_of_users=$row["user_count"];
 						echo($num_of_users."aaaa");
 						$stmt->close();
 						$conn->close();
