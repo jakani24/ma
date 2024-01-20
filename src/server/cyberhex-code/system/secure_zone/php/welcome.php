@@ -27,3 +27,4 @@ $perms = $_SESSION["perms"];
 	<p>If you need support, please contact us! <a href="mailto:info.jaakch@gmail.com">info.jakach@gmail.com</a></p>
 </body>
 </html>
+

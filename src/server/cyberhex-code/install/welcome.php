@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Cyberhex Installation</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-		footer {
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	 <title>Cyberhex login page</title>
 </head>
 <body>
-    <h1>Welcome to the Cyberhex Installation</h1>
-    <p>The installer will guide you through the installation.</p>
-	<p>If there are any errors during installation or you are stuck, please contatact <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
-	<a href="create_db.php">Start installation.</a>
-	<footer>
-        <p>&copy; 2024 Cyberhex Antivirus by Jakach Software <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
-    </footer>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Welcome to the Cyberhex Installation</h4>
+                </div>
+                <div class="card-body">
+
+					<p>The installer will guide you through the installation.</p>
+					<p>If there are any errors during installation or you are stuck, please contatact <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
+					<a href="create_db.php">Start installation.</a>
+					<br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
