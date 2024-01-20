@@ -50,28 +50,29 @@ if($perms[0]!=="1"){
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-						    <table class="table">
-							  <thead>
-								<tr>
-								  <th scope="col">#</th>
-								  <th scope="col">Item</th>
-								  <th scope="col">Checkbox</th>
-								</tr>
-							  </thead>
-							  <tbody>
-								<tr>
-								  <th scope="row">1</th>
-								  <td>Item 1</td>
-								  <td><input type="checkbox" name="item1"></td>
-								</tr>
-								<tr>
-								  <th scope="row">2</th>
-								  <td>Item 2</td>
-								  <td><input type="checkbox" name="item2"></td>
-								</tr>
-								<!-- Add more rows as needed -->
-							  </tbody>
-							</table>
+						<label for="perms_table">Permissions:</label>
+						<table class="table" id="perms_table" name="perms_table">
+						  <thead>
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Item</th>
+							  <th scope="col">Checkbox</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr>
+							  <th scope="row">1</th>
+							  <td>Item 1</td>
+							  <td><input type="checkbox" name="item1"></td>
+							</tr>
+							<tr>
+							  <th scope="row">2</th>
+							  <td>Item 2</td>
+							  <td><input type="checkbox" name="item2"></td>
+							</tr>
+							<!-- Add more rows as needed -->
+						  </tbody>
+						</table>
 
                         <button type="submit" class="btn btn-primary btn-block">Add user</button>
                     </form>
