@@ -1,30 +1,34 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberhex Installation</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-		footer {
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	 <title>Cyberhex login page</title>
 </head>
 <body>
-    <h1>We are creating the databases used in cyberhex, please stand by</h1>
-	<br>If the creation fails, please wait a minute and try again. The database server might still be starting at the time.</p>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>We are creating the databases used in cyberhex, please stand by</h4>
+                </div>
+                <div class="card-body">
+					<p>If the creation fails, please wait a minute and try again. The database server might still be starting at the time.</p>
+					<br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
 
 
 <?php
@@ -43,10 +47,14 @@ if ($conn->connect_error) {
 // Create database
 $sql = "CREATE DATABASE IF NOT EXISTS $DB_DATABASE";
 if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully<br>";
+    echo '<br><div class="alert alert-success" role="alert">
+		Database created successfully!
+		</div>';
 } else {
 	$success=0;
-    echo "Error creating database: " . $conn->error ."<br>";
+	echo '<br><div class="alert alert-danger" role="alert">
+			Error creating database: ' . $conn->error .'
+	</div>';
 }
 
 $conn->close();
@@ -71,10 +79,14 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'users' created successfully<br>";
+    echo '<br><div class="alert alert-success" role="alert">
+			Table users created successfully!
+	</div>';
 } else {
 	$success=0;
-    echo "Error creating table: " . $conn->error ."<br>";
+    echo '<br><div class="alert alert-danger" role="alert">
+			Error creating table users: ' . $conn->error .'
+	</div>';
 }
 
 // Create log table
@@ -86,10 +98,14 @@ $sql = "CREATE TABLE IF NOT EXISTS log (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'log' created successfully<br>";
+        echo '<br><div class="alert alert-success" role="alert">
+			Table log created successfully!
+	</div>';
 } else {
 	$success=0;
-    echo "Error creating table: " . $conn->error  ."<br>";
+        echo '<br><div class="alert alert-danger" role="alert">
+			Error creating table log: ' . $conn->error .'
+	</div>';
 }
 
 // Create settings table
@@ -100,10 +116,14 @@ $sql = "CREATE TABLE IF NOT EXISTS settings (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'settings' created successfully<br>";
+        echo '<br><div class="alert alert-success" role="alert">
+			Table settings created successfully!
+	</div>';
 } else {
 	$success=0;
-    echo "Error creating table: " . $conn->error  ."<br>";
+        echo '<br><div class="alert alert-danger" role="alert">
+			Error creating table settings: ' . $conn->error .'
+	</div>';
 }
 
 // Create api table
@@ -114,10 +134,14 @@ $sql = "CREATE TABLE IF NOT EXISTS api (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'api' created successfully<br>";
+        echo '<br><div class="alert alert-success" role="alert">
+			Table api created successfully!
+	</div>';
 } else {
 	$success=0;
-    echo "Error creating table: " . $conn->error  ."<br>";
+        echo '<br><div class="alert alert-danger" role="alert">
+			Error creating table api: ' . $conn->error .'
+	</div>';
 }
 
 // Create secrets table
@@ -128,10 +152,14 @@ $sql = "CREATE TABLE IF NOT EXISTS secrets (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'secrets' created successfully<br>";
+        echo '<br><div class="alert alert-success" role="alert">
+			Table secrets created successfully!
+	</div>';
 } else {
 	$success=0;
-    echo "Error creating table: " . $conn->error  ."<br>";
+        echo '<br><div class="alert alert-danger" role="alert">
+			Error creating table secrets: ' . $conn->error .'
+	</div>';
 }
 
 // Create machine table
@@ -143,22 +171,27 @@ $sql = "CREATE TABLE IF NOT EXISTS machines (
 )";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Table 'machines' created successfully<br>";
+        echo '<br><div class="alert alert-success" role="alert">
+			Table machines created successfully!
+	</div>';
 } else {
 	$success=0;
-    echo "Error creating table: " . $conn->error  ."<br>";
+        echo '<br><div class="alert alert-danger" role="alert">
+			Error creating table machines: ' . $conn->error .'
+	</div>';
 }
 
 if($success!==1){
-	echo('<p style="font-size: 20px; color: red;">There was an error creating the databases. Please try again or contact support at: <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>');
+	echo '<br><div class="alert alert-danger" role="alert">
+			There was an error creating the databases. Please try again or contact support at: <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a>
+	</div>';
 }else{
-	echo('<p style="font-size: 20px; color: green;">Database created successfully! <a href="create_admin.php">Continue installation</a></p>');
+	echo '<br><div class="alert alert-success" role="alert">
+			Database created successfully! <a href="create_admin.php">Continue installation</a>
+	</div>';
 }
 
 $conn->close();
 ?>
-    <footer>
-        <p>&copy; 2024 Cyberhex Antivirus by Jakach Software <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
-    </footer>
 </body>
 </html>
