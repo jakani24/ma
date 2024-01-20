@@ -21,15 +21,15 @@ if($perms[0]!=="1"){
 
 function get_perm_str(){
 	//ge tthe set permissions of the form
-	$p1 = $_POST["add_user"];
-	$p2 = $_POST["delete_user"];
-	$p3 = $_POST["view_log"];
-	$p4 = $_POST["delete_log"];
-	$p5 = $_POST["server_settings"];
-	$p6 = $_POST["client_settings"];
-	$p7 = $_POST["database_settings"];
-	$p8 = $_POST["add_clients"];
-	$p9 = $_POST["delete_clients"];
+	$p1 = isset($_POST["add_user"]);
+	$p2 = isset($_POST["delete_user"]);
+	$p3 = isset($_POST["view_log"]);
+	$p4 = isset($_POST["delete_log"]);
+	$p5 = isset($_POST["server_settings"]);
+	$p6 = isset($_POST["client_settings"]);
+	$p7 = isset( $_POST["database_settings"]);
+	$p8 = isset($_POST["add_clients"]);
+	$p9 = isset($_POST["delete_clients"]);
 	$p10 = "0";
 	
 	//init the permission string
@@ -171,10 +171,10 @@ function get_perm_str(){
                         <button type="submit" class="btn btn-primary btn-block">Add user</button>
                     </form>
 					<br>
-					<!-- php code to verify password-->
+					<!-- php code to add user-->
 					<?php
 						// Check if the form is submitted
-						if ($_SERVER["REQUEST_METHOD"] == "POST" and $block=0) {
+						if ($_SERVER["REQUEST_METHOD"] == "POST" and $block==0) {
 							//include db pw
 							include "../../../config.php";
 							// Retrieve user input
