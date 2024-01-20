@@ -50,11 +50,11 @@ if($perms[0]!=="1"){
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-						<label for="perms_table">Permissions:</label>
+						<label for="perms_table">User permissions:</label>
 						<table class="table" id="perms_table" name="perms_table">
 						  <thead>
 							<tr>
-							  <th scope="col">#</th>
+							  <th>#</th>
 							  <th scope="col">Item</th>
 							  <th scope="col">Checkbox</th>
 							</tr>
