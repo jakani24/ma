@@ -31,7 +31,7 @@
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Add user</button>
+                        <button type="submit" class="btn btn-primary btn-block">Create user</button>
                     </form>
 					<?php
 						include "../config.php";
