@@ -124,7 +124,7 @@ if($perms[0]!=="0"){
 							}
 
 							// Close the connection
-						}elseif($block=0){
+						}elseif($block==1){
 							echo '<div class="alert alert-danger" role="alert">
 												You do not have permission to add a user!
 											  </div>';
