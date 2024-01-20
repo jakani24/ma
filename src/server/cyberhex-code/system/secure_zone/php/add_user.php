@@ -197,20 +197,14 @@ if($perms[0]!=="1"){
 		  <div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Permission Explanation</h5>
+				<h5 class="modal-title" id="exampleModalLabel">User add permission warning</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			  </div>
 			  <div class="modal-body">
-				1 Add User<br>
-				1 User List (delete...)<br>
-				1 View Log<br>
-				1 Delete Log<br>
-				1 Server Settings<br>
-				1 Client Settings<br>
-				1 Database Settings<br>
-				1 Add Cleints (+ add client)<br>
-				1 Client List (manage)<br>
-				1 Reserved for later use
+				A user with the permission "add_user" can add new users with all permissions.<br>
+				Including permissins which the user, who creates the new user does not have.<br>
+				This can be used for privilege escalation!<br>
+				Please only allow a few trusted users this permission!
 			  </div>
 			</div>
 		  </div>
