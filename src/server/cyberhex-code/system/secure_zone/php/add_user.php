@@ -11,8 +11,8 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
-if($perms[0]!=="0"){
-	header("location:no_access.php");
+if($perms[0]!=="1"){
+	header("location:/system/insecure_zone/php/no_access.php");
 	$block=1;
 	exit();
 }else{
