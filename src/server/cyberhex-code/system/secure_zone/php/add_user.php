@@ -18,6 +18,66 @@ if($perms[0]!=="1"){
 }else{
 	$block=0;
 }
+
+function get_perm_str(){
+	//ge tthe set permissions of the form
+	$p1 = $_POST["add_user"];
+	$p2 = $_POST["delete_user"];
+	$p3 = $_POST["view_log"];
+	$p4 = $_POST["delete_log"];
+	$p5 = $_POST["server_settings"];
+	$p6 = $_POST["client_settings"];
+	$p7 = $_POST["database_settings"];
+	$p8 = $_POST["add_clients"];
+	$p9 = $_POST["delete_clients"];
+	$p10 = "0";
+	
+	//init the permission string
+	$perms_str="";
+	//copy the perms into permission string)
+	if($p1==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p2==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p3==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p4==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p5==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p6==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p7==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p8==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p9==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p10==="1")
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	return $perms_str;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,12 +177,11 @@ if($perms[0]!=="1"){
 						if ($_SERVER["REQUEST_METHOD"] == "POST" and $block=0) {
 							//include db pw
 							include "../../../config.php";
-							
 							// Retrieve user input
 							$password = $_POST["password"];
-							$new_password1=$_POST["new_password1"];
-							$new_password2=$_POST["new_password2"];
-							$hash=password_hash($new_password1, PASSWORD_BCRYPT);
+							$email=$_POST["email"];
+							$username=$_POST["username"];
+							$hash=password_hash($password, PASSWORD_BCRYPT);
 							// Create a connection
 							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
@@ -144,45 +203,33 @@ if($perms[0]!=="1"){
 							
 							
 							// Check if the user exists and verify the password
-							if($new_password1===$new_password2){
-								if ($result->num_rows > 0) {
-									$row = $result->fetch_assoc();
-									if (password_verify($password, $row['password'])) {
-										//password correct update
-										// Create connection
-										$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
-
-										// Check connection
-										if ($conn->connect_error) {
-											$success=0;
-											die("Connection failed: " . $conn->connect_error);
-										}
-										$stmt = $conn->prepare("UPDATE users set password = ? where username = ?");
-										$stmt->bind_param("ss", $hash, $username);
-										$stmt->execute();
-										$stmt->close();
-										$conn->close();
-										echo '<br><div class="alert alert-success" role="alert">
-											Information updated successfully!
-										  </div>';
-										
-									} else {
-										echo '<div class="alert alert-danger" role="alert">
-												Incorrect password.
-											  </div>';
-									}
-								} else {
-									echo '<div class="alert alert-danger" role="alert">
-											Incorrect password.
-										  </div>';
-								}
-							}else{
+							if ($result->num_rows > 0) {
 								echo '<div class="alert alert-danger" role="alert">
-											New password does not match.
+											User already exists!
+										  </div>';
+								
+							}else{
+								$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+								if ($conn->connect_error) {
+										$success=0;
+										die("Connection failed: " . $conn->connect_error);
+									}
+								$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms) VALUES (?, ?, ?, ?)");
+								$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
+	
+								$email=htmlspecialchars($_POST["email"]);
+								$username=htmlspecialchars($_POST["username"]);
+								$password=$_POST["password"];
+								$permissions=get_perm_str();
+								$hash=password_hash($password, PASSWORD_BCRYPT);
+								
+								$stmt->execute();
+								$stmt->close();
+								$conn->close();
+								echo '<div class="alert alert-success" role="alert">
+											User added successfully!
 										  </div>';
 							}
-
-							// Close the connection
 						}elseif($block==1){
 							echo '<div class="alert alert-danger" role="alert">
 												You do not have permission to add a user!
@@ -202,7 +249,7 @@ if($perms[0]!=="1"){
 			  </div>
 			  <div class="modal-body">
 				A user with the permission "add_user" can add new users with all permissions.<br>
-				Including permissins which the user, who creates the new user does not have.<br>
+				Including permissions which the user, who creates the new user does not have.<br>
 				This can be used for privilege escalation!<br>
 				Please only allow a few trusted users this permission!
 			  </div>
