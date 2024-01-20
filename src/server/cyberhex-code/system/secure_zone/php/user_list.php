@@ -44,11 +44,6 @@ include "perms_functions.php";
 						//get count of users
 						//include db pw
 						include "../../../config.php";
-						// Retrieve user input
-						$password = $_POST["password"];
-						$email=$_POST["email"];
-						$username=$_POST["username"];
-						$hash=password_hash($password, PASSWORD_BCRYPT);
 						// Create a connection
 						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
