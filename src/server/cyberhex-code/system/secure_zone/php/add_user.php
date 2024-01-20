@@ -11,7 +11,7 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
-if($perms[0]!=="0"){
+if($perms[0]!=="1"){
 	header("location:/system/insecure_zone/php/no_access.php");
 	$block=1;
 	exit();
@@ -34,24 +34,46 @@ if($perms[0]!=="0"){
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4>Change Password (<?php echo($username); ?>)</h4>
+                    <h4>Add a user</h4>
                 </div>
                 <div class="card-body">
-					<form action="passwd.php?update=true" method="post">
+					<form action="add_user.php?add=true" method="post">
                         <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+						<div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+						<div class="form-group">
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-						<div class="form-group">
-                            <label for="password">New Password:</label>
-                            <input type="password" class="form-control" id="new_password1" name="new_password1" required>
-                        </div>
-						<div class="form-group">
-                            <label for="password">Repeat New Password:</label>
-                            <input type="password" class="form-control" id="new_password2" name="new_password2" required>
-                        </div>
-						<br>
-                        <button type="submit" class="btn btn-primary btn-block">Update</button>
+						    <table class="table">
+							  <thead>
+								<tr>
+								  <th scope="col">#</th>
+								  <th scope="col">Item</th>
+								  <th scope="col">Checkbox</th>
+								</tr>
+							  </thead>
+							  <tbody>
+								<tr>
+								  <th scope="row">1</th>
+								  <td>Item 1</td>
+								  <td><input type="checkbox" name="item1"></td>
+								</tr>
+								<tr>
+								  <th scope="row">2</th>
+								  <td>Item 2</td>
+								  <td><input type="checkbox" name="item2"></td>
+								</tr>
+								<!-- Add more rows as needed -->
+							  </tbody>
+							</table>
+
+                        <button type="submit" class="btn btn-primary btn-block">Add user</button>
                     </form>
 					<br>
 					<!-- php code to verify password-->
