@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<label for="perms">Permissions: 
 								<a data-bs-target="#perms_help" data-bs-toggle="modal" href="#perms_help">?</a>
 							</label>
-							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" required readonly>
+							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" readonly>
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>

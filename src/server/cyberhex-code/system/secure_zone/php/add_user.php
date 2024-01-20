@@ -62,7 +62,7 @@ if($perms[0]!=="1"){
 						  <tbody>
 							<tr>
 							  <th scope="row">1</th>
-							  <td>Add user (Warning!)</td>
+							  <td>Add user <a data-bs-target="#warning" data-bs-toggle="modal" href="#warning">(Warning!)</a></td>
 							  <td><input type="checkbox" name="add_user"></td>
 							</tr>
 							<tr>
@@ -193,6 +193,28 @@ if($perms[0]!=="1"){
                 </div>
             </div>
         </div>
+		<div class="modal fade" id="perms_help" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Permission Explanation</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  </div>
+			  <div class="modal-body">
+				1 Add User<br>
+				1 User List (delete...)<br>
+				1 View Log<br>
+				1 Delete Log<br>
+				1 Server Settings<br>
+				1 Client Settings<br>
+				1 Database Settings<br>
+				1 Add Cleints (+ add client)<br>
+				1 Client List (manage)<br>
+				1 Reserved for later use
+			  </div>
+			</div>
+		  </div>
+		</div>
     </div>
 </div>
 </body>
