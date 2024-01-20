@@ -1,96 +1,74 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyberhex Installation</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-        form {
-            display: inline-block;
-            text-align: left;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input {
-            width: 200px;
-            padding: 8px;
-            margin-bottom: 15px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-		footer {
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	 <title>Change Password</title>
 </head>
 <body>
-    <h1>Please create an admin user:</h1>
-	<p>The admin user is later used to create new users, add machines and do all administrative tasks in cyberhex.</p>
-	<p>Please choose a strong password, because the admin user is one of the main attack vectors of cyberhex.</p>
-    <form action="create_admin.php?create=true" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
 
-        <label for="email">email:</label>
-        <input type="text" id="email" name="email" required>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Add a user</h4>
+                </div>
+                <div class="card-body">
+					<form action="create_admin.php?create=true" method="post">
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+						<div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+						<div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Add user</button>
+                    </form>
+					<?php
+						include "../config.php";
+						if(isset($_GET["create"])){
+							$email=htmlspecialchars($_POST["email"]);
+							$username=htmlspecialchars($_POST["username"]);
+							$password=htmlspecialchars($_POST["password"]);
+							$permissions="1111111111";
+							// Create connection
+							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-		<br>
-        <button type="submit">Create admin</button>
-    </form>
-<?php
-	include "../config.php";
-	if(isset($_GET["create"])){
-		$email=htmlspecialchars($_POST["email"]);
-		$username=htmlspecialchars($_POST["username"]);
-		$password=htmlspecialchars($_POST["password"]);
-		$permissions="1111111111";
-		// Create connection
-		$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+							// Check connection
+							if ($conn->connect_error) {
+								$success=0;
+								die("Connection failed: " . $conn->connect_error);
+							}
+							$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms) VALUES (?, ?, ?, ?)");
+							$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
+							
+							$email=htmlspecialchars($_POST["email"]);
+							$username=htmlspecialchars($_POST["username"]);
+							$password=$_POST["password"];
+							$permissions="1111111111";
+							$hash=password_hash($password, PASSWORD_BCRYPT);
+							
+							$stmt->execute();
+							$stmt->close();
+							$conn->close();
+							echo '<br><div class="alert alert-success" role="alert">
+								Admin user created successfully! <a href="end.php">Continue installation</a>
+							</div>';
+						}
 
-		// Check connection
-		if ($conn->connect_error) {
-			$success=0;
-			die("Connection failed: " . $conn->connect_error);
-		}
-		$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms) VALUES (?, ?, ?, ?)");
-		$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
-		
-		$email=htmlspecialchars($_POST["email"]);
-		$username=htmlspecialchars($_POST["username"]);
-		$password=$_POST["password"];
-		$permissions="1111111111";
-		$hash=password_hash($password, PASSWORD_BCRYPT);
-		
-		$stmt->execute();
-		$stmt->close();
-		$conn->close();
-		echo('<p style="font-size: 20px; color: green;">Admin created successfully! <a href="end.php">Continue installation</a></p>');
-	}
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-?>
-    <footer>
-        <p>&copy; 2024 Cyberhex Antivirus by Jakach Software <a href="mailto:info.jakach@gmail.com">info.jakach@gmail.com</a></p>
-    </footer>
-</body>
-</html>
+
