@@ -35,43 +35,43 @@ function get_perm_str(){
 	//init the permission string
 	$perms_str="";
 	//copy the perms into permission string)
-	if($p1==="1")
+	if($p1===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p2==="1")
+	if($p2===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p3==="1")
+	if($p3===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p4==="1")
+	if($p4===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p5==="1")
+	if($p5===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p6==="1")
+	if($p6===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p7==="1")
+	if($p7===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p8==="1")
+	if($p8===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p9==="1")
+	if($p9===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
-	if($p10==="1")
+	if($p10===1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";
