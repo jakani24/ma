@@ -19,7 +19,6 @@
 					<p>If the creation fails, please wait a minute and try again. The database server might still be starting at the time.</p>
 					<br>
                 </div>
-            </div>
 			<?php
 			$success=1;
 			include "../config.php";
@@ -182,6 +181,7 @@
 
 			$conn->close();
 			?>
+			</div>
 		</div>
     </div>
 </div>
