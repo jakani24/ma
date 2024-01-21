@@ -4,6 +4,8 @@
 
 //add the entry to the log db
 //this page has no gui, it may return ok or error
+if(!isset($_GET["loglevel"]) or !isset($_GET["logtext"]) or !isset($_GET["machine_id"]))
+	echo("syn_err");
 $loglevel=htmlspecialchars($_GET["loglevel"]);
 $logtext=htmlspecialchars($_GET["logtext"]);
 $machine_id=htmlspecialchars($_GET["machine_id"]);
