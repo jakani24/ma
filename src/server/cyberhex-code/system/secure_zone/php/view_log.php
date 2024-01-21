@@ -97,16 +97,32 @@ if($perms[2]!=="1"){
 							$result = $stmt->get_result();
 							$row = $result->fetch_assoc();
 							$last_id=$row["id"];
-							$loglevel=$row["username"];
-							$logtext=$row["email"];
-							$machine_id=$row["perms"];
-							echo('<tr>');
-								echo('<td>'.$last_id.'</td>');
-								echo('<td>'.$loglevel.'</td>');
-								echo('<td>'.$logtext.'</td>');
-								echo('<td>'.$machine_id.'</td>');
-								//echo('<td><a href="user_list.php?delete='.$last_id.'">delete</a></td>');
-							echo('</tr>');
+							$loglevel=$row["loglevel"];
+							$logtext=$row["logtext"];
+							$machine_id=$row["machine_id"];
+							$show=true;
+							if(isset($_GET["loglevel"])){
+								if(!strpos($loglevel,$_GET["loglevel"])){
+									$show=false;
+								}
+							}if(isset($_GET["logtext"])){
+								if(!strpos($logtext,$_GET["logtext"])){
+									$show=false;
+								}
+							}if(isset($_GET["machine_id"])){
+								if(!strpos($machine_id,$_GET["machine_id"])){
+									$show=false;
+								}
+							}
+							if($show==true){
+								echo('<tr>');
+									echo('<td>'.$last_id.'</td>');
+									echo('<td>'.$loglevel.'</td>');
+									echo('<td>'.$logtext.'</td>');
+									echo('<td>'.$machine_id.'</td>');
+									//echo('<td><a href="user_list.php?delete='.$last_id.'">delete</a></td>');
+								echo('</tr>');
+							}
 							$stmt->close();
 							$num_of_log_entrys--;
 						}
