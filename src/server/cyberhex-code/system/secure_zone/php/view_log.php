@@ -98,7 +98,7 @@ if($perms[2]!=="1"){
 						echo('<table class="table">');
 						echo('<thead>');
 						echo('<tr>');
-						echo('<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Delete entry</th>');
+						echo('<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th><th>Delete entry</th>');
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');
@@ -118,12 +118,18 @@ if($perms[2]!=="1"){
 							$machine_id_ss=$_GET["machine_id"];
 						else
 							$machine_id_ss="Machine id";
+						
+						if(isset($_GET["time"]))
+							$time_ss=$_GET["time"];
+						else
+							$time_ss="Date & time";
 						echo('<tr>');
 						echo('<form action="view_log.php" method="get">');
 						echo('<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>');
 						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="'.$loglevel_ss.'"></td>');
 						echo('<td><input type="text" class="form-control" name="logtext" placeholder="'.$logtext_ss.'"></td>');
 						echo('<td><input type="text" class="form-control" name="machine_id" placeholder="'.$machine_id_ss.'"></td>');
+						echo('<td><input type="text" class="form-control" name="time" placeholder="'.$time_ss.'"></td>');
 						echo('<td>---</td>');
 						echo('</form>');
 						echo('</tr>');
@@ -140,6 +146,7 @@ if($perms[2]!=="1"){
 							$loglevel=$row["loglevel"];
 							$logtext=$row["logtext"];
 							$machine_id=$row["machine_id"];
+							$time=$row["time"];
 							$show=true;
 							//evaluate filter, decide if entry should be shown or not
 							if(isset($_GET["loglevel"]) && $_GET["loglevel"]!==""){
@@ -154,6 +161,10 @@ if($perms[2]!=="1"){
 								if(stripos($machine_id,$_GET["machine_id"])===false){
 									$show=false;
 								}
+							}if(isset($_GET["time"]) && $_GET["time"]!==""){
+								if(stripos($time,$_GET["time"])===false){
+									$show=false;
+								}
 							}
 							if($show==true){
 								echo('<tr>');
@@ -161,6 +172,7 @@ if($perms[2]!=="1"){
 									echo('<td>'.$loglevel.'</td>');
 									echo('<td>'.$logtext.'</td>');
 									echo('<td>'.$machine_id.'</td>');
+									echo('<td>'.$time.'</td>');
 									echo('<td><a href="view_log.php?delete='.$last_id.'">delete</a></td>');
 								echo('</tr>');
 							}

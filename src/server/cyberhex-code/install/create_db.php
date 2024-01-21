@@ -82,7 +82,8 @@
 				id INT AUTO_INCREMENT PRIMARY KEY,
 				logtext VARCHAR(255) NOT NULL,
 				loglevel VARCHAR(255) NOT NULL,
-				machine_id VARCHAR(255)
+				machine_id VARCHAR(255),
+				time VARCHAR(255)
 			)";
 
 			if ($conn->query($sql) === TRUE) {
