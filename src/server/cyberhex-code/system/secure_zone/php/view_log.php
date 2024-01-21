@@ -142,7 +142,7 @@ if($perms[2]!=="1"){
 							$machine_id=$row["machine_id"];
 							$show=true;
 							if(isset($_GET["loglevel"]) && $_GET["loglevel"]!==""){
-								if(!stripos($loglevel,$_GET["loglevel"])){
+								if(stripos($loglevel,$_GET["loglevel"])){
 									$show=false;
 									echo("1");
 								}
