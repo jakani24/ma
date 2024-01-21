@@ -83,8 +83,8 @@ if($perms[2]!=="1"){
 						echo('<form action="view_log.php" method="get">');
 						echo('<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>');
 						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
-						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
-						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
+						echo('<td><input type="text" class="form-control" name="logtext" placeholder="Logtext"></td>');
+						echo('<td><input type="text" class="form-control" name="machine_id" placeholder="Machine id"></td>');
 						echo('</form>');
 						echo('</tr>');
 						
