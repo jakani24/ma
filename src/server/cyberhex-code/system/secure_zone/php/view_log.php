@@ -141,15 +141,15 @@ if($perms[2]!=="1"){
 							$logtext=$row["logtext"];
 							$machine_id=$row["machine_id"];
 							$show=true;
-							if(isset($_GET["loglevel"])){
+							if(isset($_GET["loglevel"]) && $_GET["loglevel"]!==""){
 								if(!strpos($loglevel,$_GET["loglevel"])){
 									$show=false;
 								}
-							}if(isset($_GET["logtext"])){
+							}if(isset($_GET["logtext"]) && $_GET["logtext"]!==""){
 								if(!strpos($logtext,$_GET["logtext"])){
 									$show=false;
 								}
-							}if(isset($_GET["machine_id"])){
+							}if(isset($_GET["machine_id"]) && $_GET["machine_id"]!==""){
 								if(!strpos($machine_id,$_GET["machine_id"])){
 									$show=false;
 								}
