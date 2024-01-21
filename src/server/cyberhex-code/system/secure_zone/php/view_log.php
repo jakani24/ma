@@ -34,7 +34,7 @@ if($perms[2]!=="1"){
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Log view</h4>
+                    <h4>View log</h4>
                 </div>
                 <div class="card-body" style="overflow-x:auto">
 					<!-- table with all users => delete button -->

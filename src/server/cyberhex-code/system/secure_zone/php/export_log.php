@@ -182,7 +182,7 @@ if($perms[2]!=="1"){
 						else
 							$time_ss="Date & time";
 						echo('<tr>');
-						echo('<form action="view_log.php" method="get">');
+						echo('<form action="export_log.php" method="get">');
 						echo('<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>');
 						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="'.$loglevel_ss.'"></td>');
 						echo('<td><input type="text" class="form-control" name="logtext" placeholder="'.$logtext_ss.'"></td>');
