@@ -79,12 +79,26 @@ if($perms[2]!=="1"){
 						echo('<tbody>');
 						
 						//put filter options here
+						if(isset($_GET["loglevel"]))
+							$loglevel_ss=$_GET["loglevel"]; //put the loglevel search string to that and afterwards show it in the filter optionss. so a user sees what he has filtered for
+						else
+							$loglevel_ss="Loglevel";
+						
+						if(isset($_GET["logtext"]))
+							$logtext_ss=$_GET["logtext"];
+						else
+							$logtext_ss="Logtext";
+						
+						if(isset($_GET["machine_id"]))
+							$machine_id_ss=$_GET["machine_id"];
+						else
+							$machine_id_ss="Machine id";
 						echo('<tr>');
 						echo('<form action="view_log.php" method="get">');
 						echo('<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>');
-						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
-						echo('<td><input type="text" class="form-control" name="logtext" placeholder="Logtext"></td>');
-						echo('<td><input type="text" class="form-control" name="machine_id" placeholder="Machine id"></td>');
+						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="'.$loglevel_ss.'"></td>');
+						echo('<td><input type="text" class="form-control" name="logtext" placeholder="'.$logtext_ss.'"></td>');
+						echo('<td><input type="text" class="form-control" name="machine_id" placeholder="'.$machine_id_ss.'"></td>');
 						echo('</form>');
 						echo('</tr>');
 						
