@@ -147,11 +147,11 @@ if($perms[2]!=="1"){
 									$show=false;
 								}
 							}if(isset($_GET["logtext"]) && $_GET["logtext"]!==""){
-								if(!stripos($logtext,$_GET["logtext"])){
+								if(stripos($logtext,$_GET["logtext"])===false){
 									$show=false;
 								}
 							}if(isset($_GET["machine_id"]) && $_GET["machine_id"]!==""){
-								if(!stripos($machine_id,$_GET["machine_id"])){
+								if(stripos($machine_id,$_GET["machine_id"])===false){
 									$show=false;
 								}
 							}
