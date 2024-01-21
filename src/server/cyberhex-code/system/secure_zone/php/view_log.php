@@ -95,7 +95,7 @@ if($perms[2]!=="1"){
 						}
 						$last_id=-1;
 						//create the table header
-						echo('<table class="table" style="x-overflow:auto">');
+						echo('<table class="table" style="overflow-x:auto">');
 						echo('<thead>');
 						echo('<tr>');
 						echo('<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th><th>Delete entry</th>');
