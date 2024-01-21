@@ -68,6 +68,12 @@ if($perms[2]!=="1"){
 							}
 							$last_id=-1;
 							$export_file = fopen("/var/www/html/export/cyberhex_log_export.vsc", 'w');
+							if($export_file===null){
+								$close=false;
+								echo '<br><div class="alert alert-danger" role="alert">
+									Error creating export file.
+								</div>';
+							}
 							fwrite($export_file,"id;loglevel;logtext;machine_id;time\r\n");
 							while($num_of_log_entrys!=0){
 								$sql = "SELECT * FROM log where id > $last_id";
@@ -102,16 +108,18 @@ if($perms[2]!=="1"){
 									}
 								}
 								if($show==true){
-									fwrite($file,$last_id.";");
-									fwrite($file,$loglevel.";");
-									fwrite($file,$logtext.";");
-									fwrite($file,$machine_id.";");
-									fwrite($file,$time."\r\n");
+									fwrite($export_file,$last_id.";");
+									fwrite($export_file,$loglevel.";");
+									fwrite($export_file,$logtext.";");
+									fwrite($export_file,$machine_id.";");
+									fwrite($export_file,$time."\r\n");
 								}
 								$stmt->close();
 								$num_of_log_entrys--;
 							}
 							$conn->close();
+							if(!isset($close))
+								fclose($export_file);
 						}
 						
 						//get count of log entrys
