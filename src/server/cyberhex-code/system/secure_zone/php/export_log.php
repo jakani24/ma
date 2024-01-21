@@ -67,59 +67,58 @@ if($perms[2]!=="1"){
 								die("Connection failed: " . $conn->connect_error);
 							}
 							$last_id=-1;
-							$export_file = fopen("/var/www/html/export/cyberhex_log_export.vsc", 'w');
+							$export_file = fopen("/var/www/html/export/cyberhex_log_export.csv", 'w');
 							if($export_file===null){
-								$close=false;
 								echo '<br><div class="alert alert-danger" role="alert">
 									Error creating export file.
 								</div>';
-							}
-							fwrite($export_file,"id;loglevel;logtext;machine_id;time\r\n");
-							while($num_of_log_entrys!=0){
-								$sql = "SELECT * FROM log where id > $last_id";
-								$stmt = $conn->prepare($sql);
-								// Execute the statement
-								$stmt->execute();
-								// Get the result
-								$result = $stmt->get_result();
-								$row = $result->fetch_assoc();
-								$last_id=$row["id"];
-								$loglevel=$row["loglevel"];
-								$logtext=$row["logtext"];
-								$machine_id=$row["machine_id"];
-								$time=$row["time"];
-								$show=true;
-								//evaluate filter, decide if entry should be shown or not
-								if(isset($_GET["loglevel"]) && $_GET["loglevel"]!==""){
-									if(stripos($loglevel,$_GET["loglevel"])===false){
-										$show=false;
+							}else{
+								fwrite($export_file,"id;loglevel;logtext;machine_id;time\r\n");
+								while($num_of_log_entrys!=0){
+									$sql = "SELECT * FROM log where id > $last_id";
+									$stmt = $conn->prepare($sql);
+									// Execute the statement
+									$stmt->execute();
+									// Get the result
+									$result = $stmt->get_result();
+									$row = $result->fetch_assoc();
+									$last_id=$row["id"];
+									$loglevel=$row["loglevel"];
+									$logtext=$row["logtext"];
+									$machine_id=$row["machine_id"];
+									$time=$row["time"];
+									$show=true;
+									//evaluate filter, decide if entry should be shown or not
+									if(isset($_GET["loglevel"]) && $_GET["loglevel"]!==""){
+										if(stripos($loglevel,$_GET["loglevel"])===false){
+											$show=false;
+										}
+									}if(isset($_GET["logtext"]) && $_GET["logtext"]!==""){
+										if(stripos($logtext,$_GET["logtext"])===false){
+											$show=false;
+										}
+									}if(isset($_GET["machine_id"]) && $_GET["machine_id"]!==""){
+										if(stripos($machine_id,$_GET["machine_id"])===false){
+											$show=false;
+										}
+									}if(isset($_GET["time"]) && $_GET["time"]!==""){
+										if(stripos($time,$_GET["time"])===false){
+											$show=false;
+										}
 									}
-								}if(isset($_GET["logtext"]) && $_GET["logtext"]!==""){
-									if(stripos($logtext,$_GET["logtext"])===false){
-										$show=false;
+									if($show==true){
+										fwrite($export_file,$last_id.";");
+										fwrite($export_file,$loglevel.";");
+										fwrite($export_file,$logtext.";");
+										fwrite($export_file,$machine_id.";");
+										fwrite($export_file,$time."\r\n");
 									}
-								}if(isset($_GET["machine_id"]) && $_GET["machine_id"]!==""){
-									if(stripos($machine_id,$_GET["machine_id"])===false){
-										$show=false;
-									}
-								}if(isset($_GET["time"]) && $_GET["time"]!==""){
-									if(stripos($time,$_GET["time"])===false){
-										$show=false;
-									}
+									$stmt->close();
+									$num_of_log_entrys--;
 								}
-								if($show==true){
-									fwrite($export_file,$last_id.";");
-									fwrite($export_file,$loglevel.";");
-									fwrite($export_file,$logtext.";");
-									fwrite($export_file,$machine_id.";");
-									fwrite($export_file,$time."\r\n");
-								}
-								$stmt->close();
-								$num_of_log_entrys--;
+								$conn->close();
+									fclose($export_file);
 							}
-							$conn->close();
-							if(!isset($close))
-								fclose($export_file);
 						}
 						
 						//get count of log entrys
