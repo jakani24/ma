@@ -80,9 +80,13 @@ if($perms[2]!=="1"){
 						
 						//put filter options here
 						echo('<tr>');
-						echo('<td>---</td>');
 						echo('<form action="view_log.php" method="get">');
+						echo('<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>');
 						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
+						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
+						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
+						echo('</form>');
+						echo('</tr>');
 						
 						while($num_of_log_entrys!=0){
 							$sql = "SELECT * FROM log where id > $last_id";
