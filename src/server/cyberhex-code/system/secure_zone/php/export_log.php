@@ -66,6 +66,7 @@ if($perms[2]!=="1"){
 							if ($conn->connect_error) {
 								die("Connection failed: " . $conn->connect_error);
 							}
+							$last_id=-1;
 							$export_file = fopen("/var/www/html/export/cyberhex_log_export.vsc", 'w');
 							fwrite($export_file,"id;loglevel;logtext;machine_id;time\r\n");
 							while($num_of_log_entrys!=0){
