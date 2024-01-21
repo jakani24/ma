@@ -77,6 +77,13 @@ if($perms[2]!=="1"){
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');
+						
+						//put filter options here
+						echo('<tr>');
+						echo('<td>---</td>');
+						echo('<form action="view_log.php" method="get">');
+						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="Loglevel"></td>');
+						
 						while($num_of_log_entrys!=0){
 							$sql = "SELECT * FROM log where id > $last_id";
 							$stmt = $conn->prepare($sql);
