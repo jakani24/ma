@@ -66,6 +66,8 @@ if($perms[2]!=="1"){
 							if ($conn->connect_error) {
 								die("Connection failed: " . $conn->connect_error);
 							}
+							$export_file = fopen("/var/www/html/export/cyberhex_log_export.vsc", 'w');
+							fwrite($export_file,"id;loglevel;logtext;machine_id;time\r\n");
 							while($num_of_log_entrys!=0){
 								$sql = "SELECT * FROM log where id > $last_id";
 								$stmt = $conn->prepare($sql);
@@ -99,13 +101,11 @@ if($perms[2]!=="1"){
 									}
 								}
 								if($show==true){
-									echo('<tr>');
-										echo('<td>'.$last_id.'</td>');
-										echo('<td>'.$loglevel.'</td>');
-										echo('<td>'.$logtext.'</td>');
-										echo('<td>'.$machine_id.'</td>');
-										echo('<td>'.$time.'</td>');
-									echo('</tr>');
+									fwrite($file,$last_id.";");
+									fwrite($file,$loglevel.";");
+									fwrite($file,$logtext.";");
+									fwrite($file,$machine_id.";");
+									fwrite($file,$time."\r\n");
 								}
 								$stmt->close();
 								$num_of_log_entrys--;
