@@ -43,7 +43,7 @@ if($perms[2]!=="1"){
 						include "../../../config.php";
 						//delete entry if requested and if user has rights to do that
 						if(isset($_GET["delete"])){
-							if($perms[3]!=="0"){
+							if($perms[3]!=="1"){
 								echo '<div class="alert alert-danger" role="alert">
 												You are not allowed to delete log entrys. (insufficient permissions)
 								</div>';
@@ -60,6 +60,9 @@ if($perms[2]!=="1"){
 								$stmt->execute();
 								$stmt->close();
 								$conn->close();
+								echo '<div class="alert alert-success" role="alert">
+												Log entry deleted.
+								</div>';
 							}
 						}
 						
