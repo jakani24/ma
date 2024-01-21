@@ -38,27 +38,79 @@ if($perms[2]!=="1"){
                 </div>
                 <div class="card-body" style="overflow-x:auto">
 					<p>You can use filters before you export the log. The filter preview is below.</p>
+					<a href="export_log.php?export=true">Export log</a>
 					<!-- table with all users => delete button -->
 					<?php
 						//include db pw
 						include "../../../config.php";
 						//delete entry if requested and if user has rights to do that
 						if(isset($_GET["export"])){
-							$id=htmlspecialchars($_GET["delete"]);
 							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 							if ($conn->connect_error) {
 								die("Connection failed: " . $conn->connect_error);
 							}
-							$sql = "DELETE FROM log WHERE id = ?";
+							//list out the log entrys and add them to a .csv file.
+							//get num of entrys
+							$sql = "SELECT count(*) AS log_count FROM log";
 							$stmt = $conn->prepare($sql);
-							$stmt->bind_param("i", $id);
 							// Execute the statement
 							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							$row = $result->fetch_assoc();
+							$num_of_log_entrys=$row["log_count"];
 							$stmt->close();
 							$conn->close();
-							echo '<div class="alert alert-success" role="alert">
-											Log entry deleted.
-							</div>';
+							//now we got the ammount of netrys, write them to file
+							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+							if ($conn->connect_error) {
+								die("Connection failed: " . $conn->connect_error);
+							}
+							while($num_of_log_entrys!=0){
+								$sql = "SELECT * FROM log where id > $last_id";
+								$stmt = $conn->prepare($sql);
+								// Execute the statement
+								$stmt->execute();
+								// Get the result
+								$result = $stmt->get_result();
+								$row = $result->fetch_assoc();
+								$last_id=$row["id"];
+								$loglevel=$row["loglevel"];
+								$logtext=$row["logtext"];
+								$machine_id=$row["machine_id"];
+								$time=$row["time"];
+								$show=true;
+								//evaluate filter, decide if entry should be shown or not
+								if(isset($_GET["loglevel"]) && $_GET["loglevel"]!==""){
+									if(stripos($loglevel,$_GET["loglevel"])===false){
+										$show=false;
+									}
+								}if(isset($_GET["logtext"]) && $_GET["logtext"]!==""){
+									if(stripos($logtext,$_GET["logtext"])===false){
+										$show=false;
+									}
+								}if(isset($_GET["machine_id"]) && $_GET["machine_id"]!==""){
+									if(stripos($machine_id,$_GET["machine_id"])===false){
+										$show=false;
+									}
+								}if(isset($_GET["time"]) && $_GET["time"]!==""){
+									if(stripos($time,$_GET["time"])===false){
+										$show=false;
+									}
+								}
+								if($show==true){
+									echo('<tr>');
+										echo('<td>'.$last_id.'</td>');
+										echo('<td>'.$loglevel.'</td>');
+										echo('<td>'.$logtext.'</td>');
+										echo('<td>'.$machine_id.'</td>');
+										echo('<td>'.$time.'</td>');
+									echo('</tr>');
+								}
+								$stmt->close();
+								$num_of_log_entrys--;
+							}
+							$conn->close();
 						}
 						
 						//get count of log entrys
@@ -93,12 +145,12 @@ if($perms[2]!=="1"){
 						echo('<table class="table" style="overflow-x:auto">');
 						echo('<thead>');
 						echo('<tr>');
-						echo('<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th><th>Delete entry</th>');
+						echo('<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th>');
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');
 						
-						//put filter options here
+						//filter options => if user allready applied filter we preview it in the form
 						if(isset($_GET["loglevel"]))
 							$loglevel_ss=$_GET["loglevel"]; //put the loglevel search string to that and afterwards show it in the filter optionss. so a user sees what he has filtered for
 						else
@@ -125,7 +177,6 @@ if($perms[2]!=="1"){
 						echo('<td><input type="text" class="form-control" name="logtext" placeholder="'.$logtext_ss.'"></td>');
 						echo('<td><input type="text" class="form-control" name="machine_id" placeholder="'.$machine_id_ss.'"></td>');
 						echo('<td><input type="text" class="form-control" name="time" placeholder="'.$time_ss.'"></td>');
-						echo('<td>---</td>');
 						echo('</form>');
 						echo('</tr>');
 						
@@ -168,7 +219,6 @@ if($perms[2]!=="1"){
 									echo('<td>'.$logtext.'</td>');
 									echo('<td>'.$machine_id.'</td>');
 									echo('<td>'.$time.'</td>');
-									echo('<td><a href="view_log.php?delete='.$last_id.'">delete</a></td>');
 								echo('</tr>');
 							}
 							$stmt->close();

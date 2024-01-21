@@ -165,8 +165,31 @@
 				</div>';
 			} else {
 				$success=0;
-					echo '<br><div class="alert alert-danger" role="alert">
+				echo '<br><div class="alert alert-danger" role="alert">
 						Error creating table machines: ' . $conn->error .'
+				</div>';
+			}
+			
+			// Attempt to create the directory where export files will be stored later on
+			if (mkdir("/var/www/html/export", 0777, true)) {
+				echo '<br><div class="alert alert-success" role="alert">
+						Created export dir successfully.
+				</div>';
+			} else {
+				$success=0;
+				echo '<br><div class="alert alert-danger" role="alert">
+						Error creating export dir.
+				</div>';
+			}
+			// Attempt to create the directory where import files will be stored later on
+			if (mkdir("/var/www/html/import", 0777, true)) {
+				echo '<br><div class="alert alert-success" role="alert">
+						Created export dir successfully.
+				</div>';
+			} else {
+				$success=0;
+				echo '<br><div class="alert alert-danger" role="alert">
+						Error creating export dir.
 				</div>';
 			}
 
