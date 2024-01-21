@@ -142,16 +142,19 @@ if($perms[2]!=="1"){
 							$machine_id=$row["machine_id"];
 							$show=true;
 							if(isset($_GET["loglevel"]) && $_GET["loglevel"]!==""){
-								if(!strpos($loglevel,$_GET["loglevel"])){
+								if(!stripos($loglevel,$_GET["loglevel"])){
 									$show=false;
+									echo("1");
 								}
 							}if(isset($_GET["logtext"]) && $_GET["logtext"]!==""){
-								if(!strpos($logtext,$_GET["logtext"])){
+								if(!stripos($logtext,$_GET["logtext"])){
 									$show=false;
+									echo("2");
 								}
 							}if(isset($_GET["machine_id"]) && $_GET["machine_id"]!==""){
-								if(!strpos($machine_id,$_GET["machine_id"])){
+								if(!stripos($machine_id,$_GET["machine_id"])){
 									$show=false;
+									echo("3");
 								}
 							}
 							if($show==true){
