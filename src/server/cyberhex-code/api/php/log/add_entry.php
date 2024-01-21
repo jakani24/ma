@@ -22,6 +22,8 @@ else{
 	// Execute the statement
 	if(!$stmt->execute())
 		echo("wrt_err");
+	else
+		echo("wrt_ok");
 	$stmt->close();
 	$conn->close();
 }
