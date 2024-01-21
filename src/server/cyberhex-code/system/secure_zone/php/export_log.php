@@ -117,7 +117,10 @@ if($perms[2]!=="1"){
 									$num_of_log_entrys--;
 								}
 								$conn->close();
-									fclose($export_file);
+								fclose($export_file);
+								echo '<br><div class="alert alert-success" role="alert">
+										Export file created <a href="/export/cyberhex_log_export.csv" download>Download</a>
+								</div>';
 							}
 						}
 						
