@@ -16,7 +16,7 @@ else{
 	if ($conn->connect_error) {
 		die("conn_err");
 	}
-	$sql = "INSERT INTO log loglevel,machine_id,logtext VALUES (?,?,?);";
+	$sql = "INSERT INTO log (loglevel,machine_id,logtext) VALUES (?,?,?);";
 	$stmt = $conn->prepare($sql);
 	$stmt->bind_param("sss", $$loglevel,$machine_id,$logtext);
 	// Execute the statement
