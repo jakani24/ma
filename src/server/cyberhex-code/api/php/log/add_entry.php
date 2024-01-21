@@ -18,7 +18,7 @@ else{
 	}
 	$sql = "INSERT INTO log (loglevel,machine_id,logtext) VALUES (?,?,?);";
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("sss", $$loglevel,$machine_id,$logtext);
+	$stmt->bind_param("sss", $loglevel,$machine_id,$logtext);
 	// Execute the statement
 	if(!$stmt->execute())
 		echo("wrt_err");
