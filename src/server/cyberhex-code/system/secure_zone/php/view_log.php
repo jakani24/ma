@@ -40,7 +40,29 @@ if($perms[2]!=="1"){
 					<!-- table with all users => delete button -->
 					<?php
 						//include db pw
-						include "../../../config.php";						
+						include "../../../config.php";
+						//delete entry if requested and if user has rights to do that
+						if(isset($_GET["delete"])){
+							if($perms[3]!=="0"){
+								echo '<div class="alert alert-danger" role="alert">
+												You are not allowed to delete log entrys. (insufficient permissions)
+								</div>';
+							}else{
+								$id=htmlspecialchars($_GET["delete"]);
+								$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+								if ($conn->connect_error) {
+									die("Connection failed: " . $conn->connect_error);
+								}
+								$sql = "DELETE FROM log WHERE id = ?";
+								$stmt = $conn->prepare($sql);
+								$stmt->bind_param("i", $id);
+								// Execute the statement
+								$stmt->execute();
+								$stmt->close();
+								$conn->close();
+							}
+						}
+						
 						//get count of log entrys
 						// Create a connection
 						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
@@ -73,7 +95,7 @@ if($perms[2]!=="1"){
 						echo('<table class="table">');
 						echo('<thead>');
 						echo('<tr>');
-						echo('<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th>');
+						echo('<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Delete entry</th>');
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');
@@ -99,6 +121,7 @@ if($perms[2]!=="1"){
 						echo('<td><input type="text" class="form-control" name="loglevel" placeholder="'.$loglevel_ss.'"></td>');
 						echo('<td><input type="text" class="form-control" name="logtext" placeholder="'.$logtext_ss.'"></td>');
 						echo('<td><input type="text" class="form-control" name="machine_id" placeholder="'.$machine_id_ss.'"></td>');
+						echo('<td>---</td>');
 						echo('</form>');
 						echo('</tr>');
 						
@@ -134,7 +157,7 @@ if($perms[2]!=="1"){
 									echo('<td>'.$loglevel.'</td>');
 									echo('<td>'.$logtext.'</td>');
 									echo('<td>'.$machine_id.'</td>');
-									//echo('<td><a href="user_list.php?delete='.$last_id.'">delete</a></td>');
+									echo('<td><a href="view_log.php?delete='.$last_id.'">delete</a></td>');
 								echo('</tr>');
 							}
 							$stmt->close();

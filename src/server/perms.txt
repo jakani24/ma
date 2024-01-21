@@ -1,6 +1,6 @@
 1 Add User
 1 User List (delete...)
-1 View Log
+1 View Log + export
 1 Delete Log
 1 Server Settings
 1 Client Settings
