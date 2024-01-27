@@ -98,6 +98,11 @@ function load_settings(){
 			}
 		});
 	}
+	function update_switch(id,name){
+		var element = document.getElementById(id);
+		var value = element.value;
+		fetch('client_settings.php?update='+name+'&value='+value);
+	}
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -120,19 +125,20 @@ function load_settings(){
 						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','call_srv')">call_srv</a></li>
 					  </ul>
 					</div>
-				
+					<br>
 					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
 					<form method="get" action="client_settings.php">
 						<input type="text" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>">
 						<input type="text" class="form-control" style="display:none" name="update" value="setting_server_server_url">
 						<button type="submit" class="btn btn-primary btn-block">Update URL</button>
 					</form>
-				
-				
+					<br>
+					<h5>RTP: folderscanner on/off</h5>
 					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onclick="update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')">
 						<label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
 					</div>
+
 
                 </div>
             </div>
