@@ -94,7 +94,7 @@ function load_settings(){
 			if (!response.ok) {
 				set_name(id,'ERR: can not update setting');
 			}else{
-				set_name(id,name);
+				set_name(id,value);
 			}
 		});
 	}
@@ -109,6 +109,7 @@ function load_settings(){
                 <div class="card-body">
 					<form action="client_settings.php?update=true" method="post">
 						<!-- Dropdown for virus controll action -->
+						<h5>What should be done, if the scanner finds a virus?</h5>
 						<div class="dropdown">
 						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 							<?php echo($setting_virus_ctrl_virus_found_action) ?>
