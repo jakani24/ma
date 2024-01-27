@@ -92,7 +92,7 @@ function load_settings(){
 		fetch('client_settings.php?update='+name+'&value='+value).then(response => {
 		// Check if the response status is ok (status code 200-299)
 			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
+				throw new Error('HTTP error! Status: ${response.status}');
 			}
 		}
 	}
