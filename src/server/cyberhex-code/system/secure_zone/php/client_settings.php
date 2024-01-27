@@ -88,6 +88,14 @@ function load_settings(){
 		}
     }
 
+	function update_setting(name,value){
+		fetch('client_settings.php?update='+name+'&value='+value).then(response => {
+		// Check if the response status is ok (status code 200-299)
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+		}
+	}
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
