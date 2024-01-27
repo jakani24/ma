@@ -133,7 +133,7 @@ function load_settings(){
 					<br>
 					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
 					<form method="get" action="client_settings.php">
-						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" onchange="update_textfield('server_url_input','setting_server_server_url')">
+						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url')">
 						<input type="text" class="form-control" style="display:none" name="update" value="setting_server_server_url">
 						<button type="submit" class="btn btn-primary btn-block">Update URL</button>
 					</form>
