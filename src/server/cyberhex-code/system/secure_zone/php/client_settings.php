@@ -92,10 +92,10 @@ function load_settings(){
 					<form action="client_settings.php?update=true" method="post">
 						<!-- Dropdown for virus controll action -->
 						<div class="dropdown">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="virus_found_action_dropdown_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Action if virus is found.
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Dropdown button
 						  </button>
-						  <div class="dropdown-menu" aria-labelledby="virus_found_action_dropdown_button">
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							<a class="dropdown-item" href="#">Action</a>
 							<a class="dropdown-item" href="#">Another action</a>
 							<a class="dropdown-item" href="#">Something else here</a>
