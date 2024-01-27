@@ -100,7 +100,7 @@ function load_settings(){
 	}
 	function update_switch(id,name){
 		var element = document.getElementById(id);
-		var value = element.value;
+		var value = element.checked;
 		fetch('client_settings.php?update='+name+'&value='+value);
 	}
 </script>
