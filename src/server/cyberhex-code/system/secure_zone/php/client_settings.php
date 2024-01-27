@@ -107,28 +107,32 @@ function load_settings(){
                     <h4>Client settings</h4>
                 </div>
                 <div class="card-body">
-					<form action="client_settings.php?update=true" method="post">
-						<!-- Dropdown for virus controll action -->
-						<h5>What should be done, if the scanner finds a virus?</h5>
-						<div class="dropdown">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-							<?php echo($setting_virus_ctrl_virus_found_action) ?>
-						  </button>
-						  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">remove</a></li>
-							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">quarantine</a></li>
-							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','ignore')">ignore</a></li>
-							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','call_srv')">call_srv</a></li>
-						  </ul>
-						</div>
-					
-					
-					
-						<div class="form-check form-switch">
-							<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-							<label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-						</div>
+					<!-- Dropdown for virus controll action -->
+					<h5>What should be done, if the scanner finds a virus?</h5>
+					<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+						<?php echo($setting_virus_ctrl_virus_found_action) ?>
+					  </button>
+					  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">remove</a></li>
+						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">quarantine</a></li>
+						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','ignore')">ignore</a></li>
+						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','call_srv')">call_srv</a></li>
+					  </ul>
+					</div>
+				
+					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
+					<form method="get" action="client_settings.php?update=setting_server_server_url">
+						<td><input type="text" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>">
+						<button type="submit" class="btn btn-primary btn-block">Update</button>
 					</form>
+				
+				
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+						<label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+					</div>
+
                 </div>
             </div>
         </div>
