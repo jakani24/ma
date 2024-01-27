@@ -94,7 +94,7 @@ function load_settings(){
 			if (!response.ok) {
 				throw new Error('HTTP error! Status: ${response.status}');
 			}
-		}
+		});
 	}
 </script>
 <div class="container mt-5">
