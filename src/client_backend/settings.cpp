@@ -7,7 +7,7 @@ int setting_virus_ctrl_virus_found_action = 0;
 char*setting_server_server_url = new char[300];
 char exluded_folders[100][300];
 int excluded_folders_size = 0;
-bool setting_rtp_status = 1; //0=off, 1=on
+bool setting_rtp_folder_scan_status = 1; //0=off, 1=on
 void load_excluded_folders();
 int load_settings() {
 	FILE* fp;
@@ -41,13 +41,13 @@ int load_settings() {
 				fscanf_s(fp, "%s", settings_arg, 295); // get the argument
 				strcpy_s(setting_server_server_url, 295, settings_arg);
 			}
-			else if (strcmp(settings_cmd, "rtp:status") == 0) {
+			else if (strcmp(settings_cmd, "rtp_folder_scan:status") == 0) {
 				fscanf_s(fp, "%s", settings_arg, 295); // get the argument
 				if (strcmp(settings_arg, "on") == 0) {
-					setting_rtp_status = 1; //1=on
+					setting_rtp_folder_scan_status = 1; //1=on
 				}
 				else if (strcmp(settings_arg, "off") == 0) {
-					setting_rtp_status = 0; //0=off
+					setting_rtp_folder_scan_status = 0; //0=off
 				}
 			}
 
@@ -67,8 +67,8 @@ int get_setting(const char*setting_name) {
 	if (strcmp(setting_name, "virus_ctrl:virus_found:action") == 0) {
 		return setting_virus_ctrl_virus_found_action;
 	}
-	else if (strcmp(setting_name, "rtp:status") == 0) {
-		return setting_rtp_status;
+	else if (strcmp(setting_name, "rtp_folder_scan:status") == 0) {
+		return setting_rtp_folder_scan_status;
 	}
 
 	return -1;
@@ -115,9 +115,9 @@ void load_excluded_folders() {
 					log(LOGLEVEL::ERR, "[load_excluded_folders()]: Excluded folders array is full. Cannot add more folders.");
 				}
 			}
-			else {
-				log(LOGLEVEL::ERR, "[load_excluded_folders()]: Error while processing excluded folders database. Expected \" but got ", chr);
-			}
+			//else { we dont need to error out here. it is normal that it givs errors at the last lien of the file. but nothing bad happens, so errors arent needed
+			//	log(LOGLEVEL::ERR, "[load_excluded_folders()]: Error while processing excluded folders database. Expected \" but got ", chr);
+			//}
 		}
 		fclose(fp);
 		delete[] path;

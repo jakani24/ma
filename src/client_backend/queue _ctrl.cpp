@@ -3,7 +3,7 @@
 #include "queue_ctrl.h"
 #include <string.h>
 #define queue_limit 1000
-#define command_limit 300
+#define command_limit 3000
 char queue[queue_limit][command_limit];
 int queue_size = 0;
 int queue_start = 0;

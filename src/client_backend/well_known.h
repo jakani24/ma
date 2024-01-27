@@ -3,6 +3,8 @@
 #define WELL_KNOWN_H
 #define MAIN_COM "main_com.txt"
 #define MAIN_COM_PATH "C:\\Program Files\\cyberhex\\com\\main_com.txt"
+#define ANSWER_COM "answer_com.txt"
+#define ANSWER_COM_PATH "C:\\Program Files\\cyberhex\\com\\answer_com.txt"
 
 #define SECURE_COM "secure_com.txt"
 #define SECURE_COM_PATH "C:\\Program Files\\cyberhex\\secure\\com\\secure_com.txt"

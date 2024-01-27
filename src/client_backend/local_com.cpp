@@ -37,9 +37,7 @@ int check_for_com_tasks(const char* com_name, const char* com_path) {
 				queue_entry[0] = '\0';
 				strcpy_s(queue_entry,600, command);							//copy the command
 				strcat_s(queue_entry, 600, ";");							//add a ; to seperate command and path
-				//printf("%d\n", strlen(path));
 				strcat_s(queue_entry, 600, path);							//add the path
-				//printf("%s::%d\n",queue_entry,strlen(queue_entry));
 
 				queue_push(queue_entry);
 				//(queue_entry);

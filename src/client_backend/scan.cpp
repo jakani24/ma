@@ -128,7 +128,7 @@ void scan_folder(const std::string& directory) {
     HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
 
     if (hFind == INVALID_HANDLE_VALUE) {
-        log(LOGLEVEL::ERR, "[ListFilesRecursive()]: Error opening directory: ", directory, " while scanning files inside folder.");
+        log(LOGLEVEL::ERR, "[scan_folder()]: Error opening directory: ", search_path.c_str() , " while scanning files inside folder.");
         return;
     }
 
@@ -189,16 +189,18 @@ void action_scanfile(const char*filepath) {
     delete[] db_path;
     thread_shutdown();
 }
-void action_scanfolder(const char* folderpath) {
+void action_scanfolder(const char*folderpath) {
 	thread_init();
-	scan_folder(folderpath);
+    cnt = 0;
+    thread_local std::string folderpath_ (folderpath);
+	scan_folder(folderpath_);
 	thread_shutdown();
 }
 
 void scan_file_t(const std::string& filepath_) {
     thread_local const std::string filepath (filepath_);
     thread_local char* db_path = new char[300];
-    thread_local char*hash = new char[300];
+    thread_local char* hash = new char[300];
     strcpy_s(hash,295 ,md5_file_t(filepath).c_str());
     sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
     search_hash(db_path, hash, filepath);

@@ -20,10 +20,11 @@
 int main() {
     log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
 	printf("welcome to the jakach security tool main thread\n");
-    load_settings();
-    initialize(DB_DIR);
+    load_settings();//load the settings from the settings file
+    initialize(DB_DIR); //load the hash databases into memory
+
     //start a second thread which will scan for new files
-    if (get_setting("rtp:status") == 1) {
+    if (get_setting("rtp_folder_scan:status") == 1) {
         log(LOGLEVEL::INFO, "[main()]:Starting real time protection.");
         std::thread folder_scannner_thread(folder_scanner);
         folder_scannner_thread.detach();
@@ -42,12 +43,9 @@ int main() {
         //check for tasks in com
         //check for scheduled tasks
         //execute tasks
-        //call_srv("8.8.8.8","","");
         auto start = std::chrono::high_resolution_clock::now();
-    //    printf("check_from_com:%d\n",check_for_com_tasks(MAIN_COM, MAIN_COM_PATH));
-        check_for_com_tasks(MAIN_COM, MAIN_COM_PATH);
-        check_for_sched_tasks(SCHED, SCHED_PATH);
-    //    printf("check_from_task:%d\n", check_for_sched_tasks(SCHED,SCHED_PATH));
+        check_for_com_tasks(MAIN_COM, MAIN_COM_PATH); //check for tasks from user interface and add them to the queue
+        check_for_sched_tasks(SCHED, SCHED_PATH);   //check for scheduled tasks and add them to the queue
         //unlock_task("tsk1"); else it will only be executed once. but this function has to be called at the end of the task. else it will nvr be executed again. this would be bad :(
         //start a thread that executes check_scan_dir to scan folders for new files. this thread then should start a ock so only one scanfolder thread runs at a time
         //Sleep(1000);
@@ -68,8 +66,6 @@ int main() {
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
         if (duration.count() < 1000)
             Sleep(1000 - duration.count());
-
-     //   printf("\n\n\n");
     }
 
 

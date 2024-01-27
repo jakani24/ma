@@ -101,9 +101,9 @@ int virus_ctrl_process( const char* id) {
 				delete[] url_path;
 				delete[] additional;
 			}
-			else {
-				log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while processing virus control database. Expected \" but got ", chr);
-			}
+			//else { creates to many log entrys => entrys are not needed
+			//	log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while processing virus control database. Expected \" but got ", chr);
+			//}
 			delete[] path;
 			delete[] hash;
 		}

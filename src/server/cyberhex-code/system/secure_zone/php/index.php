@@ -66,13 +66,13 @@ if(isset($_GET["page"])){
 		  <p>Cyberhex settings</p>
 		  <ul>
 		   <li><a href="index.php?page=server_settings.php">Server Settings</a></li>
-		   <li><a href="index.php?page=cleint_settings.php">Client Settings</a></li>
+		   <li><a href="index.php?page=client_settings.php">Client Settings</a></li>
 		   <li><a href="index.php?page=database_settings.php">Database Settings</a></li>
 		  </ul>
 		  <p>Clients</p>
 		  <ul>
 		   <li><a href="index.php?page=mass_add_clients.php">Mass Add CLients</a></li>
-		   <li><a href="index.php?page=add_cleint.php">Add Client</a></li>
+		   <li><a href="index.php?page=add_client.php">Add Client</a></li>
 		   <li><a href="index.php?page=client_list.php">Client List</a></li>
 		  </ul>
 
