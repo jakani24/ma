@@ -22,8 +22,8 @@ if($perms[5]!=="1"){
 include "../../../config.php";
 	
 //db: id,name,value
-$setting_virus_ctrl_virus_found_action = "";
-$setting_server_server_url="";
+$setting_virus_ctrl_virus_found_action = "not configured yet";
+$setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
 function load_settings(){
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
