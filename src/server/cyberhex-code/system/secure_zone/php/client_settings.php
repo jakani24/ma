@@ -18,8 +18,58 @@ if($perms[5]!=="1"){
 }else{
 	$block=0;
 }
-//for the get_perms_str() function
-include "perms_functions.php";
+//include db connection
+include "../../../config.php";
+	
+//db: id,name,value
+$setting_virus_ctrl_virus_found_action = "";
+$setting_server_server_url="";
+$setting_rtp_folder_scan_status=0;
+function load_settings(){
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+	//get setting: setting_virus_ctrl_virus_found_action
+	$sql = "SELECT value FROM settings WHERE name = 'virus_ctrl:virus_found:action'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_virus_ctrl_virus_found_action=$row["value"];
+	}
+	$stmt -> close();
+	
+	//get setting: setting_rtp_folder_scan_status
+	$sql = "SELECT value FROM settings WHERE name = 'rtp_folder_scan:status'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_rtp_folder_scan_status=$row["value"];
+	}
+	$stmt -> close();
+	
+		
+	//get setting: setting_server_server_url
+	$sql = "SELECT value FROM settings WHERE name = 'server:server_url'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_server_server_url=$row["value"];
+	}
+	$stmt -> close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,13 +83,27 @@ include "perms_functions.php";
 
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Client settings</h4>
                 </div>
                 <div class="card-body">
 					<form action="client_settings.php?update=true" method="post">
+						<!-- Dropdown for virus controll action -->
+						<div class="dropdown">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="virus_found_action_dropdown_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Action if virus is found.
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="virus_found_action_dropdown_button">
+							<a class="dropdown-item" href="#">Action</a>
+							<a class="dropdown-item" href="#">Another action</a>
+							<a class="dropdown-item" href="#">Something else here</a>
+						  </div>
+						</div>
+					
+					
+					
 						<div class="form-check form-switch">
 							<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
 							<label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
