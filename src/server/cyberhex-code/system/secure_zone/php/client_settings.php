@@ -80,7 +80,14 @@ function load_settings(){
 	 <title>Change Password</title>
 </head>
 <body>
-
+<script>
+	function set_name(id, name) {
+		var element = document.getElementById(id);
+		if (element) {
+			element.textContent = name;
+		}
+    }
+</script>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -96,7 +103,7 @@ function load_settings(){
 							<?php echo($setting_virus_ctrl_virus_found_action) ?>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item" href="#">remove</a></li>
+							<li><a class="dropdown-item" href="#" onclick="set_name('dropdownMenuButton1','remove')">remove</a></li>
 							<li><a class="dropdown-item" href="#">quarantine</a></li>
 							<li><a class="dropdown-item" href="#">ignore</a></li>
 							<li><a class="dropdown-item" href="#">call_srv</a></li>
