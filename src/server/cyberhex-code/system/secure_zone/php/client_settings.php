@@ -123,7 +123,7 @@ function load_settings(){
 				
 					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
 					<form method="get" action="client_settings.php?update=setting_server_server_url">
-						<td><input type="text" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>">
+						<td><input type="text" class="form-control-sm" name="name" value="<?php echo($setting_server_server_url); ?>">
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
 					</form>
 				
