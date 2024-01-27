@@ -91,14 +91,17 @@ function load_settings(){
                 <div class="card-body">
 					<form action="client_settings.php?update=true" method="post">
 						<!-- Dropdown for virus controll action -->
-						<div class="dropdown">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Dropdown button
+						<div class="btn-group">
+						  <button type="button" class="btn btn-danger">Action</button>
+						  <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="sr-only">Toggle Dropdown</span>
 						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						  <div class="dropdown-menu">
 							<a class="dropdown-item" href="#">Action</a>
 							<a class="dropdown-item" href="#">Another action</a>
 							<a class="dropdown-item" href="#">Something else here</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Separated link</a>
 						  </div>
 						</div>
 					
