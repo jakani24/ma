@@ -112,7 +112,7 @@ function load_settings(){
 							<?php echo($setting_virus_ctrl_virus_found_action) ?>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item" href="#" onclick="set_name('dropdownMenuButton1','remove')">remove</a></li>
+							<li><a class="dropdown-item" href="#" onclick="set_name('dropdownMenuButton1','remove'); update_setting('setting_virus_ctrl_virus_found_action','remove')">remove</a></li>
 							<li><a class="dropdown-item" href="#" onclick="set_name('dropdownMenuButton1','quarantine')">quarantine</a></li>
 							<li><a class="dropdown-item" href="#" onclick="set_name('dropdownMenuButton1','ignore')">ignore</a></li>
 							<li><a class="dropdown-item" href="#" onclick="set_name('dropdownMenuButton1','call srv')">call_srv</a></li>
