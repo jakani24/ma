@@ -36,10 +36,11 @@ function safe_settings(){
 		die("Connection failed: " . $conn->connect_error);
 	}
 	$value=htmlspecialchars($_GET["value"]);
+	$name=htmlspecialchars($_GET["update"]);
 	//update what should be done if a virus is found
 	if($_GET["update"]=="setting_virus_ctrl_virus_found_action"){		
-		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) ON DUPLICATE KEY UPDATE value = '?' WHERE name = 'virus_ctrl:virus_found:action';");
-		$stmt->bind_param("ss", $value,$value);
+		$stmt = $conn->prepare("INSERT INTO settings (value,name) VALUES (?,?) ON DUPLICATE KEY UPDATE value = '?' WHERE name = 'virus_ctrl:virus_found:action';");
+		$stmt->bind_param("ss", $value,$name,$value);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
