@@ -21,7 +21,6 @@ if($perms[5]!=="1"){
 
 
 if(isset($_GET["update"])){
-	echo("updateeeeeeeeeeeeeeeeee");
 	safe_settings();
 }
 load_settings();
@@ -39,7 +38,7 @@ function safe_settings(){
 	$value=htmlspecialchars($_GET["value"]);
 	//update what should be done if a virus is found
 	if($_GET["update"]=="setting_virus_ctrl_virus_found_action"){		
-		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) WHERE name = 'virus_ctrl:virus_found:action' DUPLICATE KEY UPDATE value = ? WHERE name = 'virus_ctrl:virus_found:action';");
+		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) DUPLICATE KEY UPDATE value = '?' WHERE name = 'virus_ctrl:virus_found:action';");
 		$stmt->bind_param("ss", $value,$value);
 		$stmt->execute();
 		$stmt->close();
