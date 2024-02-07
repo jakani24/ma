@@ -45,6 +45,18 @@ function safe_settings(){
 		$stmt->close();
 	}
 
+	if($_GET["update"]=="setting_server_server_url"){		
+		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
+		$stmt->bind_param("sss",$name,$value,$value);
+		$stmt->execute();
+		$stmt->close();
+	}
+	if($_GET["update"]=="setting_rtp_folder_scan_status"){		
+		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
+		$stmt->bind_param("sss",$name,$value,$value);
+		$stmt->execute();
+		$stmt->close();
+	}
 	$conn->close();
 	
 }
@@ -163,7 +175,11 @@ function load_settings(){
 					<br>
 					<h5>RTP: folderscanner on/off</h5>
 					<div class="form-check form-switch">
-						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onclick="update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')">
+						<?php if(setting_rtp_folder_scan_status=="true")
+							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\" checked>");
+						else
+							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\">");
+						?>
 						<label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
 					</div>
 
