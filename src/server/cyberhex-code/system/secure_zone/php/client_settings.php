@@ -45,14 +45,7 @@ function safe_settings(){
 		$stmt->close();
 		$conn->close();
 	}
-	//update rtp folder scanner
-	if($_GET["update"]=="setting_virus_ctrl_virus_found_action"){		
-		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) WHERE name = 'rtp_folder_scan:status';");
-		$stmt->bind_param("ss", $value,$value);
-		$stmt->execute();
-		$stmt->close();
-		$conn->close();
-	}
+
 	
 }
 function load_settings(){
