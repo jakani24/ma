@@ -19,7 +19,7 @@ if($perms[5]!=="1"){
 	$block=0;
 }
 //include db connection
-include "../../../config.php";
+require "../../../config.php";
 if(isset($_GET["update"])){
 	safe_settings();
 }
