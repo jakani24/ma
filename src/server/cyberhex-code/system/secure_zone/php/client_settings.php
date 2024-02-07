@@ -180,7 +180,7 @@ function load_settings(){
 						else
 							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\">");
 						?>
-						<label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+						<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
 					</div>
 
 
