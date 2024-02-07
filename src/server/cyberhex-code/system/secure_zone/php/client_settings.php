@@ -39,13 +39,13 @@ function safe_settings(){
 	$name=htmlspecialchars($_GET["update"]);
 	//update what should be done if a virus is found
 	if($_GET["update"]=="setting_virus_ctrl_virus_found_action"){		
-		$stmt = $conn->prepare("INSERT INTO settings (value,name) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
-		$stmt->bind_param("sss", $value,$name,$value);
+		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
+		$stmt->bind_param("sss", $name,$value,$value);
 		$stmt->execute();
 		$stmt->close();
-		$conn->close();
 	}
 
+	$conn->close();
 	
 }
 function load_settings(){
