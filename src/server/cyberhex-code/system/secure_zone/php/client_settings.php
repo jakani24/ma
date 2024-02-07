@@ -56,7 +56,7 @@ function load_settings(){
 		die("Connection failed: " . $conn->connect_error);
 	}
 	//get setting: setting_virus_ctrl_virus_found_action
-	$sql = "SELECT value FROM settings WHERE name = 'virus_ctrl:virus_found:action'";
+	$sql = "SELECT value FROM settings WHERE name = 'setting_virus_ctrl_virus_found_action'";
 	$stmt = $conn->prepare($sql);
 	// Execute the statement
 	$stmt->execute();
@@ -69,7 +69,7 @@ function load_settings(){
 	$stmt -> close();
 	
 	//get setting: setting_rtp_folder_scan_status
-	$sql = "SELECT value FROM settings WHERE name = 'rtp_folder_scan:status'";
+	$sql = "SELECT value FROM settings WHERE name = 'setting_rtp_folder_scan_status'";
 	$stmt = $conn->prepare($sql);
 	// Execute the statement
 	$stmt->execute();
@@ -83,7 +83,7 @@ function load_settings(){
 	
 		
 	//get setting: setting_server_server_url
-	$sql = "SELECT value FROM settings WHERE name = 'server:server_url'";
+	$sql = "SELECT value FROM settings WHERE name = 'setting_server_server_url'";
 	$stmt = $conn->prepare($sql);
 	// Execute the statement
 	$stmt->execute();
