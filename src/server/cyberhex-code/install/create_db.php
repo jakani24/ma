@@ -100,7 +100,7 @@
 			// Create settings table
 			$sql = "CREATE TABLE IF NOT EXISTS settings (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				name VARCHAR(255) NOT NULL,
+				name VARCHAR(255) NOT NULL UNIQUE,
 				value VARCHAR(255) NOT NULL
 			)";
 
