@@ -6,6 +6,7 @@
 int get_setting(const char* setting_name);
 int get_setting(const char* setting_name,char*out);
 int load_settings();
+bool is_folder_included(const char* path);
 bool is_folder_excluded(const char* path);
-void print_exclusions();
+void print_inclusions();
 #endif

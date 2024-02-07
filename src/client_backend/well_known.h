@@ -34,5 +34,6 @@
 #define PERIODIC_FOLDER_SCAN "C:\\Program Files\\cyberhex\\secure\\database\\folder\\periodic_folder_scan.txt"
 #define PERIODIC_FOLDER_SCAN_TEMP_DB "C:\\Program Files\\cyberhex\\secure\\database\\folder\\temp_db.txt"
 
+#define INCLUDED_FOLDERS "C:\\Program Files\\cyberhex\\secure\\settings\\included_folders.txt"
 #define EXCLUDED_FOLDERS "C:\\Program Files\\cyberhex\\secure\\settings\\excluded_folders.txt"
 #endif // !WELL_KNOWN_H

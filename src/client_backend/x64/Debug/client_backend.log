@@ -1,2 +1,4 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
+  scan.cpp
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\scan.cpp(153,32): warning C4018: ">=": Konflikt zwischen "signed" und "unsigned"
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe

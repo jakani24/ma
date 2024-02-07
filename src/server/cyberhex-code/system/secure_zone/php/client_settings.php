@@ -25,6 +25,31 @@ include "../../../config.php";
 $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
+function safe_settings(){
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+	if ($conn->connect_error) {
+		$success=0;
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$value=htmlspecialchars($_GET["value"]);
+	//update what should be done if a virus is found
+	if($_GET["name"]=="setting_virus_ctrl_virus_found_action"){		
+		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) WHERE name = 'virus_ctrl:virus_found:action' DUPLICATE KEY UPDATE value = ? WHERE name = 'virus_ctrl:virus_found:action';");
+		$stmt->bind_param("ss", $value,$value);
+		$stmt->execute();
+		$stmt->close();
+		$conn->close();
+	}
+	//update rtp folder scanner
+	if($_GET["name"]=="setting_virus_ctrl_virus_found_action"){		
+		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) WHERE name = 'rtp_folder_scan:status';");
+		$stmt->bind_param("ss", $value,$value);
+		$stmt->execute();
+		$stmt->close();
+		$conn->close();
+	}
+	
+}
 function load_settings(){
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 	if ($conn->connect_error) {
