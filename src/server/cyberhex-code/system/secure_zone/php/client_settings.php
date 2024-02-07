@@ -63,9 +63,9 @@ function load_settings(){
 	// Get the result
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc();
-	if($row!==null){
+	if($result->num_rows > 0){
 		$setting_virus_ctrl_virus_found_action=$row["value"];
-	}echo($sql);
+	}
 	$stmt -> close();
 	
 	//get setting: setting_rtp_folder_scan_status
