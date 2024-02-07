@@ -20,7 +20,10 @@ if($perms[5]!=="1"){
 }
 //include db connection
 include "../../../config.php";
-	
+if(isset($_GET["update"])){
+	safe_settings();
+}
+load_settings();
 //db: id,name,value
 $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
@@ -33,7 +36,7 @@ function safe_settings(){
 	}
 	$value=htmlspecialchars($_GET["value"]);
 	//update what should be done if a virus is found
-	if($_GET["name"]=="setting_virus_ctrl_virus_found_action"){		
+	if($_GET["update"]=="setting_virus_ctrl_virus_found_action"){		
 		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) WHERE name = 'virus_ctrl:virus_found:action' DUPLICATE KEY UPDATE value = ? WHERE name = 'virus_ctrl:virus_found:action';");
 		$stmt->bind_param("ss", $value,$value);
 		$stmt->execute();
@@ -41,7 +44,7 @@ function safe_settings(){
 		$conn->close();
 	}
 	//update rtp folder scanner
-	if($_GET["name"]=="setting_virus_ctrl_virus_found_action"){		
+	if($_GET["update"]=="setting_virus_ctrl_virus_found_action"){		
 		$stmt = $conn->prepare("INSERT INTO settings (value) VALUES (?) WHERE name = 'rtp_folder_scan:status';");
 		$stmt->bind_param("ss", $value,$value);
 		$stmt->execute();
