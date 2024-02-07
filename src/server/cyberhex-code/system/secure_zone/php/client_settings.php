@@ -18,16 +18,15 @@ if($perms[5]!=="1"){
 }else{
 	$block=0;
 }
-
+$setting_virus_ctrl_virus_found_action = "not configured yet";
+$setting_server_server_url="not configured yet";
+$setting_rtp_folder_scan_status=0;
 
 if(isset($_GET["update"])){
 	safe_settings();
 }
 load_settings();
 //db: id,name,value
-$setting_virus_ctrl_virus_found_action = "not configured yet";
-$setting_server_server_url="not configured yet";
-$setting_rtp_folder_scan_status=0;
 function safe_settings(){
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
