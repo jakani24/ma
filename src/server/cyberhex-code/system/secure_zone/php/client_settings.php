@@ -21,6 +21,7 @@ if($perms[5]!=="1"){
 
 
 if(isset($_GET["update"])){
+	echo("updateeeeeeeeeeeeeeeeee");
 	safe_settings();
 }
 load_settings();
