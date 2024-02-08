@@ -220,9 +220,9 @@ function load_settings(){
                     <h4>Client settings</h4>
                 </div>
                 <div class="card-body">
-					<h3>General</h3>
+					<h4>General</h4>
 					<!-- Dropdown for virus controll action -->
-					<h5>What should be done, if the scanner finds a virus?</h5>
+					<h7>What should be done, if the scanner finds a virus?</h7>
 					<div class="dropdown">
 					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 						<?php echo($setting_virus_ctrl_virus_found_action) ?>
@@ -238,8 +238,8 @@ function load_settings(){
 					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
 						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url','0')">
 					<br>
-					<h3>RTP</h3>
-					<h5>RTP: folderscanner on/off</h5>
+					<h4>RTP</h4>
+					<h7>RTP: folderscanner on/off</h7>
 					<div class="form-check form-switch">
 						<?php if($setting_rtp_folder_scan_status=="true")
 							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\" checked>");
