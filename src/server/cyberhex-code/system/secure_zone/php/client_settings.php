@@ -26,7 +26,7 @@ if(isset($_GET["update"])){
 	safe_settings();
 }
 if(isset($_GET["delete"])){
-	delete_item(,$_GET["db"],$_GET["delete"]);
+	delete_item($_GET["db"],$_GET["delete"]);
 }
 load_settings();
 function delete_item($db,$id){
