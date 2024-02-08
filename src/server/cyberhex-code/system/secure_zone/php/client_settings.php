@@ -96,9 +96,10 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
-	if($_GET["update"]=="rtp_included"){		
-		$stmt = $conn->prepare("INSERT INTO rtp_included (path) VALUES (?) ON DUPLICATE KEY UPDATE path = ?;");
-		$stmt->bind_param("ss",$value,$value);
+	if($_GET["update"]=="rtp_included"){	
+		$id=htmlspecialchars($_GET["id"]);
+		$stmt = $conn->prepare("UPDATE rtp_included set path= ? WHERE id=$id");
+		$stmt->bind_param("ss",$value,);
 		$stmt->execute();
 		$stmt->close();
 	}
