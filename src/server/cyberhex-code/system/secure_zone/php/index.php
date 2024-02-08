@@ -66,8 +66,7 @@ if(isset($_GET["page"])){
 		  <p>Cyberhex settings</p>
 		  <ul>
 		   <li><a href="index.php?page=server_settings.php">Server Settings</a></li>
-			
-			<p>Client Settings</p>
+
 			<ul>
 				<li><a href="index.php?page=client_settings.php">General Client Settings</a></li>
 				<li><a href="index.php?page=client_settings.php">General Client Settings</a></li>
