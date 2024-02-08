@@ -117,7 +117,7 @@
 			// Create rtp_included table
 			$sql = "CREATE TABLE IF NOT EXISTS rtp_included (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				path VARCHAR(255) NOT NULL UNIQUE,
+				path VARCHAR(255) NOT NULL UNIQUE
 			)";
 
 			if ($conn->query($sql) === TRUE) {
@@ -133,7 +133,7 @@
 			// Create rtp_excluded table
 			$sql = "CREATE TABLE IF NOT EXISTS rtp_excluded (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				path VARCHAR(255) NOT NULL UNIQUE,
+				path VARCHAR(255) NOT NULL UNIQUE
 			)";
 
 			if ($conn->query($sql) === TRUE) {
