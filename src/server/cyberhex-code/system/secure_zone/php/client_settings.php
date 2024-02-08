@@ -242,13 +242,13 @@ function load_settings(){
 					<tr>
 					  <th scope="col">#</th>
 					  <th scope="col">Path</th>
-					  <th scope="col">Delete</th>
+					  <th scope="col">Add / Delete</th>
 					</tr>
 				  </thead>
 				  <tbody>
 						<tr>
 							<th scope="row">000</th>
-							<td><input type="text" id="rtp_included" class="form-control" name="name""></td>
+							<td><input type="text" id="rtp_included" class="form-control" name="name"></td>
 							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_included','rtp_included','path');">Add</button></td>
 						</tr>
 					<?php
