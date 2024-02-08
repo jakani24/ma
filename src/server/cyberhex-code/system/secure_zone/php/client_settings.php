@@ -33,6 +33,9 @@ if(isset($_GET["update"])){
 if(isset($_GET["delete"])){
 	delete_item($_GET["db"],$_GET["delete"]);
 }
+if(isset($_GET["add"])){
+	add_item($_GET["db"],$_GET["value"],$_GET["field"]);
+}
 load_settings();
 function delete_item($db,$id){
 	include "../../../config.php";
@@ -44,6 +47,21 @@ function delete_item($db,$id){
 	$db=htmlspecialchars($db);
 	$id=htmlspecialchars($id);
 	$stmt = $conn->prepare("delete from $db where id=$id;");
+	$stmt->execute();
+	$stmt->close();
+	$conn -> close();
+}
+function add_item($db,$value,$field){
+	include "../../../config.php";
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+	if ($conn->connect_error) {
+		$success=0;
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$db=htmlspecialchars($db);
+	$id=htmlspecialchars($id);
+	$stmt = $conn->prepare("INSERT INTO $db ($field) VALUES(?);");
+	$stmt->bind_param("s",$value);
 	$stmt->execute();
 	$stmt->close();
 	$conn -> close();
@@ -178,6 +196,11 @@ function load_settings(){
 	function delete_item(db,id){
 		fetch('client_settings.php?delete='+id+'&db='+db);
 	}
+	function add_item(db,element_id,field){
+		var element = document.getElementById(id);
+		var value = element.value;
+		fetch('client_settings.php?add='+db+'&value='+value+'&field='+field);
+	}
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -223,6 +246,11 @@ function load_settings(){
 					</tr>
 				  </thead>
 				  <tbody>
+						<tr>
+							<th scope="row">000</th>
+							<td><input type="text" id="rtp_included" class="form-control" name="name""></td>
+							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_included','rtp_included','path');">Add</button></td>
+						</tr>
 					<?php
 						//load all the entrys from a db table
 						$sql = "SELECT path,id FROM rtp_included ORDER BY id";
@@ -243,7 +271,7 @@ function load_settings(){
 						$stmt -> close();
 					?>
 					</tbody>
-					
+					</table>
 					<h5>Excluded folders for RTP folderscanner</h5>
 
                 </div>
