@@ -59,7 +59,7 @@ function add_item($db,$value,$field){
 		die("Connection failed: " . $conn->connect_error);
 	}
 	$db=htmlspecialchars($db);
-	$id=htmlspecialchars($id);
+	$field=htmlspecialchars($filed);
 	$stmt = $conn->prepare("INSERT INTO $db ($field) VALUES(?);");
 	$stmt->bind_param("s",$value);
 	$stmt->execute();
