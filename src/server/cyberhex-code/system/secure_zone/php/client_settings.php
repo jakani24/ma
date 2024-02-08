@@ -197,7 +197,7 @@ function load_settings(){
 		fetch('client_settings.php?delete='+id+'&db='+db);
 	}
 	function add_item(db,element_id,field){
-		var element = document.getElementById(id);
+		var element = document.getElementById(element_id);
 		var value = element.value;
 		fetch('client_settings.php?add='+db+'&value='+value+'&field='+field);
 	}
@@ -236,6 +236,7 @@ function load_settings(){
 						?>
 						<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
 					</div>
+					<br>
 					<h5>Included folders for RTP folderscanner</h5>
 					<table class="table">
 					<thead>
