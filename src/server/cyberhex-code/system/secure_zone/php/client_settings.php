@@ -277,7 +277,41 @@ function load_settings(){
 					</tbody>
 					</table>
 					<h5>Excluded folders for RTP folderscanner</h5>
-
+					<table class="table">
+					<thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">Path</th>
+					  <th scope="col">Add / Delete</th>
+					</tr>
+				  </thead>
+				  <tbody>
+						<tr>
+							<th scope="row">000</th>
+							<td><input type="text" id="rtp_excluded" class="form-control" name="name"></td>
+							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_excluded','rtp_excluded','path');">Add</button></td>
+						</tr>
+					<?php
+						//load all the entrys from a db table
+						$sql = "SELECT path,id FROM rtp_excluded ORDER BY id";
+						$stmt = $conn->prepare($sql);
+						// Execute the statement
+						$stmt->execute();
+						// Get the result
+						$result = $stmt->get_result();
+						while ($row = $result->fetch_assoc()){
+							//print out the items
+							echo("<tr>");
+								echo("<th scope=\"row\">".$row["id"]."</th>");
+								echo("<td><input type=\"text\" id=\"rtp_excluded".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_excluded".$row["id"]."','rtp_excluded','".$row["id"]."');\"></td>");
+								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_excluded',".$row["id"].");\">Delete</button></td>");
+							echo("</tr>");
+						}
+						
+						$stmt -> close();
+					?>
+					</tbody>
+					</table>
                 </div>
             </div>
         </div>
