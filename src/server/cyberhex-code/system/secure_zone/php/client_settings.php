@@ -192,7 +192,7 @@ function load_settings(){
 	function update_textfield(id,name,itemid){
 		var element = document.getElementById(id);
 		var value = element.value;
-		fetch('client_settings.php?update='+name+'&value='+value+'&id='+id);
+		fetch('client_settings.php?update='+name+'&value='+value+'&id='+itemid);
 	}
 	async function delete_item(db,id){
 		await fetch('client_settings.php?delete='+id+'&db='+db);
