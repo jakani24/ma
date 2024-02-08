@@ -66,6 +66,7 @@ if(isset($_GET["page"])){
 		  <p>Cyberhex settings</p>
 		  <ul>
 		   <li><a href="index.php?page=server_settings.php">Server Settings</a></li>
+			<li>
 			<p>Client Settings
 			<ul>
 				<li><a href="index.php?page=client_settings.php">General Client Settings</a></li>
@@ -73,6 +74,7 @@ if(isset($_GET["page"])){
 			</ul>
 		   <li><a href="index.php?page=database_settings.php">Database Settings</a></li>
 		  </ul>
+		  </li>
 		  <p>Clients</p>
 		  <ul>
 		   <li><a href="index.php?page=mass_add_clients.php">Mass Add CLients</a></li>
