@@ -103,6 +103,13 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($_GET["update"]=="rtp_excluded"){	
+		$id=htmlspecialchars($_GET["id"]);
+		$stmt = $conn->prepare("UPDATE rtp_excluded set path= ? WHERE id=$id");
+		$stmt->bind_param("s",$value);
+		$stmt->execute();
+		$stmt->close();
+	}
 	$conn->close();
 	
 }
