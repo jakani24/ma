@@ -235,7 +235,7 @@ function load_settings(){
 					  </ul>
 					</div>
 					<br>
-					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
+					<h7>What is the URL of this server? (url or ip address where the clients connect to)</h7>
 						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url','0')">
 					<br>
 					<h4>RTP</h4>
@@ -249,7 +249,7 @@ function load_settings(){
 						<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
 					</div>
 					<br>
-					<h5>Included folders for RTP folderscanner</h5>
+					<h7>Included folders for RTP folderscanner</h7>
 					<table class="table">
 					<thead>
 					<tr>
@@ -285,7 +285,7 @@ function load_settings(){
 					?>
 					</tbody>
 					</table>
-					<h5>Excluded folders for RTP folderscanner</h5>
+					<h7>Excluded folders for RTP folderscanner</h7>
 					<table class="table">
 					<thead>
 					<tr>
@@ -321,6 +321,8 @@ function load_settings(){
 					?>
 					</tbody>
 					</table>
+					<br>
+					<h4>Tasks</h4>
                 </div>
             </div>
         </div>
