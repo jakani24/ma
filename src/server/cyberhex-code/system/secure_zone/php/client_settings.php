@@ -220,6 +220,7 @@ function load_settings(){
                     <h4>Client settings</h4>
                 </div>
                 <div class="card-body">
+					<h3>General</h3>
 					<!-- Dropdown for virus controll action -->
 					<h5>What should be done, if the scanner finds a virus?</h5>
 					<div class="dropdown">
