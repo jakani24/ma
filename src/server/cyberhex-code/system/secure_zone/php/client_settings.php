@@ -99,7 +99,7 @@ function safe_settings(){
 	if($_GET["update"]=="rtp_included"){	
 		$id=htmlspecialchars($_GET["id"]);
 		$stmt = $conn->prepare("UPDATE rtp_included set path= ? WHERE id=$id");
-		$stmt->bind_param("ss",$value,);
+		$stmt->bind_param("s",$value);
 		$stmt->execute();
 		$stmt->close();
 	}
