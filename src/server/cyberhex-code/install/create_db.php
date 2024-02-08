@@ -114,6 +114,38 @@
 						Error creating table settings: ' . $conn->error .'
 				</div>';
 			}
+			// Create rtp_included table
+			$sql = "CREATE TABLE IF NOT EXISTS rtp_included (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				path VARCHAR(255) NOT NULL UNIQUE,
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table rtp_included created successfully!
+				</div>';
+			} else {
+				$success=0;
+					echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table rtp_included: ' . $conn->error .'
+				</div>';
+			}
+			// Create rtp_excluded table
+			$sql = "CREATE TABLE IF NOT EXISTS rtp_excluded (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				path VARCHAR(255) NOT NULL UNIQUE,
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table rtp_excluded created successfully!
+				</div>';
+			} else {
+				$success=0;
+					echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table rtp_excluded: ' . $conn->error .'
+				</div>';
+			}
 
 			// Create api table
 			$sql = "CREATE TABLE IF NOT EXISTS api (

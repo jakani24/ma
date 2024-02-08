@@ -21,12 +21,28 @@ if($perms[5]!=="1"){
 $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
-
+include "../../../config.php";
 if(isset($_GET["update"])){
 	safe_settings();
 }
+if(isset($_GET["delete"])){
+	delete_item(,$_GET["db"],$_GET["delete"]);
+}
 load_settings();
-//db: id,name,value
+function delete_item($db,$id){
+	include "../../../config.php";
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+	if ($conn->connect_error) {
+		$success=0;
+		die("Connection failed: " . $conn->connect_error);
+	}
+	$db=htmlspecialchars($db);
+	$id=htmlspecialchars($id);
+	$stmt = $conn->prepare("delete from $db where id=$id;");
+	$stmt->execute();
+	$stmt->close();
+	$conn -> close();
+}
 function safe_settings(){
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
@@ -54,6 +70,12 @@ function safe_settings(){
 	if($_GET["update"]=="setting_rtp_folder_scan_status"){		
 		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
 		$stmt->bind_param("sss",$name,$value,$value);
+		$stmt->execute();
+		$stmt->close();
+	}
+	if($_GET["update"]=="rtp_included"){		
+		$stmt = $conn->prepare("INSERT INTO rtp_included (path) VALUES (?) ON DUPLICATE KEY UPDATE path = ?;");
+		$stmt->bind_param("ss",$value,$value);
 		$stmt->execute();
 		$stmt->close();
 	}
@@ -108,6 +130,7 @@ function load_settings(){
 		$setting_server_server_url=$row["value"];
 	}
 	$stmt -> close();
+	$conn -> close();
 }
 ?>
 <!DOCTYPE html>
@@ -147,6 +170,9 @@ function load_settings(){
 		var value = element.value;
 		fetch('client_settings.php?update='+name+'&value='+value);
 	}
+	function delete_item(db,id){
+		fetch('client_settings.php?delete='+id+'&db='+db);
+	}
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -182,7 +208,38 @@ function load_settings(){
 						?>
 						<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
 					</div>
-
+					<h5>Included folders for RTP folderscanner</h5>
+					<table class="table">
+					<thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">Path</th>
+					  <th scope="col">Delete</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<?php
+						//load all the entrys from a db table
+						$sql = "SELECT path,id FROM rtp_included ORDER BY id";
+						$stmt = $conn->prepare($sql);
+						// Execute the statement
+						$stmt->execute();
+						// Get the result
+						$result = $stmt->get_result();
+						while ($row = $result->fetch_assoc()){
+							//print out the items
+							echo("<tr>");
+								echo("<th scope="row">".$row["id"]."</th>");
+								echo("<td><input type=\"text\" id=\"rtp_included".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_included".$row["id"]."','rtp_included');\"></td>");
+								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_included',".$row["id"].");\">Delete</button></td>");
+							echo("</tr>");
+						}
+						
+						$stmt -> close();
+					?>
+					</tbody>
+					
+					<h5>Excluded folders for RTP folderscanner</h5>
 
                 </div>
             </div>
