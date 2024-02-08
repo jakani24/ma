@@ -196,10 +196,10 @@ function load_settings(){
 	function delete_item(db,id){
 		fetch('client_settings.php?delete='+id+'&db='+db);
 	}
-	function add_item(db,element_id,field){
+	async function add_item(db,element_id,field){
 		var element = document.getElementById(element_id);
 		var value = element.value;
-		fetch('client_settings.php?add='+db+'&value='+value+'&field='+field);
+		await fetch('client_settings.php?add='+db+'&value='+value+'&field='+field);
 		location.reload();
 	}
 </script>
