@@ -124,6 +124,7 @@ function load_settings(){
 	global $setting_virus_ctrl_virus_found_action ;
 	global $setting_server_server_url;
 	global $setting_rtp_folder_scan_status;
+	global $setting_rtp_process_scan_status;
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 	if ($conn->connect_error) {
