@@ -237,6 +237,7 @@ function load_settings(){
 					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
 						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url','0')">
 					<br>
+					<h3>RTP</h3>
 					<h5>RTP: folderscanner on/off</h5>
 					<div class="form-check form-switch">
 						<?php if($setting_rtp_folder_scan_status=="true")
