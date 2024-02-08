@@ -200,6 +200,7 @@ function load_settings(){
 		var element = document.getElementById(element_id);
 		var value = element.value;
 		fetch('client_settings.php?add='+db+'&value='+value+'&field='+field);
+		location.reload();
 	}
 </script>
 <div class="container mt-5">
