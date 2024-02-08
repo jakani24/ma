@@ -193,8 +193,9 @@ function load_settings(){
 		var value = element.value;
 		fetch('client_settings.php?update='+name+'&value='+value);
 	}
-	function delete_item(db,id){
-		fetch('client_settings.php?delete='+id+'&db='+db);
+	async function delete_item(db,id){
+		await fetch('client_settings.php?delete='+id+'&db='+db);
+		location.reload();
 	}
 	async function add_item(db,element_id,field){
 		var element = document.getElementById(element_id);
