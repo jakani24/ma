@@ -189,10 +189,10 @@ function load_settings(){
 		var value = element.checked;
 		fetch('client_settings.php?update='+name+'&value='+value);
 	}
-	function update_textfield(id,name){
+	function update_textfield(id,name,itemid){
 		var element = document.getElementById(id);
 		var value = element.value;
-		fetch('client_settings.php?update='+name+'&value='+value);
+		fetch('client_settings.php?update='+name+'&value='+value+'&id='+id);
 	}
 	async function delete_item(db,id){
 		await fetch('client_settings.php?delete='+id+'&db='+db);
@@ -228,7 +228,7 @@ function load_settings(){
 					</div>
 					<br>
 					<h5>What is the URL of this server? (url or ip address where the clients connect to)</h5>
-						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url')">
+						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url','0')">
 					<br>
 					<h5>RTP: folderscanner on/off</h5>
 					<div class="form-check form-switch">
@@ -267,7 +267,7 @@ function load_settings(){
 							//print out the items
 							echo("<tr>");
 								echo("<th scope=\"row\">".$row["id"]."</th>");
-								echo("<td><input type=\"text\" id=\"rtp_included".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_included".$row["id"]."','rtp_included');\"></td>");
+								echo("<td><input type=\"text\" id=\"rtp_included".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_included".$row["id"]."','rtp_included','".$row["id"]."');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_included',".$row["id"].");\">Delete</button></td>");
 							echo("</tr>");
 						}
