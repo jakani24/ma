@@ -274,7 +274,7 @@ function load_settings(){
 						else
 							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault1\" onclick=\"update_switch('flexSwitchCheckDefault1','setting_rtp_process_scan_status')\">");
 						?>
-						<label class="form-check-label" for="flexSwitchCheckDefault">Check Processes</label>
+						<label class="form-check-label" for="flexSwitchCheckDefault1">Check Processes</label>
 					</div>
 					<br>
 					<h7>Included folders for RTP folderscanner</h7>
