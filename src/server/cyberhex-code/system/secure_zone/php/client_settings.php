@@ -21,6 +21,7 @@ if($perms[5]!=="1"){
 $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
+$setting_rtp_process_scan_status=0;
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 	if ($conn->connect_error) {
@@ -96,6 +97,12 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($_GET["update"]=="setting_rtp_process_scan_status"){		
+		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
+		$stmt->bind_param("sss",$name,$value,$value);
+		$stmt->execute();
+		$stmt->close();
+	}
 	if($_GET["update"]=="rtp_included"){	
 		$id=htmlspecialchars($_GET["id"]);
 		$stmt = $conn->prepare("UPDATE rtp_included set path= ? WHERE id=$id");
@@ -145,6 +152,19 @@ function load_settings(){
 	$row = $result->fetch_assoc();
 	if($row!==null){
 		$setting_rtp_folder_scan_status=$row["value"];
+	}
+	$stmt -> close();
+	
+	//get setting: setting_rtp_process_scan_status
+	$sql = "SELECT * FROM settings WHERE name = 'setting_rtp_process_scan_status'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_rtp_process_scan_status=$row["value"];
 	}
 	$stmt -> close();
 	
@@ -247,6 +267,14 @@ function load_settings(){
 							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\">");
 						?>
 						<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
+					</div>
+					<div class="form-check form-switch">
+						<?php if($setting_rtp_process_scan_status=="true")
+							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault1\" onclick=\"update_switch('flexSwitchCheckDefault1','setting_rtp_process_scan_status')\" checked>");
+						else
+							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault1\" onclick=\"update_switch('flexSwitchCheckDefault1','setting_rtp_process_scan_status')\">");
+						?>
+						<label class="form-check-label" for="flexSwitchCheckDefault">Check Processes</label>
 					</div>
 					<br>
 					<h7>Included folders for RTP folderscanner</h7>
