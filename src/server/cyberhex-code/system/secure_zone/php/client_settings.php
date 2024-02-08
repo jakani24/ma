@@ -34,7 +34,7 @@ if(isset($_GET["delete"])){
 	delete_item($_GET["db"],$_GET["delete"]);
 }
 if(isset($_GET["add"])){
-	add_item($_GET["db"],$_GET["value"],$_GET["field"]);
+	add_item($_GET["add"],$_GET["value"],$_GET["field"]);
 }
 load_settings();
 function delete_item($db,$id){
