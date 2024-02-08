@@ -229,7 +229,7 @@ function load_settings(){
 						while ($row = $result->fetch_assoc()){
 							//print out the items
 							echo("<tr>");
-								echo("<th scope="row">".$row["id"]."</th>");
+								echo("<th scope=\"row\">".$row["id"]."</th>");
 								echo("<td><input type=\"text\" id=\"rtp_included".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_included".$row["id"]."','rtp_included');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_included',".$row["id"].");\">Delete</button></td>");
 							echo("</tr>");
