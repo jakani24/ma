@@ -117,7 +117,7 @@
 			//user tasks table
 			$sql = "CREATE TABLE IF NOT EXISTS user_tasks (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				task VARCHAR(255) NOT NULL UNIQUE,
+				task VARCHAR(255) NOT NULL UNIQUE
 			)";
 
 			if ($conn->query($sql) === TRUE) {
@@ -133,7 +133,7 @@
 			//system tasks table
 			$sql = "CREATE TABLE IF NOT EXISTS system_tasks (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				task VARCHAR(255) NOT NULL UNIQUE,
+				task VARCHAR(255) NOT NULL UNIQUE
 			)";
 
 			if ($conn->query($sql) === TRUE) {
