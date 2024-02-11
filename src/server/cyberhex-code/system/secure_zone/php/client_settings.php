@@ -264,6 +264,17 @@ function load_settings(){
 		var task=time+';'+action+';'+argument+';'+name;
 		await fetch('client_settings.php?update='+db+'&value='+task+'&id='+id);
 	}
+	//decide which div should be shown:
+    // Get the URL parameters
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    // Get the value of the "show" parameter
+    const show_div = getElementById(urlParams.get('show'));
+	const nav_tab = getElementById(urlParams.get('show')+"_tab");
+	show_div.style.display="block";
+	
+
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -274,19 +285,17 @@ function load_settings(){
                 </div>
                 <div class="card-body">
 					<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-  </li>
-</ul>
+					  <li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="&show=general" id="general_tab">General Settings</a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					  </li>
+
+					</ul>
 					<h4>General</h4>
 					<!-- Dropdown for virus controll action -->
 					<h7>What should be done, if the scanner finds a virus?</h7>
