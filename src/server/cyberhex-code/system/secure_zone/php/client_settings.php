@@ -482,7 +482,7 @@ function load_settings(){
 						</tr>
 					<?php
 						//load all the entrys from a db table
-						$sql = "SELECT task,id FROM user_tasks ORDER BY id";
+						$sql = "SELECT task,id FROM system_tasks ORDER BY id";
 						$stmt = $conn->prepare($sql);
 						// Execute the statement
 						$stmt->execute();
