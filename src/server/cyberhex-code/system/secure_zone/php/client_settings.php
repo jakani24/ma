@@ -431,7 +431,7 @@ function load_settings(){
 								echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_excluded',".$row["id"].");\">Delete</button></td>");
+								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('user_tasks',".$row["id"].");\">Delete</button></td>");
 							echo("</tr>");
 						}
 						
