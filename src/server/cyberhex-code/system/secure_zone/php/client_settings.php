@@ -383,7 +383,7 @@ function load_settings(){
 					</tbody>
 					</table>
 					<br>
-					<h4>Tasks</h4>
+					<h4>User Tasks</h4>
 					<table class="table">
 					<thead>
 					<tr>
@@ -446,6 +446,76 @@ function load_settings(){
 								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('user_tasks',".$row["id"].");\">Delete</button></td>");
+							echo("</tr>");
+						}
+						
+						$stmt -> close();
+					?>
+					</tbody>
+					</table>
+					<h4>System Tasks</h4>
+					<table class="table">
+					<thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">Time</th>
+					  <th scope="col">Action</th>
+					  <th scope="col">Argument</th>
+					  <th scope="col">Name</th>
+					  <th scope="col">Add / Delete</th>
+					</tr>
+				  </thead>
+				  <tbody>
+						<tr>
+							<th scope="row">000</th>
+							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
+							<td>
+								<select class="form-select" data-live-search="true" id="task_action">
+								  <option value="choose_action">Choose an action</option>
+								  <option value="scanfile">scanfile</option>
+								  <option value="scanfolder">scanfolder</option>
+								</select>
+							</td>
+							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
+							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
+							<td><button type="button" class="btn btn-primary" onclick="add_task('system_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
+						</tr>
+					<?php
+						//load all the entrys from a db table
+						$sql = "SELECT task,id FROM user_tasks ORDER BY id";
+						$stmt = $conn->prepare($sql);
+						// Execute the statement
+						$stmt->execute();
+						// Get the result
+						$result = $stmt->get_result();
+						while ($row = $result->fetch_assoc()){
+							$buf=explode(";",$row["task"]);
+							$time=$buf[0];
+							$action=$buf[1];
+							$argument=$buf[2];
+							$name=$buf[3];
+							//print out the items
+							echo("<tr>");
+								echo("<th scope=\"row\">".$row["id"]."</th>");
+								echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								//echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								echo("<td>");
+								echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'system_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
+								  echo('<option value="choose_action">Choose an action</option>');
+								  if($action=="scanfile")
+									echo('<option value="scanfile" selected >scanfile</option>');
+								else
+									echo('<option value="scanfile" >scanfile</option>');
+								 if($action=="scanfolder")
+								  echo('<option value="scanfolder" selected>scanfolder</option>');
+								else
+									echo('<option value="scanfolder">scanfolder</option>');
+								echo('</select>');
+								echo('</td>');
+								
+								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('system_tasks',".$row["id"].");\">Delete</button></td>");
 							echo("</tr>");
 						}
 						
