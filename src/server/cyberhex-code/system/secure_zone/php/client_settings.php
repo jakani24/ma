@@ -263,7 +263,6 @@ function load_settings(){
 		var name = element.value;
 		var task=time+";"+action+";"+argument+";"+name;
 		await fetch('client_settings.php?update='+db+'&value='+task+'&id='+id);
-		location.reload();
 	}
 </script>
 <div class="container mt-5">
