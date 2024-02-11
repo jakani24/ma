@@ -440,7 +440,7 @@ function load_settings(){
 								  echo('<option value="scanfolder" selected>scanfolder</option>');
 								else
 									echo('<option value="scanfolder">scanfolder</option>');
-								echo'(</select>');
+								echo('</select>');
 								echo('</td>');
 								
 								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
