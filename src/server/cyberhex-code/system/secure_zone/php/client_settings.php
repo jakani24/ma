@@ -366,15 +366,17 @@ function load_settings(){
 						<tr>
 							<th scope="row">000</th>
 							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
-							<div class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle" type="button" id="task_action" data-bs-toggle="dropdown" aria-expanded="false">
-								<?php echo("test"); ?>
-							</button>
-								<ul class="dropdown-menu" aria-labelledby="task_action">
-									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">scanfolder</a></li>
-									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">scanfile</a></li>
-								</ul>
-							</div> 
+							<td>
+								<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="task_action" data-bs-toggle="dropdown" aria-expanded="false">
+									<?php echo("test"); ?>
+								</button>
+									<ul class="dropdown-menu" aria-labelledby="task_action">
+										<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">scanfolder</a></li>
+										<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">scanfile</a></li>
+									</ul>
+								</div>
+							</td>
 							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
 							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
 							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_excluded','rtp_excluded','path');">Add</button></td>
