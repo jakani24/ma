@@ -352,6 +352,51 @@ function load_settings(){
 					</table>
 					<br>
 					<h4>Tasks</h4>
+					<table class="table">
+					<thead>
+					<tr>
+					  <th scope="col">#</th>
+					  <th scope="col">Time</th>
+					  <th scope="col">Action</th>
+					  <th scope="col">Argument</th>
+					   <th scope="col">Name</th>
+					</tr>
+				  </thead>
+				  <tbody>
+						<tr>
+							<th scope="row">000</th>
+							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
+							<div class="dropdown">
+								<ul class="dropdown-menu" aria-labelledby="task_action" id="task_action">
+									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">scanfolder</a></li>
+									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">scanfile</a></li>
+								</ul>
+							</div>
+							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
+							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
+							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_excluded','rtp_excluded','path');">Add</button></td>
+						</tr>
+					<?php
+						//load all the entrys from a db table
+						$sql = "SELECT path,id FROM rtp_excluded ORDER BY id";
+						$stmt = $conn->prepare($sql);
+						// Execute the statement
+						$stmt->execute();
+						// Get the result
+						$result = $stmt->get_result();
+						while ($row = $result->fetch_assoc()){
+							//print out the items
+							echo("<tr>");
+								echo("<th scope=\"row\">".$row["id"]."</th>");
+								echo("<td><input type=\"text\" id=\"rtp_excluded".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_excluded".$row["id"]."','rtp_excluded','".$row["id"]."');\"></td>");
+								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_excluded',".$row["id"].");\">Delete</button></td>");
+							echo("</tr>");
+						}
+						
+						$stmt -> close();
+					?>
+					</tbody>
+					</table>
                 </div>
             </div>
         </div>
