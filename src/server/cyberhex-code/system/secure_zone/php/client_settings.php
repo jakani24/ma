@@ -371,7 +371,7 @@ function load_settings(){
 									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">scanfolder</a></li>
 									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">scanfile</a></li>
 								</ul>
-							</div>
+							</div> 
 							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
 							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
 							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_excluded','rtp_excluded','path');">Add</button></td>
