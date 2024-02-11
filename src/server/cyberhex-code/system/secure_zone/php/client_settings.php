@@ -359,7 +359,8 @@ function load_settings(){
 					  <th scope="col">Time</th>
 					  <th scope="col">Action</th>
 					  <th scope="col">Argument</th>
-					   <th scope="col">Name</th>
+					  <th scope="col">Name</th>
+					  <th scope="col">Add / Delete</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -367,15 +368,11 @@ function load_settings(){
 							<th scope="row">000</th>
 							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
 							<td>
-								<div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button" id="task_action" data-bs-toggle="dropdown" aria-expanded="false">
-									<?php echo("test"); ?>
-								</button>
-									<ul class="dropdown-menu" aria-labelledby="task_action">
-										<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">scanfolder</a></li>
-										<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">scanfile</a></li>
-									</ul>
-								</div>
+								<select class="selectpicker" multiple data-live-search="true">
+								  <option value="choose_action">Choose an action</option>
+								  <option value="scanfile">scanfile</option>
+								  <option value="scanfolder">scanfolder</option>
+								</select>
 							</td>
 							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
 							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
