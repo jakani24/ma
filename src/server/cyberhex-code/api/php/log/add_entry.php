@@ -1,6 +1,10 @@
 <?php
 //we need to auth the user => apikey
 //put auth code here afterwards
+include "../accessctrl/check_apikey.php";
+if(check_apikey()!==true){
+	die("no_atuh");
+}
 
 //add the entry to the log db
 //this page has no gui, it may return ok or error

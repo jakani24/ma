@@ -1,6 +1,11 @@
 <?php
 //we need to auth the user => apikey
 //put auth code here afterwards
+include "../accessctrl/check_apikey.php";
+if(check_apikey()!==true){
+	die("no_atuh");
+}
+
 $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;

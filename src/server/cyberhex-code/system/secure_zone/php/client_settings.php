@@ -310,7 +310,7 @@ function load_settings(){
 					</div>
 					<div id="rtp" style="display:none">
 						<h4>RTP</h4>
-						<h7>RTP: folderscanner on/off</h7>
+						<h7>RTP: on/off</h7>
 						<div class="form-check form-switch">
 							<?php if($setting_rtp_folder_scan_status=="true")
 								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\" checked>");
