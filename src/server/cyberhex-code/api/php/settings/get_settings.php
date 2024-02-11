@@ -52,7 +52,42 @@ if(isset($_GET["rtp_excluded"])){
 	$stmt -> close();
 	
 }
-
+if(isset($_GET["sched"])){
+	//load all the entrys from a db table
+	$sql = "SELECT task,id FROM user_tasks ORDER BY id";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()){
+		$buf=explode(";",$row["task"]);
+		$time=$buf[0];
+		$action=$buf[1];
+		$argument=$buf[2];
+		$name=$buf[3];
+		//e.g.: "43 * * * *" scanfolder "c:\" tsk1
+		echo("\"$time\" $action \"$argument\" $name\n");
+	}
+	$stmt -> close();
+	$sql = "SELECT task,id FROM system_tasks ORDER BY id";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()){
+		$buf=explode(";",$row["task"]);
+		$time=$buf[0];
+		$action=$buf[1];
+		$argument=$buf[2];
+		$name=$buf[3];
+		//e.g.: "43 * * * *" scanfolder "c:\" tsk1
+		echo("\"$time\" $action \"$argument\" $name\n");
+	}
+	$stmt -> close();
+	
+}
 function load_settings(){
 	global $setting_virus_ctrl_virus_found_action ;
 	global $setting_server_server_url;
