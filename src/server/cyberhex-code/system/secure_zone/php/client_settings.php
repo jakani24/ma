@@ -273,6 +273,7 @@ function load_settings(){
     const show_div = getElementById(urlParams.get('show'));
 	const nav_tab = getElementById(urlParams.get('show')+"_tab");
 	show_div.style.display="block";
+	nav_tab.setAttribute('aria-current', 'page');
 	
 
 </script>
@@ -286,7 +287,7 @@ function load_settings(){
                 <div class="card-body">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="&show=general" id="general_tab">General Settings</a>
+						<a class="nav-link active" href="&show=general" id="general_tab">General Settings</a>
 					  </li>
 					  <li class="nav-item">
 						<a class="nav-link" href="#">Link</a>
