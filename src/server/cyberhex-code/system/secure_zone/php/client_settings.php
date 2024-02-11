@@ -367,7 +367,10 @@ function load_settings(){
 							<th scope="row">000</th>
 							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
 							<div class="dropdown">
-								<ul class="dropdown-menu" aria-labelledby="task_action" id="task_action">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="task_action" data-bs-toggle="dropdown" aria-expanded="false">
+								<?php echo("test"); ?>
+							</button>
+								<ul class="dropdown-menu" aria-labelledby="task_action">
 									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">scanfolder</a></li>
 									<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">scanfile</a></li>
 								</ul>
