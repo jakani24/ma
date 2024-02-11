@@ -82,7 +82,7 @@ if(isset($_GET["sched"])){
 		$action=$buf[1];
 		$argument=$buf[2];
 		$name=$buf[3];
-		$name=str_replace(" ","",$name);
+		$name=str_replace(" ","_",$name);
 		//e.g.: "43 * * * *" scanfolder "c:\" tsk1
 		echo("\"$time\" $action \"$argument\" $name\n");
 	}
