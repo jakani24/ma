@@ -430,7 +430,7 @@ function load_settings(){
 								echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								//echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td>");
-								echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'">');
+								echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'user_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
 								  echo('<option value="choose_action">Choose an action</option>');
 								  if($action=="scanfile")
 									echo('<option value="scanfile" selected >scanfile</option>');
