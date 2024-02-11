@@ -281,263 +281,269 @@ function load_settings(){
 						<a class="nav-link" href="client_settings.php?show=general" id="general_tab">General Settings</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
+						<a class="nav-link" href="client_settings.php?show=rtp" id="rtp_tab">RTP Settings</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
+						<a class="nav-link" href="client_settings.php?show=task" id="task_tab">Task Settings</a>
 					  </li>
 
 					</ul>
-					<h4>General</h4>
-					<!-- Dropdown for virus controll action -->
-					<h7>What should be done, if the scanner finds a virus?</h7>
-					<div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-						<?php echo($setting_virus_ctrl_virus_found_action) ?>
-					  </button>
-					  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">remove</a></li>
-						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">quarantine</a></li>
-						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','ignore')">ignore</a></li>
-						<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','call_srv')">call_srv</a></li>
-					  </ul>
+					<div id="general" style="display:none">
+						<h4>General</h4>
+						<!-- Dropdown for virus controll action -->
+						<h7>What should be done, if the scanner finds a virus?</h7>
+						<div class="dropdown">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							<?php echo($setting_virus_ctrl_virus_found_action) ?>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','remove')">remove</a></li>
+							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">quarantine</a></li>
+							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','ignore')">ignore</a></li>
+							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','call_srv')">call_srv</a></li>
+						  </ul>
+						</div>
+						<br>
+						<h7>What is the URL of this server? (url or ip address where the clients connect to)</h7>
+							<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url','0')">
+						<br>
 					</div>
-					<br>
-					<h7>What is the URL of this server? (url or ip address where the clients connect to)</h7>
-						<input type="text" id="server_url_input" class="form-control" name="name" value="<?php echo($setting_server_server_url); ?>" oninput="update_textfield('server_url_input','setting_server_server_url','0')">
-					<br>
-					<h4>RTP</h4>
-					<h7>RTP: folderscanner on/off</h7>
-					<div class="form-check form-switch">
-						<?php if($setting_rtp_folder_scan_status=="true")
-							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\" checked>");
-						else
-							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\">");
+					<div id="rtp" style="display:none">
+						<h4>RTP</h4>
+						<h7>RTP: folderscanner on/off</h7>
+						<div class="form-check form-switch">
+							<?php if($setting_rtp_folder_scan_status=="true")
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\" checked>");
+							else
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_rtp_folder_scan_status')\">");
+							?>
+							<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
+						</div>
+						<div class="form-check form-switch">
+							<?php if($setting_rtp_process_scan_status=="true")
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault1\" onclick=\"update_switch('flexSwitchCheckDefault1','setting_rtp_process_scan_status')\" checked>");
+							else
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault1\" onclick=\"update_switch('flexSwitchCheckDefault1','setting_rtp_process_scan_status')\">");
+							?>
+							<label class="form-check-label" for="flexSwitchCheckDefault1">Check Processes</label>
+						</div>
+						<br>
+						<h7>Included folders for RTP folderscanner</h7>
+						<table class="table">
+						<thead>
+						<tr>
+						  <th scope="col">#</th>
+						  <th scope="col">Path</th>
+						  <th scope="col">Add / Delete</th>
+						</tr>
+					  </thead>
+					  <tbody>
+							<tr>
+								<th scope="row">000</th>
+								<td><input type="text" id="rtp_included" class="form-control" name="name"></td>
+								<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_included','rtp_included','path');">Add</button></td>
+							</tr>
+						<?php
+							//load all the entrys from a db table
+							$sql = "SELECT path,id FROM rtp_included ORDER BY id";
+							$stmt = $conn->prepare($sql);
+							// Execute the statement
+							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							while ($row = $result->fetch_assoc()){
+								//print out the items
+								echo("<tr>");
+									echo("<th scope=\"row\">".$row["id"]."</th>");
+									echo("<td><input type=\"text\" id=\"rtp_included".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_included".$row["id"]."','rtp_included','".$row["id"]."');\"></td>");
+									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_included',".$row["id"].");\">Delete</button></td>");
+								echo("</tr>");
+							}
+							
+							$stmt -> close();
 						?>
-						<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
-					</div>
-					<div class="form-check form-switch">
-						<?php if($setting_rtp_process_scan_status=="true")
-							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault1\" onclick=\"update_switch('flexSwitchCheckDefault1','setting_rtp_process_scan_status')\" checked>");
-						else
-							echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault1\" onclick=\"update_switch('flexSwitchCheckDefault1','setting_rtp_process_scan_status')\">");
+						</tbody>
+						</table>
+						<h7>Excluded folders for RTP folderscanner</h7>
+						<table class="table">
+						<thead>
+						<tr>
+						  <th scope="col">#</th>
+						  <th scope="col">Path</th>
+						  <th scope="col">Add / Delete</th>
+						</tr>
+					  </thead>
+					  <tbody>
+							<tr>
+								<th scope="row">000</th>
+								<td><input type="text" id="rtp_excluded" class="form-control" name="name"></td>
+								<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_excluded','rtp_excluded','path');">Add</button></td>
+							</tr>
+						<?php
+							//load all the entrys from a db table
+							$sql = "SELECT path,id FROM rtp_excluded ORDER BY id";
+							$stmt = $conn->prepare($sql);
+							// Execute the statement
+							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							while ($row = $result->fetch_assoc()){
+								//print out the items
+								echo("<tr>");
+									echo("<th scope=\"row\">".$row["id"]."</th>");
+									echo("<td><input type=\"text\" id=\"rtp_excluded".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_excluded".$row["id"]."','rtp_excluded','".$row["id"]."');\"></td>");
+									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_excluded',".$row["id"].");\">Delete</button></td>");
+								echo("</tr>");
+							}
+							
+							$stmt -> close();
 						?>
-						<label class="form-check-label" for="flexSwitchCheckDefault1">Check Processes</label>
+						</tbody>
+						</table>
+						<br>
 					</div>
-					<br>
-					<h7>Included folders for RTP folderscanner</h7>
-					<table class="table">
-					<thead>
-					<tr>
-					  <th scope="col">#</th>
-					  <th scope="col">Path</th>
-					  <th scope="col">Add / Delete</th>
-					</tr>
-				  </thead>
-				  <tbody>
+					<div id="task" style="display:none">
+						<h4>User Tasks</h4>
+						<table class="table">
+						<thead>
 						<tr>
-							<th scope="row">000</th>
-							<td><input type="text" id="rtp_included" class="form-control" name="name"></td>
-							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_included','rtp_included','path');">Add</button></td>
+						  <th scope="col">#</th>
+						  <th scope="col">Time</th>
+						  <th scope="col">Action</th>
+						  <th scope="col">Argument</th>
+						  <th scope="col">Name</th>
+						  <th scope="col">Add / Delete</th>
 						</tr>
-					<?php
-						//load all the entrys from a db table
-						$sql = "SELECT path,id FROM rtp_included ORDER BY id";
-						$stmt = $conn->prepare($sql);
-						// Execute the statement
-						$stmt->execute();
-						// Get the result
-						$result = $stmt->get_result();
-						while ($row = $result->fetch_assoc()){
-							//print out the items
-							echo("<tr>");
-								echo("<th scope=\"row\">".$row["id"]."</th>");
-								echo("<td><input type=\"text\" id=\"rtp_included".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_included".$row["id"]."','rtp_included','".$row["id"]."');\"></td>");
-								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_included',".$row["id"].");\">Delete</button></td>");
-							echo("</tr>");
-						}
-						
-						$stmt -> close();
-					?>
-					</tbody>
-					</table>
-					<h7>Excluded folders for RTP folderscanner</h7>
-					<table class="table">
-					<thead>
-					<tr>
-					  <th scope="col">#</th>
-					  <th scope="col">Path</th>
-					  <th scope="col">Add / Delete</th>
-					</tr>
-				  </thead>
-				  <tbody>
+					  </thead>
+					  <tbody>
+							<tr>
+								<th scope="row">000</th>
+								<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
+								<td>
+									<select class="form-select" data-live-search="true" id="task_action">
+									  <option value="choose_action">Choose an action</option>
+									  <option value="scanfile">scanfile</option>
+									  <option value="scanfolder">scanfolder</option>
+									</select>
+								</td>
+								<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
+								<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
+								<td><button type="button" class="btn btn-primary" onclick="add_task('user_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
+							</tr>
+						<?php
+							//load all the entrys from a db table
+							$sql = "SELECT task,id FROM user_tasks ORDER BY id";
+							$stmt = $conn->prepare($sql);
+							// Execute the statement
+							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							while ($row = $result->fetch_assoc()){
+								$buf=explode(";",$row["task"]);
+								$time=$buf[0];
+								$action=$buf[1];
+								$argument=$buf[2];
+								$name=$buf[3];
+								//print out the items
+								echo("<tr>");
+									echo("<th scope=\"row\">".$row["id"]."</th>");
+									echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									//echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td>");
+									echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'user_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
+									  echo('<option value="choose_action">Choose an action</option>');
+									  if($action=="scanfile")
+										echo('<option value="scanfile" selected >scanfile</option>');
+									else
+										echo('<option value="scanfile" >scanfile</option>');
+									 if($action=="scanfolder")
+									  echo('<option value="scanfolder" selected>scanfolder</option>');
+									else
+										echo('<option value="scanfolder">scanfolder</option>');
+									echo('</select>');
+									echo('</td>');
+									
+									echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('user_tasks',".$row["id"].");\">Delete</button></td>");
+								echo("</tr>");
+							}
+							
+							$stmt -> close();
+						?>
+						</tbody>
+						</table>
+						<h4>System Tasks (Warning: Changes may impact security)</h4>
+						<table class="table">
+						<thead>
 						<tr>
-							<th scope="row">000</th>
-							<td><input type="text" id="rtp_excluded" class="form-control" name="name"></td>
-							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_excluded','rtp_excluded','path');">Add</button></td>
+						  <th scope="col">#</th>
+						  <th scope="col">Time</th>
+						  <th scope="col">Action</th>
+						  <th scope="col">Argument</th>
+						  <th scope="col">Name</th>
+						  <th scope="col">Add / Delete</th>
 						</tr>
-					<?php
-						//load all the entrys from a db table
-						$sql = "SELECT path,id FROM rtp_excluded ORDER BY id";
-						$stmt = $conn->prepare($sql);
-						// Execute the statement
-						$stmt->execute();
-						// Get the result
-						$result = $stmt->get_result();
-						while ($row = $result->fetch_assoc()){
-							//print out the items
-							echo("<tr>");
-								echo("<th scope=\"row\">".$row["id"]."</th>");
-								echo("<td><input type=\"text\" id=\"rtp_excluded".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_excluded".$row["id"]."','rtp_excluded','".$row["id"]."');\"></td>");
-								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_excluded',".$row["id"].");\">Delete</button></td>");
-							echo("</tr>");
-						}
-						
-						$stmt -> close();
-					?>
-					</tbody>
-					</table>
-					<br>
-					<h4>User Tasks</h4>
-					<table class="table">
-					<thead>
-					<tr>
-					  <th scope="col">#</th>
-					  <th scope="col">Time</th>
-					  <th scope="col">Action</th>
-					  <th scope="col">Argument</th>
-					  <th scope="col">Name</th>
-					  <th scope="col">Add / Delete</th>
-					</tr>
-				  </thead>
-				  <tbody>
-						<tr>
-							<th scope="row">000</th>
-							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
-							<td>
-								<select class="form-select" data-live-search="true" id="task_action">
-								  <option value="choose_action">Choose an action</option>
-								  <option value="scanfile">scanfile</option>
-								  <option value="scanfolder">scanfolder</option>
-								</select>
-							</td>
-							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
-							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
-							<td><button type="button" class="btn btn-primary" onclick="add_task('user_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
-						</tr>
-					<?php
-						//load all the entrys from a db table
-						$sql = "SELECT task,id FROM user_tasks ORDER BY id";
-						$stmt = $conn->prepare($sql);
-						// Execute the statement
-						$stmt->execute();
-						// Get the result
-						$result = $stmt->get_result();
-						while ($row = $result->fetch_assoc()){
-							$buf=explode(";",$row["task"]);
-							$time=$buf[0];
-							$action=$buf[1];
-							$argument=$buf[2];
-							$name=$buf[3];
-							//print out the items
-							echo("<tr>");
-								echo("<th scope=\"row\">".$row["id"]."</th>");
-								echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								//echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								echo("<td>");
-								echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'user_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
-								  echo('<option value="choose_action">Choose an action</option>');
-								  if($action=="scanfile")
-									echo('<option value="scanfile" selected >scanfile</option>');
-								else
-									echo('<option value="scanfile" >scanfile</option>');
-								 if($action=="scanfolder")
-								  echo('<option value="scanfolder" selected>scanfolder</option>');
-								else
-									echo('<option value="scanfolder">scanfolder</option>');
-								echo('</select>');
-								echo('</td>');
-								
-								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('user_tasks',".$row["id"].");\">Delete</button></td>");
-							echo("</tr>");
-						}
-						
-						$stmt -> close();
-					?>
-					</tbody>
-					</table>
-					<h4>System Tasks (Warning: Changes may impact security)</h4>
-					<table class="table">
-					<thead>
-					<tr>
-					  <th scope="col">#</th>
-					  <th scope="col">Time</th>
-					  <th scope="col">Action</th>
-					  <th scope="col">Argument</th>
-					  <th scope="col">Name</th>
-					  <th scope="col">Add / Delete</th>
-					</tr>
-				  </thead>
-				  <tbody>
-						<tr>
-							<th scope="row">000</th>
-							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
-							<td>
-								<select class="form-select" data-live-search="true" id="task_action">
-								  <option value="choose_action">Choose an action</option>
-								  <option value="scanfile">scanfile</option>
-								  <option value="scanfolder">scanfolder</option>
-								</select>
-							</td>
-							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
-							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
-							<td><button type="button" class="btn btn-primary" onclick="add_task('system_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
-						</tr>
-					<?php
-						//load all the entrys from a db table
-						$sql = "SELECT task,id FROM system_tasks ORDER BY id";
-						$stmt = $conn->prepare($sql);
-						// Execute the statement
-						$stmt->execute();
-						// Get the result
-						$result = $stmt->get_result();
-						while ($row = $result->fetch_assoc()){
-							$buf=explode(";",$row["task"]);
-							$time=$buf[0];
-							$action=$buf[1];
-							$argument=$buf[2];
-							$name=$buf[3];
-							//print out the items
-							echo("<tr>");
-								echo("<th scope=\"row\">".$row["id"]."</th>");
-								echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								//echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								echo("<td>");
-								echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'system_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
-								  echo('<option value="choose_action">Choose an action</option>');
-								  if($action=="scanfile")
-									echo('<option value="scanfile" selected >scanfile</option>');
-								else
-									echo('<option value="scanfile" >scanfile</option>');
-								 if($action=="scanfolder")
-								  echo('<option value="scanfolder" selected>scanfolder</option>');
-								else
-									echo('<option value="scanfolder">scanfolder</option>');
-								echo('</select>');
-								echo('</td>');
-								
-								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('system_tasks',".$row["id"].");\">Delete</button></td>");
-							echo("</tr>");
-						}
-						
-						$stmt -> close();
-					?>
-					</tbody>
-					</table>
+					  </thead>
+					  <tbody>
+							<tr>
+								<th scope="row">000</th>
+								<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
+								<td>
+									<select class="form-select" data-live-search="true" id="task_action">
+									  <option value="choose_action">Choose an action</option>
+									  <option value="scanfile">scanfile</option>
+									  <option value="scanfolder">scanfolder</option>
+									</select>
+								</td>
+								<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
+								<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
+								<td><button type="button" class="btn btn-primary" onclick="add_task('system_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
+							</tr>
+						<?php
+							//load all the entrys from a db table
+							$sql = "SELECT task,id FROM system_tasks ORDER BY id";
+							$stmt = $conn->prepare($sql);
+							// Execute the statement
+							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							while ($row = $result->fetch_assoc()){
+								$buf=explode(";",$row["task"]);
+								$time=$buf[0];
+								$action=$buf[1];
+								$argument=$buf[2];
+								$name=$buf[3];
+								//print out the items
+								echo("<tr>");
+									echo("<th scope=\"row\">".$row["id"]."</th>");
+									echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									//echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td>");
+									echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'system_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
+									  echo('<option value="choose_action">Choose an action</option>');
+									  if($action=="scanfile")
+										echo('<option value="scanfile" selected >scanfile</option>');
+									else
+										echo('<option value="scanfile" >scanfile</option>');
+									 if($action=="scanfolder")
+									  echo('<option value="scanfolder" selected>scanfolder</option>');
+									else
+										echo('<option value="scanfolder">scanfolder</option>');
+									echo('</select>');
+									echo('</td>');
+									
+									echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('system_tasks',".$row["id"].");\">Delete</button></td>");
+								echo("</tr>");
+							}
+							
+							$stmt -> close();
+						?>
+						</tbody>
+						</table>
+					</div>
                 </div>
             </div>
         </div>
@@ -552,7 +558,7 @@ function load_settings(){
     // Get the value of the "show" parameter
     const show_div = document.getElementById(urlParams.get('show'));
 	const nav_tab = document.getElementById(urlParams.get('show')+"_tab");
-	//show_div.style.display="block";
+	show_div.style.display="block";
 	nav_tab.setAttribute('class', 'nav-link active');
 </script>
 </body>
