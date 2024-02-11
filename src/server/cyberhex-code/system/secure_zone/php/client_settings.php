@@ -429,6 +429,20 @@ function load_settings(){
 								echo("<th scope=\"row\">".$row["id"]."</th>");
 								echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								echo("<td>");
+								echo('<select class="form-select" data-live-search="true" id="task_action">');
+								  echo('<option value="choose_action">Choose an action</option>');
+								  if($action=="scanfile")
+									echo('<option value="scanfile" selected >scanfile</option>');
+								else
+									echo('<option value="scanfile" >scanfile</option>');
+								 if($action=="scanfolder")
+								  echo('<option value="scanfolder" selected>scanfolder</option>');
+								else
+									echo('<option value="scanfolder">scanfolder</option>');
+								echo'(</select>');
+								echo('</td>');
+								
 								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('user_tasks',".$row["id"].");\">Delete</button></td>");
