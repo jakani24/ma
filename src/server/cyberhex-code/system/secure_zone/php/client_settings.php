@@ -368,7 +368,7 @@ function load_settings(){
 							<th scope="row">000</th>
 							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
 							<td>
-								<select class="selectpicker" multiple data-live-search="true">
+								<select class="select" multiple data-live-search="true">
 								  <option value="choose_action">Choose an action</option>
 								  <option value="scanfile">scanfile</option>
 								  <option value="scanfolder">scanfolder</option>
