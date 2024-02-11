@@ -117,6 +117,13 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($_GET["update"]=="user_tasks"){	
+		$id=htmlspecialchars($_GET["id"]);
+		$stmt = $conn->prepare("UPDATE user_tasks set task = ? WHERE id=$id");
+		$stmt->bind_param("s",$value);
+		$stmt->execute();
+		$stmt->close();
+	}
 	$conn->close();
 	
 }
@@ -230,6 +237,32 @@ function load_settings(){
 		var element = document.getElementById(element_id);
 		var value = element.value;
 		await fetch('client_settings.php?add='+db+'&value='+value+'&field='+field);
+		location.reload();
+	}
+	async function add_task(db,field,task_time,task_action,task_argument,task_name){
+		var element = document.getElementById(task_time);
+		var time = element.value;
+		var element = document.getElementById(task_action);
+		var action = element.value;
+		var element = document.getElementById(task_argument);
+		var argument = element.value;
+		var element = document.getElementById(task_name);
+		var name = element.value;
+		var task=time+";"+action+";"+argument+";"+name;
+		await fetch('client_settings.php?add='+db+'&value='+task+'&field='+field);
+		location.reload();
+	}
+	async function update_task(db,id,task_time,task_action,task_argument,task_name){
+		var element = document.getElementById(task_time);
+		var time = element.value;
+		var element = document.getElementById(task_action);
+		var action = element.value;
+		var element = document.getElementById(task_argument);
+		var argument = element.value;
+		var element = document.getElementById(task_name);
+		var name = element.value;
+		var task=time+";"+action+";"+argument+";"+name;
+		await fetch('client_settings.php?update='+db+'&value='+task+'&id='+id);
 		location.reload();
 	}
 </script>
@@ -368,7 +401,7 @@ function load_settings(){
 							<th scope="row">000</th>
 							<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
 							<td>
-								<select class="form-select" data-live-search="true">
+								<select class="form-select" data-live-search="true" id="task_action">
 								  <option value="choose_action">Choose an action</option>
 								  <option value="scanfile">scanfile</option>
 								  <option value="scanfolder">scanfolder</option>
@@ -376,21 +409,29 @@ function load_settings(){
 							</td>
 							<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
 							<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
-							<td><button type="button" class="btn btn-primary" onclick="add_item('rtp_excluded','rtp_excluded','path');">Add</button></td>
+							<td><button type="button" class="btn btn-primary" onclick="add_task('user_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
 						</tr>
 					<?php
 						//load all the entrys from a db table
-						$sql = "SELECT path,id FROM rtp_excluded ORDER BY id";
+						$sql = "SELECT task,id FROM user_tasks ORDER BY id";
 						$stmt = $conn->prepare($sql);
 						// Execute the statement
 						$stmt->execute();
 						// Get the result
 						$result = $stmt->get_result();
 						while ($row = $result->fetch_assoc()){
+							$buf=explode(";",$row["task"]);
+							$time=$buf[0];
+							$action=$buf[1];
+							$argument=$buf[2];
+							$name=$buf[3];
 							//print out the items
 							echo("<tr>");
 								echo("<th scope=\"row\">".$row["id"]."</th>");
-								echo("<td><input type=\"text\" id=\"rtp_excluded".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('rtp_excluded".$row["id"]."','rtp_excluded','".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('rtp_excluded',".$row["id"].");\">Delete</button></td>");
 							echo("</tr>");
 						}
