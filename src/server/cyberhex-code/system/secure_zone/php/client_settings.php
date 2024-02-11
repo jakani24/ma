@@ -264,16 +264,7 @@ function load_settings(){
 		var task=time+';'+action+';'+argument+';'+name;
 		await fetch('client_settings.php?update='+db+'&value='+task+'&id='+id);
 	}
-	//decide which div should be shown:
-    // Get the URL parameters
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
 
-    // Get the value of the "show" parameter
-    const show_div = getElementById(urlParams.get('show'));
-	const nav_tab = getElementById(urlParams.get('show')+"_tab");
-	show_div.style.display="block";
-	nav_tab.setAttribute('aria-current', 'page');
 	
 
 </script>
@@ -287,7 +278,7 @@ function load_settings(){
                 <div class="card-body">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-						<a class="nav-link" href="&show=general" id="general_tab">General Settings</a>
+						<a class="nav-link" href="client_settings.php?show=general" id="general_tab">General Settings</a>
 					  </li>
 					  <li class="nav-item">
 						<a class="nav-link" href="#">Link</a>
@@ -552,5 +543,17 @@ function load_settings(){
         </div>
     </div>
 </div>
+<script>
+//decide which div should be shown:
+    // Get the URL parameters
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    // Get the value of the "show" parameter
+    const show_div = getElementById(urlParams.get('show'));
+	const nav_tab = getElementById(urlParams.get('show')+"_tab");
+	show_div.style.display="block";
+	nav_tab.setAttribute('class', 'nav-link active');
+</script>
 </body>
 </html>
