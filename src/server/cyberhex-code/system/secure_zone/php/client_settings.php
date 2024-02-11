@@ -453,7 +453,7 @@ function load_settings(){
 					?>
 					</tbody>
 					</table>
-					<h4>System Tasks</h4>
+					<h4>System Tasks (Warning: Changes may impact security)</h4>
 					<table class="table">
 					<thead>
 					<tr>
