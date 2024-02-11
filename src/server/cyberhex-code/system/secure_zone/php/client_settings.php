@@ -550,8 +550,8 @@ function load_settings(){
     const urlParams = new URLSearchParams(queryString);
 
     // Get the value of the "show" parameter
-    const show_div = getElementById(urlParams.get('show'));
-	const nav_tab = getElementById(urlParams.get('show')+"_tab");
+    const show_div = document.getElementById(urlParams.get('show'));
+	const nav_tab = document.getElementById(urlParams.get('show')+"_tab");
 	show_div.style.display="block";
 	nav_tab.setAttribute('class', 'nav-link active');
 </script>
