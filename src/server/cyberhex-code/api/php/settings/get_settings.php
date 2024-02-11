@@ -5,6 +5,12 @@ $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
+include "../../../config.php";
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+	if ($conn->connect_error) {
+		$success=0;
+		die("Connection failed: " . $conn->connect_error);
+	}
 if(isset($_GET["settings"])){
 	/*
 		example settings:
@@ -17,6 +23,34 @@ if(isset($_GET["settings"])){
 	echo("server:server_url ".$setting_server_server_url."\n");
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
 	echo("rtp_process_scan:status ".$setting_rtp_process_scan_status."\n");
+}
+if(isset($_GET["rtp_included"])){
+	//load all the entrys from a db table
+	$sql = "SELECT path,id FROM rtp_included ORDER BY id";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()){
+			echo("\"".$row["path"]."\"\n");
+	}
+	$stmt -> close();	
+	
+}
+if(isset($_GET["rtp_excluded"])){
+	//load all the entrys from a db table
+	$sql = "SELECT path,id FROM rtp_excluded ORDER BY id";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()){
+			echo("\"".$row["path"]."\"\n");
+	}
+	$stmt -> close();
+	
 }
 
 function load_settings(){
