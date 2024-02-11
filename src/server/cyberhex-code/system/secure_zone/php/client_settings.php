@@ -261,7 +261,7 @@ function load_settings(){
 		var argument = element.value;
 		var element = document.getElementById(task_name);
 		var name = element.value;
-		var task='"'+time+'";'+action+';"'+argument+'";"'+name+'"';
+		var task=time+';'+action+';'+argument+';'+name;
 		await fetch('client_settings.php?update='+db+'&value='+task+'&id='+id);
 	}
 </script>
