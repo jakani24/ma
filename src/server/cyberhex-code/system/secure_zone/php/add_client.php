@@ -25,7 +25,7 @@ if($perms[7]!=="1"){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	 <title>Change Password</title>
+	 <title>Add Machine</title>
 </head>
 <body>
 
@@ -41,6 +41,25 @@ if($perms[7]!=="1"){
                         <button type="submit" class="btn btn-primary btn-block">Add Machine</button>
                     </form>
                 </div>
+				<?php
+					if(isset($_GET["add"])){
+						//php code to add the new machine
+						//we need to create the following files:
+						/*
+						* secrets => machineid,cert,apikey
+						* setup_script => server location, to download settings, databases etc
+						* add installer.exe to download list => downloads the app and all the files 
+						*/
+						//create machineid:
+						$random_bytes = random_bytes(6);
+
+						// Convert the random bytes to hexadecimal
+						$hex_code = bin2hex($random_bytes);
+
+						// Output the hexadecimal code
+						echo $hex_code; // This will output a 12-digit hexadecimal code
+					}
+				?>
             </div>
         </div>
     </div>
