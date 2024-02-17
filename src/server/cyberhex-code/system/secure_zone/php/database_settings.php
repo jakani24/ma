@@ -47,7 +47,7 @@ async function update_percentage() {
     percentageElement.innerHTML = "Loading...";
     
     // Make an AJAX request to the PHP script
-    await fetch('/get_update_status.php')
+    await fetch('/api/php/database/get_update_status.php')
         .then(response => response.json())
         .then(data => {
             // Update the percentage on the webpage
