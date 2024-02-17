@@ -35,6 +35,7 @@ function sort_hashes($inputFile) {
     fclose($handle);
 }
 function download_files(){
+	//download from virusshare
 	$file_count=485;
 	for($i=0;$i<$file_count;$i++){
 		$fileNumber = sprintf('%05d', $i);
@@ -45,6 +46,25 @@ function download_files(){
 		file_put_contents("/var/www/html/database_srv/$fileNumber.md5", $fileContents);
 		sort_hashes("/var/www/html/database_srv/$fileNumber.md5");
 	}
+	//download from https://bazaar.abuse.ch/export/txt/md5/recent/
+	$url="https://bazaar.abuse.ch/export/txt/md5/recent/";
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$fileContents = curl_exec($ch);
+	file_put_contents("/var/www/html/database_srv/buf.md5", $fileContents);
+	sort_hashes("/var/www/html/database_srv/buf.md5");
+}
+$directory = '/var/www/html/database_srv'; // Path to the directory
+
+// Get a list of all files in the directory
+$files = glob($directory . '/*');
+
+// Iterate over each file and delete it
+foreach ($files as $file) {
+    // Check if the file is a regular file (not a directory)
+    if (is_file($file)) {
+        unlink($file);
+    }
 }
 set_time_limit(0);
 download_files();
