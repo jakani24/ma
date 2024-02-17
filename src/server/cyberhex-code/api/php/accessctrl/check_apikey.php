@@ -6,12 +6,12 @@ function check_apikey(){
 			$success=0;
 			die("Connection failed: " . $conn->connect_error);
 		}
-	if(!isset($_GET["apikey"]) or !isset($_GET["machineid"])){
+	if(!isset($_GET["apikey"]) or !isset($_GET["machine_id"])){
 		return false;
 	}
 	else{
 		$apikey=$_GET["apikey"];
-		$machineid=$_GET["machineid"];
+		$machineid=$_GET["machine_id"];
 		$sql = "SELECT * FROM api WHERE apikey = ? and machine_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("ss", $apikey,$machineid);
@@ -37,12 +37,12 @@ function load_secret(){
 			$success=0;
 			die("Connection failed: " . $conn->connect_error);
 		}
-	if(!isset($_GET["apikey"]) or !isset($_GET["machineid"])){
+	if(!isset($_GET["apikey"]) or !isset($_GET["machine_id"])){
 		return "nan";
 	}
 	else{
 		$apikey=$_GET["apikey"];
-		$machineid=$_GET["machineid"];
+		$machineid=$_GET["machine_id"];
 		$sql = "SELECT * FROM secrets machine_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s",$machineid);
