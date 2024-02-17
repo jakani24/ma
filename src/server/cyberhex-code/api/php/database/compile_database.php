@@ -15,7 +15,7 @@ function sort_hashesh($inputFile) {
 		$prefix = substr($word, 0, 2);
 		
 		// Create the filename for the corresponding file
-		$filename = $prefix . ".txt";
+		$filename = $prefix . ".jdbf";
 		
 		// Open or create the file for writing
 		$fileHandle = fopen($filename, "a");
@@ -43,11 +43,11 @@ function download_files(){
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$fileContents = curl_exec($ch);
 		file_put_contents("/var/www/html/database_srv/$fileNumber.md5", $fileContents);
+		sort_hashes("/var/www/html/database_srv/$fileNumber.md5");
 	}
 }
 
 download_files();
-$inputFile = "input.txt";
-//sortWordsIntoFiles($inputFile);
+
 
 ?>
