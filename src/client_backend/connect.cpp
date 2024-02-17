@@ -46,7 +46,7 @@ size_t write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
 int download_file_from_srv(const char* url, const char* output_file_path) {
     //use curl to download a file from a server
     char*temp_path = new char[515];
-    char* buf = new char[55];
+    char* buf = new char[505];
     strcpy_s(temp_path,495, output_file_path);
     strcat_s(temp_path,505, ".temp");
     CURL* curl;
@@ -84,7 +84,7 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
         return 4;
     }
     else {
-        fscanf(output_file, "%50s", buf);
+        fscanf(output_file, "%500s", buf);
         if (strcmp(buf, "no_auth") == 0) {
             fclose(output_file);
             return 5;

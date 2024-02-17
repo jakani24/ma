@@ -12,7 +12,7 @@ function check_apikey(){
 	else{
 		$apikey=$_GET["apikey"];
 		$machineid=$_GET["machineid"];
-		$sql = "SELECT * FROM api WHERE apikey = ? and machineid = ?";
+		$sql = "SELECT * FROM api WHERE apikey = ? and machine_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("ss", $apikey,$machineid);
 		
@@ -28,6 +28,7 @@ function check_apikey(){
 			//apikey authenticated
 		}
 	}
+	return false;
 }
 function load_secret(){
 	include "../../../config.php";
@@ -37,12 +38,12 @@ function load_secret(){
 			die("Connection failed: " . $conn->connect_error);
 		}
 	if(!isset($_GET["apikey"]) or !isset($_GET["machineid"])){
-		return false;
+		return "nan";
 	}
 	else{
 		$apikey=$_GET["apikey"];
 		$machineid=$_GET["machineid"];
-		$sql = "SELECT * FROM secrets machineid = ?";
+		$sql = "SELECT * FROM secrets machine_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s",$machineid);
 		
@@ -57,6 +58,6 @@ function load_secret(){
 			return $row["cert"];
 		}
 	}
-	
+	return "nan";
 }
 ?>

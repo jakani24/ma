@@ -4,5 +4,5 @@
 #include <curl/curl.h>
 #include<string>
 int update_db(const std::string& folder_path);
-int update_settings();
+int update_settings(const char*settings_type);
 #endif

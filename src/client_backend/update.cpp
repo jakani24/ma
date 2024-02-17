@@ -4,7 +4,7 @@
 #include "log.h"
 #include "connect.h"
 #include "settings.h"
-
+#include "security.h"
 
 int update_db(const std::string& folder_path) {
 	//download the databases from the server
@@ -40,12 +40,25 @@ int update_db(const std::string& folder_path) {
 	}
 	return 0;
 }
-int update_settings() {
+int update_settings(const char*settings_type) {
 	//create the strings to download the files
-	char* url = new char[500];
+	char* url = new char[1000];
 	get_setting("server:server_url", url);
-	strcat_s(url, 500, "/api/php/settings/get_settings.php?settings");
-	int res = download_file_from_srv(url, SETTINGS_DB);
+	strcat_s(url, 1000, "/api/php/settings/get_settings.php?");//need to add machine_id and apikey
+	strcat_s(url, 1000, settings_type);
+	strcat_s(url, 1000, "&machine_id=");
+	strcat_s(url, 1000, get_machineid(SECRETS));
+	strcat_s(url, 1000, "&apikey=");
+	strcat_s(url, 1000, get_apikey(SECRETS));
+	int res = 1;
+	if(strcmp(settings_type,"settings")==0)
+		res = download_file_from_srv(url, SETTINGS_DB);
+	else if (strcmp(settings_type, "rtp_inlcuded") == 0)
+		res = download_file_from_srv(url, INCLUDED_FOLDERS);
+	else if (strcmp(settings_type, "rtp_excluded") == 0)
+		res = download_file_from_srv(url, EXCLUDED_FOLDERS);
+	else if (strcmp(settings_type, "sched") == 0)
+		res = download_file_from_srv(url, SCHED_PATH);
 	//int res = 0;
 	if (res != 0) {
 		log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server", url, " ERROR:",res);

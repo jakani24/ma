@@ -6,11 +6,11 @@ int check_cert(const char*cert,const char*secrets_path) {
 		return 1;
 	}
 	else {
-		char*secrets = new char[300];
+		char*secrets = new char[505];
 		while (!feof(fp)) {
-			fscanf_s(fp, "%s", secrets, 295); // get the secret
+			fscanf_s(fp, "%s", secrets, 500); // get the secret
 			if (strcmp("cert", secrets) == 0) {
-				fscanf_s(fp, "%s", secrets, 295); // get the secret
+				fscanf_s(fp, "%s", secrets, 500); // get the secret
 				if (strcmp(cert, secrets) == 0) {
 					delete[] secrets;
 					return 0;
@@ -28,11 +28,11 @@ char* get_apikey(const char* secrets_path) {
 		return 0;
 	}
 	else {
-		char*secrets = new char[300];
+		char*secrets = new char[505];
 		while (!feof(fp)) {
-			fscanf_s(fp, "%s", secrets, 295); // get the secret
+			fscanf_s(fp, "%s", secrets, 500); // get the secret
 			if (strcmp("apikey", secrets) == 0) {
-				fscanf_s(fp, "%s", secrets, 295); // get the secret
+				fscanf_s(fp, "%s", secrets, 500); // get the secret
 				return secrets;
 			}
 		}

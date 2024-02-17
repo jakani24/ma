@@ -22,7 +22,16 @@ int main() {
     log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
 	printf("welcome to the jakach security tool main thread\n");
     load_settings();//load the settings from the settings file
-    if (update_settings()) { //update the settings from the server
+    if (update_settings("settings")) { //update the settings from the server
+        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+    }
+    if (update_settings("rtp_included")) { //update the settings from the server
+        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+    }
+    if (update_settings("rtp_excluded")) { //update the settings from the server
+        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+    }
+    if (update_settings("sched")) { //update the settings from the server
         log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
     }
     load_settings();

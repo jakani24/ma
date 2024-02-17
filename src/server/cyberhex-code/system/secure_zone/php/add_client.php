@@ -107,11 +107,13 @@ include "../../../config.php";
 						$row = $result->fetch_assoc();
 						if($row!==null){
 							$this_server=$row["value"];
+						}else{
+							$this_server="http://localhost";
 						}
 						$stmt -> close();
 						//create the files and download them
 						$fp=fopen("/var/www/html/export/setup.txt","w");
-						fwrite($fp,"$this_server");
+						fwrite($fp,"server $this_server");
 						fclose($fp);
 						$fp=fopen("/var/www/html/export/secrets.txt","w");
 						fwrite($fp,"machineid $machineid\n");

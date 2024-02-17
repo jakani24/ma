@@ -7,6 +7,7 @@
 #include <sddl.h>
 #include <stdio.h>
 #include "download.h"
+#include "well_known.h"
 #pragma comment(lib, "advapi32.lib")
 /*
 Tasks to do:
@@ -197,6 +198,83 @@ int create_insecure_folder(LPCWSTR folderpath) {
     }
     return error;
 }
+
+int check_cert(const char* cert, const char* secrets_path) {
+    FILE* fp;
+    if (fopen_s(&fp, secrets_path, "r") != 0) {
+        return 1;
+    }
+    else {
+        char* secrets = new char[300];
+        while (!feof(fp)) {
+            fscanf_s(fp, "%s", secrets, 295); // get the secret
+            if (strcmp("cert", secrets) == 0) {
+                fscanf_s(fp, "%s", secrets, 295); // get the secret
+                if (strcmp(cert, secrets) == 0) {
+                    delete[] secrets;
+                    return 0;
+                }
+            }
+        }
+        delete[] secrets;
+        return 2;
+    }
+
+}
+char* get_apikey(const char* secrets_path) {
+    FILE* fp;
+    if (fopen_s(&fp, secrets_path, "r") != 0) {
+        return 0;
+    }
+    else {
+        char* secrets = new char[300];
+        while (!feof(fp)) {
+            fscanf_s(fp, "%s", secrets, 295); // get the secret
+            if (strcmp("apikey", secrets) == 0) {
+                fscanf_s(fp, "%s", secrets, 295); // get the secret
+                return secrets;
+            }
+        }
+        delete[] secrets;
+        return 0;
+    }
+}
+char* get_machineid(const char* secrets_path) {
+    FILE* fp;
+    if (fopen_s(&fp, secrets_path, "r") != 0) {
+        return 0;
+    }
+    else {
+        char* secrets = new char[300];
+        while (!feof(fp)) {
+            fscanf_s(fp, "%s", secrets, 295); // get the secret
+            if (strcmp("machineid", secrets) == 0) {
+                fscanf_s(fp, "%s", secrets, 295); // get the secret
+                return secrets;
+            }
+        }
+        delete[] secrets;
+        return 0;
+    }
+}
+char* get_server(const char* secrets_path) {
+    FILE* fp;
+    if (fopen_s(&fp, secrets_path, "r") != 0) {
+        return 0;
+    }
+    else {
+        char* secrets = new char[300];
+        while (!feof(fp)) {
+            fscanf_s(fp, "%s", secrets, 295); // get the secret
+            if (strcmp("server", secrets) == 0) {
+                fscanf_s(fp, "%s", secrets, 295); // get the secret
+                return secrets;
+            }
+        }
+        delete[] secrets;
+        return 0;
+    }
+}
 int main()
 {
     printf("Welcome to the Cyberhex installer!\n");
@@ -251,6 +329,16 @@ int main()
         }
 
         //download files from server
+        FILE* fp;
+        char*apikey=get_apikey("secrets.txt");
+        char*machineid=get_machineid("secrets.txt");
+        char* server_url = get_server("setup.txt");
+        //copy secrets.txt into the secrets folder
+        if (rename("secrets.txt", SECRETS)!=0) {
+			error = 8;
+		}
+        //download all the other files
+
         if (error == 0) {
             printf("Downloading files from server\n");
             printf("Downloading cyberhex.exe\n");
@@ -365,6 +453,10 @@ int main()
     case 7:
         printf("Failed to download file\n");
         MessageBox(NULL, L"Failed to download file", L"Error", MB_OK);
+		break;
+    case 8:
+		printf("Failed to open secrets.txt\n");
+		MessageBox(NULL, L"Failed to open secrets.txt", L"Error", MB_OK);
 		break;
     default:
         break;
