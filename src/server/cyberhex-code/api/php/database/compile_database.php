@@ -12,10 +12,10 @@ function sort_hashes($inputFile) {
         // Remove leading/trailing whitespace and split the line into words
        
 		// Get the first two characters of the word
-		$prefix = substr($word, 0, 2);
+		$prefix = substr($line, 0, 2);
 		
 		// Create the filename for the corresponding file
-		$filename = $prefix . ".jdbf";
+		$filename = "/var/www/html/database_srv/".$prefix . ".jdbf";
 		
 		// Open or create the file for writing
 		$fileHandle = fopen($filename, "a");
@@ -24,7 +24,7 @@ function sort_hashes($inputFile) {
 		}
 		
 		// Write the word to the file
-		fwrite($fileHandle, $word . PHP_EOL);
+		fwrite($fileHandle, $line . PHP_EOL);
 		
 		// Close the file handle
 		fclose($fileHandle);
