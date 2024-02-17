@@ -466,7 +466,7 @@ function load_settings(){
 									  echo('<option value="update_settings" selected>update settings</option>');
 									else
 										echo('<option value="update_settings">update settings</option>');
-									if($action=="update_settings")
+									if($action=="update_db")
 									  echo('<option value="update_db" selected>update database</option>');
 									else
 										echo('<option value="update_db">update database</option>');
