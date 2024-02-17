@@ -149,7 +149,7 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
                 localtime_s(&current_time, &t);
 
                 //printf("%s\n", datetime);
-                if (strcmp(datetime, "") != 0 && strcmp(command, "") != 0 && strcmp(path, "") != 0 && strcmp(taskname, "") != 0) {
+                if (strcmp(datetime, "") != 0 && strcmp(command, "") != 0  && strcmp(taskname, "") != 0) {
                     if (is_task_due(taskname, datetime, current_time)) {
                         //printf("command:%s\n", command);
                         //printf("path:%s\n", path);

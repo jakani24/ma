@@ -461,6 +461,10 @@ function load_settings(){
 									  echo('<option value="scanfolder" selected>scanfolder</option>');
 									else
 										echo('<option value="scanfolder">scanfolder</option>');
+									if($action=="update_settings")
+									  echo('<option value="update_settings" selected>update settings</option>');
+									else
+										echo('<option value="update_settings">update settings</option>');
 									echo('</select>');
 									echo('</td>');
 									
