@@ -110,7 +110,6 @@ include "../../../config.php";
 						}
 						$stmt -> close();
 						//create the files and download them
-						file $fp;
 						$fp=fopen("/var/www/html/setup.txt","w");
 						fwrite($fp,"$this_server");
 						fclose($fp);
