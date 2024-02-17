@@ -31,7 +31,7 @@ include "perms_functions.php";
 </head>
 <body>
 <script>
-function async update_database(){
+function async update_db(){
 	var loader=document.getElementById("loader");
 	loader.style.display="block";
 	await fetch('/api/php/database/compile_database.php);
