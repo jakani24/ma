@@ -48,9 +48,11 @@ async function update_db(){
                 <div class="card-body">
 					<button class="btn btn-dark" onclick="update_db();">Update / regenerate Database (!this can take very long ~1h)</button>
 					<div style="display:none" id="loader">
-						<p>Database update is running, please do not close this tab / do not navigate away!</p>
+						<div class="alert alert-success" role="alert">
+							Database update is running, please do not close this tab / do not navigate away!
+						</div>
 						<div class="spinner-border" role="status">
-							<span class="sr-only">Loading...</span>
+						  <span class="visually-hidden">Loading...</span>
 						</div>
 					</div>
                 </div>
