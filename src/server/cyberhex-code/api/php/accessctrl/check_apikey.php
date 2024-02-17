@@ -43,7 +43,7 @@ function load_secret(){
 	else{
 		$apikey=$_GET["apikey"];
 		$machineid=$_GET["machine_id"];
-		$sql = "SELECT * FROM secrets machine_id = ?";
+		$sql = "SELECT * FROM secrets WHERE machine_id = ?";
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param("s",$machineid);
 		
