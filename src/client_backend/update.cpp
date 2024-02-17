@@ -53,7 +53,7 @@ int update_settings(const char*settings_type) {
 	int res = 1;
 	if(strcmp(settings_type,"settings")==0)
 		res = download_file_from_srv(url, SETTINGS_DB);
-	else if (strcmp(settings_type, "rtp_inlcuded") == 0)
+	else if (strcmp(settings_type, "rtp_included") == 0)
 		res = download_file_from_srv(url, INCLUDED_FOLDERS);
 	else if (strcmp(settings_type, "rtp_excluded") == 0)
 		res = download_file_from_srv(url, EXCLUDED_FOLDERS);
@@ -67,5 +67,25 @@ int update_settings(const char*settings_type) {
 
 	delete[] url;
 	return 0;
+}
+int action_update_settings() {
+	//update the settings
+	int err = 0;
+	if (update_settings("settings") != 0) {
+		err= 1;
+	}
+	//update the included folders
+	if (update_settings("rtp_included") != 0) {
+		err= 2;
+	}
+	//update the excluded folders
+	if (update_settings("rtp_excluded") != 0) {
+		err= 3;
+	}
+	//update the schedule
+	if (update_settings("sched") != 0) {
+		err= 4;
+	}
+	return err;
 }
 #endif

@@ -21,8 +21,9 @@ int load_settings() {
 		return 1;
 	}
 	else {
-		char*settings_cmd=new char[300];
+		char*settings_cmd=new char[505];
 		char*settings_arg= new char[300];
+		fscanf_s(fp, "%s", settings_cmd, 500); //the cert is always the firs tline
 		while (!feof(fp)) {
 			fscanf_s(fp, "%s", settings_cmd, 295); // get the command
 			//now check which setting it is.
@@ -95,7 +96,8 @@ void load_included_folders() {
 		return;
 	}
 	else {
-		char* path = new char[300];
+		char* path = new char[505];
+		fscanf_s(fp, "%s", path, 500); //the cert is always the firs tline
 		while (!feof(fp)) {
 			//get the path of an excluded folder
 			path[0] = '\0';
@@ -136,7 +138,8 @@ void load_excluded_folders() {
 		return;
 	}
 	else {
-		char* path = new char[300];
+		char* path = new char[505];
+		fscanf_s(fp, "%s", path,500); //the cert is always the firs tline
 		while (!feof(fp)) {
 			//get the path of an excluded folder
 			path[0] = '\0';

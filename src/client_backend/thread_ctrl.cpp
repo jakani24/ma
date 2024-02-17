@@ -5,6 +5,7 @@
 #include "well_known.h"
 #include "scan.h"
 #include "app_ctrl.h"
+#include "update.h"
 void split(char* input,const char delimiter, char* out1, char* out2) {
 	//split a string at the delimiter. the delimiter only occurs once. so the first part is out1 and the second part is out2
 	int i = 0;
@@ -46,6 +47,11 @@ int start_thread(const char* command) {
 		else if (strcmp(out1, "scanfolder") == 0) {
 			//start a new thread with the scanfolder function
 			std::thread t1(action_scanfolder, out2);
+			t1.detach();
+		}
+		else if (strcmp(out1, "update_settings") == 0) {
+			//start a new thread with the scanfolder function
+			std::thread t1(action_update_settings);
 			t1.detach();
 		}
 

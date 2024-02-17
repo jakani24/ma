@@ -63,6 +63,7 @@ int main() {
         //unlock_task("tsk1"); else it will only be executed once. but this function has to be called at the end of the task. else it will nvr be executed again. this would be bad :(
         //start a thread that executes check_scan_dir to scan folders for new files. this thread then should start a ock so only one scanfolder thread runs at a time
         //Sleep(1000);
+
         if (can_run_thread()) {
             int queue_size = get_queue_size();
             for (int i = 0; i < queue_size; i++) {
@@ -70,7 +71,6 @@ int main() {
                 queue_entry[0] = '\0';
                 queue_pop(queue_entry);
                 //execute the function which starts the threads
-     //           printf("%s\n", queue_entry);
                 start_thread(queue_entry);
                 delete[] queue_entry;
             }

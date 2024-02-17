@@ -89,16 +89,16 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
             fclose(output_file);
             return 5;
         }
-        else if(check_cert(buf, SECRETS)!=0){
-            if (rename(temp_path, output_file_path)) {
-				fclose(output_file);
+        else if(check_cert(buf, SECRETS)==0){
+            remove(output_file_path);//remove old file, so it can be overwritten
+            fclose(output_file);
+            if (rename(temp_path, output_file_path)!=0) {
 				return 6;
             }
         }else {
         	fclose(output_file);
 			return 7;
         }
-        fclose(output_file);
     }
     delete[] buf;
     delete[] temp_path;

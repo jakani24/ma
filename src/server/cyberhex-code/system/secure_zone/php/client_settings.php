@@ -424,6 +424,7 @@ function load_settings(){
 									  <option value="choose_action">Choose an action</option>
 									  <option value="scanfile">scanfile</option>
 									  <option value="scanfolder">scanfolder</option>
+									  <option value="update_settings">update settings</option>
 									</select>
 								</td>
 								<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
