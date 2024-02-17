@@ -88,9 +88,14 @@ include "../../../config.php";
 
 						// Convert the random bytes to hexadecimal
 						$apikey = bin2hex($random_bytes);
-						echo($cert);
-						echo("<br>");
-						echo($apikey);
+						$stmt = $conn->prepare("INSERT INTO secrets (machine_id, cert) VALUES (?, ?)");
+						$stmt->bind_param("ss", $machineid, $cert);
+						$stmt->execute();
+						$stmt->close();
+						$stmt = $conn->prepare("INSERT INTO api (machine_id, apikey) VALUES (?, ?)");
+						$stmt->bind_param("ss", $machineid, $apikey);
+						$stmt->execute();
+						$stmt->close();
 					}
 				?>
             </div>
