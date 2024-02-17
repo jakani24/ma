@@ -24,6 +24,7 @@ if(isset($_GET["settings"])){
 		rtp_folder_scan:status on
 	*/
 	echo(load_secret()."\n");
+	load_settings();
 	echo("virus_ctrl:virus_found:action ".$setting_virus_ctrl_virus_found_action."\n");
 	echo("server:server_url ".$setting_server_server_url."\n");
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
