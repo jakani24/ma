@@ -46,7 +46,7 @@ function download_files(){
 		sort_hashes("/var/www/html/database_srv/$fileNumber.md5");
 	}
 }
-
+set_time_limit(0);
 download_files();
 
 
