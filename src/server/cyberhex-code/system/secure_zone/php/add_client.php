@@ -110,16 +110,16 @@ include "../../../config.php";
 						}
 						$stmt -> close();
 						//create the files and download them
-						$fp=fopen("/var/www/html/setup.txt","w");
+						$fp=fopen("/var/www/html/export/setup.txt","w");
 						fwrite($fp,"$this_server");
 						fclose($fp);
-						$fp=fopen("/var/www/html/secrets.txt","w");
+						$fp=fopen("/var/www/html/export/secrets.txt","w");
 						fwrite($fp,"machineid $machineid\n");
 						fwrite($fp,"cert $cert\n");
 						fwrite($fp,"apikey $apikey\n");
 						fclose($fp);
-						echo("<a href='/secrets.txt' download>Download config file1</a>");
-						echo("<a href='/setup.txt' download>Download config file2</a>");
+						echo("<a href='/export/secrets.txt' download>Download config file1</a>");
+						echo("<a href='/export/setup.txt' download>Download config file2</a>");
 						echo("<a href='/installer.exe' download>Download installer</a>");
 					}
 				?>
