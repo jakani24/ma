@@ -18,6 +18,12 @@ if($perms[7]!=="1"){
 }else{
 	$block=0;
 }
+include "../../../config.php";
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+		if ($conn->connect_error) {
+			$success=0;
+			die("Connection failed: " . $conn->connect_error);
+		}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +44,14 @@ if($perms[7]!=="1"){
                 </div>
                 <div class="card-body">
 					<form action="add_client.php?add=true" method="post">
+						<div class="form-group">
+                            <label for="location">Location:</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Office1" required>
+                        </div>
+						<div class="form-group">
+                            <label for="ip">IP: (can be left blank)</label>
+                            <input type="text" class="form-control" id="ip" name="ip">
+                        </div>
                         <button type="submit" class="btn btn-primary btn-block">Add Machine</button>
                     </form>
                 </div>
@@ -54,10 +68,29 @@ if($perms[7]!=="1"){
 						$random_bytes = random_bytes(6);
 
 						// Convert the random bytes to hexadecimal
-						$hex_code = bin2hex($random_bytes);
+						$machineid = bin2hex($random_bytes);
+						if(!isset($_POST["ip"]))
+							$ip="nan";
+						$location=htmlspecialchars($_POST["location"]);
+						
+						$stmt = $conn->prepare("INSERT INTO machines (machine_name, machine_location,machine_ip) VALUES (?, ?, ?)");
+						$stmt->bind_param("sss", $machine_id, $location, $ip);
+						$stmt->execute();
+						$stmt->close();
+						
+						//create secrets
+						$random_bytes = random_bytes(248);
 
-						// Output the hexadecimal code
-						echo $hex_code; // This will output a 12-digit hexadecimal code
+						// Convert the random bytes to hexadecimal
+						$cert = bin2hex($random_bytes);
+						//create secrets
+						$random_bytes = random_bytes(248);
+
+						// Convert the random bytes to hexadecimal
+						$apikey = bin2hex($random_bytes);
+						echo($cert);
+						echo("<br>");
+						echo($apikey);
 					}
 				?>
             </div>
