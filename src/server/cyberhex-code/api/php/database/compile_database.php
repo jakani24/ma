@@ -35,33 +35,18 @@ function sort_hashesh($inputFile) {
     fclose($handle);
 }
 function download_files(){
-	
-}
-$url = 'http://example.com/file.txt';
-
-// Initialize cURL session
-$ch = curl_init($url);
-
-// Set options
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-// Execute cURL session
-$fileContents = curl_exec($ch);
-
-// Check if the request was successful
-if ($fileContents === false) {
-    die('Failed to download file');
+	$file_count=485;
+	for($i=0;$i<$file_count;$i++){
+		$fileNumber = sprintf('%05d', $i);
+		$url="https://virusshare.com/hashfiles/VirusShare_$fileNumber.md5";
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		$fileContents = curl_exec($ch);
+		file_put_contents("/var/www/html/database_srv/$fileNumber.md5", $fileContents);
+	}
 }
 
-// Close cURL session
-curl_close($ch);
-
-// Save the downloaded file to disk
-$localFilePath = 'downloaded_file.txt';
-file_put_contents($localFilePath, $fileContents);
-
-echo 'File downloaded successfully';
-// Usage example: Provide the path to the input file
+download_files();
 $inputFile = "input.txt";
 //sortWordsIntoFiles($inputFile);
 
