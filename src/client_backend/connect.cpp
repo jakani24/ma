@@ -47,7 +47,7 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
     CURL* curl;
     CURLcode res;
     FILE* output_file;
-
+    char*buf=new char[55];
     curl = curl_easy_init();
     if (!curl) {
         return 1;
@@ -60,7 +60,7 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
     output_file = fopen(output_file_path, "wb");
     if (!output_file) {
         curl_easy_cleanup(curl);
-        return 1;
+        return 2;
     }
 
     // Set the write callback function
@@ -70,12 +70,23 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
     // Perform the download
     res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
-        return 1;
+        return 3;
     }
     // Cleanup and close the file
     curl_easy_cleanup(curl);
     fclose(output_file);
-
+    if ((output_file = fopen(output_file_path, "r")) == 0) {
+        return 4;
+    }
+    else {
+        fscanf(output_file, "%50s", buf);
+        if (strcmp(buf, "no_auth") == 0) {
+            fclose(output_file);
+            return 5;
+        }
+        fclose(output_file);
+    }
+    delete[] buf;
     return 0;
 }
 

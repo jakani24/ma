@@ -17,11 +17,17 @@
 #include "settings.h"
 #include "check_dir.h"
 #include "virus_ctrl.h"
+#include "update.h"
 int main() {
     log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
 	printf("welcome to the jakach security tool main thread\n");
     load_settings();//load the settings from the settings file
+    if (update_settings()) { //update the settings from the server
+        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+    }
+    load_settings();
     initialize(DB_DIR); //load the hash databases into memory
+    //download_file_from_srv("http://192.168.27.13/api/php/settings/get_settings.php?settings", "c:\\programdata\\jakach\\out12.txt");
 
     //start a second thread which will scan for new files
     if (get_setting("rtp_folder_scan:status") == 1) {

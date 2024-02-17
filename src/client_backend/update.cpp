@@ -40,15 +40,15 @@ int update_db(const std::string& folder_path) {
 	}
 	return 0;
 }
-int update_settings(const std::string& folder_path) {
+int update_settings() {
 	//create the strings to download the files
-	char* url = new char[300];
+	char* url = new char[500];
 	get_setting("server:server_url", url);
-	strcat_s(url, 295, "/database/");
-	strcat_s(url, 295, "settings_db.txt");
+	strcat_s(url, 500, "/api/php/settings/get_settings.php?settings");
 	int res = download_file_from_srv(url, SETTINGS_DB);
+	//res = 0;
 	if (res != 0) {
-		log(LOGLEVEL::ERR, "[update_db()]: Error downloading settings database file from server", url);
+		log(LOGLEVEL::ERR, "[update_db()]: Error downloading settings database file from server", url, " ERROR:",res);
 		return 1;
 	}
 

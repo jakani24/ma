@@ -3,7 +3,7 @@
 //put auth code here afterwards
 include "../accessctrl/check_apikey.php";
 if(check_apikey()!==true){
-	die("no_atuh");
+	die("no_auth");
 }
 
 //add the entry to the log db
