@@ -40,6 +40,27 @@ async function update_db(){
 	loader.style.display="none";
 	button.style.display="block";
 }
+async function update_percentage() {
+    var percentageElement = document.getElementById("percentage");
+    
+    // Display loading indicator
+    percentageElement.innerHTML = "Loading...";
+    
+    // Make an AJAX request to the PHP script
+    await fetch('/get_update_status.php')
+        .then(response => response.json())
+        .then(data => {
+            // Update the percentage on the webpage
+            percentageElement.innerHTML = "Status: " + data.percentage.toFixed(2) + "%";
+        })
+        .catch(error => {
+            // Display error message if request fails
+            percentageElement.innerHTML = "Error: " + error.message;
+        });
+}
+
+// Call update_percentage() every 5 seconds
+setInterval(update_percentage, 5000);
 </script>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -54,6 +75,7 @@ async function update_db(){
 						<br>
 						<div class="alert alert-success" role="alert">
 							Database update is running, please do not close this tab and do not navigate away!
+							<div id="percentage"></div>
 						</div>
 						<div class="spinner-border" role="status">
 						  <span class="visually-hidden">Loading...</span>
