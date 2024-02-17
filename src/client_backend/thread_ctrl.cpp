@@ -54,6 +54,11 @@ int start_thread(const char* command) {
 			std::thread t1(action_update_settings);
 			t1.detach();
 		}
+		else if (strcmp(out1, "update_db") == 0) {
+			//start a new thread with the scanfolder function
+			std::thread t1(action_update_settings);
+			t1.detach();
+		}
 
 		while (can_run_thread()) {
 			//delay a bit, in order to wait until the thread is started

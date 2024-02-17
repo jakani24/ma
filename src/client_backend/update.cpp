@@ -88,4 +88,8 @@ int action_update_settings() {
 	}
 	return err;
 }
+int action_update_db() {
+	//update the databases
+	return update_db(DB_DIR);
+}
 #endif
