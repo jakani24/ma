@@ -504,6 +504,8 @@ function load_settings(){
 									  <option value="choose_action">Choose an action</option>
 									  <option value="scanfile">scanfile</option>
 									  <option value="scanfolder">scanfolder</option>
+									  <option value="update_settings">update settings</option>
+									  <option value="update_db">update database</option>
 									</select>
 								</td>
 								<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
@@ -540,6 +542,14 @@ function load_settings(){
 									  echo('<option value="scanfolder" selected>scanfolder</option>');
 									else
 										echo('<option value="scanfolder">scanfolder</option>');
+									if($action=="update_settings")
+									  echo('<option value="update_settings" selected>update settings</option>');
+									else
+										echo('<option value="update_settings">update settings</option>');
+									if($action=="update_db")
+									  echo('<option value="update_db" selected>update database</option>');
+									else
+										echo('<option value="update_db">update database</option>');
 									echo('</select>');
 									echo('</td>');
 									
