@@ -74,7 +74,7 @@ include "../../../config.php";
 						$location=htmlspecialchars($_POST["location"]);
 						
 						$stmt = $conn->prepare("INSERT INTO machines (machine_name, machine_location,machine_ip) VALUES (?, ?, ?)");
-						$stmt->bind_param("sss", $machine_id, $location, $ip);
+						$stmt->bind_param("sss", $machineid, $location, $ip);
 						$stmt->execute();
 						$stmt->close();
 						
