@@ -24,12 +24,14 @@ if(isset($_GET["settings"])){
 		rtp_folder_scan:status on
 	*/
 	load_settings();
+	echo(load_secret());
 	echo("virus_ctrl:virus_found:action ".$setting_virus_ctrl_virus_found_action."\n");
 	echo("server:server_url ".$setting_server_server_url."\n");
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
 	echo("rtp_process_scan:status ".$setting_rtp_process_scan_status."\n");
 }
 if(isset($_GET["rtp_included"])){
+	echo(load_secret());
 	//load all the entrys from a db table
 	$sql = "SELECT path,id FROM rtp_included ORDER BY id";
 	$stmt = $conn->prepare($sql);
@@ -44,6 +46,7 @@ if(isset($_GET["rtp_included"])){
 	
 }
 if(isset($_GET["rtp_excluded"])){
+	echo(load_secret());
 	//load all the entrys from a db table
 	$sql = "SELECT path,id FROM rtp_excluded ORDER BY id";
 	$stmt = $conn->prepare($sql);
@@ -58,6 +61,7 @@ if(isset($_GET["rtp_excluded"])){
 	
 }
 if(isset($_GET["sched"])){
+	echo(load_secret());
 	//load all the entrys from a db table
 	$sql = "SELECT task,id FROM user_tasks ORDER BY id";
 	$stmt = $conn->prepare($sql);

@@ -2,6 +2,8 @@
 #ifndef CONNECT_CPP
 #define CONNECT_CPP
 #include "connect.h"
+#include "well_known.h"
+#include "security.h"
 
 static size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp)
 {
@@ -43,11 +45,14 @@ size_t write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
 
 int download_file_from_srv(const char* url, const char* output_file_path) {
     //use curl to download a file from a server
-
+    char*temp_path = new char[515];
+    char* buf = new char[55];
+    strcpy_s(temp_path,495, output_file_path);
+    strcat_s(temp_path,505, ".temp");
     CURL* curl;
     CURLcode res;
     FILE* output_file;
-    char*buf=new char[55];
+
     curl = curl_easy_init();
     if (!curl) {
         return 1;
@@ -57,7 +62,7 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
     curl_easy_setopt(curl, CURLOPT_URL, url);
 
     // Create a file to write the downloaded data
-    output_file = fopen(output_file_path, "wb");
+    output_file = fopen(temp_path, "wb");
     if (!output_file) {
         curl_easy_cleanup(curl);
         return 2;
@@ -75,7 +80,7 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
     // Cleanup and close the file
     curl_easy_cleanup(curl);
     fclose(output_file);
-    if ((output_file = fopen(output_file_path, "r")) == 0) {
+    if ((output_file = fopen(temp_path, "r")) == 0) {
         return 4;
     }
     else {
@@ -84,9 +89,19 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
             fclose(output_file);
             return 5;
         }
+        else if(check_cert(buf, SECRETS)!=0){
+            if (rename(temp_path, output_file_path)) {
+				fclose(output_file);
+				return 6;
+            }
+        }else {
+        	fclose(output_file);
+			return 7;
+        }
         fclose(output_file);
     }
     delete[] buf;
+    delete[] temp_path;
     return 0;
 }
 

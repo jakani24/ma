@@ -31,6 +31,8 @@
 
 #define QUARANTINE_PATH "C:\\Program Files\\cyberhex\\secure\\quarantine"
 
+#define SECRETS "C:\\Program Files\\cyberhex\\secure\\settings\\secrets.txt"
+
 #define PERIODIC_FOLDER_SCAN "C:\\Program Files\\cyberhex\\secure\\database\\folder\\periodic_folder_scan.txt"
 #define PERIODIC_FOLDER_SCAN_TEMP_DB "C:\\Program Files\\cyberhex\\secure\\database\\folder\\temp_db.txt"
 

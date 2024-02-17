@@ -148,6 +148,7 @@
     <ClCompile Include="permissions.cpp" />
     <ClCompile Include="queue _ctrl.cpp" />
     <ClCompile Include="scan.cpp" />
+    <ClCompile Include="security.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="thread_ctrl.cpp" />
     <ClCompile Include="update.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="queue_ctrl.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="scan.h" />
+    <ClInclude Include="security.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="thread_ctrl.h" />
     <ClInclude Include="update.h" />
