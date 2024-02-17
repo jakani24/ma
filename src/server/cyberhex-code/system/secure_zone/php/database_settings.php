@@ -33,9 +33,12 @@ include "perms_functions.php";
 <script>
 async function update_db(){
 	var loader=document.getElementById("loader");
+	var button=document.getElementById("update_btn");
 	loader.style.display="block";
+	button.style.display="none";
 	await fetch('/api/php/database/compile_database.php');
 	loader.style.display="none";
+	button.style.display="block";
 }
 </script>
 <div class="container mt-5">
@@ -46,10 +49,11 @@ async function update_db(){
                     <h4>Database Settings</h4>
                 </div>
                 <div class="card-body">
-					<button class="btn btn-dark" onclick="update_db();">Update / regenerate Database (!this can take very long ~1h)</button>
+					<button id="update_btn" class="btn btn-dark" onclick="update_db();">Update / regenerate Database (!this can take very long ~1h)</button>
 					<div style="display:none" id="loader">
+						<br>
 						<div class="alert alert-success" role="alert">
-							Database update is running, please do not close this tab / do not navigate away!
+							Database update is running, please do not close this tab and do not navigate away!
 						</div>
 						<div class="spinner-border" role="status">
 						  <span class="visually-hidden">Loading...</span>
