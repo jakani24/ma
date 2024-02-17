@@ -69,7 +69,7 @@ include "../../../config.php";
 
 						// Convert the random bytes to hexadecimal
 						$machineid = bin2hex($random_bytes);
-						if(!isset($_POST["ip"]))
+						if($_POST["ip"]=="")
 							$ip="nan";
 						$location=htmlspecialchars($_POST["location"]);
 						
