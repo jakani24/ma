@@ -182,7 +182,7 @@
 			// Create api table
 			$sql = "CREATE TABLE IF NOT EXISTS api (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				apikey VARCHAR(255) NOT NULL,
+				apikey VARCHAR(500) NOT NULL,
 				machine_id VARCHAR(255) NOT NULL
 			)";
 
@@ -200,7 +200,7 @@
 			// Create secrets table
 			$sql = "CREATE TABLE IF NOT EXISTS secrets (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				cert VARCHAR(255) NOT NULL,
+				cert VARCHAR(500) NOT NULL,
 				machine_id VARCHAR(255) NOT NULL
 			)";
 
