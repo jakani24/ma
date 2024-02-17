@@ -46,7 +46,7 @@ include "../../../config.php";
 					<form action="add_client.php?add=true" method="post">
 						<div class="form-group">
                             <label for="location">Location:</label>
-                            <input type="text" class="form-control" id="location" name="location" placeholder="Office1" required>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Office1 - Computer of Lisa" required>
                         </div>
 						<div class="form-group">
                             <label for="ip">IP: (can be left blank)</label>
@@ -96,6 +96,32 @@ include "../../../config.php";
 						$stmt->bind_param("ss", $machineid, $apikey);
 						$stmt->execute();
 						$stmt->close();
+						
+						//get the address of this server
+						$sql = "SELECT * FROM settings WHERE name = 'setting_server_server_url'";
+						$stmt = $conn->prepare($sql);
+						// Execute the statement
+						$stmt->execute();
+						// Get the result
+						$result = $stmt->get_result();
+						$row = $result->fetch_assoc();
+						if($row!==null){
+							$this_server=$row["value"];
+						}
+						$stmt -> close();
+						//create the files and download them
+						file $fp;
+						$fp=fopen("/var/www/html/setup.txt");
+						fwrite($fp,"$this_server");
+						fclose($fp);
+						$fp=fopen("/var/www/html/secrets.txt");
+						fwrite($fp,"machineid $machineid\n");
+						fwrite($fp,"cert $cert\n");
+						fwrite($fp,"apikey $apikey\n");
+						fclose($fp);
+						echo("<a href='/secrets.txt' download>Download config file1</a>");
+						echo("<a href='/setup.txt' download>Download config file2</a>");
+						echo("<a href='/installer.exe' download>Download installer</a>");
 					}
 				?>
             </div>
