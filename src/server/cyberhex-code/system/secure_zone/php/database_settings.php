@@ -34,7 +34,7 @@ include "perms_functions.php";
 function async update_db(){
 	var loader=document.getElementById("loader");
 	loader.style.display="block";
-	await fetch('/api/php/database/compile_database.php);
+	await fetch('/api/php/database/compile_database.php');
 	loader.style.display="none";
 }
 </script>
