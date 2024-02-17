@@ -111,10 +111,10 @@ include "../../../config.php";
 						$stmt -> close();
 						//create the files and download them
 						file $fp;
-						$fp=fopen("/var/www/html/setup.txt");
+						$fp=fopen("/var/www/html/setup.txt","w");
 						fwrite($fp,"$this_server");
 						fclose($fp);
-						$fp=fopen("/var/www/html/secrets.txt");
+						$fp=fopen("/var/www/html/secrets.txt","w");
 						fwrite($fp,"machineid $machineid\n");
 						fwrite($fp,"cert $cert\n");
 						fwrite($fp,"apikey $apikey\n");
