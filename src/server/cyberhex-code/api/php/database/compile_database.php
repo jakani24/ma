@@ -1,6 +1,6 @@
 <?php
 // Function to sort words into files based on the first two characters
-function sort_hashesh($inputFile) {
+function sort_hashes($inputFile) {
     // Open the input file for reading
     $handle = fopen($inputFile, "r");
     if ($handle === false) {
