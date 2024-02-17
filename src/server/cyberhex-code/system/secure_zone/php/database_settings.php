@@ -51,7 +51,7 @@ async function update_percentage() {
         .then(response => response.json())
         .then(data => {
             // Update the percentage on the webpage
-            percentageElement.innerHTML = "Status: " + data.percentage.toFixed(2) + "%";
+            percentageElement.innerHTML = "Status: " + data.toFixed(2) + "%";
         })
         .catch(error => {
             // Display error message if request fails
