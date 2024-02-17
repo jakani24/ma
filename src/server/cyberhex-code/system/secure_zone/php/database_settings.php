@@ -33,12 +33,15 @@ include "perms_functions.php";
 <script>
 async function update_db(){
 	var loader=document.getElementById("loader");
+	var finish=document.getElementById("finish");
 	var button=document.getElementById("update_btn");
 	loader.style.display="block";
+	finish.style.display="none";
 	button.style.display="none";
 	await fetch('/api/php/database/compile_database.php');
 	loader.style.display="none";
 	button.style.display="block";
+	finish.style.display="block";
 }
 async function update_percentage() {
     var percentageElement = document.getElementById("percentage");
@@ -80,6 +83,9 @@ setInterval(update_percentage, 5000);
 						<div class="spinner-border" role="status">
 						  <span class="visually-hidden">Loading...</span>
 						</div>
+					</div>
+					<div class="alert alert-success" role="alert" style="display:none" id="finish">
+							Database update finished!
 					</div>
                 </div>
             </div>
