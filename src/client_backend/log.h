@@ -11,7 +11,8 @@ enum class LOGLEVEL {
     WARN,
     ERR,
     VIRUS,
-    RISK
+    RISK,
+    PANIC
 };
 
 std::string get_loglevel(LOGLEVEL level);
@@ -54,6 +55,9 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     case LOGLEVEL::RISK:
 		error=fopen_s(&fp, RISKFILE, "a");
 		break;
+    case LOGLEVEL::PANIC:
+        error = fopen_s(&fp, PANICFILE, "a");
+        break;
 
 	default:
 		error=fopen_s(&fp, LOGFILE, "a");
@@ -79,6 +83,9 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             fprintf_s(fp, "%s", logString.c_str());
             break;
         case LOGLEVEL::RISK:
+            fprintf_s(fp, "%s", logString.c_str());
+            break;
+        case LOGLEVEL::PANIC:
             fprintf_s(fp, "%s", logString.c_str());
             break;
 

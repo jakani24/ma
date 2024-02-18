@@ -12,15 +12,17 @@ int check_cert(const char*cert,const char*secrets_path) {
 			if (strcmp("cert", secrets) == 0) {
 				fscanf_s(fp, "%s", secrets, 500); // get the secret
 				if (strcmp(cert, secrets) == 0) {
+					fclose(fp);
 					delete[] secrets;
 					return 0;
 				}
 			}
 		}
+		fclose(fp);
 		delete[] secrets;
 		return 2;
 	}
-
+	fclose(fp);
 }
 char* get_apikey(const char* secrets_path) {
 	FILE* fp;
@@ -33,12 +35,15 @@ char* get_apikey(const char* secrets_path) {
 			fscanf_s(fp, "%s", secrets, 500); // get the secret
 			if (strcmp("apikey", secrets) == 0) {
 				fscanf_s(fp, "%s", secrets, 500); // get the secret
+				fclose(fp);
 				return secrets;
 			}
 		}
+		fclose(fp);
 		delete[] secrets;
 		return 0;
 	}
+	fclose(fp);
 }
 char* get_machineid(const char*secrets_path){
 	FILE* fp;
@@ -51,10 +56,13 @@ char* get_machineid(const char*secrets_path){
 			fscanf_s(fp, "%s", secrets, 295); // get the secret
 			if (strcmp("machineid", secrets) == 0) {
 				fscanf_s(fp, "%s", secrets, 295); // get the secret
+				fclose(fp);
 				return secrets;
 			}
 		}
+		fclose(fp);
 		delete[] secrets;
 		return 0;
 	}
+	fclose(fp);
 }

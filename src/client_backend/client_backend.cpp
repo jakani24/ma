@@ -21,20 +21,26 @@
 int main() {
     log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
 	printf("welcome to the jakach security tool main thread\n");
-    load_settings();//load the settings from the settings file
-    if (update_settings("settings")) { //update the settings from the server
-        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+    if (load_settings() == 0) {//load the settings from the settings file
+        if (update_settings("settings")) { //update the settings from the server
+            log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+        }
+        if (update_settings("rtp_included")) { //update the settings from the server
+            log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+        }
+        if (update_settings("rtp_excluded")) { //update the settings from the server
+            log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+        }
+        if (update_settings("sched")) { //update the settings from the server
+            log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
+        }
+        load_settings(); //load the updated settings from the settings file
     }
-    if (update_settings("rtp_included")) { //update the settings from the server
-        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
-    }
-    if (update_settings("rtp_excluded")) { //update the settings from the server
-        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
-    }
-    if (update_settings("sched")) { //update the settings from the server
-        log(LOGLEVEL::ERR, "[main()]:Could not update settings from server.");
-    }
-    load_settings();
+    else {
+		log(LOGLEVEL::ERR, "[main()]:Could not load settings from file.");
+        log(LOGLEVEL::PANIC, "[main()]:Panic, no settings file loaded, terminating process!");
+        exit(0);
+	}
     initialize(DB_DIR); //load the hash databases into memory
 
     //start a second thread which will scan for new files

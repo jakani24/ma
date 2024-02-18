@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "client_backend\\x64\\Debug\\app_ctrl.h.obj",
+            "outputs": [
+                "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\client_backend\\x64\\Debug\\vc143.pdb",
+                "client_backend\\x64\\Debug\\",
+                "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\client_backend\\x64\\Debug\\app_ctrl.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "app_ctrl.h",
+                    "source-path": "c:\\users\\janis\\documents\\projekte_mit_c\\ma\\ma\\src\\client_backend\\app_ctrl.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

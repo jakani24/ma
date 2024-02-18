@@ -14,6 +14,8 @@ std::string get_loglevel(LOGLEVEL level) {
 		return "VIRUS";
     case LOGLEVEL::RISK:
         return "RISK";
+    case LOGLEVEL::PANIC:
+        return "PANIC";
 
     default:
         return "UNKNOWN";

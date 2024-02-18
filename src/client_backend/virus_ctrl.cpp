@@ -5,6 +5,7 @@
 #include "log.h"
 #include "settings.h"
 #include "connect.h"
+
 int virus_ctrl_store( const char*path, const char*hash, const char*id) {
 	FILE* fp;
 	char *db_path = new char[300];
@@ -31,7 +32,7 @@ int virus_ctrl_process( const char* id) {
 	strcpy_s(db_path, 295, VIRUS_CTRL_DB);
 	strcat_s(db_path, 295, id);
 	if (fopen_s(&fp, db_path, "r") != 0) {
-		log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Failed to open virus control database to process it.", VIRUS_CTRL_DB);
+		log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Failed to open virus control database to process it.", db_path);
 		delete[] db_path;
 		return 1;
 	}

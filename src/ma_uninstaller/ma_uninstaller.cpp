@@ -6,6 +6,11 @@
 */
 #include <iostream>
 #include <Windows.h>
+#include <iostream>
+#include <Windows.h>
+#include <taskschd.h>
+#include <comdef.h> 
+#pragma comment(lib, "taskschd.lib")
 //check if programm is run as admin
 bool is_admin() {
     BOOL fIsRunAsAdmin = FALSE;
@@ -101,6 +106,62 @@ bool remove_dir(const std::wstring& path) {
 
     return true;
 }
+
+bool remove_scheduled_task(const std::wstring& taskName) {
+    HRESULT hr;
+
+    // Initialize COM
+    hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
+    if (FAILED(hr)) {
+        std::cerr << "COM initialization failed with error code: " << hr << std::endl;
+        return false;
+    }
+
+    // Create an instance of the Task Service
+    ITaskService* pService = NULL;
+    hr = CoCreateInstance(CLSID_TaskScheduler, NULL, CLSCTX_INPROC_SERVER, IID_ITaskService, (void**)&pService);
+    if (FAILED(hr)) {
+        std::cerr << "Failed to create an instance of ITaskService: " << hr << std::endl;
+        CoUninitialize();
+        return false;
+    }
+
+    // Connect to the task service
+    hr = pService->Connect(_variant_t(), _variant_t(), _variant_t(), _variant_t());
+    if (FAILED(hr)) {
+        std::cerr << "ITaskService::Connect failed with error code: " << hr << std::endl;
+        pService->Release();
+        CoUninitialize();
+        return false;
+    }
+
+    // Get the root task folder
+    ITaskFolder* pRootFolder = NULL;
+    hr = pService->GetFolder(_bstr_t(L"\\"), &pRootFolder);
+    if (FAILED(hr)) {
+        std::cerr << "Cannot get Root Folder pointer: " << hr << std::endl;
+        pService->Release();
+        CoUninitialize();
+        return false;
+    }
+
+    // Delete the task
+    hr = pRootFolder->DeleteTask(_bstr_t(taskName.c_str()), 0);
+    if (FAILED(hr)) {
+        std::cerr << "Failed to delete the task: " << hr << std::endl;
+        pRootFolder->Release();
+        pService->Release();
+        CoUninitialize();
+        return false;
+    }
+
+    // Release COM objects
+    pRootFolder->Release();
+    pService->Release();
+    CoUninitialize();
+
+    return true;
+}
 int main()
 {
     printf("Welcome to the Cyberhex uninstaller!\n");
@@ -118,6 +179,8 @@ int main()
         }
     }
     else {
+        printf("Stopping cyberhex");
+        system("taskkill /F /IM cyberhex.exe");
         printf("Removing directorys\n");
         printf("Removing directory for application\n");
         error = remove_dir(L"C:\\Program Files\\Cyberhex");
@@ -127,33 +190,9 @@ int main()
             error = 0;
         if (error == 0) {
             printf("Removing background task\n");
-            SC_HANDLE hSCManager = OpenSCManager(nullptr, nullptr, SC_MANAGER_ALL_ACCESS);
-            if (!hSCManager) {
-                //std::cerr << "Failed to open service control manager. Error code: " << GetLastError() << std::endl;
-                //return 1;
-                error = 1;
-            }
-
-            LPCWSTR serviceName = L"cyberhex_background_service";
-
-            SC_HANDLE hService = OpenService(hSCManager, serviceName, DELETE);
-            if (!hService) {
-                //std::cerr << "Failed to open service. Error code: " << GetLastError() << std::endl;
-                CloseServiceHandle(hSCManager);
-                //return 1;
-                error = 2;
-            }
-
-            if (!DeleteService(hService)) {
-                //std::cerr << "Failed to delete service. Error code: " << GetLastError() << std::endl;
-                error = 3;
-            }
-            else {
-                //std::cout << "Service deleted successfully." << std::endl;
-            }
-
-            CloseServiceHandle(hService);
-            CloseServiceHandle(hSCManager);
+            if (!remove_scheduled_task(L"CyberhexBackgroundTask")) {
+				error = 5;
+			}
         }
         
     }
@@ -186,13 +225,3 @@ int main()
     }
 }
 
-// Programm ausführen: STRG+F5 oder Menüeintrag "Debuggen" > "Starten ohne Debuggen starten"
-// Programm debuggen: F5 oder "Debuggen" > Menü "Debuggen starten"
-
-// Tipps für den Einstieg: 
-//   1. Verwenden Sie das Projektmappen-Explorer-Fenster zum Hinzufügen/Verwalten von Dateien.
-//   2. Verwenden Sie das Team Explorer-Fenster zum Herstellen einer Verbindung mit der Quellcodeverwaltung.
-//   3. Verwenden Sie das Ausgabefenster, um die Buildausgabe und andere Nachrichten anzuzeigen.
-//   4. Verwenden Sie das Fenster "Fehlerliste", um Fehler anzuzeigen.
-//   5. Wechseln Sie zu "Projekt" > "Neues Element hinzufügen", um neue Codedateien zu erstellen, bzw. zu "Projekt" > "Vorhandenes Element hinzufügen", um dem Projekt vorhandene Codedateien hinzuzufügen.
-//   6. Um dieses Projekt später erneut zu öffnen, wechseln Sie zu "Datei" > "Öffnen" > "Projekt", und wählen Sie die SLN-Datei aus.

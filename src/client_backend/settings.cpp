@@ -17,7 +17,7 @@ int load_settings() {
 
 	if (fopen_s(&fp, SETTINGS_DB, "r")!=0) {
 		log(LOGLEVEL::ERR, "[load_settings()]: Could not open settings file. ", SETTINGS_DB);
-		strcpy_s(setting_server_server_url, 295, "http://localhost");
+		strcpy_s(setting_server_server_url, 295, "nan");
 		return 1;
 	}
 	else {

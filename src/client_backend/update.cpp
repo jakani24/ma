@@ -6,7 +6,8 @@
 #include "settings.h"
 #include "security.h"
 
-int update_db(const std::string& folder_path) {
+
+int update_db(const char* folder_path) {
 	//download the databases from the server
 	for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {
 		for (char secondChar = '0'; secondChar <= 'f'; ++secondChar) {
@@ -16,22 +17,26 @@ int update_db(const std::string& folder_path) {
 			}
 
 			// Create the filename based on the naming convention
-			std::string file_path = folder_path + "\\" + firstChar + secondChar + ".jdbf";
-			std::string file_name = firstChar + secondChar + ".jdbf";
+
+			char file_name[] = { firstChar, secondChar ,'.','j','d','b','f','\0' };
 			//create the strings to download the files
-			char*url=new char[300];
-			char*output_path=new char[300];
-			get_setting("server:server_url", url);
-			strcat_s(url, 295,"/database/");
-			strcat_s(url, 295,file_name.c_str() );
-			strcpy_s(output_path, 295, file_path.c_str());
-
-			int res = download_file_from_srv(url, output_path);
-			if (res != 0) {
-				log(LOGLEVEL::ERR, "[update_db()]: Error downloading database file from server", url);
-				return 1;
+			char* output_path = new char[300];
+			char* url = new char[1000];
+			if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
+				strcat_s(url, 295, "/database_srv/");
+				strcat_s(url, 295, file_name);
+				strcpy_s(output_path, 295, folder_path);
+				strcat_s(output_path, 295, "\\");
+				strcat_s(output_path, 295, file_name);
+				printf("%s\n", url);
+				int res = download_file_from_srv(url, output_path);
+				if (res != 0) {
+					return 10;
+				}
 			}
-
+			else {
+				return 2;
+			}
 
 			delete[] url;
 			delete[] output_path;
@@ -43,30 +48,36 @@ int update_db(const std::string& folder_path) {
 int update_settings(const char*settings_type) {
 	//create the strings to download the files
 	char* url = new char[1000];
-	get_setting("server:server_url", url);
-	strcat_s(url, 1000, "/api/php/settings/get_settings.php?");//need to add machine_id and apikey
-	strcat_s(url, 1000, settings_type);
-	strcat_s(url, 1000, "&machine_id=");
-	strcat_s(url, 1000, get_machineid(SECRETS));
-	strcat_s(url, 1000, "&apikey=");
-	strcat_s(url, 1000, get_apikey(SECRETS));
-	int res = 1;
-	if(strcmp(settings_type,"settings")==0)
-		res = download_file_from_srv(url, SETTINGS_DB);
-	else if (strcmp(settings_type, "rtp_included") == 0)
-		res = download_file_from_srv(url, INCLUDED_FOLDERS);
-	else if (strcmp(settings_type, "rtp_excluded") == 0)
-		res = download_file_from_srv(url, EXCLUDED_FOLDERS);
-	else if (strcmp(settings_type, "sched") == 0)
-		res = download_file_from_srv(url, SCHED_PATH);
-	//int res = 0;
-	if (res != 0) {
-		log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server", url, " ERROR:",res);
-		return 1;
-	}
+	if (get_setting("server:server_url", url) == 0 or strcmp(url,"nan")==0) {
+		strcat_s(url, 1000, "/api/php/settings/get_settings.php?");//need to add machine_id and apikey
+		strcat_s(url, 1000, settings_type);
+		strcat_s(url, 1000, "&machine_id=");
+		strcat_s(url, 1000, get_machineid(SECRETS));
+		strcat_s(url, 1000, "&apikey=");
+		strcat_s(url, 1000, get_apikey(SECRETS));
+		int res = 1;
+		if (strcmp(settings_type, "settings") == 0)
+			res = download_file_from_srv(url, SETTINGS_DB);
+		else if (strcmp(settings_type, "rtp_included") == 0)
+			res = download_file_from_srv(url, INCLUDED_FOLDERS);
+		else if (strcmp(settings_type, "rtp_excluded") == 0)
+			res = download_file_from_srv(url, EXCLUDED_FOLDERS);
+		else if (strcmp(settings_type, "sched") == 0)
+			res = download_file_from_srv(url, SCHED_PATH);
+		//int res = 0;
+		if (res != 0) {
+			log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server", url, " ERROR:", res);
+			return 1;
+		}
 
-	delete[] url;
-	return 0;
+		delete[] url;
+		return 0;
+	}
+	else {
+		delete[] url;
+		return 2;
+	}
+	return 2;
 }
 int action_update_settings() {
 	//update the settings

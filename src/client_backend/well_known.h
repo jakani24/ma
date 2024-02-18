@@ -18,6 +18,7 @@
 #define ERRORFILE "C:\\Program Files\\cyberhex\\secure\\log\\error.txt"
 #define VIRUSFILE "C:\\Program Files\\cyberhex\\secure\\log\\virus.txt"
 #define RISKFILE "C:\\Program Files\\cyberhex\\secure\\log\\risk.txt"
+#define PANICFILE "C:\\Program Files\\cyberhex\\secure\\log\\panic.txt"
 #define SRV_LOGFILE "C:\\Program Files\\cyberhex\\secure\\log\\srv_log.txt"
 
 

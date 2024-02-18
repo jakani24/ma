@@ -52,6 +52,7 @@ include "../../../config.php";
                             <label for="ip">IP: (can be left blank)</label>
                             <input type="text" class="form-control" id="ip" name="ip">
                         </div>
+						<br>
                         <button type="submit" class="btn btn-primary btn-block">Add Machine</button>
                     </form>
                 </div>

@@ -26,5 +26,8 @@
     <ClInclude Include="download.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="well_known.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
