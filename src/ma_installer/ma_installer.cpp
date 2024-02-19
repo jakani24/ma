@@ -31,7 +31,7 @@ Tasks to do:
 
 using namespace std;
 
-int CreateTask()
+int create_task()
 {
     HRESULT hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
     if (FAILED(hr))
@@ -140,6 +140,18 @@ int CreateTask()
         CoUninitialize();
         return 1;
     }
+
+    hr = pSettings->put_ExecutionTimeLimit(_bstr_t(L"PT0S")); // Set execution time limit to zero seconds
+    pSettings->Release();
+    if (FAILED(hr))
+    {
+        cout << "Cannot set execution time limit: " << hex << hr << endl;
+        pRootFolder->Release();
+        pService->Release();
+        CoUninitialize();
+        return 1;
+    }
+
 
     hr = pSettings->put_DisallowStartIfOnBatteries(VARIANT_FALSE); // Set to allow start on batteries
     pSettings->Release();
@@ -251,7 +263,6 @@ int CreateTask()
     CoUninitialize();
     return 0;
 }
-
 
 
 
@@ -780,18 +791,22 @@ int main()
         }
 
 
-        HRESULT hr = CreateTask();
+        HRESULT hr = create_task();
         if (FAILED(hr))
         {
             std::cerr << "Task creation failed!" << std::endl;
             error=5;
         }
+       
     }
     switch (error) {
     case 0:
         printf("Installation successful\n");
         printf("You have installed Cyberhex, thank you!\n");
-        MessageBox(NULL, L"Installation successful", L"Success", MB_OK);
+        printf("The machine needs to be rebooted to finish the installation\n");
+        if (MessageBox(NULL, L"Installation successful. The machine needs to reboot for the installation to finish. Reboot now?", L"Success",MB_YESNO )==IDYES) {
+            system("shutdown /r /t 0");
+        }
         break;
     case 1:
         printf("Failed to create access control list\n");
@@ -832,6 +847,10 @@ int main()
     case 10:
         printf("Failed to download database file\n");
         MessageBox(NULL, L"Failed to download database file", L"Error", MB_OK);
+        break;
+    case 11:
+        printf("failed to start cyberhex\n");
+        MessageBox(NULL, L"failed to start cyberhex", L"Error", MB_OK);
         break;
     default:
         break;

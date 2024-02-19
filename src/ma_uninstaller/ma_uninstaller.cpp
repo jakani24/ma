@@ -181,6 +181,7 @@ int main()
     else {
         printf("Stopping cyberhex");
         system("taskkill /F /IM cyberhex.exe");
+        Sleep(1000);
         printf("Removing directorys\n");
         printf("Removing directory for application\n");
         error = remove_dir(L"C:\\Program Files\\Cyberhex");
