@@ -24,7 +24,7 @@ function sort_hashes($inputFile) {
 		}
 		
 		// Write the word to the file
-		fwrite($fileHandle, $line . PHP_EOL);
+		fwrite($fileHandle, $line);
 		
 		// Close the file handle
 		fclose($fileHandle);
