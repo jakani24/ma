@@ -33,6 +33,20 @@ $email = $_SESSION["email"];
 					<h4>Current Threads</h4>
 					<?php
 						include "../../../config.php";
+						if(isset($_GET["delete"])){
+							$entryid=htmlspecialchars($_GET["delete"]);
+							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+							if ($conn->connect_error) {
+								die("Connection failed: " . $conn->connect_error);
+							}
+							$sql = "DELETE FROM vir_notify WHERE id = ?";
+							$stmt = $conn->prepare($sql);
+							$stmt->bind_param("i", $entryid);
+							// Execute the statement
+							$stmt->execute();
+							$stmt->close();
+							$conn->close();
+						}
 						// Create a connection
 						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
@@ -64,7 +78,7 @@ $email = $_SESSION["email"];
 						echo('<table class="table">');
 						echo('<thead>');
 						echo('<tr>');
-						echo('<th>Entryid</th><th>Machineid</th><th>File</th><th>Hash</th><th>Action Taken</th>');
+						echo('<th>Entryid</th><th>Machineid</th><th>File</th><th>Hash</th><th>Action Taken</th><th>Delete</th>');
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');
@@ -87,6 +101,7 @@ $email = $_SESSION["email"];
 								echo('<td>'.$file.'</td>');
 								echo('<td>'.$hash.'</td>');
 								echo('<td>'.$action.'</td>');
+								echo('<td><a href="welcome.php?delete='.$last_id.'">delete</a></td>');
 							echo('</tr>');
 							$stmt->close();
 							$num_of_entrys--;
