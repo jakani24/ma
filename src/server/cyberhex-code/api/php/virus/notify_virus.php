@@ -8,11 +8,11 @@ if(check_apikey()!==true){
 
 //add the entry to the log db
 //this page has no gui, it may return ok or error
-if(!isset($_GET["machine_id"]) or !isset($_GET["hash"]) or !isset($_GET["path"]) or !isset($_GET["action"]))
+if(!isset($_GET["machine_id"]) or !isset($_GET["hash"]) or !isset($_GET["file"]) or !isset($_GET["action"]))
 	echo("syn_err");
 else{
 	$hash=htmlspecialchars($_GET["hash"]);
-	$path=htmlspecialchars($_GET["path"]);
+	$path=htmlspecialchars($_GET["file"]);
 	$machine_id=htmlspecialchars($_GET["machine_id"]);
 	$action=htmlspecialchars($_GET["action"]);
 	//include db pw
