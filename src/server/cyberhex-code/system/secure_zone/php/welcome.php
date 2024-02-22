@@ -32,6 +32,7 @@ $email = $_SESSION["email"];
                 <div class="card-body">
 					<h4>Current Threads</h4>
 					<?php
+						include "../../../config.php";
 						// Create a connection
 						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
