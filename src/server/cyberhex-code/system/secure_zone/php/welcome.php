@@ -89,7 +89,7 @@ $email = $_SESSION["email"];
 								echo('<td>'.$action.'</td>');
 							echo('</tr>');
 							$stmt->close();
-							$num_of_etrys--;
+							$num_of_entrys--;
 						}
 						echo('</tbody>');
 						echo('</table>');
