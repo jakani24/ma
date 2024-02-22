@@ -27,7 +27,7 @@ int connect_to_srv(const char*url,char*out,int max_len, bool ignore_insecure) {
         curl_easy_cleanup(curl);
         if (max_len > (int)strlen(readBuffer.c_str())) {
             strcpy(out, readBuffer.c_str());
-            return res;
+            return 0;
         }
         else
             return  1; 
@@ -43,7 +43,7 @@ size_t write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
     return totalSize;
 }
 
-int download_file_from_srv(const char* url, const char* output_file_path) {
+int download_file_from_srv(const char* url, const char* output_file_path, bool ignore_insecure) {
     //use curl to download a file from a server
     char*temp_path = new char[515];
     char* buf = new char[505];
@@ -71,6 +71,8 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
     // Set the write callback function
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, output_file);
+    if (ignore_insecure == true)
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
 
     // Perform the download
     res = curl_easy_perform(curl);
@@ -103,30 +105,5 @@ int download_file_from_srv(const char* url, const char* output_file_path) {
     delete[] buf;
     delete[] temp_path;
     return 0;
-}
-
-
-int call_srv(const char*server_url,const char*get_request,const char*additional) {
-    CURL* curl;
-	CURLcode res;
-	std::string readBuffer;
-    char*url=new char[1000];
-    url[0] = '\0';
-  
-	curl = curl_easy_init();
-    if (curl) {
-        char* output = curl_easy_escape(curl, additional, strlen(additional));
-        sprintf_s(url, 995, "%s%s%s", server_url, get_request,output);
-		curl_easy_setopt(curl, CURLOPT_URL, url);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-		res = curl_easy_perform(curl);
-        curl_free(output);
-		curl_easy_cleanup(curl);
-        delete[] url;
-		return res;
-	}
-    delete[] url;
-	return 0;
 }
 #endif

@@ -29,7 +29,7 @@ int update_db(const char* folder_path) {
 				strcat_s(output_path, 295, "\\");
 				strcat_s(output_path, 295, file_name);
 				printf("%s\n", url);
-				int res = download_file_from_srv(url, output_path);
+				int res = download_file_from_srv(url, output_path,0);
 				if (res != 0) {
 					return 10;
 				}
@@ -57,13 +57,13 @@ int update_settings(const char*settings_type) {
 		strcat_s(url, 1000, get_apikey(SECRETS));
 		int res = 1;
 		if (strcmp(settings_type, "settings") == 0)
-			res = download_file_from_srv(url, SETTINGS_DB);
+			res = download_file_from_srv(url, SETTINGS_DB,0);
 		else if (strcmp(settings_type, "rtp_included") == 0)
-			res = download_file_from_srv(url, INCLUDED_FOLDERS);
+			res = download_file_from_srv(url, INCLUDED_FOLDERS,0);
 		else if (strcmp(settings_type, "rtp_excluded") == 0)
-			res = download_file_from_srv(url, EXCLUDED_FOLDERS);
+			res = download_file_from_srv(url, EXCLUDED_FOLDERS,0);
 		else if (strcmp(settings_type, "sched") == 0)
-			res = download_file_from_srv(url, SCHED_PATH);
+			res = download_file_from_srv(url, SCHED_PATH,0);
 		//int res = 0;
 		if (res != 0) {
 			log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server", url, " ERROR:", res);

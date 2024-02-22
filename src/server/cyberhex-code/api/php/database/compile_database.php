@@ -29,7 +29,7 @@ function sort_hashes($inputFile) {
 		// Close the file handle
 		fclose($fileHandle);
 			
-		}
+	}
     
     // Close the input file handle
     fclose($handle);

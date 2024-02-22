@@ -83,7 +83,7 @@ std::string md5_file_t(const std::string& path_) {
     thread_local std::string path (path_);
     thread_local FILE* fp = fopen(path.c_str(), "rb");
     if (!fp) {
-        log(LOGLEVEL::ERR, "[md5_file_t()]: Could not open file for scanning ", path.c_str());
+        log(LOGLEVEL::WARN, "[md5_file_t()]: Could not open file for scanning ", path.c_str());
         return path; //we return the path because else it moight crash ()if we sen da nullptr
     }
 

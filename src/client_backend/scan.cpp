@@ -130,7 +130,7 @@ void scan_folder(const std::string& directory) {
     HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
 
     if (hFind == INVALID_HANDLE_VALUE) {
-        log(LOGLEVEL::ERR, "[scan_folder()]: Error opening directory: ", search_path.c_str() , " while scanning files inside folder.");
+        log(LOGLEVEL::WARN, "[scan_folder()]: Could not open directory: ", search_path.c_str() , " while scanning files inside directory.");
         return;
     }
 

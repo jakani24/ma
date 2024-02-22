@@ -5,6 +5,7 @@
 #include "log.h"
 #include "settings.h"
 #include "connect.h"
+#include "security.h"
 
 int virus_ctrl_store( const char*path, const char*hash, const char*id) {
 	FILE* fp;
@@ -17,7 +18,7 @@ int virus_ctrl_store( const char*path, const char*hash, const char*id) {
 		return 1;
 	}
 	else {
-		fprintf(fp, "\"%s\" \"%s\"\n", path, hash);
+		fprintf(fp, "\"%s\" %s\n", path, hash);
 		fclose(fp);
 		delete[] db_path;
 		return 0;
@@ -40,7 +41,7 @@ int virus_ctrl_process( const char* id) {
 		while (!feof(fp)) {
 			//get a fulll path (enclosed with "")
 			char* path = new char[300];
-			char*hash = new char[300];
+			char* hash = new char[300];
 			path[0] = '\0';
 			//search for starting ", then loop until ending "
 			int cnt = 0;
@@ -57,9 +58,8 @@ int virus_ctrl_process( const char* id) {
 				}
 				fscanf_s(fp, "%s", hash, 295); // get the hash of the file
 				char* quarantine_path = new char[300];
-				char* url = new char[300];
-				char* url_path = new char[300];
-				char* additional = new char[600];
+				char* url = new char[1005];
+				char* server_response = new char[100];
 				switch (get_setting("virus_ctrl:virus_found:action")) {
 				case 1://remove
 					if(remove(path)!=0)
@@ -83,24 +83,30 @@ int virus_ctrl_process( const char* id) {
 					//call the server and say him that we have found a virus.
 					//we shoulkd also log it
 					log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Virus found in file: ", path, " ", hash, " but only notified due to settings");
-					url_path[0] = '\0';
 					url[0] = '\0';
-					strcpy_s(url_path, 295, "/api/add_log.php?entry=");
-					strcpy_s(additional, 600, "Virus found in file: ");
-					strcat_s(additional, 600, path);
-					strcat_s(additional, 600, " ");
-					strcat_s(additional, 600, hash);
-					get_setting("server:server_url", url);
-					if(call_srv(url,url_path,additional)!=0)
-						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path," ",hash);
-
+					if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
+						strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
+						strcat_s(url, 1000, "file=");
+						strcat_s(url, 1000, path);
+						strcat_s(url, 1000, "&hash=");
+						strcat_s(url, 1000, hash);
+						strcat_s(url, 1000, "&action=");
+						strcat_s(url, 1000, "notify");
+						strcat_s(url, 1000, "&machine_id=");
+						strcat_s(url, 1000, get_machineid(SECRETS));
+						strcat_s(url, 1000, "&apikey=");
+						strcat_s(url, 1000, get_apikey(SECRETS));
+						if (connect_to_srv(url, server_response, 100, 0) != 0 or strcmp("wrt_ok", server_response) != 0 )
+							log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
+					}else {
+						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
+					}
 					break;
 
 				}
 				delete[] quarantine_path;
 				delete[] url;
-				delete[] url_path;
-				delete[] additional;
+				delete[] server_response;
 			}
 			//else { creates to many log entrys => entrys are not needed
 			//	log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while processing virus control database. Expected \" but got ", chr);

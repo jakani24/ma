@@ -234,6 +234,26 @@
 				</div>';
 			}
 			
+			// Create vir_notify messages table
+			$sql = "CREATE TABLE IF NOT EXISTS vir_notify (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				machine_id VARCHAR(255) NOT NULL,
+				path VARCHAR(255) NOT NULL,
+				hash VARCHAR(255) NOT NULL,
+				action VARCHAR(255) NOT NULL
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table machines created successfully!
+				</div>';
+			} else {
+				$success=0;
+				echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table machines: ' . $conn->error .'
+				</div>';
+			}
+			
 			// Attempt to create the directory where export files will be stored later on
 			if (mkdir("/var/www/html/export", 0777, true)) {
 				echo '<br><div class="alert alert-success" role="alert">
