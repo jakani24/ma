@@ -79,7 +79,7 @@ $email = $_SESSION["email"];
 							$last_id=$row["id"];
 							$machineid=$row["machine_id"];
 							$hash=$row["hash"];
-							$file=$row["file"];
+							$file=$row["path"];
 							$action=$row["action"];
 							echo('<tr>');
 								echo('<td>'.$last_id.'</td>');
