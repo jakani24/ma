@@ -64,7 +64,7 @@ $email = $_SESSION["email"];
 						echo('<table class="table">');
 						echo('<thead>');
 						echo('<tr>');
-						echo('<th>Machineid</th><th>File</th><th>Hash</th><th>Action Taken</th>');
+						echo('<th>Entryid</th><th>Machineid</th><th>File</th><th>Hash</th><th>Action Taken</th>');
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');
@@ -89,7 +89,7 @@ $email = $_SESSION["email"];
 								echo('<td>'.$action.'</td>');
 							echo('</tr>');
 							$stmt->close();
-							$num_of_users--;
+							$num_of_etrys--;
 						}
 						echo('</tbody>');
 						echo('</table>');
