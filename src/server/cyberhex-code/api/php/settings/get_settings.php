@@ -10,6 +10,7 @@ $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
+$setting_communication_unsafe_tls="not coonfigured yet";
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 	if ($conn->connect_error) {
@@ -29,6 +30,7 @@ if(isset($_GET["settings"])){
 	echo("server:server_url ".$setting_server_server_url."\n");
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
 	echo("rtp_process_scan:status ".$setting_rtp_process_scan_status."\n");
+	echo("communication:unsafe_tls".$setting_communication_unsafe_tls."\n");
 }
 if(isset($_GET["rtp_included"])){
 	echo(load_secret()."\n");
@@ -104,6 +106,7 @@ function load_settings(){
 	global $setting_server_server_url;
 	global $setting_rtp_folder_scan_status;
 	global $setting_rtp_process_scan_status;
+	global $setting_communication_unsafe_tls;
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 	if ($conn->connect_error) {
@@ -131,10 +134,7 @@ function load_settings(){
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc();
 	if($row!==null){
-		if($row["value"]=="true")
-			$setting_rtp_folder_scan_status="on";
-		else
-			$setting_rtp_folder_scan_status="off";
+		$setting_rtp_folder_scan_status=$row["value"];
 	}
 	$stmt -> close();
 	
@@ -147,10 +147,7 @@ function load_settings(){
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc();
 	if($row!==null){
-		if($row["value"]=="true")
-			$setting_rtp_process_scan_status="on";
-		else
-			$setting_rtp_process_scan_status="off";
+		$setting_rtp_process_scan_status=$row["value"];
 	}
 	$stmt -> close();
 	
@@ -165,6 +162,17 @@ function load_settings(){
 	$row = $result->fetch_assoc();
 	if($row!==null){
 		$setting_server_server_url=$row["value"];
+	}
+	//get setting: setting_communication_unsafe_tls
+	$sql = "SELECT * FROM settings WHERE name = 'setting_communication_unsafe_tls'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_communication_unsafe_tls=$row["value"];
 	}
 	$stmt -> close();
 	$conn -> close();
