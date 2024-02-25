@@ -96,7 +96,7 @@ int virus_ctrl_process( const char* id) {
 						strcat_s(url, 1000, get_machineid(SECRETS));
 						strcat_s(url, 1000, "&apikey=");
 						strcat_s(url, 1000, get_apikey(SECRETS));
-						if (connect_to_srv(url, server_response, 100, 0) != 0 or strcmp("wrt_ok", server_response) != 0 )
+						if (connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls")) != 0 or strcmp("wrt_ok", server_response) != 0 )
 							log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
 					}else {
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);

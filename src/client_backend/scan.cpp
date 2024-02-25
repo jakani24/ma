@@ -20,10 +20,10 @@ std::unordered_map<std::string, HANDLE> mappingHandles;
 std::unordered_map<std::string, char*> fileData;
 
 int cnt = 0;
-int num_threads=0;
+unsigned int num_threads=0;
 
 //load all the db files into memory
-void initialize(const std::string& folderPath) {
+int initialize(const std::string& folderPath) {
     for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {
         for (char secondChar = '0'; secondChar <= 'f'; ++secondChar) {
             // Ensure that the characters are valid hexadecimal digits
@@ -38,25 +38,25 @@ void initialize(const std::string& folderPath) {
             // Open the file
             HANDLE hFile = CreateFile(filename.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
             if (hFile == INVALID_HANDLE_VALUE) {
-                log(LOGLEVEL::ERR, "[initialize()]: Error opening database file: ", filename);
-                continue; // Move on to the next file if there's an error
+                //log(LOGLEVEL::ERR, "[initialize()]: Error opening database file: ", filename);
+                return 1;
             }
 
             // Create the file mapping
             HANDLE hMapping = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
             if (hMapping == NULL) {
-                log(LOGLEVEL::ERR, "[initialize()]: Error creating database file mapping: ", filename);
+               // log(LOGLEVEL::ERR, "[initialize()]: Error creating database file mapping: ", filename);
                 CloseHandle(hFile);
-                continue; // Move on to the next file if there's an error
+                return 2;
             }
 
             // Map the file into memory
             char* fileDataPtr = static_cast<char*>(MapViewOfFile(hMapping, FILE_MAP_READ, 0, 0, 0));
             if (fileDataPtr == NULL) {
-                log(LOGLEVEL::ERR, "[initialize()]: Error mapping database file: ", filename);
+                //log(LOGLEVEL::ERR, "[initialize()]: Error mapping database file: ", filename);
                 CloseHandle(hMapping);
                 CloseHandle(hFile);
-                continue; // Move on to the next file if there's an error
+                return 3;
             }
 
             // Store the handles in the global maps
@@ -65,6 +65,7 @@ void initialize(const std::string& folderPath) {
             fileData[filename] = fileDataPtr;
         }
     }
+    return 0;
 }
 
 

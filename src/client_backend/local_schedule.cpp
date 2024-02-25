@@ -53,7 +53,6 @@ bool is_task_due(const std::string& task_name, const std::string& cron_expressio
     // Check if the 'fields' vector has at least 5 elements
     if (fields.size() < 5) {
         // Handle the case where the cron expression is not well-formed
-        std::cerr << "Error: Invalid cron expression." << std::endl;
         return false;
     }
 
@@ -89,7 +88,7 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
     if ((fopen_s(&fp, sched_path, "r")) != 0) {
         //panic, create log entry, return 1;
         //no schedule file found. this is not normal
-        log(LOGLEVEL::ERR, "[check_for_sched_tasks()]: Error opening schedule file: ", sched_path, " while checking for scheduled tasks; aborting");
+        //log(LOGLEVEL::ERR, "[check_for_sched_tasks()]: Error opening schedule file: ", sched_path, " while checking for scheduled tasks; aborting");
         delete[] command;
         return 1;
     }

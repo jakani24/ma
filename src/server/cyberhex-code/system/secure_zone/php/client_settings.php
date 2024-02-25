@@ -19,6 +19,7 @@ if($perms[5]!=="1"){
 	$block=0;
 }
 $setting_virus_ctrl_virus_found_action = "not configured yet";
+$setting_communication_unsafe_tls = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
@@ -103,6 +104,12 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($_GET["update"]=="setting_communication_unsafe_tls"){		
+		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
+		$stmt->bind_param("sss",$name,$value,$value);
+		$stmt->execute();
+		$stmt->close();
+	}
 	if($_GET["update"]=="rtp_included"){	
 		$id=htmlspecialchars($_GET["id"]);
 		$stmt = $conn->prepare("UPDATE rtp_included set path= ? WHERE id=$id");
@@ -132,6 +139,7 @@ function load_settings(){
 	global $setting_server_server_url;
 	global $setting_rtp_folder_scan_status;
 	global $setting_rtp_process_scan_status;
+	global $setting_communication_unsafe_tls;
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 	if ($conn->connect_error) {
@@ -187,6 +195,17 @@ function load_settings(){
 	$row = $result->fetch_assoc();
 	if($row!==null){
 		$setting_server_server_url=$row["value"];
+	}
+	//get setting: setting_communication_unsafe_tls
+	$sql = "SELECT * FROM settings WHERE name = 'setting_communication_unsafe_tls'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_communication_unsafe_tls=$row["value"];
 	}
 	$stmt -> close();
 	$conn -> close();
@@ -301,6 +320,17 @@ function load_settings(){
 							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','quarantine')">quarantine</a></li>
 							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','ignore')">ignore</a></li>
 							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','call_srv')">call_srv</a></li>
+						  </ul>
+						</div>
+						<br>
+						<h7>Allow communication with unsafe ssl cert? (if you are using self signed certs, activate this option)</h7>
+						<div class="dropdown">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+							<?php echo($setting_communication_unsafe_tls) ?>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton2','setting_communication_unsafe_tls','allow')">allow</a></li>
+							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton2','setting_communication_unsafe_tls','block')">block</a></li>
 						  </ul>
 						</div>
 						<br>

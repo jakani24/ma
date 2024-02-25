@@ -15,5 +15,5 @@ void action_scanfile(const char* filepath);
 void action_scanfolder(const char* folderpath);
 //void action_scanfile_t(const char* filepath);
 void scan_file_t(const std::string& filepath_);
-void initialize(const std::string& folderPath);
+int initialize(const std::string& folderPath);
 void cleanup();

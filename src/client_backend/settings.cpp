@@ -10,6 +10,7 @@ int excluded_folders_size = 0;
 char included_folders[100][300];
 int included_folders_size = 0;
 bool setting_rtp_folder_scan_status = 1; //0=off, 1=on
+bool setting_communication_unsafe_tls = 0; //0=do not allow communication via unsfae, slef signed certs, 1=allwo communication via unsafe, self signed certs
 void load_included_folders();
 void load_excluded_folders();
 int load_settings() {
@@ -55,8 +56,15 @@ int load_settings() {
 					setting_rtp_folder_scan_status = 0; //0=off
 				}
 			}
-
-
+			else if (strcmp(settings_cmd, "communication:unsafe_tls") == 0) {
+				fscanf_s(fp, "%s", settings_arg, 295); // get the argument
+				if (strcmp(settings_arg, "allow") == 0) {
+					setting_communication_unsafe_tls = 1; //1=on
+				}
+				else if (strcmp(settings_arg, "block") == 0) {
+					setting_communication_unsafe_tls = 0; //0=off
+				}
+			}
 		}
 
 
@@ -76,6 +84,9 @@ int get_setting(const char*setting_name) {
 	}
 	else if (strcmp(setting_name, "rtp_folder_scan:status") == 0) {
 		return setting_rtp_folder_scan_status;
+	}
+	else if (strcmp(setting_name, "communication:unsafe_tls") == 0) {
+		return setting_communication_unsafe_tls;
 	}
 
 	return -1;
