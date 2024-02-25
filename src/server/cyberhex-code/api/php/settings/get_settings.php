@@ -30,7 +30,7 @@ if(isset($_GET["settings"])){
 	echo("server:server_url ".$setting_server_server_url."\n");
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
 	echo("rtp_process_scan:status ".$setting_rtp_process_scan_status."\n");
-	echo("communication:unsafe_tls".$setting_communication_unsafe_tls."\n");
+	echo("communication:unsafe_tls ".$setting_communication_unsafe_tls."\n");
 }
 if(isset($_GET["rtp_included"])){
 	echo(load_secret()."\n");
