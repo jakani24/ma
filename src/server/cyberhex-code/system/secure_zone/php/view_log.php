@@ -100,6 +100,22 @@ if($perms[2]!=="1"){
                         echo '</thead>';
                         echo '<tbody>';
                         
+                        // Display filter options
+                        $loglevel_ss = isset($_GET["loglevel"]) ? $_GET["loglevel"] : "Loglevel";
+                        $logtext_ss = isset($_GET["logtext"]) ? $_GET["logtext"] : "Logtext";
+                        $machine_id_ss = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "Machine id";
+                        $time_ss = isset($_GET["time"]) ? $_GET["time"] : "Date & time";
+                        echo '<tr>';
+                        echo '<form action="view_log.php" method="get">';
+                        echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
+                        echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . $loglevel_ss . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . $logtext_ss . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . $machine_id_ss . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="time" placeholder="' . $time_ss . '"></td>';
+                        echo '<td>---</td>';
+                        echo '</form>';
+                        echo '</tr>';
+                        
                         while($row = $result->fetch_assoc()) {
                             // Apply filters
                             $show_entry = true;
