@@ -183,6 +183,7 @@ include "perms_functions.php";
 							// Retrieve user input
 							$m_email=$_POST["email"];
 							$m_username=$_POST["username"];
+							$m_permissions=get_perm_str();
 							// Create a connection
 							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
@@ -197,11 +198,11 @@ include "perms_functions.php";
 									die("Connection failed: " . $conn->connect_error);
 								}
 							$stmt = $conn->prepare("UPDATE users set email=?, username=?,perms=?");
-							$stmt->bind_param("ssss", $email, $username, $permissions);
+							$stmt->bind_param("sss", $m_email, $m_username, $m_permissions);
 
-							$email=htmlspecialchars($_POST["email"]);
-							$username=htmlspecialchars($_POST["username"]);
-							$permissions=get_perm_str();
+							$m_email=htmlspecialchars($_POST["email"]);
+							$m_username=htmlspecialchars($_POST["username"]);
+							$m_permissions=get_perm_str();
 							
 							$stmt->execute();
 							$stmt->close();
