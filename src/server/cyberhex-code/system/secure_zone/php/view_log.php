@@ -81,7 +81,6 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                                                 You are not allowed to delete log entries. (insufficient permissions)
                                 </div>';
                             }else{
-                                $id=htmlspecialchars($_GET["delete"]);
                                 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
@@ -196,8 +195,9 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 			You will not be able to undo this step. Important security evidence will be lost, if you press the "delete" button!
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-			<a class="btn btn-danger" href="view_log.php?delete_all">Delete anyway</a>
+			<button style="width:70%" type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+			<!-- <a class="btn btn-danger" href="view_log.php?delete_all">Delete anyway</a> -->
+			<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all_auth">Delete log</button>
 		  </div>
 		</div>
 	  </div>
