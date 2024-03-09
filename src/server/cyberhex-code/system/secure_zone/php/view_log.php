@@ -141,7 +141,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                             echo '<td>' . $row["logtext"] . '</td>';
                             echo '<td>' . $row["machine_id"] . '</td>';
                             echo '<td>' . $row["time"] . '</td>';
-                            echo '<td><a href="view_log.php?delete=' . $row["id"] . '&page=' . $i . $filter_query . '">delete</a></td>';
+                            echo '<td><a href="view_log.php?delete=' . $row["id"] . $filter_query . '&page=' . $current_page . '">delete</a></td>';
                             echo '</tr>';
                         }
                         
