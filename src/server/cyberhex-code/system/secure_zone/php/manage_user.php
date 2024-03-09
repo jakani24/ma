@@ -41,7 +41,8 @@ include "perms_functions.php";
 	}
 	$sql="SELECT * FROM users WHERE id=?";
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("i", htmlspecialchars($_GET["userid"]));
+	$m_userid=htmlspecialchars($_GET["userid"]);
+	$stmt->bind_param("i", $m_userid);
 	$stmt->execute();
 	// Get the result
 	$result = $stmt->get_result();
