@@ -81,11 +81,11 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 							fwrite ($fp,"Entry id;Loglevel;Logtext;Machine id;Time & date\n");
 							//now add entrys
 							while ($row = $result->fetch_assoc()) {
-								echo $row["id"] . ';';
-								echo $row["loglevel"] . ';';
-								echo $row["logtext"] . ';';
-								echo $row["machine_id"] . ';';
-								echo $row["time"] . ';\n';
+								fwrite($fp,$row["id"] . ';');
+								fwrite($fp,$row["loglevel"] . ';');
+								fwrite($fp,$row["logtext"] . ';');
+								fwrite($fp,$row["machine_id"] . ';');
+								fwrite($fp,$row["time"] . ';\n');
 							}
 							fclose($fp);
 							echo '<div class="alert alert-success" role="alert">
