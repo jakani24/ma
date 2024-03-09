@@ -74,7 +74,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 							$logtext = "%" . $logtext . "%";
 							$machine_id = "%" . $machine_id . "%";
 							$time = "%" . $time . "%";
-							$stmt->bind_param("ssssii", $loglevel, $logtext, $machine_id, $time);
+							$stmt->bind_param("ssss", $loglevel, $logtext, $machine_id, $time);
 							$stmt->execute();
 							$result = $stmt->get_result();
 
