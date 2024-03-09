@@ -126,10 +126,10 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<form action="view_log.php" method="get">';
                         echo '<input type="hidden" name="filter_submit" value="true">';
                         echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
-                        echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . $loglevel . '"></td>';
-                        echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . $logtext . '"></td>';
-                        echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . $machine_id . '"></td>';
-                        echo '<td><input type="text" class="form-control" name="time" placeholder="' . $time . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . str_replace("%","",$loglevel) . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . str_replace("%","",$logtext) . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%","",$machine_id) . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$time) . '"></td>';
                         echo '<td>---</td>';
                         echo '</form>';
                         echo '</tr>';
@@ -141,7 +141,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                             echo '<td>' . $row["logtext"] . '</td>';
                             echo '<td>' . $row["machine_id"] . '</td>';
                             echo '<td>' . $row["time"] . '</td>';
-                            echo '<td><a href="view_log.php?delete=' . $row["id"] . '">delete</a></td>';
+                            echo '<td><a href="view_log.php?delete=' . $row["id"] . '&page=' . $i . $filter_query . '">delete</a></td>';
                             echo '</tr>';
                         }
                         
