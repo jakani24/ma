@@ -121,7 +121,7 @@ if(isset($_GET["filter_submit"])){
                         // Display log entries
                         echo '<table class="table" style="overflow-x:auto">';
                         echo '<thead>';
-                        echo '<tr>';
+                        echo '<tr>'; 
                         echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th><th>Delete entry</th>';
                         echo '</tr>';
                         echo '</thead>';
