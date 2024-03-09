@@ -52,7 +52,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                     </div>
                     <div class="card-body" style="overflow-x:auto">
                         <!-- Export log -->
-                        <a href="export_log.php<?php echo $filter_query; ?>" class="btn btn-primary mb-3">Export</a>
+                        <a href="export_log.php?export=<?php echo $filter_query; ?>" class="btn btn-primary mb-3">Export</a>
 
                         <!-- Table with log entries -->
                         <?php
@@ -99,14 +99,14 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<table class="table" style="overflow-x:auto">';
                         echo '<thead>';
                         echo '<tr>';
-                        echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th><th>Delete entry</th>';
+                        echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th>';
                         echo '</tr>';
                         echo '</thead>';
                         echo '<tbody>';
 
                         // Display filter options
                         echo '<tr>';
-                        echo '<form action="view_log.php" method="get">';
+                        echo '<form action="export_log.php" method="get">';
                         echo '<input type="hidden" name="filter_submit" value="true">';
                         echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
                         echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . str_replace("%", "", $loglevel) . '"></td>';
@@ -124,7 +124,6 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                             echo '<td>' . $row["logtext"] . '</td>';
                             echo '<td>' . $row["machine_id"] . '</td>';
                             echo '<td>' . $row["time"] . '</td>';
-                            echo '<td><a href="view_log.php?delete=' . $row["id"] . $filter_query . '&page=' . $current_page . '">delete</a></td>';
                             echo '</tr>';
                         }
 
