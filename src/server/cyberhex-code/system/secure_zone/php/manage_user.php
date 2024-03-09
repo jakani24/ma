@@ -46,6 +46,7 @@ include "perms_functions.php";
 	$stmt->execute();
 	// Get the result
 	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
 	$stmt->close();
 	$m_username=$row["username"];
 	$m_email=$row["email"];
