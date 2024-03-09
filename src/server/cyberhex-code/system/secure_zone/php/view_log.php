@@ -38,7 +38,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
      <title>Change Password</title>
 </head>
 <body>
-
+<br><br>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
