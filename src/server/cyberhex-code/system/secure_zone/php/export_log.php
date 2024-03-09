@@ -85,7 +85,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 								fwrite($fp,$row["loglevel"] . ';');
 								fwrite($fp,$row["logtext"] . ';');
 								fwrite($fp,$row["machine_id"] . ';');
-								fwrite($fp,$row["time"] . ';\n');
+								fwrite($fp,$row["time"] . ";\n");
 							}
 							fclose($fp);
 							echo '<div class="alert alert-success" role="alert">
