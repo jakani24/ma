@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			  </div>
 			  <div class="modal-body">
 				1 Add User<br>
-				1 User List (delete...)<br>
+				1 Delete/list/manage users<br>
 				1 View Log<br>
 				1 Delete Log<br>
 				1 Server Settings<br>

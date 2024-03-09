@@ -30,7 +30,19 @@ include "perms_functions.php";
 	 <title>Change Password</title>
 </head>
 <body>
-
+<?php
+	//load users attributes
+	$sql="SELECT * FROM users WHERE id=?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("i", htmlspecialchars($_GET["userid"]));
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$stmt->close();
+	$m_username=$row["username"];
+	$m_email=$row["email"];
+	$m_permissions=$row["perms"];
+?>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -39,19 +51,15 @@ include "perms_functions.php";
                     <h4>Add a user</h4>
                 </div>
                 <div class="card-body">
-					<form action="add_user.php?add=true" method="post">
+					<form action="manage_user.php?update=true" method="post">
                         <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
+							<label for="username">Username:</label>
+							<input type="text" class="form-control" id="username" name="username" value="<?php echo($m_username); ?>" required>
+						</div>
 						<div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-						<div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
+							<label for="email">Email:</label>
+							<input type="email" class="form-control" id="email" name="email" value="<?php echo($m_email); ?>" required>
+						</div>
 						<label for="perms_table">User permissions:</label>
 						<table class="table" id="perms_table" name="perms_table">
 						  <thead>
@@ -65,52 +73,97 @@ include "perms_functions.php";
 							<tr>
 							  <th scope="row">1</th>
 							  <td>Add user <a data-bs-target="#warning" data-bs-toggle="modal" href="#warning">(Warning!)</a></td>
-							  <td><input type="checkbox" name="add_user"></td>
+								<?php
+								if($m_permissions[0]=="1")
+									echo('<td><input type="checkbox" name="add_user" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="add_user"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">2</th>
 							  <td>Delete/list/manage user <a data-bs-target="#warning" data-bs-toggle="modal" href="#warning2">(Warning!)</a></td>
-							  <td><input type="checkbox" name="delete_user"></td>
+								<?php
+								if($m_permissions[1]=="1")
+									echo('<td><input type="checkbox" name="delete_user" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="delete_user"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">3</th>
 							  <td>View log</td>
-							  <td><input type="checkbox" name="view_log"></td>
+								<?php
+								if($m_permissions[2]=="1")
+									echo('<td><input type="checkbox" name="view_log" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="view_log"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">4</th>
 							  <td>Delete log</td>
-							  <td><input type="checkbox" name="delete_log"></td>
+							  <?php
+								if($m_permissions[3]=="1")
+									echo('<td><input type="checkbox" name="delete_log" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="delete_log"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">5</th>
 							  <td>Server Settings</td>
-							  <td><input type="checkbox" name="server_settings"></td>
+							  <?php
+								if($m_permissions[4]=="1")
+									echo('<td><input type="checkbox" name="server_settings" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="server_settings"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">6</th>
 							  <td>Client settings</td>
-							  <td><input type="checkbox" name="client_settings"></td>
+							  <?php
+								if($m_permissions[5]=="1")
+									echo('<td><input type="checkbox" name="client_settings" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="client_settings"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">7</th>
 							  <td>Database settings</td>
-							  <td><input type="checkbox" name="database_settings"></td>
+							  <?php
+								if($m_permissions[6]=="1")
+									echo('<td><input type="checkbox" name="database_settings" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="database_settings"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">8</th>
 							  <td>Add clients</td>
-							  <td><input type="checkbox" name="add_clients"></td>
+							  <?php
+								if($m_permissions[7]=="1")
+									echo('<td><input type="checkbox" name="add_clients" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="add_clients"></td>');
+								?>
 							</tr>
 							<tr>
 							  <th scope="row">9</th>
 							  <td>Delete/list clients</td>
-							  <td><input type="checkbox" name="delete_clients"></td>
+							  <?php
+								if($m_permissions[8]=="1")
+									echo('<td><input type="checkbox" name="delete_clients" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="delete_clients"></td>');
+								?>
 							</tr>
 						  </tbody>
 						</table>
 
-                        <button type="submit" class="btn btn-primary btn-block">Add user</button>
+                        <button type="submit" class="btn btn-primary btn-block">Update user</button>
                     </form>
 					<br>
 					<!-- php code to add user-->
@@ -120,10 +173,8 @@ include "perms_functions.php";
 							//include db pw
 							include "../../../config.php";
 							// Retrieve user input
-							$password = $_POST["password"];
-							$email=$_POST["email"];
-							$username=$_POST["username"];
-							$hash=password_hash($password, PASSWORD_BCRYPT);
+							$m_email=$_POST["email"];
+							$m_username=$_POST["username"];
 							// Create a connection
 							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
@@ -131,50 +182,29 @@ include "perms_functions.php";
 							if ($conn->connect_error) {
 								die("Connection failed: " . $conn->connect_error);
 							}
-							$sql = "SELECT * FROM users WHERE username = ?";
-							$stmt = $conn->prepare($sql);
-							$stmt->bind_param("s", $username);
 							
-							// Execute the statement
-							$stmt->execute();
+							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+							if ($conn->connect_error) {
+									$success=0;
+									die("Connection failed: " . $conn->connect_error);
+								}
+							$stmt = $conn->prepare("UPDATE users set email=?, username=?,perms=?");
+							$stmt->bind_param("ssss", $email, $username, $permissions);
 
-							// Get the result
-							$result = $stmt->get_result();
+							$email=htmlspecialchars($_POST["email"]);
+							$username=htmlspecialchars($_POST["username"]);
+							$permissions=get_perm_str();
+							
+							$stmt->execute();
 							$stmt->close();
 							$conn->close();
+							echo '<div class="alert alert-success" role="alert">
+										User updates successfully!
+									  </div>';
 							
-							
-							// Check if the user exists and verify the password
-							if ($result->num_rows > 0) {
-								echo '<div class="alert alert-danger" role="alert">
-											User already exists!
-										  </div>';
-								
-							}else{
-								$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
-								if ($conn->connect_error) {
-										$success=0;
-										die("Connection failed: " . $conn->connect_error);
-									}
-								$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms) VALUES (?, ?, ?, ?)");
-								$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
-	
-								$email=htmlspecialchars($_POST["email"]);
-								$username=htmlspecialchars($_POST["username"]);
-								$password=$_POST["password"];
-								$permissions=get_perm_str();
-								$hash=password_hash($password, PASSWORD_BCRYPT);
-								
-								$stmt->execute();
-								$stmt->close();
-								$conn->close();
-								echo '<div class="alert alert-success" role="alert">
-											User added successfully!
-										  </div>';
-							}
 						}elseif($block==1){
 							echo '<div class="alert alert-danger" role="alert">
-												You do not have permission to add a user!
+												You do not have permission to update a user!
 											  </div>';
 						}
 					?>

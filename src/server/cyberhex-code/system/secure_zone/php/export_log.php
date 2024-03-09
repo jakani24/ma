@@ -38,7 +38,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-    <title>View Log</title>
+    <title>Export Log</title>
 </head>
 
 <body>
@@ -48,7 +48,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>View log</h4>
+                        <h4>Export log</h4>
                     </div>
                     <div class="card-body" style="overflow-x:auto">
                         <!-- Export log -->
@@ -145,7 +145,6 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . str_replace("%", "", $logtext) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%", "", $machine_id) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%", "", $time) . '"></td>';
-                        echo '<td>---</td>';
                         echo '</form>';
                         echo '</tr>';
 

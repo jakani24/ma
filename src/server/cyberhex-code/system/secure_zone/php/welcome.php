@@ -21,7 +21,7 @@ $email = $_SESSION["email"];
 	 <title>Change Password</title>
 </head>
 <body>
-
+<br><br>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
