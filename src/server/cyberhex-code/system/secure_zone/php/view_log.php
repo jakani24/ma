@@ -197,7 +197,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 		  <div class="modal-footer">
 			<button style="width:70%" type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
 			<!-- <a class="btn btn-danger" href="view_log.php?delete_all">Delete anyway</a> -->
-			<button style="width:25%" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all_auth">Delete log</button>
+			<button style="width:30%" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all_auth">Delete log</button>
 		  </div>
 		</div>
 	  </div>
