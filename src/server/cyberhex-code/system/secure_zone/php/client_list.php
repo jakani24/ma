@@ -97,7 +97,7 @@ include "perms_functions.php";
 						echo('</thead>');
 						echo('<tbody>');
 						while($num_of_machines!=0){
-							$sql = "SELECT * FROM machines where id > $last_id";
+							$sql = "SELECT * FROM machines WHERE id > $last_id";
 							$stmt = $conn->prepare($sql);
 							// Execute the statement
 							$stmt->execute();
@@ -115,7 +115,7 @@ include "perms_functions.php";
 								echo('<td><a href="client_list.php?delete='.$last_id.'">delete</a></td>');
 							echo('</tr>');
 							$stmt->close();
-							$num_of_users--;
+							$num_of_machines--;
 						}
 						echo('</tbody>');
 						echo('</table>');
