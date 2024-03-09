@@ -60,16 +60,16 @@ if ($perms[2] !== "1") {
                             $filter_query = "";
                             // Apply filters if present
                             if (isset($_GET["loglevel"])) {
-                                $filter_query .= "&loglevel=" . urlencode($_GET["loglevel"]);
+                                $filter_query .= " AND loglevel LIKE '%" . $conn->real_escape_string($_GET["loglevel"]) . "%'";
                             }
                             if (isset($_GET["logtext"])) {
-                                $filter_query .= "&logtext=" . urlencode($_GET["logtext"]);
+                                $filter_query .= " AND logtext LIKE '%" . $conn->real_escape_string($_GET["logtext"]) . "%'";
                             }
                             if (isset($_GET["machine_id"])) {
-                                $filter_query .= "&machine_id=" . urlencode($_GET["machine_id"]);
+                                $filter_query .= " AND machine_id LIKE '%" . $conn->real_escape_string($_GET["machine_id"]) . "%'";
                             }
                             if (isset($_GET["time"])) {
-                                $filter_query .= "&time=" . urlencode($_GET["time"]);
+                                $filter_query .= " AND time LIKE '%" . $conn->real_escape_string($_GET["time"]) . "%'";
                             }
 
                             $export_file = fopen($export_file_path, 'w');
@@ -80,16 +80,7 @@ if ($perms[2] !== "1") {
                             } else {
                                 fwrite($export_file, "id;loglevel;logtext;machine_id;time\r\n");
 
-                                $sql = "SELECT * FROM log";
-
-                                // Apply filters if present
-                                if (!empty($filter_query)) {
-                                    $sql .= " WHERE 1=1";
-                                    parse_str(substr($filter_query, 1), $filter_array);
-                                    foreach ($filter_array as $key => $value) {
-                                        $sql .= " AND $key LIKE '%" . $conn->real_escape_string($value) . "%'";
-                                    }
-                                }
+                                $sql = "SELECT * FROM log WHERE 1=1 $filter_query";
 
                                 $result = $conn->query($sql);
 
