@@ -16,7 +16,7 @@ else{
 	$message=$log[2];
 	$loglevel=$log[1];
 	$machine_id=htmlspecialchars($_GET["machine_id"]);
-	$time=log[0];
+	$time=$log[0];
 	
 	//include db pw
 	include "../../../config.php";
@@ -26,7 +26,7 @@ else{
 	}
 	$sql = "INSERT INTO log (loglevel,machine_id,logtext,time) VALUES (?,?,?,?);";
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("ssss", $loglevel,$machine_id,$logtext,$time);
+	$stmt->bind_param("ssss", $loglevel,$machine_id,$message,$time);
 	// Execute the statement
 	if(!$stmt->execute())
 		echo("wrt_err");
