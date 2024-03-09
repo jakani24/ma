@@ -69,7 +69,7 @@ include "perms_functions.php";
 							</tr>
 							<tr>
 							  <th scope="row">2</th>
-							  <td>Delete/list/manage user <a data-bs-target="#warning" data-bs-toggle="modal" href="#warning2">(Warning!)</a></td>
+							  <td>Delete/list/manage user <a data-bs-target="#warning2" data-bs-toggle="modal" href="#warning2">(Warning!)</a></td>
 							  <td><input type="checkbox" name="delete_user"></td>
 							</tr>
 							<tr>

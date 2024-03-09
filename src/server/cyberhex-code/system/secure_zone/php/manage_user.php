@@ -92,7 +92,7 @@ include "perms_functions.php";
 							</tr>
 							<tr>
 							  <th scope="row">2</th>
-							  <td>Delete/list/manage user <a data-bs-target="#warning" data-bs-toggle="modal" href="#warning2">(Warning!)</a></td>
+							  <td>Delete/list/manage user <a data-bs-target="#warning2" data-bs-toggle="modal" href="#warning2">(Warning!)</a></td>
 								<?php
 								if($m_permissions[1]=="1")
 									echo('<td><input type="checkbox" name="delete_user" checked></td>');
@@ -207,10 +207,10 @@ include "perms_functions.php";
 							$stmt->execute();
 							$stmt->close();
 							$conn->close();
-							echo '<div class="alert alert-success" role="alert">
-										User updates successfully!
-									  </div>';
-							
+							//echo '<div class="alert alert-success" role="alert">
+							//			User updated successfully!
+							//		  </div>';
+							echo("<script>location.href='user_list.php'; </script>");
 						}elseif($block==1){
 							echo '<div class="alert alert-danger" role="alert">
 												You do not have permission to update a user!
