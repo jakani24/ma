@@ -92,7 +92,7 @@ include "perms_functions.php";
 						echo('<table class="table">');
 						echo('<thead>');
 						echo('<tr>');
-						echo('<th>Machineid</th><th>Location</th><th>IP-Address</th><th>Delete user</th>');
+						echo('<th>Machineid</th><th>Location</th><th>IP-Address</th><th>Delete machine</th>');
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');

@@ -49,31 +49,53 @@ if(isset($_GET["page"])){
 		<div class="col-2">
 		  <p>Home</p>
 		  <ul>
-			<li><a href="index.php?page=welcome.php">Dashboard</a></li>
+			<?php 
+				if(1)//every user can access this page
+					echo('<li><a href="index.php?page=welcome.php">Dashboard</a></li>');
+			?>
 		  </ul>
 		  <p>User</p>
 		  <ul>
-		   <li><a href="index.php?page=profile.php">Profile</a></li>
-		   <li><a href="index.php?page=passwd.php">Change Password</a></li>
-		   <li><a href="index.php?page=add_user.php">Add User</a></li>
-		   <li><a href="index.php?page=user_list.php">User List</a></li>
+			<?php
+			if(1)//every user can access this page
+				echo('<li><a href="index.php?page=profile.php">Profile</a></li>');
+			if(1)//every user can access this page
+				echo('<li><a href="index.php?page=passwd.php">Change Password</a></li>');
+		    if($perms[0]=="1")
+				echo('<li><a href="index.php?page=add_user.php">Add User</a></li>');
+			if($perms[1]=="1")
+				echo('<li><a href="index.php?page=user_list.php">User List</a></li>');
+		   ?>
 		  </ul>
 		  <p>Log</p>
 		  <ul>
-		   <li><a href="index.php?page=view_log.php">View Log</a></li>
-		   <li><a href="index.php?page=export_log.php">Export Log</a></li>
+			<?php
+		    if($perms[2]=="1")
+				echo('<li><a href="index.php?page=view_log.php">View Log</a></li>');
+			if($perms[2]=="1")
+				echo('<li><a href="index.php?page=export_log.php">Export Log</a></li>');
+			?>
 		  </ul>
 		  <p>Cyberhex settings</p>
 		  <ul>
-		   <li><a href="index.php?page=server_settings.php">Server Settings</a></li>
-			<li><a href="index.php?page=client_settings.php?show=general">Client Settings</a></li>
-			<li><a href="index.php?page=database_settings.php">Database Settings</a></li>
+			<?php
+			if($perms[4]=="1")
+				echo('<li><a href="index.php?page=server_settings.php">Server Settings</a></li>');
+			if($perms[5]=="1")
+				echo('<li><a href="index.php?page=client_settings.php?show=general">Client Settings</a></li>');
+			if($perms[6]=="1")
+				echo('<li><a href="index.php?page=database_settings.php">Database Settings</a></li>');
+			?>
 		  </ul>
 		  <p>Clients</p>
 		  <ul>
-		   <li><a href="index.php?page=mass_add_clients.php">Mass Add CLients</a></li>
-		   <li><a href="index.php?page=add_client.php">Add Client</a></li>
-		   <li><a href="index.php?page=client_list.php">Client List</a></li>
+		  <!-- <li><a href="index.php?page=mass_add_clients.php">Mass Add CLients</a></li> -->
+		  <?php
+			if($perms[7]=="1")
+				echo('<li><a href="index.php?page=add_client.php">Add Client</a></li>');
+			if($perms[8]=="1")
+				echo('<li><a href="index.php?page=client_list.php">Client List</a></li>');
+		   ?>
 		  </ul>
 
 		</div>
