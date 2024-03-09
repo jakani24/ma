@@ -55,7 +55,7 @@ include "../../../config.php";
 						<br>
                         <button type="submit" class="btn btn-primary btn-block">Add Machine</button>
                     </form>
-                </div>
+                
 				<?php
 					if(isset($_GET["add"])){
 						//php code to add the new machine
@@ -143,6 +143,7 @@ include "../../../config.php";
 						}
 					}
 				?>
+				</div>
             </div>
         </div>
     </div>
