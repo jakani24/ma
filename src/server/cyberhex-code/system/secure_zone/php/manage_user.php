@@ -32,6 +32,7 @@ include "perms_functions.php";
 <body>
 <?php
 	//load users attributes
+	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
 	// Check the connection
@@ -48,6 +49,7 @@ include "perms_functions.php";
 	$m_username=$row["username"];
 	$m_email=$row["email"];
 	$m_permissions=$row["perms"];
+	$conn->close();
 ?>
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -176,8 +178,6 @@ include "perms_functions.php";
 					<?php
 						// Check if the form is submitted
 						if ($_SERVER["REQUEST_METHOD"] == "POST" and $block==0) {
-							//include db pw
-							include "../../../config.php";
 							// Retrieve user input
 							$m_email=$_POST["email"];
 							$m_username=$_POST["username"];
