@@ -75,6 +75,28 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                                 </div>';
                             }
                         }
+						if(isset($_GET["delete_all"])){
+                            if($perms[3]!=="1"){
+                                echo '<div class="alert alert-danger" role="alert">
+                                                You are not allowed to delete log entries. (insufficient permissions)
+                                </div>';
+                            }else{
+                                $id=htmlspecialchars($_GET["delete"]);
+                                $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+                                $sql = "DELETE FROM log";
+                                $stmt = $conn->prepare($sql);
+                                // Execute the statement
+                                $stmt->execute();
+                                $stmt->close();
+                                $conn->close();
+                                echo '<div class="alert alert-success" role="alert">
+                                                Log deleted.
+                                </div>';
+                            }
+                        }
                         
                         // Define page size and current page
                         $page_size = 50;
@@ -130,7 +152,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . str_replace("%","",$logtext) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%","",$machine_id) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$time) . '"></td>';
-                        echo '<td>---</td>';
+                        echo '<td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all">Delete entyre log</button></td>';
                         echo '</form>';
                         echo '</tr>';
                         
@@ -162,6 +184,24 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
             </div>
         </div>
     </div>
+	<div class="modal fade" id="delete_all" tabindex="-1" aria-labelledby="delete_all_label" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="delete_all_label">WARNING</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		  </div>
+		  <div class="modal-body">
+			Warning! You are about to delete the entyre System0 log.<br>This cannot be undone.<br>We highly recommend exporting the entyre log, before deleting it.<br>
+			You will not be able to undo this step. Important security evidence will be lost, if you press the "delete" button!
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-prymary" data-bs-dismiss="modal">Cancel</button>
+			<a class="btn btn-danger" href="view_log.php?delete_all">Delete anyway</a>
+		  </div>
+		</div>
+	  </div>
+</div>
 </div>
 </body>
 </html>
