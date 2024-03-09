@@ -152,7 +152,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . str_replace("%","",$logtext) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%","",$machine_id) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$time) . '"></td>';
-                        echo '<td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all">Delete entyre log</button></td>';
+                        echo '<td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all">Delete log</button></td>';
                         echo '</form>';
                         echo '</tr>';
                         
@@ -196,7 +196,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 			You will not be able to undo this step. Important security evidence will be lost, if you press the "delete" button!
 		  </div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-prymary" data-bs-dismiss="modal">Cancel</button>
+			<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
 			<a class="btn btn-danger" href="view_log.php?delete_all">Delete anyway</a>
 		  </div>
 		</div>
