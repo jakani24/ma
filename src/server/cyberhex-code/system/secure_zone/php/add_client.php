@@ -84,7 +84,7 @@ include "../../../config.php";
 						$stmt->close();
 						if($result->num_rows > 0){
 							//theres allready a machine with this location
-							echo '<div class="alert alert-danger" role="alert">
+							echo '<br><div class="alert alert-danger" role="alert">
                                                There is allready a machine with the exact same location<br>Please change the location.
                                 </div>';
 						}
@@ -137,9 +137,9 @@ include "../../../config.php";
 							fwrite($fp,"cert $cert\n");
 							fwrite($fp,"apikey $apikey\n");
 							fclose($fp);
-							echo("<a href='/export/secrets.txt' download>Download config file1</a>");
-							echo("<a href='/export/setup.txt' download>Download config file2</a>");
-							echo("<a href='/install.bat' download>Download installer</a>");
+							echo("<a href='/export/secrets.txt' download>Download config file1</a><br>");
+							echo("<a href='/export/setup.txt' download>Download config file2</a><br>");
+							echo("<a href='/install.bat' download>Download installer</a><br>");
 						}
 					}
 				?>
