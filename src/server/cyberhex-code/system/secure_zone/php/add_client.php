@@ -75,7 +75,7 @@ include "../../../config.php";
 							$ip="nan";
 						
 						//check if there isn't a machine with the same name allready
-						$sql = "SELECT * FROM machined WHERE machine_location = ?";
+						$sql = "SELECT * FROM machines WHERE machine_location = ?";
 						$stmt->bind_param("s", $location);
 						$stmt->execute();
 						// Get the result
