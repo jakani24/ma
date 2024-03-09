@@ -18,6 +18,22 @@ if($perms[2]!=="1"){
 }else{
     $block=0;
 }
+
+// Handle filter submission
+if(isset($_GET["filter_submit"])){
+    $loglevel = isset($_GET["loglevel"]) ? $_GET["loglevel"] : "";
+    $logtext = isset($_GET["logtext"]) ? $_GET["logtext"] : "";
+    $machine_id = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "";
+    $time = isset($_GET["time"]) ? $_GET["time"] : "";
+    $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time";
+}else{
+    $loglevel = "";
+    $logtext = "";
+    $machine_id = "";
+    $time = "";
+    $filter_query = "";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,27 +83,38 @@ if($perms[2]!=="1"){
                         }
                         
                         // Define page size and current page
-                        $page_size = 100;
+                        $page_size = 50;
                         $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                         $offset = ($current_page - 1) * $page_size;
                         
-                        // Get total number of log entries
+                        // Get total number of log entries based on filters
                         $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT count(*) AS log_count FROM log";
-                        $result = $conn->query($sql);
+                        $sql = "SELECT count(*) AS log_count FROM log WHERE loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
+                        $stmt = $conn->prepare($sql);
+                        $loglevel = "%" . $loglevel . "%";
+                        $logtext = "%" . $logtext . "%";
+                        $machine_id = "%" . $machine_id . "%";
+                        $time = "%" . $time . "%";
+                        $stmt->bind_param("ssss", $loglevel, $logtext, $machine_id, $time);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
                         $row = $result->fetch_assoc();
                         $total_entries = $row["log_count"];
                         
                         // Calculate total pages
                         $total_pages = ceil($total_entries / $page_size);
                         
-                        // Query log entries for the current page
-                        $sql = "SELECT * FROM log ORDER BY id DESC LIMIT ?, ?";
+                        // Query log entries for the current page with filters
+                        $sql = "SELECT * FROM log WHERE loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? ORDER BY id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("ii", $offset, $page_size);
+                        $loglevel = "%" . $loglevel . "%";
+                        $logtext = "%" . $logtext . "%";
+                        $machine_id = "%" . $machine_id . "%";
+                        $time = "%" . $time . "%";
+                        $stmt->bind_param("ssssii", $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         
@@ -101,59 +128,38 @@ if($perms[2]!=="1"){
                         echo '<tbody>';
                         
                         // Display filter options
-                        $loglevel_ss = isset($_GET["loglevel"]) ? $_GET["loglevel"] : "Loglevel";
-                        $logtext_ss = isset($_GET["logtext"]) ? $_GET["logtext"] : "Logtext";
-                        $machine_id_ss = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "Machine id";
-                        $time_ss = isset($_GET["time"]) ? $_GET["time"] : "Date & time";
                         echo '<tr>';
                         echo '<form action="view_log.php" method="get">';
+                        echo '<input type="hidden" name="filter_submit" value="true">';
                         echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
-                        echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . $loglevel_ss . '"></td>';
-                        echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . $logtext_ss . '"></td>';
-                        echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . $machine_id_ss . '"></td>';
-                        echo '<td><input type="text" class="form-control" name="time" placeholder="' . $time_ss . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . $loglevel . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . $logtext . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . $machine_id . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="time" placeholder="' . $time . '"></td>';
                         echo '<td>---</td>';
                         echo '</form>';
                         echo '</tr>';
                         
                         while($row = $result->fetch_assoc()) {
-                            // Apply filters
-                            $show_entry = true;
-                            if(isset($_GET["loglevel"]) && $_GET["loglevel"] !== "" && strpos($row["loglevel"], $_GET["loglevel"]) === false) {
-                                $show_entry = false;
-                            }
-                            if(isset($_GET["logtext"]) && $_GET["logtext"] !== "" && strpos($row["logtext"], $_GET["logtext"]) === false) {
-                                $show_entry = false;
-                            }
-                            if(isset($_GET["machine_id"]) && $_GET["machine_id"] !== "" && strpos($row["machine_id"], $_GET["machine_id"]) === false) {
-                                $show_entry = false;
-                            }
-                            if(isset($_GET["time"]) && $_GET["time"] !== "" && strpos($row["time"], $_GET["time"]) === false) {
-                                $show_entry = false;
-                            }
-                            
-                            // Display the entry if it matches the filters
-                            if($show_entry) {
-                                echo '<tr>';
-                                echo '<td>' . $row["id"] . '</td>';
-                                echo '<td>' . $row["loglevel"] . '</td>';
-                                echo '<td>' . $row["logtext"] . '</td>';
-                                echo '<td>' . $row["machine_id"] . '</td>';
-                                echo '<td>' . $row["time"] . '</td>';
-                                echo '<td><a href="view_log.php?delete=' . $row["id"] . '">delete</a></td>';
-                                echo '</tr>';
-                            }
+                            echo '<tr>';
+                            echo '<td>' . $row["id"] . '</td>';
+                            echo '<td>' . $row["loglevel"] . '</td>';
+                            echo '<td>' . $row["logtext"] . '</td>';
+                            echo '<td>' . $row["machine_id"] . '</td>';
+                            echo '<td>' . $row["time"] . '</td>';
+                            echo '<td><a href="view_log.php?delete=' . $row["id"] . '">delete</a></td>';
+                            echo '</tr>';
                         }
                         
                         echo '</tbody>';
                         echo '</table>';
                         $conn->close();
                         
-                        // Display pagination links
+                        // Display pagination links with filter query
                         echo '<nav aria-label="Page navigation">';
                         echo '<ul class="pagination justify-content-center">';
                         for ($i = 1; $i <= $total_pages; $i++) {
-                            echo '<li class="page-item ' . ($i == $current_page ? 'active' : '') . '"><a class="page-link" href="view_log.php?page=' . $i . '">' . $i . '</a></li>';
+                            echo '<li class="page-item ' . ($i == $current_page ? 'active' : '') . '"><a class="page-link" href="view_log.php?page=' . $i . $filter_query . '">' . $i . '</a></li>';
                         }
                         echo '</ul>';
                         echo '</nav>';
