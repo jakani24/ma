@@ -34,7 +34,7 @@ if ($perms[2] !== "1") {
 
 <body>
 
-    <div class="container-fluid">
+    <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -153,7 +153,7 @@ if ($perms[2] !== "1") {
                         $machine_id_ss = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "Machine id";
                         $time_ss = isset($_GET["time"]) ? $_GET["time"] : "Date & time";
                         echo '<tr>';
-                        echo '<form action="" method="get">';
+                        echo '<form action="export_log.php" method="get">';
                         echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
                         echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . $loglevel_ss . '"></td>';
                         echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . $logtext_ss . '"></td>';
