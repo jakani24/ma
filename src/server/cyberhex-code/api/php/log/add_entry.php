@@ -8,13 +8,16 @@ if(check_apikey()!==true){
 
 //add the entry to the log db
 //this page has no gui, it may return ok or error
-if(!isset($_GET["loglevel"]) or !isset($_GET["logtext"]) or !isset($_GET["machine_id"]) or !isset($_GET["time"]))
+if(!isset($_GET["logtext"]) or !isset($_GET["machine_id"]))
 	echo("syn_err");
 else{
-	$loglevel=htmlspecialchars($_GET["loglevel"]);
 	$logtext=htmlspecialchars($_GET["logtext"]);
+	$log=explode(";",$logtext);
+	$message=$log[2];
+	$loglevel=$log[1];
 	$machine_id=htmlspecialchars($_GET["machine_id"]);
-	$time=htmlspecialchars($_GET["time"]);
+	$time=log[0];
+	
 	//include db pw
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);

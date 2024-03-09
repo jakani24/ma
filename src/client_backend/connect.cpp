@@ -5,7 +5,29 @@
 #include "well_known.h"
 #include "security.h"
 
-static size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp)
+
+int fast_send(const char * url,bool ignore_insecure) {
+    //send get rewuest to server, and cloe connection after maximum 1 second
+    CURL* curl;
+    CURLcode res;
+    curl = curl_easy_init();
+    if (curl) {
+		curl_easy_setopt(curl, CURLOPT_URL, url);
+		if(ignore_insecure==true)
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1L);
+		res = curl_easy_perform(curl);
+		curl_easy_cleanup(curl);
+        if (res == CURLE_OK) {
+			return 0;
+		}
+        else {
+			return res;
+		}
+	}
+    return 1;
+}
+static size_t write_callback_connect(void* contents, size_t size, size_t nmemb, void* userp)
 {
     ((std::string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
@@ -19,7 +41,7 @@ int connect_to_srv(const char*url,char*out,int max_len, bool ignore_insecure) {
     curl = curl_easy_init();
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_URL, url);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback_connect);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
         if(ignore_insecure==true)
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
@@ -34,7 +56,7 @@ int connect_to_srv(const char*url,char*out,int max_len, bool ignore_insecure) {
     }
     return 2;
 }
-size_t write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
+size_t write_callback_download(void* contents, size_t size, size_t nmemb, void* userp) {
     size_t totalSize = size * nmemb;
     FILE* file = (FILE*)userp;
     if (file) {
@@ -69,7 +91,7 @@ int download_file_from_srv(const char* url, const char* output_file_path, bool i
     }
 
     // Set the write callback function
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback_download);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, output_file);
     if (ignore_insecure == true)
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
@@ -105,5 +127,41 @@ int download_file_from_srv(const char* url, const char* output_file_path, bool i
     delete[] buf;
     delete[] temp_path;
     return 0;
+}
+
+char* url_encode(const char* input) {
+    // Allocate memory for the encoded string (worst case: every character needs encoding)
+    size_t input_len = strlen(input);
+    char* encoded = (char*)malloc(input_len * 3 + 1); // +1 for null terminator
+    if (!encoded) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Define the characters that don't need encoding
+    const char* safe_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
+
+    // Initialize variables for input and output string indices
+    size_t i = 0; // index for input string
+    size_t j = 0; // index for output string
+
+    // Loop through each character in the input string
+    while (input[i]) {
+        // Check if the character is a safe character
+        if (strchr(safe_chars, input[i]) != NULL) {
+            encoded[j++] = input[i++]; // Copy safe character as is
+        }
+        else {
+            // Encode non-safe character as percent-encoded representation
+            sprintf(encoded + j, "%%%02X", (unsigned char)input[i]);
+            j += 3; // Increment output index by 3 to account for encoding (%XX)
+            i++; // Move to the next character in the input string
+        }
+    }
+
+    // Null-terminate the encoded string
+    encoded[j] = '\0';
+
+    return encoded;
 }
 #endif

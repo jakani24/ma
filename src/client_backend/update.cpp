@@ -66,7 +66,7 @@ int update_settings(const char*settings_type) {
 			res = download_file_from_srv(url, SCHED_PATH, get_setting("communication:unsafe_tls"));
 		//int res = 0;
 		if (res != 0) {
-			log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server", url, " ERROR:", res);
+			log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server", " ERROR:", res);
 			return 1;
 		}
 

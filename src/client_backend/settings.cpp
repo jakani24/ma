@@ -23,7 +23,7 @@ int load_settings() {
 	}
 	else {
 		char*settings_cmd=new char[505];
-		char*settings_arg= new char[300];
+		char*settings_arg=new char[300];
 		fscanf_s(fp, "%s", settings_cmd, 500); //the cert is always the firs tline
 		while (!feof(fp)) {
 			fscanf_s(fp, "%s", settings_cmd, 295); // get the command

@@ -49,7 +49,7 @@ if(isset($_GET["page"])){
 		<div class="col-2">
 		  <p>Home</p>
 		  <ul>
-			<li><a href="index.php?page=welcome.php">Welcome</a></li>
+			<li><a href="index.php?page=welcome.php">Dashboard</a></li>
 		  </ul>
 		  <p>User</p>
 		  <ul>

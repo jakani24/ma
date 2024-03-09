@@ -16,7 +16,14 @@ std::string get_loglevel(LOGLEVEL level) {
         return "RISK";
     case LOGLEVEL::PANIC:
         return "PANIC";
-
+    case LOGLEVEL::INFO_NOSEND:
+		return "INFO_NOSEND";
+    case LOGLEVEL::WARN_NOSEND:
+        return "WARNING_NOSEND";
+    case LOGLEVEL::ERR_NOSEND:
+        return "ERROR_NOSEND";
+    case LOGLEVEL::PANIC_NOSEND:
+        return "PANIC_NOSEND";
     default:
         return "UNKNOWN";
     }
