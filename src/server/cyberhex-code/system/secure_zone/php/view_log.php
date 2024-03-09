@@ -101,14 +101,32 @@ if($perms[2]!=="1"){
                         echo '<tbody>';
                         
                         while($row = $result->fetch_assoc()) {
-                            echo '<tr>';
-                            echo '<td>' . $row["id"] . '</td>';
-                            echo '<td>' . $row["loglevel"] . '</td>';
-                            echo '<td>' . $row["logtext"] . '</td>';
-                            echo '<td>' . $row["machine_id"] . '</td>';
-                            echo '<td>' . $row["time"] . '</td>';
-                            echo '<td><a href="view_log.php?delete=' . $row["id"] . '">delete</a></td>';
-                            echo '</tr>';
+                            // Apply filters
+                            $show_entry = true;
+                            if(isset($_GET["loglevel"]) && $_GET["loglevel"] !== "" && strpos($row["loglevel"], $_GET["loglevel"]) === false) {
+                                $show_entry = false;
+                            }
+                            if(isset($_GET["logtext"]) && $_GET["logtext"] !== "" && strpos($row["logtext"], $_GET["logtext"]) === false) {
+                                $show_entry = false;
+                            }
+                            if(isset($_GET["machine_id"]) && $_GET["machine_id"] !== "" && strpos($row["machine_id"], $_GET["machine_id"]) === false) {
+                                $show_entry = false;
+                            }
+                            if(isset($_GET["time"]) && $_GET["time"] !== "" && strpos($row["time"], $_GET["time"]) === false) {
+                                $show_entry = false;
+                            }
+                            
+                            // Display the entry if it matches the filters
+                            if($show_entry) {
+                                echo '<tr>';
+                                echo '<td>' . $row["id"] . '</td>';
+                                echo '<td>' . $row["loglevel"] . '</td>';
+                                echo '<td>' . $row["logtext"] . '</td>';
+                                echo '<td>' . $row["machine_id"] . '</td>';
+                                echo '<td>' . $row["time"] . '</td>';
+                                echo '<td><a href="view_log.php?delete=' . $row["id"] . '">delete</a></td>';
+                                echo '</tr>';
+                            }
                         }
                         
                         echo '</tbody>';
