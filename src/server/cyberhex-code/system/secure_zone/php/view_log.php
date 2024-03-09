@@ -20,19 +20,13 @@ if($perms[2]!=="1"){
 }
 
 // Handle filter submission
-if(isset($_GET["filter_submit"])){
-    $loglevel = isset($_GET["loglevel"]) ? $_GET["loglevel"] : "";
-    $logtext = isset($_GET["logtext"]) ? $_GET["logtext"] : "";
-    $machine_id = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "";
-    $time = isset($_GET["time"]) ? $_GET["time"] : "";
-    $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time";
-}else{
-    $loglevel = "";
-    $logtext = "";
-    $machine_id = "";
-    $time = "";
-    $filter_query = "";
-}
+
+$loglevel = isset($_GET["loglevel"]) ? $_GET["loglevel"] : "";
+$logtext = isset($_GET["logtext"]) ? $_GET["logtext"] : "";
+$machine_id = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "";
+$time = isset($_GET["time"]) ? $_GET["time"] : "";
+$filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time";
+
 
 ?>
 <!DOCTYPE html>
