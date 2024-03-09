@@ -61,7 +61,7 @@ include "perms_functions.php";
                     <h4>Add a user</h4>
                 </div>
                 <div class="card-body">
-					<form action="manage_user.php?update=true" method="post">
+					<form action="manage_user.php?update=true&userid=<?php echo($m_userid); ?>" method="post">
                         <div class="form-group">
 							<label for="username">Username:</label>
 							<input type="text" class="form-control" id="username" name="username" value="<?php echo($m_username); ?>" required>
@@ -197,8 +197,8 @@ include "perms_functions.php";
 									$success=0;
 									die("Connection failed: " . $conn->connect_error);
 								}
-							$stmt = $conn->prepare("UPDATE users set email=?, username=?,perms=?");
-							$stmt->bind_param("sss", $m_email, $m_username, $m_permissions);
+							$stmt = $conn->prepare("UPDATE users set email=?, username=?,perms=? WHERE id=?");
+							$stmt->bind_param("sssi", $m_email, $m_username, $m_permissions,$m_userid);
 
 							$m_email=htmlspecialchars($_POST["email"]);
 							$m_username=htmlspecialchars($_POST["username"]);
