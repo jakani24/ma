@@ -105,7 +105,7 @@ include "perms_functions.php";
 							$result = $stmt->get_result();
 							$row = $result->fetch_assoc();
 							$last_id=$row["id"];
-							$machine_id=$row["machine_id"];
+							$machine_id=$row["machine_name"];
 							$machine_location=$row["machine_location"];
 							$machine_ip=$row["machine_ip"];
 							echo('<tr>');
