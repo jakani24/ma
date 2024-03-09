@@ -65,6 +65,7 @@ include "../../../config.php";
 						* setup_script => server location, to download settings, databases etc
 						* add installer.exe to download list => downloads the app and all the files 
 						*/
+						$location=htmlspecialchars($_POST["location"]);
 						//create machineid:
 						$random_bytes = random_bytes(6);
 
@@ -72,58 +73,73 @@ include "../../../config.php";
 						$machineid = bin2hex($random_bytes);
 						if($_POST["ip"]=="")
 							$ip="nan";
-						$location=htmlspecialchars($_POST["location"]);
 						
-						$stmt = $conn->prepare("INSERT INTO machines (machine_name, machine_location,machine_ip) VALUES (?, ?, ?)");
-						$stmt->bind_param("sss", $machineid, $location, $ip);
-						$stmt->execute();
-						$stmt->close();
-						
-						//create secrets
-						$random_bytes = random_bytes(248);
-
-						// Convert the random bytes to hexadecimal
-						$cert = bin2hex($random_bytes);
-						//create secrets
-						$random_bytes = random_bytes(248);
-
-						// Convert the random bytes to hexadecimal
-						$apikey = bin2hex($random_bytes);
-						$stmt = $conn->prepare("INSERT INTO secrets (machine_id, cert) VALUES (?, ?)");
-						$stmt->bind_param("ss", $machineid, $cert);
-						$stmt->execute();
-						$stmt->close();
-						$stmt = $conn->prepare("INSERT INTO api (machine_id, apikey) VALUES (?, ?)");
-						$stmt->bind_param("ss", $machineid, $apikey);
-						$stmt->execute();
-						$stmt->close();
-						
-						//get the address of this server
-						$sql = "SELECT * FROM settings WHERE name = 'setting_server_server_url'";
-						$stmt = $conn->prepare($sql);
-						// Execute the statement
+						//check if there isn't a machine with the same name allready
+						$sql = "SELECT * FROM machined WHERE machine_location = ?";
+						$stmt->bind_param("s", $location);
 						$stmt->execute();
 						// Get the result
 						$result = $stmt->get_result();
-						$row = $result->fetch_assoc();
-						if($row!==null){
-							$this_server=$row["value"];
-						}else{
-							$this_server="http://localhost";
+						$stmt->close();
+						if($result->num_rows > 0){
+							//theres allready a machine with this location
+							echo '<div class="alert alert-danger" role="alert">
+                                               There is allready a machine with the exact same location<br>Please change the location.
+                                </div>';
 						}
-						$stmt -> close();
-						//create the files and download them
-						$fp=fopen("/var/www/html/export/setup.txt","w");
-						fwrite($fp,"server $this_server");
-						fclose($fp);
-						$fp=fopen("/var/www/html/export/secrets.txt","w");
-						fwrite($fp,"machineid $machineid\n");
-						fwrite($fp,"cert $cert\n");
-						fwrite($fp,"apikey $apikey\n");
-						fclose($fp);
-						echo("<a href='/export/secrets.txt' download>Download config file1</a>");
-						echo("<a href='/export/setup.txt' download>Download config file2</a>");
-						echo("<a href='/install.bat' download>Download installer</a>");
+						else{
+						
+							$stmt = $conn->prepare("INSERT INTO machines (machine_name, machine_location,machine_ip) VALUES (?, ?, ?)");
+							$stmt->bind_param("sss", $machineid, $location, $ip);
+							$stmt->execute();
+							$stmt->close();
+							
+							//create secrets
+							$random_bytes = random_bytes(248);
+
+							// Convert the random bytes to hexadecimal
+							$cert = bin2hex($random_bytes);
+							//create secrets
+							$random_bytes = random_bytes(248);
+
+							// Convert the random bytes to hexadecimal
+							$apikey = bin2hex($random_bytes);
+							$stmt = $conn->prepare("INSERT INTO secrets (machine_id, cert) VALUES (?, ?)");
+							$stmt->bind_param("ss", $machineid, $cert);
+							$stmt->execute();
+							$stmt->close();
+							$stmt = $conn->prepare("INSERT INTO api (machine_id, apikey) VALUES (?, ?)");
+							$stmt->bind_param("ss", $machineid, $apikey);
+							$stmt->execute();
+							$stmt->close();
+							
+							//get the address of this server
+							$sql = "SELECT * FROM settings WHERE name = 'setting_server_server_url'";
+							$stmt = $conn->prepare($sql);
+							// Execute the statement
+							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							$row = $result->fetch_assoc();
+							if($row!==null){
+								$this_server=$row["value"];
+							}else{
+								$this_server="http://localhost";
+							}
+							$stmt -> close();
+							//create the files and download them
+							$fp=fopen("/var/www/html/export/setup.txt","w");
+							fwrite($fp,"server $this_server");
+							fclose($fp);
+							$fp=fopen("/var/www/html/export/secrets.txt","w");
+							fwrite($fp,"machineid $machineid\n");
+							fwrite($fp,"cert $cert\n");
+							fwrite($fp,"apikey $apikey\n");
+							fclose($fp);
+							echo("<a href='/export/secrets.txt' download>Download config file1</a>");
+							echo("<a href='/export/setup.txt' download>Download config file2</a>");
+							echo("<a href='/install.bat' download>Download installer</a>");
+						}
 					}
 				?>
             </div>
