@@ -32,6 +32,12 @@ include "perms_functions.php";
 <body>
 <?php
 	//load users attributes
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+
+	// Check the connection
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
 	$sql="SELECT * FROM users WHERE id=?";
 	$stmt = $conn->prepare($sql);
 	$stmt->bind_param("i", htmlspecialchars($_GET["userid"]));
