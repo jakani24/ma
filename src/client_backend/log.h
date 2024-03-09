@@ -1,3 +1,4 @@
+#pragma once
 #ifndef LOG_H
 #define LOG_H
 
@@ -9,8 +10,6 @@
 #include "well_known.h"
 #include "settings.h"
 #include "security.h"
-int srv_timeout = 0;
-int timeout_reset = 0;
 enum class LOGLEVEL {
     INFO,
     WARN,
@@ -28,7 +27,7 @@ std::string get_loglevel(LOGLEVEL level);
 
 template <typename... Args>
 void log(LOGLEVEL level, const std::string& message, Args&&... args) {
-    timeout_reset++;
+    log_timeout_reset_set(log_timeout_reset_get()+1);
     std::string prefix = get_loglevel(level);
     std::time_t now = std::time(nullptr);
     std::tm tm;
@@ -96,7 +95,7 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             fclose(fp);
         }
         //write to server log file only if we werent able to send the logs directly. this file will store them until we can upload them
-        if (fopen_s(&fp, SRV_LOGFILE, "a") == 0 && srv_timout>=5) { //if server already did not respon over 5 times, we add it to the log file
+        if (fopen_s(&fp, SRV_LOGFILE, "a") == 0 && log_timeout_get() >= 5) { //if server already did not respon over 5 times, we add it to the log file
             fprintf_s(fp, "%s\n", to_srv_string.c_str());
             fclose(fp);
         }
@@ -105,7 +104,7 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     //build up the log string: loglevel&logtext&machineid&date
     //to_srv_string=includes the log message
     //we now need to build up the request string and append the machineid
-    if (level!=LOGLEVEL::INFO_NOSEND && level!=LOGLEVEL::WARN_NOSEND && level!=LOGLEVEL::ERR_NOSEND && level!=LOGLEVEL::PANIC_NOSEND && srv_timeout<5) {
+    if (level!=LOGLEVEL::INFO_NOSEND && level!=LOGLEVEL::WARN_NOSEND && level!=LOGLEVEL::ERR_NOSEND && level!=LOGLEVEL::PANIC_NOSEND && log_timeout_get()<5) {
         char* url = new char[3000];
         int res = 0;
         if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
@@ -115,22 +114,24 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             strcat_s(url, 3000, get_machineid(SECRETS));
             strcat_s(url, 3000, "&apikey=");
             strcat_s(url, 3000, get_apikey(SECRETS));
-            res=fast_send(url, get_setting("communication:unsafe_tls");
+            res=fast_send(url, get_setting("communication:unsafe_tls"));
             if (res != 0) {
                 //we know that the server might be down, so we will increment the timeout counter
-                srv_timeout++;
+                log_timeout_set(log_timeout_get() + 1);
             }
             //we might not want to log an error occuring here because it will create a loop
-            delete[] url;
         }
-        else {
-            delete[] url;
-            return;
-        }
+        delete[] url;
     }//else we do not send the log to the server
-    if(timeout_reset>100){ //after 100 log entrys, we cna try again to reach out ot the server.
-        timeout_reset=0;
-		srv_timeout=0;
+    if (log_timeout_reset_get() > 100)
+    {
+        log_timeout_reset_set(0);
+        log_timeout_set(0);
+    }
+    //!!!i disabled this temporarely, because it does not really work and as long as the client is in lan the other code works anyway
+    if(log_timeout_reset_get()>100 && 1==0) { //after 100 log entrys, we cna try again to reach out ot the server.
+        log_timeout_reset_set(0);
+        log_timeout_set(0);
         //try to upload the server_log file, where we stored the logs which we could not upload.
         char* url = new char[3000];
         int res = 0;
@@ -142,7 +143,7 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             res=upload_to_srv(SRV_LOGFILE, url, get_setting("communication:unsafe_tls"));
             if (res != 0) {
 				//we know that the server might be down, so we will increment the timeout counter
-				srv_timeout++;
+				log_timeout_set(log_timeout_get() + 1);
             }
             else {
                 //remove the logfile

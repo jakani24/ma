@@ -1,7 +1,6 @@
 #ifndef LOG_CPP
 #define LOG_CPP
 #include "log.h"
-
 std::string get_loglevel(LOGLEVEL level) {
     switch (level) {
     case LOGLEVEL::INFO:

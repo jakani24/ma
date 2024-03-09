@@ -11,6 +11,8 @@ char included_folders[100][300];
 int included_folders_size = 0;
 bool setting_rtp_folder_scan_status = 1; //0=off, 1=on
 bool setting_communication_unsafe_tls = 0; //0=do not allow communication via unsfae, slef signed certs, 1=allwo communication via unsafe, self signed certs
+int srv_log_timeout = 0;
+int log_timeout_reset = 0;
 void load_included_folders();
 void load_excluded_folders();
 int load_settings() {
@@ -204,5 +206,18 @@ void print_inclusuions() {
 	for (int i = 0; i < excluded_folders_size; i++) {
 		log(LOGLEVEL::INFO, "[print_exclusions()]: Excluded folder: ", exluded_folders[i]);
 	}
+}
+
+int log_timeout_get() {
+	return srv_log_timeout;
+}
+void log_timeout_set(int timeout) {
+	srv_log_timeout = timeout;
+}
+void log_timeout_reset_set(int timeout) {
+	log_timeout_reset = timeout;
+}
+int log_timeout_reset_get() {
+	return log_timeout_reset;
 }
 #endif
