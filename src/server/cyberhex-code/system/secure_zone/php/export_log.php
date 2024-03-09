@@ -107,9 +107,83 @@ if ($perms[2] !== "1") {
 
                             $conn->close();
                         }
+                        ?>
+                        <!-- Display log entries with filters -->
+                        <?php
+                        include "../../../config.php";
 
-                        // Display log entries with filters
-                        include "view_log.php";
+                        // Define page size and current page
+                        $page_size = 50;
+                        $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                        $offset = ($current_page - 1) * $page_size;
+
+                        // Get total number of log entries
+                        $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+
+                        $sql = "SELECT count(*) AS log_count FROM log";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        $total_entries = $row["log_count"];
+
+                        // Calculate total pages
+                        $total_pages = ceil($total_entries / $page_size);
+
+                        // Query log entries for the current page
+                        $sql = "SELECT * FROM log ORDER BY id DESC LIMIT ?, ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("ii", $offset, $page_size);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        // Display log entries
+                        echo '<table class="table" style="overflow-x:auto">';
+                        echo '<thead>';
+                        echo '<tr>';
+                        echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th>';
+                        echo '</tr>';
+                        echo '</thead>';
+                        echo '<tbody>';
+
+                        // Display filter options
+                        $loglevel_ss = isset($_GET["loglevel"]) ? $_GET["loglevel"] : "Loglevel";
+                        $logtext_ss = isset($_GET["logtext"]) ? $_GET["logtext"] : "Logtext";
+                        $machine_id_ss = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "Machine id";
+                        $time_ss = isset($_GET["time"]) ? $_GET["time"] : "Date & time";
+                        echo '<tr>';
+                        echo '<form action="" method="get">';
+                        echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
+                        echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . $loglevel_ss . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . $logtext_ss . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . $machine_id_ss . '"></td>';
+                        echo '<td><input type="text" class="form-control" name="time" placeholder="' . $time_ss . '"></td>';
+                        echo '</form>';
+                        echo '</tr>';
+
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<tr>';
+                            echo '<td>' . $row["id"] . '</td>';
+                            echo '<td>' . $row["loglevel"] . '</td>';
+                            echo '<td>' . $row["logtext"] . '</td>';
+                            echo '<td>' . $row["machine_id"] . '</td>';
+                            echo '<td>' . $row["time"] . '</td>';
+                            echo '</tr>';
+                        }
+
+                        echo '</tbody>';
+                        echo '</table>';
+                        $conn->close();
+
+                        // Display pagination links
+                        echo '<nav aria-label="Page navigation">';
+                        echo '<ul class="pagination justify-content-center">';
+                        for ($i = 1; $i <= $total_pages; $i++) {
+                            echo '<li class="page-item ' . ($i == $current_page ? 'active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                        }
+                        echo '</ul>';
+                        echo '</nav>';
                         ?>
                     </div>
                 </div>
