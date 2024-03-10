@@ -360,9 +360,9 @@ load_settings();
 					  <tbody>
 							<tr>
 								<th scope="row">000</th>
-								<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
+								<td><input type="text" id="task_time" class="form-control" name="sys_task_time"></td>
 								<td>
-									<select class="form-select" data-live-search="true" id="task_action">
+									<select class="form-select" data-live-search="true" id="sys_task_action">
 									  <option value="choose_action">Choose an action</option>
 									  <option value="scanfile">scanfile</option>
 									  <option value="scanfolder">scanfolder</option>
@@ -370,9 +370,9 @@ load_settings();
 									  <option value="update_db">update database</option>
 									</select>
 								</td>
-								<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
-								<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
-								<td><button type="button" class="btn btn-primary" onclick="add_task('system_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
+								<td><input type="text" id="sys_task_argument" class="form-control" name="task_argument"></td>
+								<td><input type="text" id="sys_task_name" class="form-control" name="task_name"></td>
+								<td><button type="button" class="btn btn-primary" onclick="add_task('system_tasks','task','sys_task_time','sys_task_action','sys_task_argument','sys_task_name');">Add</button></td>
 							</tr>
 						<?php
 							//load all the entrys from a db table
@@ -391,10 +391,9 @@ load_settings();
 								//print out the items
 								echo("<tr>");
 									echo("<th scope=\"row\">".$row["id"]."</th>");
-									echo("<td><input type=\"text\" id=\"task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-									//echo("<td><input type=\"text\" id=\"task_action".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$action."\" oninput=\"update_task('user_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td><input type=\"text\" id=\"sys_task_time".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$time."\" oninput=\"update_task('system_tasks',".$row["id"].",'sys_task_time".$row["id"]."','sys_task_action".$row["id"]."','sys_task_argument".$row["id"]."','sys_task_name".$row["id"]."');\"></td>");
 									echo("<td>");
-									echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'system_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
+									echo('<select class="form-select" data-live-search="true" id="sys_task_action'.$row["id"].'" onchange="update_task(\'system_tasks\','.$row["id"].',\'sys_task_time'.$row["id"].'\',\'sys_task_action'.$row["id"].'\',\'sys_task_argument'.$row["id"].'\',\'sys_task_name'.$row["id"].'\');">');
 									  echo('<option value="choose_action">Choose an action</option>');
 									  if($action=="scanfile")
 										echo('<option value="scanfile" selected >scanfile</option>');
@@ -415,8 +414,8 @@ load_settings();
 									echo('</select>');
 									echo('</td>');
 									
-									echo("<td><input type=\"text\" id=\"task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
-									echo("<td><input type=\"text\" id=\"task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('system_tasks',".$row["id"].",'task_time".$row["id"]."','task_action".$row["id"]."','task_argument".$row["id"]."','task_name".$row["id"]."');\"></td>");
+									echo("<td><input type=\"text\" id=\"sys_task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('system_tasks',".$row["id"].",'sys_task_time".$row["id"]."','sys_task_action".$row["id"]."','sys_task_argument".$row["id"]."','sys_task_name".$row["id"]."');\"></td>");
+									echo("<td><input type=\"text\" id=\"sys_task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('system_tasks',".$row["id"].",'sys_task_time".$row["id"]."','sys_task_action".$row["id"]."','sys_task_argument".$row["id"]."','sys_task_name".$row["id"]."');\"></td>");
 									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('system_tasks',".$row["id"].");\">Delete</button></td>");
 								echo("</tr>");
 							}
