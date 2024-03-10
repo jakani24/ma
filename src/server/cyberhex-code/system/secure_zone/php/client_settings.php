@@ -25,10 +25,11 @@ $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
-	if ($conn->connect_error) {
-		$success=0;
-		die("Connection failed: " . $conn->connect_error);
-	}
+if ($conn->connect_error) {
+	$success=0;
+	die("Connection failed: " . $conn->connect_error);
+}
+//we store all the functions like update,safe,load etc in this file, because else "client_settings.php" will get way to big
 include "client_settings_functions.php";
 if(isset($_GET["update"])){
 	safe_settings();
