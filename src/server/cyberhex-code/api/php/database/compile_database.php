@@ -1,6 +1,6 @@
 <?php
 // Function to sort words into files based on the first two characters
-function sort_hashes($inputFile) {
+function sort_hashes($inputFile, $excluded) {
     // Open the input file for reading
     $handle = fopen($inputFile, "r");
     if ($handle === false) {
@@ -10,50 +10,93 @@ function sort_hashes($inputFile) {
     // Read each line from the input file
     while (($line = fgets($handle)) !== false) {
         // Remove leading/trailing whitespace and split the line into words
+        $line = trim($line);
+        $hash = substr($line, 0, 32); // Assuming the hash is the first 32 characters
+        
+        // Check if the hash is in the excluded array
+        if (in_array($hash, $excluded)) {
+            continue; // Skip this hash
+        }
        
-		// Get the first two characters of the word
-		$prefix = substr($line, 0, 2);
-		
-		// Create the filename for the corresponding file
-		$filename = "/var/www/html/database_srv/".$prefix . ".jdbf";
-		
-		// Open or create the file for writing
-		$fileHandle = fopen($filename, "a");
-		if ($fileHandle === false) {
-			die("Unable to open/create file: $filename");
-		}
-		
-		// Write the word to the file
-		fwrite($fileHandle, $line);
-		
-		// Close the file handle
-		fclose($fileHandle);
-			
-	}
+        // Get the first two characters of the word
+        $prefix = substr($hash, 0, 2);
+        
+        // Create the filename for the corresponding file
+        $filename = "/var/www/html/database_srv/".$prefix . ".jdbf";
+        
+        // Open or create the file for writing
+        $fileHandle = fopen($filename, "a");
+        if ($fileHandle === false) {
+            die("Unable to open/create file: $filename");
+        }
+        
+        // Write the word to the file
+        fwrite($fileHandle, $line . PHP_EOL);
+        
+        // Close the file handle
+        fclose($fileHandle);
+    }
     
     // Close the input file handle
     fclose($handle);
 }
-function download_files(){
-	//download from virusshare
-	$file_count=485;
-	for($i=0;$i<$file_count;$i++){
-		$fileNumber = sprintf('%05d', $i);
-		$url="https://virusshare.com/hashfiles/VirusShare_$fileNumber.md5";
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$fileContents = curl_exec($ch);
-		file_put_contents("/var/www/html/database_srv/$fileNumber.md5", $fileContents);
-		sort_hashes("/var/www/html/database_srv/$fileNumber.md5");
-	}
-	//download from https://bazaar.abuse.ch/export/txt/md5/recent/
-	$url="https://bazaar.abuse.ch/export/txt/md5/recent/";
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$fileContents = curl_exec($ch);
-	file_put_contents("/var/www/html/database_srv/buf.md5", $fileContents);
-	sort_hashes("/var/www/html/database_srv/buf.md5");
+
+function download_files($excluded){
+    //download from virusshare
+    $file_count=485;
+    for($i=0;$i<$file_count;$i++){
+        $fileNumber = sprintf('%05d', $i);
+        $url="https://virusshare.com/hashfiles/VirusShare_$fileNumber.md5";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $fileContents = curl_exec($ch);
+        file_put_contents("/var/www/html/database_srv/$fileNumber.md5", $fileContents);
+        sort_hashes("/var/www/html/database_srv/$fileNumber.md5", $excluded);
+    }
+    //download from https://bazaar.abuse.ch/export/txt/md5/recent/
+    $url="https://bazaar.abuse.ch/export/txt/md5/recent/";
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $fileContents = curl_exec($ch);
+    file_put_contents("/var/www/html/database_srv/buf.md5", $fileContents);
+    sort_hashes("/var/www/html/database_srv/buf.md5", $excluded);
 }
+
+
+
+include "../../../config.php";
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+if ($conn->connect_error) {
+	$success=0;
+	die("Connection failed: " . $conn->connect_error);
+}
+// Load excluded hashes from sig_ex table
+$excluded = array();
+$sql = "SELECT signature FROM sig_ex";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $excluded[] = $row["hash"];
+    }
+}
+
+// Load included hashes from sig_in table
+$included = array();
+$sql = "SELECT signature FROM sig_in";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $included[] = $row["hash"];
+    }
+}
+
+// Close the database connection
+$conn->close();
+
+// Add included array to output files this will then be processed like any other normal input file
+file_put_contents("/var/www/html/database_srv/included_hashes.txt", implode(PHP_EOL, $included));
+
+// This code updates and compiles our databases
 $directory = '/var/www/html/database_srv'; // Path to the directory
 
 // Get a list of all files in the directory
@@ -67,7 +110,5 @@ foreach ($files as $file) {
     }
 }
 set_time_limit(0);
-download_files();
-
-
+download_files($excluded);
 ?>

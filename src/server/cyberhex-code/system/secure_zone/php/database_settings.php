@@ -123,7 +123,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 						<a class="nav-link" href="database_settings.php?show=excluded" id="excluded_tab">Excluded signatures</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="database_settings.php?show=excluded" id="included_tab">Included Signatures</a>
+						<a class="nav-link" href="database_settings.php?show=included" id="included_tab">Included Signatures</a>
 					  </li>
 
 				</ul>
