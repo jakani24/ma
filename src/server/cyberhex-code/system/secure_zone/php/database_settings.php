@@ -20,6 +20,7 @@ if($perms[6]!=="1"){
 }
 //for the get_perms_str() function
 include "perms_functions.php";
+include "../../../config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,30 @@ async function update_percentage() {
 
 // Call update_percentage() every 5 seconds
 setInterval(update_percentage, 5000);
+
+//update an entry
+function update_textfield(id,name,itemid){
+	var element = document.getElementById(id);
+	var value = element.value;
+	fetch('database_settings.php?update='+name+'&value='+value+'&id='+itemid);
+}
+//delete an entry
+async function delete_item(db,id){
+	await fetch('database_settings.php?delete='+id+'&db='+db);
+	location.reload();
+}
+//add an entry
+async function add_item(db,element_id,field){
+	var element = document.getElementById(element_id);
+	var value = element.value;
+	await fetch('database_settings.php?add='+db+'&value='+value+'&field='+field);
+	location.reload();
+}
 </script>
+<?php
+//the code to update / delete and add items:
+
+?>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -101,6 +125,43 @@ setInterval(update_percentage, 5000);
 						<div class="alert alert-success" role="alert" style="display:none" id="finish">
 								Database update finished!
 						</div>
+					</div>
+					<div id="excluded" style="display:none">
+						<!-- Table with user defined, excluded hashes -->
+						<?php
+							//load entrys from excluded db
+							$sql = "SELECT * FROM sig_ex";
+							$stmt = $conn->prepare($sql);
+							//$stmt->bind_param("ssssii", $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
+							$stmt->execute();
+							$result = $stmt->get_result();
+							
+							// Display log entries
+							echo '<table class="table" style="overflow-x:auto">';
+							echo '<thead>';
+							echo '<tr>'; 
+							echo '<th>Entry id</th><th>Signature</th><th>Add / Delete</th>';
+							echo '</tr>';
+							echo '</thead>';
+							echo '<tbody>';
+							echo('<tr>');
+								echo('<th scope="row">000</th>');
+								echo('<td><input type="text" id="sig_ex" class="form-control" name="name"></td>');
+								echo('<td><button type="button" class="btn btn-primary" onclick="add_item(\'sig_ex\',\'sig_ex\',\'signature\');">Add</button></td>');
+							echo('</tr>');
+							while($row = $result->fetch_assoc()) {
+								echo '<tr>';
+								echo("<th scope=\"row\">".$row["id"]."</th>");
+								echo("<td><input type=\"text\" id=\"sig_ex".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["signature"]."\" oninput=\"update_textfield('sig_ex".$row["id"]."','sig_ex','".$row["id"]."');\"></td>");
+								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('sig_ex',".$row["id"].");\">Delete</button></td>");
+								echo '</tr>';
+							}
+							
+							echo '</tbody>';
+							echo '</table>';
+							$conn->close();
+						?>
+					
 					</div>
                 </div>
             </div>

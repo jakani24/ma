@@ -43,31 +43,24 @@ include "perms_functions.php";
 					<?php
 						//include db pw
 						include "../../../config.php";
+						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+						if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+						}
 						//delete user if requested
 						if(isset($_GET["delete"])){
 							$userid=htmlspecialchars($_GET["delete"]);
-							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
-							if ($conn->connect_error) {
-								die("Connection failed: " . $conn->connect_error);
-							}
 							$sql = "DELETE FROM users WHERE id = ?";
 							$stmt = $conn->prepare($sql);
 							$stmt->bind_param("i", $userid);
 							// Execute the statement
 							$stmt->execute();
 							$stmt->close();
-							$conn->close();
 						}
 						
 						
 						//get count of users
-						// Create a connection
-						$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 
-						// Check the connection
-						if ($conn->connect_error) {
-							die("Connection failed: " . $conn->connect_error);
-						}
 						$sql = "SELECT count(*) AS user_count FROM users";
 						$stmt = $conn->prepare($sql);
 						// Execute the statement
@@ -77,7 +70,6 @@ include "perms_functions.php";
 						$row = $result->fetch_assoc();
 						$num_of_users=$row["user_count"];
 						$stmt->close();
-						$conn->close();
 						
 						//now list of all the users => userid, username, email, perms, delete
 						// Create a connection

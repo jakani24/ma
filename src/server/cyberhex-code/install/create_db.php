@@ -254,6 +254,42 @@
 				</div>';
 			}
 			
+			// Create sig_ex messages table
+			$sql = "CREATE TABLE IF NOT EXISTS sig_ex (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				signature VARCHAR(255) NOT NULL,
+				description VARCHAR(255) NOT NULL
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table excluded signatures created successfully!
+				</div>';
+			} else {
+				$success=0;
+				echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table excluded signatures: ' . $conn->error .'
+				</div>';
+			}
+			
+			// Create sig_in messages table
+			$sql = "CREATE TABLE IF NOT EXISTS sig_in (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				signature VARCHAR(255) NOT NULL,
+				description VARCHAR(255) NOT NULL
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table included signatures created successfully!
+				</div>';
+			} else {
+				$success=0;
+				echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table included signatures: ' . $conn->error .'
+				</div>';
+			}
+			
 			// Attempt to create the directory where export files will be stored later on
 			if (mkdir("/var/www/html/export", 0777, true)) {
 				echo '<br><div class="alert alert-success" role="alert">
