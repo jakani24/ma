@@ -21,6 +21,13 @@ if($perms[6]!=="1"){
 //for the get_perms_str() function
 include "perms_functions.php";
 include "../../../config.php";
+//create connection to db
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+
+// Check the connection
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +70,7 @@ async function update_percentage() {
         });
 }
 
-// Call update_percentage() every 5 seconds
+// Call update_percentage every 5 seconds
 setInterval(update_percentage, 5000);
 
 //update an entry
@@ -179,6 +186,7 @@ async function add_item(db,element_id,field){
 	const nav_tab = document.getElementById(urlParams.get('show')+"_tab");
 	show_div.style.display="block";
 	nav_tab.setAttribute('class', 'nav-link active');
+	console.log("aaaa");
 </script>
 </body>
 </html>
