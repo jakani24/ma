@@ -94,7 +94,7 @@ function safe_settings(){
 	}
 	if($_GET["update"]=="system_tasks"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE system_task set task = ? WHERE id=$id");
+		$stmt = $conn->prepare("UPDATE system_tasks set task = ? WHERE id=$id");
 		$stmt->bind_param("s",$value);
 		$stmt->execute();
 		$stmt->close();
