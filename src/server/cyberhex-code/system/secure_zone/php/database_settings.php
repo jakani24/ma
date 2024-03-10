@@ -74,10 +74,10 @@ async function update_percentage() {
 setInterval(update_percentage, 5000);
 
 //update an entry
-function update_textfield(id,name,itemid){
+function update_textfield(db,id,name,itemid){
 	var element = document.getElementById(id);
 	var value = element.value;
-	fetch('database_settings.php?update='+name+'&value='+value+'&id='+itemid);
+	fetch('database_settings.php?update='+name+'&value='+value+'&id='+itemid+'&db='+db);
 }
 //delete an entry
 async function delete_item(db,id){
@@ -98,7 +98,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 	//we store all the functions like update,safe,load etc in this file, because else "database_settings.php" will get way to big
 	include "database_settings_functions.php";
 	if(isset($_GET["update"])){
-		safe_settings();
+		safe_settings($_GET["db"]);
 	}
 	if(isset($_GET["delete"])){
 		delete_item($_GET["db"],$_GET["delete"]);
@@ -170,8 +170,8 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							while($row = $result->fetch_assoc()) {
 								echo '<tr>';
 								echo("<th scope=\"row\">".$row["id"]."</th>");
-								echo("<td><input type=\"text\" id=\"sig_ex".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["signature"]."\" oninput=\"update_textfield('sig_ex".$row["id"]."','sig_ex','".$row["id"]."');\"></td>");
-								echo("<td><input type=\"text\" id=\"sig_ex_desc".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["description"]."\" oninput=\"update_textfield('sig_ex_desc".$row["id"]."','sig_ex_desc','".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"sig_ex".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["signature"]."\" oninput=\"update_textfield('sig_ex','sig_ex".$row["id"]."','sig','".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"sig_ex_desc".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["description"]."\" oninput=\"update_textfield('sig_ex','sig_ex_desc".$row["id"]."','sig_ex','".$row["id"]."');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('sig_ex',".$row["id"].");\">Delete</button></td>");
 								echo '</tr>';
 							}

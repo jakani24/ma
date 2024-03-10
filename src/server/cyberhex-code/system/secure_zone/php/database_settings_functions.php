@@ -29,7 +29,7 @@ function add_item($db,$value1,$field1,$value2,$field2){
 	$stmt->close();
 	$conn -> close();
 }
-function safe_settings(){//load settings 
+function safe_settings($db){//load settings 
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 	if ($conn->connect_error) {
@@ -38,18 +38,19 @@ function safe_settings(){//load settings
 	}
 	$value=htmlspecialchars($_GET["value"]);
 	$name=htmlspecialchars($_GET["update"]);
-	//update excluded signature
-	if($_GET["update"]=="sig_ex"){	
+	$db=htmlspecialchars($db);
+	//update signature
+	if($_GET["update"]=="sig"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE sig_ex set signature= ? WHERE id=$id");
+		$stmt = $conn->prepare("UPDATE $db set signature= ? WHERE id=$id");
 		$stmt->bind_param("s",$value);
 		$stmt->execute();
 		$stmt->close();
 	}
-	//update excluded signature description
-	if($_GET["update"]=="sig_ex_desc"){	
+	//update signature description
+	if($_GET["update"]=="sig_desc"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE sig_ex set description= ? WHERE id=$id");
+		$stmt = $conn->prepare("UPDATE $db set description= ? WHERE id=$id");
 		$stmt->bind_param("s",$value);
 		$stmt->execute();
 		$stmt->close();
