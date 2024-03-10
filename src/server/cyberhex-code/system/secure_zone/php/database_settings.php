@@ -145,6 +145,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 						</div>
 					</div>
 					<div id="excluded" style="display:none">
+						<h4>Excluded signatures</h4>
 						<!-- Table with user defined, excluded hashes -->
 						<?php
 							//load entrys from excluded db
@@ -173,6 +174,45 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 								echo("<td><input type=\"text\" id=\"sig_ex".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["signature"]."\" oninput=\"update_textfield('sig_ex','sig_ex".$row["id"]."','sig','".$row["id"]."');\"></td>");
 								echo("<td><input type=\"text\" id=\"sig_ex_desc".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["description"]."\" oninput=\"update_textfield('sig_ex','sig_ex_desc".$row["id"]."','sig_desc','".$row["id"]."');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('sig_ex',".$row["id"].");\">Delete</button></td>");
+								echo '</tr>';
+							}
+							
+							echo '</tbody>';
+							echo '</table>';
+							$conn->close();
+						?>
+					
+					</div>
+					<div id="included" style="display:none">
+						<h4>Included signatures</h4>
+						<!-- Table with user defined, included hashes -->
+						<?php
+							//load entrys from excluded db
+							$sql = "SELECT * FROM sig_in";
+							$stmt = $conn->prepare($sql);
+							$stmt->execute();
+							$result = $stmt->get_result();
+							
+							// Display log entries
+							echo '<table class="table" style="overflow-x:auto">';
+							echo '<thead>';
+							echo '<tr>'; 
+							echo '<th>#</th><th>Signature</th><th>Description</th><th>Add / Delete</th>';
+							echo '</tr>';
+							echo '</thead>';
+							echo '<tbody>';
+							echo('<tr>');
+								echo('<th scope="row">000</th>');
+								echo('<td><input type="text" id="sig_in" class="form-control" name="name"></td>');
+								echo('<td><input type="text" id="sig_in_desc" class="form-control" name="name"></td>');
+								echo('<td><button type="button" class="btn btn-primary" onclick="add_item(\'sig_in\',\'sig_in\',\'signature\',\'sig_in_desc\',\'description\');">Add</button></td>');
+							echo('</tr>');
+							while($row = $result->fetch_assoc()) {
+								echo '<tr>';
+								echo("<th scope=\"row\">".$row["id"]."</th>");
+								echo("<td><input type=\"text\" id=\"sig_in".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["signature"]."\" oninput=\"update_textfield('sig_in','sig_in".$row["id"]."','sig','".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"sig_in_desc".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["description"]."\" oninput=\"update_textfield('sig_in','sig_in_desc".$row["id"]."','sig_desc','".$row["id"]."');\"></td>");
+								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('sig_in',".$row["id"].");\">Delete</button></td>");
 								echo '</tr>';
 							}
 							
