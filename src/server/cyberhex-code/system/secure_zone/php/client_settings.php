@@ -360,7 +360,7 @@ load_settings();
 					  <tbody>
 							<tr>
 								<th scope="row">000</th>
-								<td><input type="text" id="task_time" class="form-control" name="sys_task_time"></td>
+								<td><input type="text" id="sys_task_time" class="form-control" name="sys_task_time"></td>
 								<td>
 									<select class="form-select" data-live-search="true" id="sys_task_action">
 									  <option value="choose_action">Choose an action</option>
