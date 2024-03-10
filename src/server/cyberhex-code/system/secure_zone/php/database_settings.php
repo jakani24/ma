@@ -147,7 +147,7 @@ async function add_item(db,element_id,field){
 							echo '<table class="table" style="overflow-x:auto">';
 							echo '<thead>';
 							echo '<tr>'; 
-							echo '<th>Entry id</th><th>Signature</th><th>Add / Delete</th>';
+							echo '<th>#</th><th>Signature</th><th>Add / Delete</th>';
 							echo '</tr>';
 							echo '</thead>';
 							echo '<tbody>';
