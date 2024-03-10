@@ -18,6 +18,7 @@
 #include "check_dir.h"
 #include "virus_ctrl.h"
 #include "update.h"
+#include "check_process.h"
 int main() {
     //log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
     //return 0;
@@ -67,9 +68,14 @@ int main() {
 
     // Start a second thread for real-time protection
     if (get_setting("rtp_folder_scan:status") == 1) {
-        log(LOGLEVEL::INFO, "[main()]:Starting real time protection.");
+        log(LOGLEVEL::INFO, "[main()]:Starting real time file protection.");
         std::thread folder_scanner_thread(folder_scanner);
         folder_scanner_thread.detach();
+    }
+    if (get_setting("rtp_process_scan:status") == 1) {
+        log(LOGLEVEL::INFO, "[main()]:Starting real time process protection.");
+        std::thread process_scanner_thread(process_scanner);
+        process_scanner_thread.detach();
     }
 
     // Main thread loop

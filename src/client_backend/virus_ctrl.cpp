@@ -91,7 +91,7 @@ int virus_ctrl_process( const char* id) {
 					if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
 						strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
 						strcat_s(url, 1000, "file=");
-						strcat_s(url, 1000, path);
+						strcat_s(url, 1000, url_encode(path));
 						strcat_s(url, 1000, "&hash=");
 						strcat_s(url, 1000, hash);
 						strcat_s(url, 1000, "&action=");

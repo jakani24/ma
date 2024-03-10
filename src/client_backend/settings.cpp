@@ -10,6 +10,7 @@ int excluded_folders_size = 0;
 char included_folders[100][300];
 int included_folders_size = 0;
 bool setting_rtp_folder_scan_status = 1; //0=off, 1=on
+bool setting_rtp_process_scan_status = 1; //0=off, 1=on
 bool setting_communication_unsafe_tls = 0; //0=do not allow communication via unsfae, slef signed certs, 1=allwo communication via unsafe, self signed certs
 int srv_log_timeout = 0;
 int log_timeout_reset = 0;
@@ -51,11 +52,20 @@ int load_settings() {
 			}
 			else if (strcmp(settings_cmd, "rtp_folder_scan:status") == 0) {
 				fscanf_s(fp, "%s", settings_arg, 295); // get the argument
-				if (strcmp(settings_arg, "on") == 0) {
+				if (strcmp(settings_arg, "true") == 0) {
 					setting_rtp_folder_scan_status = 1; //1=on
 				}
-				else if (strcmp(settings_arg, "off") == 0) {
+				else if (strcmp(settings_arg, "false") == 0) {
 					setting_rtp_folder_scan_status = 0; //0=off
+				}
+			}
+			else if (strcmp(settings_cmd, "rtp_process_scan:status") == 0) {
+				fscanf_s(fp, "%s", settings_arg, 295); // get the argument
+				if (strcmp(settings_arg, "true") == 0) {
+					setting_rtp_process_scan_status = 1; //1=on
+				}
+				else if (strcmp(settings_arg, "false") == 0) {
+					setting_rtp_process_scan_status = 0; //0=off
 				}
 			}
 			else if (strcmp(settings_cmd, "communication:unsafe_tls") == 0) {
@@ -86,6 +96,9 @@ int get_setting(const char*setting_name) {
 	}
 	else if (strcmp(setting_name, "rtp_folder_scan:status") == 0) {
 		return setting_rtp_folder_scan_status;
+	}
+	else if (strcmp(setting_name, "rtp_process_scan:status") == 0) {
+		return setting_rtp_process_scan_status;
 	}
 	else if (strcmp(setting_name, "communication:unsafe_tls") == 0) {
 		return setting_communication_unsafe_tls;

@@ -139,6 +139,7 @@
     <ClCompile Include="app_ctrl.cpp" />
     <ClCompile Include="app_ctrl.h" />
     <ClCompile Include="check_dir.cpp" />
+    <ClCompile Include="check_process.cpp" />
     <ClCompile Include="client_backend.cpp" />
     <ClCompile Include="connect.cpp" />
     <ClCompile Include="local_com.cpp" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="check_dir.h" />
+    <ClInclude Include="check_process.h" />
     <ClInclude Include="connect.h" />
     <ClInclude Include="local_com.h" />
     <ClInclude Include="local_schedule.h" />
