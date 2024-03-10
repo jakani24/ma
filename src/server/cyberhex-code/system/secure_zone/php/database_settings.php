@@ -75,17 +75,18 @@ setInterval(update_percentage, 5000);
                 <div class="card-body">
 				<ul class="nav nav-tabs">
 					  <li class="nav-item">
-						<a class="nav-link" href="database_settings.php?show=update" id="update_tab">General Settings</a>
+						<a class="nav-link" href="database_settings.php?show=update" id="update_tab">Database update</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="database_settings.php?show=excluded" id="excluded_tab">RTP Settings</a>
+						<a class="nav-link" href="database_settings.php?show=excluded" id="excluded_tab">Excluded signatures</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="database_settings.php?show=excluded" id="included_tab">RTP Settings</a>
+						<a class="nav-link" href="database_settings.php?show=excluded" id="included_tab">Included Signatures</a>
 					  </li>
 
 				</ul>
 					<div id="update" style="display:none">
+						<h4>Database Update</h4>
 						<button id="update_btn" class="btn btn-dark" onclick="update_db();">Update / regenerate Database (!this can take very long ~1h)</button>
 						<div style="display:none" id="loader">
 							<br>
