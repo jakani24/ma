@@ -84,7 +84,7 @@ if(isset($_GET["page"])){
 			if($perms[5]=="1")
 				echo('<li><a href="index.php?page=client_settings.php?show=general">Client Settings</a></li>');
 			if($perms[6]=="1")
-				echo('<li><a href="index.php?page=database_settings.php&page=update">Database Settings</a></li>');
+				echo('<li><a href="index.php?page=database_settings.php?show=update">Database Settings</a></li>');
 			?>
 		  </ul>
 		  <p>Clients</p>
