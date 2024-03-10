@@ -36,7 +36,8 @@ function safe_settings(){//load settings
 		$success=0;
 		die("Connection failed: " . $conn->connect_error);
 	}
-
+	$value=htmlspecialchars($_GET["value"]);
+	$name=htmlspecialchars($_GET["update"]);
 	//update excluded signature
 	if($_GET["update"]=="sig_ex"){	
 		$id=htmlspecialchars($_GET["id"]);
