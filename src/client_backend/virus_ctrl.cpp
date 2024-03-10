@@ -64,6 +64,8 @@ int virus_ctrl_process( const char* id) {
 				case 1://remove
 					if(remove(path)!=0)
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while removing infected file: ", path," ",hash);
+					else
+						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Removed Virus: ", path, " ", hash, "");
 					break;
 
 				case 2://quarantine
@@ -72,6 +74,8 @@ int virus_ctrl_process( const char* id) {
 					strcat_s(quarantine_path, 295, hash);
 					if(rename(path,quarantine_path)!=0)
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while quarantining infected file: ", path," ",hash);
+					else
+						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Quarantined Virus: ", path, " ", hash, " to ", quarantine_path);
 					break;
 
 				case 3://ignore

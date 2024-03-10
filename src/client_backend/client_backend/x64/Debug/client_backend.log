@@ -1,6 +1,6 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
   check_dir.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(361,7): warning C4101: "fp": Unreferenzierte lokale Variable
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(362,7): warning C4101: "fp": Unreferenzierte lokale Variable
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18): warning C4244: "=": Konvertierung von "wchar_t" in "char", möglicher Datenverlust
   (Quelldatei „check_dir.cpp“ wird kompiliert)
   C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18):
@@ -34,20 +34,4 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.3351
               _SizeTy=unsigned __int64
           ]
   
-  client_backend.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(106,24): warning C4244: "Argument": Konvertierung von "_Rep" in "DWORD", möglicher Datenverlust
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(106,24): warning C4244:         with
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(106,24): warning C4244:         [
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(106,24): warning C4244:             _Rep=__int64
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(106,24): warning C4244:         ]
-  local_schedule.cpp
-  log.cpp
-  md5hash.cpp
-  scan.cpp
-  settings.cpp
-  thread_ctrl.cpp
-  update.cpp
-  virus_ctrl.cpp
-  Code wird generiert...
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\md5hash.cpp(36,1): warning C4715: "md5_file": Nicht alle Codepfade geben einen Wert zurück.
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe

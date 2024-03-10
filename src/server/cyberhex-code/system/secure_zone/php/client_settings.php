@@ -600,7 +600,7 @@ function load_settings(){
     </div>
 </div>
 <script>
-//decide which div should be shown:
+	//decide which div should be shown:
     // Get the URL parameters
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);

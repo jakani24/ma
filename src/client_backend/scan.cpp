@@ -104,7 +104,7 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
     // Search for the specific string in the file content
     thread_local size_t foundPos = fileContent.find(hash);
     if (foundPos != std::string::npos) {
-        log(LOGLEVEL::VIRUS, "[search_hash()]: Found virus: ", hash, " in file: ", filepath);
+        //log(LOGLEVEL::VIRUS, "[search_hash()]: Found virus: ", hash, " in file: ", filepath);
         virus_ctrl_store(filepath.c_str(), hash.c_str(), hash.c_str());
         //afterwards do the processing with that file
         virus_ctrl_process(hash.c_str());

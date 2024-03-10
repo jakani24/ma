@@ -73,24 +73,50 @@ setInterval(update_percentage, 5000);
                     <h4>Database Settings</h4>
                 </div>
                 <div class="card-body">
-					<button id="update_btn" class="btn btn-dark" onclick="update_db();">Update / regenerate Database (!this can take very long ~1h)</button>
-					<div style="display:none" id="loader">
-						<br>
-						<div class="alert alert-success" role="alert">
-							Database update is running, please do not close this tab and do not navigate away!
-							<div id="percentage"></div>
+				<ul class="nav nav-tabs">
+					  <li class="nav-item">
+						<a class="nav-link" href="database_settings.php?show=update" id="update_tab">General Settings</a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="database_settings.php?show=excluded" id="excluded_tab">RTP Settings</a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="database_settings.php?show=excluded" id="included_tab">RTP Settings</a>
+					  </li>
+
+				</ul>
+					<div id="update" style="display:none">
+						<button id="update_btn" class="btn btn-dark" onclick="update_db();">Update / regenerate Database (!this can take very long ~1h)</button>
+						<div style="display:none" id="loader">
+							<br>
+							<div class="alert alert-success" role="alert">
+								Database update is running, please do not close this tab and do not navigate away!
+								<div id="percentage"></div>
+							</div>
+							<div class="spinner-border" role="status">
+							  <span class="visually-hidden">Loading...</span>
+							</div>
 						</div>
-						<div class="spinner-border" role="status">
-						  <span class="visually-hidden">Loading...</span>
+						<div class="alert alert-success" role="alert" style="display:none" id="finish">
+								Database update finished!
 						</div>
-					</div>
-					<div class="alert alert-success" role="alert" style="display:none" id="finish">
-							Database update finished!
 					</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+	//decide which div should be shown:
+    // Get the URL parameters
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    // Get the value of the "show" parameter
+    const show_div = document.getElementById(urlParams.get('show'));
+	const nav_tab = document.getElementById(urlParams.get('show')+"_tab");
+	show_div.style.display="block";
+	nav_tab.setAttribute('class', 'nav-link active');
+</script>
 </body>
 </html>
