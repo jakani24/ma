@@ -179,7 +179,6 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							
 							echo '</tbody>';
 							echo '</table>';
-							$conn->close();
 						?>
 					
 					</div>
@@ -218,7 +217,6 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							
 							echo '</tbody>';
 							echo '</table>';
-							$conn->close();
 						?>
 					
 					</div>
@@ -227,6 +225,9 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
         </div>
     </div>
 </div>
+<?php
+$conn->close();
+?>
 <script>
 	//decide which div should be shown:
     // Get the URL parameters
