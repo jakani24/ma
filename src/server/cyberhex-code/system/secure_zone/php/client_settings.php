@@ -29,6 +29,7 @@ $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 		$success=0;
 		die("Connection failed: " . $conn->connect_error);
 	}
+include "client_settings_functions.php";
 if(isset($_GET["update"])){
 	safe_settings();
 }
@@ -38,7 +39,6 @@ if(isset($_GET["delete"])){
 if(isset($_GET["add"])){
 	add_item($_GET["add"],$_GET["value"],$_GET["field"]);
 }
-include "client_settings_functions.php";
 load_settings();
 
 ?>
