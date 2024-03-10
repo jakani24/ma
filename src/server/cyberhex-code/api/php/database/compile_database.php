@@ -10,8 +10,7 @@ function sort_hashes($inputFile, $excluded) {
     // Read each line from the input file
     while (($line = fgets($handle)) !== false) {
         // Remove leading/trailing whitespace and split the line into words
-        $line = trim($line);
-        $hash = substr($line, 0, 32); // Assuming the hash is the first 32 characters
+        $hash = trim($line);
         
         // Check if the hash is in the excluded array
         if (in_array($hash, $excluded)) {
@@ -76,7 +75,7 @@ $sql = "SELECT signature FROM sig_ex";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $excluded[] = $row["hash"];
+        $excluded[] = $row["signature"];
     }
 }
 
@@ -86,7 +85,7 @@ $sql = "SELECT signature FROM sig_in";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $included[] = $row["hash"];
+        $included[] = $row["signature"];
     }
 }
 
