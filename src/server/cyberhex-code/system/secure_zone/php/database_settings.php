@@ -150,7 +150,6 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							//load entrys from excluded db
 							$sql = "SELECT * FROM sig_ex";
 							$stmt = $conn->prepare($sql);
-							//$stmt->bind_param("ssssii", $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
 							$stmt->execute();
 							$result = $stmt->get_result();
 							
@@ -166,7 +165,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 								echo('<th scope="row">000</th>');
 								echo('<td><input type="text" id="sig_ex" class="form-control" name="name"></td>');
 								echo('<td><input type="text" id="sig_ex_desc" class="form-control" name="name"></td>');
-								echo('<td><button type="button" class="btn btn-primary" onclick="add_item(\'sig_ex\',\'sig_ex\',\'signature\',\'sig_ex_desc\',\'sig_ex_desc\',\'description\');">Add</button></td>');
+								echo('<td><button type="button" class="btn btn-primary" onclick="add_item(\'sig_ex\',\'sig_ex\',\'signature\',\'sig_ex_desc\',\'description\');">Add</button></td>');
 							echo('</tr>');
 							while($row = $result->fetch_assoc()) {
 								echo '<tr>';
@@ -199,7 +198,6 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 	const nav_tab = document.getElementById(urlParams.get('show')+"_tab");
 	show_div.style.display="block";
 	nav_tab.setAttribute('class', 'nav-link active');
-	console.log("aaaa");
 </script>
 </body>
 </html>
