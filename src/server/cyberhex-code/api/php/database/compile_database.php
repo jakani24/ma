@@ -7,6 +7,9 @@ function sort_hashes($inputFile, $excluded) {
         die("Unable to open input file.");
     }
     
+    // Initialize an array to hold batched hashes
+    $batchedHashes = array();
+    
     // Read each line from the input file
     while (($line = fgets($handle)) !== false) {
         // Remove leading/trailing whitespace and split the line into words
@@ -16,30 +19,27 @@ function sort_hashes($inputFile, $excluded) {
         if (in_array($hash, $excluded)) {
             continue; // Skip this hash
         }
-       
+        
         // Get the first two characters of the word
         $prefix = substr($hash, 0, 2);
         
         // Create the filename for the corresponding file
         $filename = "/var/www/html/database_srv/".$prefix . ".jdbf";
         
-        // Open or create the file for writing
-        $fileHandle = fopen($filename, "a");
-        if ($fileHandle === false) {
-            die("Unable to open/create file: $filename");
-        }
-        
-        // Write the word to the file
-        fwrite($fileHandle, $line . PHP_EOL);
-        
-        // Close the file handle
-        fclose($fileHandle);
+        // Add the hash to the batched array
+        $batchedHashes[$filename][] = $line . PHP_EOL;
     }
     
     // Close the input file handle
     fclose($handle);
+    
+    // Write batched hashes to files
+    foreach ($batchedHashes as $filename => $hashes) {
+        // Open or create the file for writing
+        $fileContents = implode('', $hashes);
+        file_put_contents($filename, $fileContents, FILE_APPEND);
+    }
 }
-
 function download_files($excluded){
     //download from virusshare
     $file_count=485;
