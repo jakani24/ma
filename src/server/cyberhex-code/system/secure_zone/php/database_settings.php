@@ -171,7 +171,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 								echo '<tr>';
 								echo("<th scope=\"row\">".$row["id"]."</th>");
 								echo("<td><input type=\"text\" id=\"sig_ex".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["signature"]."\" oninput=\"update_textfield('sig_ex','sig_ex".$row["id"]."','sig','".$row["id"]."');\"></td>");
-								echo("<td><input type=\"text\" id=\"sig_ex_desc".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["description"]."\" oninput=\"update_textfield('sig_ex','sig_ex_desc".$row["id"]."','sig_ex','".$row["id"]."');\"></td>");
+								echo("<td><input type=\"text\" id=\"sig_ex_desc".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["description"]."\" oninput=\"update_textfield('sig_ex','sig_ex_desc".$row["id"]."','sig_desc','".$row["id"]."');\"></td>");
 								echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('sig_ex',".$row["id"].");\">Delete</button></td>");
 								echo '</tr>';
 							}
