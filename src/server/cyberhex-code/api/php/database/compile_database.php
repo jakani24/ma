@@ -11,7 +11,7 @@ function sort_hashes($inputFile, $excluded) {
     $batchedHashes = array();
     
     // Read each line from the input file
-    while (($line = fgets($handle)) !== false) {
+    while (($line = fgets($handle)) !== false && !feof($handle)) {
         // Remove leading/trailing whitespace and split the line into words
         $hash = trim($line);
         
@@ -27,7 +27,7 @@ function sort_hashes($inputFile, $excluded) {
         $filename = "/var/www/html/database_srv/".$prefix . ".jdbf";
         
         // Add the hash to the batched array
-        $batchedHashes[$filename][] = $line . PHP_EOL;
+        $batchedHashes[$filename][] = $line;
     }
     
     // Close the input file handle
