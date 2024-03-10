@@ -86,8 +86,10 @@ async function delete_item(db,id){
 }
 //add an entry
 async function add_item(db,element_id1,field1,element_id2,field2){ //we have two valus, two dbs and so on, becuase we have the signature and the description
-	var element = document.getElementById(element_id);
-	var value = element.value;
+	var element1 = document.getElementById(element_id1);
+	var value1 = element1.value;
+	var element2 = document.getElementById(element_id2);
+	var value2 = element2.value;
 	await fetch('database_settings.php?add='+db+'&value1='+value1+'&field1='+field1+'&value2='+value2+'&field2='+field2);
 	location.reload();
 }
