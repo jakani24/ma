@@ -8,6 +8,7 @@ if(check_apikey()!==true){
 
 $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
+$setting_virus_ctrl_virus_process_found_kill=0;
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
 $setting_communication_unsafe_tls="not coonfigured yet";
@@ -27,6 +28,7 @@ if(isset($_GET["settings"])){
 	echo(load_secret()."\n");
 	load_settings();
 	echo("virus_ctrl:virus_found:action ".$setting_virus_ctrl_virus_found_action."\n");
+	echo("virus_ctrl:virus_process:found:kill ".$setting_virus_ctrl_virus_process_found_kill."\n");
 	echo("server:server_url ".$setting_server_server_url."\n");
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
 	echo("rtp_process_scan:status ".$setting_rtp_process_scan_status."\n");
@@ -102,7 +104,8 @@ if(isset($_GET["sched"])){
 	
 }
 function load_settings(){
-	global $setting_virus_ctrl_virus_found_action ;
+	global $setting_virus_ctrl_virus_found_action;
+	global $setting_virus_ctrl_virus_process_found_kill;
 	global $setting_server_server_url;
 	global $setting_rtp_folder_scan_status;
 	global $setting_rtp_process_scan_status;
@@ -122,6 +125,19 @@ function load_settings(){
 	$row = $result->fetch_assoc();
 	if($result->num_rows > 0){
 		$setting_virus_ctrl_virus_found_action=$row["value"];
+	}
+	$stmt -> close();
+	
+	//get setting: setting_virus_ctrl_virus_process_found_kill
+	$sql = "SELECT * FROM settings WHERE name = 'setting_virus_ctrl_virus_process_found_kill'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($result->num_rows > 0){
+		$setting_virus_ctrl_virus_process_found_kill=$row["value"];
 	}
 	$stmt -> close();
 	

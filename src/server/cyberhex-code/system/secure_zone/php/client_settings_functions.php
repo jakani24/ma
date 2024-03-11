@@ -46,6 +46,13 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($_GET["update"]=="setting_virus_ctrl_virus_process_found_kill"){		
+		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
+		//$stmt = $conn->prepare("UPDATE settings set value=? WHERE name='virus_ctrl:virus_found:action';");
+		$stmt->bind_param("sss",$name,$value,$value);
+		$stmt->execute();
+		$stmt->close();
+	}
 
 	if($_GET["update"]=="setting_server_server_url"){		
 		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
@@ -103,7 +110,8 @@ function safe_settings(){
 	
 }
 function load_settings(){
-	global $setting_virus_ctrl_virus_found_action ;
+	global $setting_virus_ctrl_virus_found_action;
+	global $setting_virus_ctrl_virus_process_found_kill;
 	global $setting_server_server_url;
 	global $setting_rtp_folder_scan_status;
 	global $setting_rtp_process_scan_status;
@@ -123,6 +131,19 @@ function load_settings(){
 	$row = $result->fetch_assoc();
 	if($result->num_rows > 0){
 		$setting_virus_ctrl_virus_found_action=$row["value"];
+	}
+	$stmt -> close();
+	
+	//get setting: setting_virus_ctrl_virus_process_found_kill
+	$sql = "SELECT * FROM settings WHERE name = 'setting_virus_ctrl_virus_process_found_kill'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($result->num_rows > 0){
+		$setting_virus_ctrl_virus_process_found_kill=$row["value"];
 	}
 	$stmt -> close();
 	

@@ -154,7 +154,6 @@ void scan_folder(const std::string& directory) {
             while (num_threads >= std::thread::hardware_concurrency()) {
 				Sleep(10);
 			}
-            num_threads++;
             std::thread scan_thread(scan_file_t, full_path);
             scan_thread.detach();
 
@@ -201,6 +200,7 @@ void action_scanfolder(const char*folderpath) {
 }
 
 void scan_file_t(const std::string& filepath_) {
+    num_threads++;
     thread_local const std::string filepath (filepath_);
     thread_local char* db_path = new char[300];
     thread_local char* hash = new char[300];
@@ -208,5 +208,21 @@ void scan_file_t(const std::string& filepath_) {
     sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
     search_hash(db_path, hash, filepath);
     num_threads--;
+}
+void scan_process_t(const char* filepath) {
+	char* db_path = new char[300];
+	char* hash = new char[300];
+	strcpy_s(hash, 295, md5_file_t(filepath).c_str());
+	sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+    if (search_hash(db_path, hash, filepath)==1) {
+        //check if need to kill process
+        if (get_setting("virus_ctrl:virus_process_found:kill") == 1) {
+			//kill the process
+			log(LOGLEVEL::VIRUS, "[scan_process_t()]: Killing process: ", filepath);
+			kill_process(filepath);
+		}
+    }
+	delete[] db_path;
+    delete[] hash;
 }
 #endif

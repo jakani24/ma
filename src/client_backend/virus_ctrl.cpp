@@ -27,7 +27,7 @@ int virus_ctrl_store( const char*path, const char*hash, const char*id) {
 int virus_ctrl_process( const char* id) {
 	//take actions based on settings.
 	//eg delete infected files, quarantine them, etc
-
+	Sleep(100); //wait for the file to be written to the disk else the process that createt the file might not be finished yet
 	 FILE* fp;
 	 char* db_path = new char[300];
 	strcpy_s(db_path, 295, VIRUS_CTRL_DB);
@@ -123,5 +123,28 @@ int virus_ctrl_process( const char* id) {
 	remove(db_path);
 	delete[] db_path;
 	return 0;
+}
+void kill_process(const char*path) {
+	HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, NULL);
+	PROCESSENTRY32 pEntry;
+	pEntry.dwSize = sizeof(pEntry);
+	BOOL hRes = Process32First(hSnapShot, &pEntry);
+	while (hRes)
+	{
+		if (strcmp(pEntry.szExeFile, path) == 0)
+		{
+			HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, 0,
+				(DWORD)pEntry.th32ProcessID);
+			if (hProcess != NULL)
+			{
+				TerminateProcess(hProcess, 9);
+				CloseHandle(hProcess);
+			}
+			else
+				log(LOGLEVEL::ERR, "[kill_process()]:Error while killing process: ", path);
+		}
+		hRes = Process32Next(hSnapShot, &pEntry);
+	}
+	CloseHandle(hSnapShot);
 }
 #endif

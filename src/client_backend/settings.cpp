@@ -11,6 +11,7 @@ char included_folders[100][300];
 int included_folders_size = 0;
 bool setting_rtp_folder_scan_status = 1; //0=off, 1=on
 bool setting_rtp_process_scan_status = 1; //0=off, 1=on
+bool setting_virus_ctrl_virus_process_found_kill = 1; //0=do not kill, 1=kill
 bool setting_communication_unsafe_tls = 0; //0=do not allow communication via unsfae, slef signed certs, 1=allwo communication via unsafe, self signed certs
 int srv_log_timeout = 0;
 int log_timeout_reset = 0;
@@ -77,6 +78,16 @@ int load_settings() {
 					setting_communication_unsafe_tls = 0; //0=off
 				}
 			}
+			else if (strcmp(settings_cmd, "virus_ctrl:virus_process_found:kill") == 0) {
+				fscanf_s(fp, "%s", settings_arg, 295); // get the argument
+				if (strcmp(settings_arg, "true") == 0) {
+					setting_virus_ctrl_virus_process_found_kill = 1; //1=on
+				}
+				else if (strcmp(settings_arg, "false") == 0) {
+					setting_virus_ctrl_virus_process_found_kill = 0; //0=off
+				}
+			}
+
 		}
 
 
@@ -93,6 +104,9 @@ int load_settings() {
 int get_setting(const char*setting_name) {
 	if (strcmp(setting_name, "virus_ctrl:virus_found:action") == 0) {
 		return setting_virus_ctrl_virus_found_action;
+	}
+	if (strcmp(setting_name, "virus_ctrl:virus_process_found:kill") == 0) {
+		return setting_virus_ctrl_virus_process_found_kill;
 	}
 	else if (strcmp(setting_name, "rtp_folder_scan:status") == 0) {
 		return setting_rtp_folder_scan_status;

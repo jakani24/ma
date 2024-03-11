@@ -19,6 +19,7 @@ if($perms[5]!=="1"){
 	$block=0;
 }
 $setting_virus_ctrl_virus_found_action = "not configured yet";
+$setting_virus_ctrl_virus_process_found_kill = 0;
 $setting_communication_unsafe_tls = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
@@ -153,6 +154,16 @@ load_settings();
 							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','ignore')">ignore</a></li>
 							<li><a class="dropdown-item" href="#" onclick="update_setting('dropdownMenuButton1','setting_virus_ctrl_virus_found_action','call_srv')">call_srv</a></li>
 						  </ul>
+						</div>
+						<br>
+						<h7>Kill processes which are detected to be a virus?</h7>
+						<div class="form-check form-switch">
+							<?php if($setting_virus_ctrl_virus_process_found_kill=="true")
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\" checked>");
+							else
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\">");
+							?>
+							<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
 						</div>
 						<br>
 						<h7>Allow communication with unsafe ssl cert? (if you are using self signed certs, activate this option)</h7>

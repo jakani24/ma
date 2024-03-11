@@ -49,7 +49,7 @@ void monitor_processes() {
 						}
                         else {
                             //log(LOGLEVEL::INFO, "[monitor_processes()]: New Process to scan: ", path, " while monitoring processes");
-							std::thread scan_thread(scan_file_t, path);
+							std::thread scan_thread(scan_process_t, path);
 							scan_thread.detach();
 						}
                     }
