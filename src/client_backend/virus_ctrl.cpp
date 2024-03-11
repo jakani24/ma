@@ -124,6 +124,27 @@ int virus_ctrl_process( const char* id) {
 	delete[] db_path;
 	return 0;
 }
+const char* get_filename(const char* path) {
+	const char* fileName = strrchr(path, '\\');
+	if (fileName == NULL) {
+		// No directory separator found, return the original path
+		return path;
+	}
+	else {
+		// Return the substring after the last directory separator
+		return fileName + 1;
+	}
+}
+int strcasecmp(const char* s1, const char* s2) {
+	while (*s1 && *s2) {
+		int diff = tolower(*s1) - tolower(*s2);
+		if (diff != 0)
+			return diff;
+		s1++;
+		s2++;
+	}
+	return 0;
+}
 void kill_process(const char*path) {
 	HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, NULL);
 	PROCESSENTRY32 pEntry;
@@ -131,7 +152,7 @@ void kill_process(const char*path) {
 	BOOL hRes = Process32First(hSnapShot, &pEntry);
 	while (hRes)
 	{
-		if (strcmp(pEntry.szExeFile, path) == 0)
+		if (strcasecmp(pEntry.szExeFile, get_filename(path)) == 0)
 		{
 			HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, 0,
 				(DWORD)pEntry.th32ProcessID);

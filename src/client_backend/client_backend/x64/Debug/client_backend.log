@@ -42,6 +42,5 @@ C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:         ]
   scan.cpp
   thread_ctrl.cpp
-  virus_ctrl.cpp
   Code wird generiert...
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe

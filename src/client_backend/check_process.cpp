@@ -17,6 +17,7 @@ void monitor_processes() {
         DWORD numProcesses = bytesReturned / sizeof(DWORD);
 
         // Check for new processes
+        //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: Checking for new processes; having ",numProcesses, " currently running");
         for (DWORD i = 0; i < numProcesses; ++i) {
             DWORD processId = processIds[i];
             BOOL isNewProcess = TRUE;
@@ -35,14 +36,14 @@ void monitor_processes() {
                 HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
                 if (hProcess != NULL) {
                     // Get the full path of the executable
-                    TCHAR exePath[MAX_PATH];
-                    char path[MAX_PATH+1];
-                    if (GetModuleFileNameEx(hProcess, NULL, exePath, MAX_PATH) > 0) {
+                    TCHAR exePath[500];
+                    char path[500+1];
+                    if (GetModuleFileNameEx(hProcess, NULL, exePath, 500) > 0) {
                         // Print the full path of the executable
-                        strcpy_s(path, MAX_PATH, exePath);
+                        strcpy_s(path, 500, exePath);
                         //convert to lower case
-                        for(int i=0;i<strlen(path);i++)
-                            path[i] = tolower(path[i]);
+                        for(int z=0;z<strlen(path);z++)
+                            path[z] = tolower(path[z]);
                         //scan the file
                         if (!is_folder_included(path) or is_folder_excluded(path)) {
 							//dont scan excluded files or folders

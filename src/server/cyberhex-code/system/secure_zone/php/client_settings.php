@@ -156,14 +156,14 @@ load_settings();
 						  </ul>
 						</div>
 						<br>
-						<h7>Kill processes which are detected to be a virus?</h7>
+						<h7>Kill processes which are detected to be a virus? (for this to work, you have to enable rtp processs scanner!)</h7>
 						<div class="form-check form-switch">
 							<?php if($setting_virus_ctrl_virus_process_found_kill=="true")
 								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\" checked>");
 							else
 								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\">");
 							?>
-							<label class="form-check-label" for="flexSwitchCheckDefault">Check file modifications</label>
+							<label class="form-check-label" for="flexSwitchCheckDefault">Kill process</label>
 						</div>
 						<br>
 						<h7>Allow communication with unsafe ssl cert? (if you are using self signed certs, activate this option)</h7>

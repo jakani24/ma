@@ -178,6 +178,7 @@ void action_scanfile(const char*filepath) {
     //log(LOGLEVEL::INFO, "[action_scanfile_t()]: Scanning file: ", filepath);
     if (strlen(filepath) == 0 or strcmp("", filepath) == 0 or file_exists(filepath) == false) {
         thread_shutdown();  
+        delete[] db_path;
         return; //no filepath given or file not accessible
     }
     else {
@@ -209,20 +210,21 @@ void scan_file_t(const std::string& filepath_) {
     search_hash(db_path, hash, filepath);
     num_threads--;
 }
-void scan_process_t(const char* filepath) {
-	char* db_path = new char[300];
-	char* hash = new char[300];
-	strcpy_s(hash, 295, md5_file_t(filepath).c_str());
-	sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-    if (search_hash(db_path, hash, filepath)==1) {
+void scan_process_t(const std::string& filepath_) {
+    num_threads++;
+    thread_local const std::string filepath(filepath_);
+    thread_local char* db_path = new char[300];
+    thread_local char* hash = new char[300];
+    strcpy_s(hash, 295, md5_file_t(filepath).c_str());
+    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+    if (search_hash(db_path, hash, filepath) == 1) {
         //check if need to kill process
         if (get_setting("virus_ctrl:virus_process_found:kill") == 1) {
-			//kill the process
-			log(LOGLEVEL::VIRUS, "[scan_process_t()]: Killing process: ", filepath);
-			kill_process(filepath);
-		}
+            //kill the process
+            kill_process(filepath.c_str());
+            log(LOGLEVEL::VIRUS, "[scan_process_t()]: Killing process: ", filepath);
+        }
     }
-	delete[] db_path;
-    delete[] hash;
+    num_threads--;
 }
 #endif

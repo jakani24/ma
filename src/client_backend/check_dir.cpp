@@ -28,7 +28,7 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
     filename_str = "c:\\" + filename_str;
     //scan the file and send it to virus_ctrl if it is a virus and then process it
     std::transform(filename_str.begin(), filename_str.end(), filename_str.begin(), ::tolower);
-    if (!is_folder_included(filename_str.c_str()) or is_directory(filename_str.c_str()) or is_folder_excluded(filename_str.c_str())) {
+    if (!is_folder_included(filename_str.c_str()) or is_directory(filename_str) or is_folder_excluded(filename_str.c_str())) {
 		//dont scan excluded files or folders
 		return;
     }

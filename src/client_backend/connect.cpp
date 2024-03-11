@@ -87,6 +87,8 @@ int download_file_from_srv(const char* url, const char* output_file_path, bool i
     output_file = fopen(temp_path, "wb");
     if (!output_file) {
         curl_easy_cleanup(curl);
+        delete [] temp_path;
+        delete[] buf;
         return 2;
     }
 
@@ -99,29 +101,40 @@ int download_file_from_srv(const char* url, const char* output_file_path, bool i
     // Perform the download
     res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
+        fclose(output_file);
+        delete[] temp_path;
+        delete[] buf;
         return 3;
     }
     // Cleanup and close the file
     curl_easy_cleanup(curl);
     fclose(output_file);
     if ((output_file = fopen(temp_path, "r")) == 0) {
+        delete[] temp_path;
+        delete[] buf;
         return 4;
     }
     else {
         fscanf(output_file, "%500s", buf);
         if (strcmp(buf, "no_auth") == 0) {
             fclose(output_file);
+            delete[] temp_path;
+            delete[] buf;
             return 5;
         }
         else if(check_cert(buf, SECRETS)==0){
             remove(output_file_path);//remove old file, so it can be overwritten
             fclose(output_file);
             if (rename(temp_path, output_file_path)!=0) {
+                delete[] temp_path;
+				delete[] buf;
 				return 6;
             }
         }else {
         	fclose(output_file);
-			return 7;
+		    delete[] temp_path;
+            delete[] buf;
+            return 7;
         }
     }
     delete[] buf;
@@ -194,5 +207,6 @@ int upload_to_srv(const char* url, const char* filepath,bool ignore_insecure) {
 			return 1;
 		}
 	}
+    return 2;
 }
 #endif
