@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\</FILEPATH>
+      <FILENAME>connect.cpp</FILENAME>
+      <LINE>118</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Rückgabewert wird ignoriert: "fscanf".</DESCRIPTION>
+    <FUNCTION>download_file_from_srv</FUNCTION>
+    <DECORATED>?download_file_from_srv@@YAHPEBD0_N@Z</DECORATED>
+    <FUNCLINE>68</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

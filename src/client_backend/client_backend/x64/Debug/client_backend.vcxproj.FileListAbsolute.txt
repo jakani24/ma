@@ -1,2 +1,4 @@
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\libcrypto-3-x64.dll
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend\x64\Debug\client_b.C1767528.Up2Date
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe.lastcodeanalysissucceeded
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend\x64\Debug\NativeCodeAnalysis.read.1.tlog

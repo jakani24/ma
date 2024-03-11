@@ -45,14 +45,20 @@ include "perms_functions.php";
 						include "../../../config.php";
 						//delete user if requested
 						if(isset($_GET["delete"])){
-							$userid=htmlspecialchars($_GET["delete"]);
+							$machine_id=htmlspecialchars($_GET["delete"]);
 							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 							if ($conn->connect_error) {
 								die("Connection failed: " . $conn->connect_error);
 							}
-							$sql = "DELETE FROM machines WHERE id = ?";
+							$sql = "DELETE FROM machines WHERE machine_name = ?";
 							$stmt = $conn->prepare($sql);
-							$stmt->bind_param("i", $userid);
+							$stmt->bind_param("s", $machine_id);
+							// Execute the statement
+							$stmt->execute();
+							$stmt->close();
+							$sql = "DELETE FROM secrets WHERE machine_id = ?";
+							$stmt = $conn->prepare($sql);
+							$stmt->bind_param("s", $machine_id);
 							// Execute the statement
 							$stmt->execute();
 							$stmt->close();
@@ -112,7 +118,7 @@ include "perms_functions.php";
 								echo('<td>'.$machine_id.'</td>');
 								echo('<td>'.$machine_location.'</td>');
 								echo('<td>'.$machine_ip.'</td>');
-								echo('<td><a href="client_list.php?delete='.$last_id.'">delete</a></td>');
+								echo('<td><a href="client_list.php?delete='.$machine_id.'">delete</a></td>');
 							echo('</tr>');
 							$stmt->close();
 							$num_of_machines--;

@@ -1,4 +1,8 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
+  app_ctrl.h
+  Kompilieren...
+  app_ctrl.h
+  app_ctrl.cpp
   check_dir.cpp
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18): warning C4244: "=": Konvertierung von "wchar_t" in "char", möglicher Datenverlust
   (Quelldatei „check_dir.cpp“ wird kompiliert)
@@ -40,7 +44,23 @@ C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:         [
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:             _Rep=__int64
 C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:         ]
+  connect.cpp
+  local_com.cpp
+  local_schedule.cpp
+  log.cpp
+  md5hash.cpp
+  permissions.cpp
+  queue _ctrl.cpp
   scan.cpp
+  security.cpp
+  settings.cpp
   thread_ctrl.cpp
+  update.cpp
+  virus_ctrl.cpp
+  Code Analysis für C/C++ wird ausgeführt...
   Code wird generiert...
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(89): warning C6387: "overlapped.hEvent" könnte "0" sein:  dies entspricht nicht der Spezifikation für Funktion "WaitForSingleObject". 
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(105): warning C6387: "overlapped.hEvent" könnte "0" sein:  dies entspricht nicht der Spezifikation für Funktion "ResetEvent". In Zeile 89 finden Sie einen früheren Ort, an dem dies vorkommen kann.
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(134): warning C6387: "overlapped.hEvent" könnte "0" sein:  dies entspricht nicht der Spezifikation für Funktion "CloseHandle". 
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\connect.cpp(118): warning C6031: Rückgabewert wird ignoriert: "fscanf".

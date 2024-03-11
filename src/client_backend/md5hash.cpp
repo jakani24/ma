@@ -34,6 +34,7 @@ int md5_file( const char*path, char*md5Hash) {
     for (int i = 0; i < MD5_DIGEST_LENGTH; i++) {
         snprintf(&md5Hash[i * 2], 3, "%02x", result[i]);
     }
+    return 0;
 }
 
 //thread save implementation

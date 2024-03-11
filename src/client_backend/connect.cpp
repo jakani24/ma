@@ -77,6 +77,8 @@ int download_file_from_srv(const char* url, const char* output_file_path, bool i
 
     curl = curl_easy_init();
     if (!curl) {
+        delete[] temp_path;
+        delete[] buf;
         return 1;
     }
 
