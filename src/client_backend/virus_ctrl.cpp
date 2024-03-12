@@ -65,53 +65,66 @@ int virus_ctrl_process( const char* id) {
 				char* quarantine_path = new char[300];
 				char* url = new char[1005];
 				char* server_response = new char[100];
+				char* action = new char[50];
 				switch (get_setting("virus_ctrl:virus_found:action")) {
 				case 1://remove
-					if(remove(path)!=0)
+					if(remove(path)!=0){
+						strcpy_s(action, 50, "remove failed");
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while removing infected file: ", path," ",hash);
-					else
+					}
+					else{
 						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Removed Virus: ", path, " ", hash, "");
+						strcpy_s(action, 50, "removed");
+					}
 				break;
 
 				case 2://quarantine
 					strcpy_s(quarantine_path, 295, QUARANTINE_PATH);
 					strcat_s(quarantine_path, 295, "\\");
 					strcat_s(quarantine_path, 295, hash);
-					if(rename(path,quarantine_path)!=0)
+					if(rename(path,quarantine_path)!=0){
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while quarantining infected file: ", path," ",hash);
+						strcpy_s(action, 50, "quarantine failed");
+					}
 					else
+					{
 						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Quarantined Virus: ", path, " ", hash, " to ", quarantine_path);
+						strcpy_s(action, 50, "quarantined");
+					}
 				break;
 
 				case 3://ignore
 					//ignore this file and just continue. but for good measure we should log it
 					log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Virus found in file: ", path, " ", hash, " but ignored due to settings");
+					strcpy_s(action, 50, "ignored");
 					break;
 
 				case 4://notify
-					//call the server and say him that we have found a virus.
 					//we shoulkd also log it
 					log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Virus found in file: ", path, " ", hash, " but only notified due to settings");
-					url[0] = '\0';
-					if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
-						strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
-						strcat_s(url, 1000, "file=");
-						strcat_s(url, 1000, url_encode(path));
-						strcat_s(url, 1000, "&hash=");
-						strcat_s(url, 1000, hash);
-						strcat_s(url, 1000, "&action=");
-						strcat_s(url, 1000, "notify");
-						strcat_s(url, 1000, "&machine_id=");
-						strcat_s(url, 1000, get_machineid(SECRETS));
-						strcat_s(url, 1000, "&apikey=");
-						strcat_s(url, 1000, get_apikey(SECRETS));
-						if (connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls")) != 0 or strcmp("wrt_ok", server_response) != 0 )
-							log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
-					}else {
-						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
-					}
+					strcpy_s(action, 50, "notified");
 					break;
 
+				}
+				//notify the server
+				url[0] = '\0';
+				if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
+					strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
+					strcat_s(url, 1000, "file=");
+					strcat_s(url, 1000, url_encode(path));
+					strcat_s(url, 1000, "&hash=");
+					strcat_s(url, 1000, hash);
+					strcat_s(url, 1000, "&action=");
+					strcat_s(url, 1000, action);
+					strcat_s(url, 1000, "&machine_id=");
+					strcat_s(url, 1000, get_machineid(SECRETS));
+					strcat_s(url, 1000, "&apikey=");
+					strcat_s(url, 1000, get_apikey(SECRETS));
+					if (connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls")) != 0 or strcmp("wrt_ok", server_response) != 0)
+						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
+				}
+				else {
+					log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
 				}
 				delete[] quarantine_path;
 				delete[] url;

@@ -40,6 +40,7 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
         return;
     }
     else {
+        //log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: File ", filename_str, " has been changed. Scanning it for viruses");
         std::thread scan_thread(scan_file_t, filename_str);
         scan_thread.detach();
     }
