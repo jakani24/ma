@@ -71,26 +71,6 @@ int virus_ctrl_process( const char* id) {
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while removing infected file: ", path," ",hash);
 					else
 						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Removed Virus: ", path, " ", hash, "");
-					//call the server and say him that we have found a virus.
-					url[0] = '\0';
-					if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
-						strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
-						strcat_s(url, 1000, "file=");
-						strcat_s(url, 1000, url_encode(path));
-						strcat_s(url, 1000, "&hash=");
-						strcat_s(url, 1000, hash);
-						strcat_s(url, 1000, "&action=");
-						strcat_s(url, 1000, "remove");
-						strcat_s(url, 1000, "&machine_id=");
-						strcat_s(url, 1000, get_machineid(SECRETS));
-						strcat_s(url, 1000, "&apikey=");
-						strcat_s(url, 1000, get_apikey(SECRETS));
-						if (connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls")) != 0 or strcmp("wrt_ok", server_response) != 0)
-							log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
-					}
-					else {
-						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
-					}
 				break;
 
 				case 2://quarantine
@@ -101,26 +81,6 @@ int virus_ctrl_process( const char* id) {
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while quarantining infected file: ", path," ",hash);
 					else
 						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Quarantined Virus: ", path, " ", hash, " to ", quarantine_path);
-					//call the server and say him that we have found a virus.
-					url[0] = '\0';
-					if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
-						strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
-						strcat_s(url, 1000, "file=");
-						strcat_s(url, 1000, url_encode(path));
-						strcat_s(url, 1000, "&hash=");
-						strcat_s(url, 1000, hash);
-						strcat_s(url, 1000, "&action=");
-						strcat_s(url, 1000, "quarantine");
-						strcat_s(url, 1000, "&machine_id=");
-						strcat_s(url, 1000, get_machineid(SECRETS));
-						strcat_s(url, 1000, "&apikey=");
-						strcat_s(url, 1000, get_apikey(SECRETS));
-						if (connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls")) != 0 or strcmp("wrt_ok", server_response) != 0)
-							log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
-					}
-					else {
-						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
-					}
 				break;
 
 				case 3://ignore
