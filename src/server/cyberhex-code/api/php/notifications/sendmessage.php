@@ -38,4 +38,6 @@ function send($message){
 		$stmt -> close();
 	}
 }
+if(isset($_GET["send"]))
+	send($_GET["send"]);
 ?>
