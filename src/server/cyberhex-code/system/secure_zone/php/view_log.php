@@ -47,7 +47,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                     <h4>View log</h4>
                 </div>
                 <div class="card-body" style="overflow-x:auto">
-                    <!-- table with all users => delete button -->
+                    <!-- table with all log entrys => delete button -->
                     <?php
                         //include db pw
                         include "../../../config.php";
@@ -150,6 +150,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . str_replace("%","",$loglevel) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . str_replace("%","",$logtext) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%","",$machine_id) . '"></td>';
+						//echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$time) . '"></td>';
                         echo '<td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all">Delete log</button></td>';
                         echo '</form>';
@@ -161,6 +162,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                             echo '<td>' . $row["loglevel"] . '</td>';
                             echo '<td>' . $row["logtext"] . '</td>';
                             echo '<td>' . $row["machine_id"] . '</td>';
+							//echo '<td>' . $row["machine_location"] . '</td>';
                             echo '<td>' . $row["time"] . '</td>';
                             echo '<td><a href="view_log.php?delete=' . $row["id"] . $filter_query . '&page=' . $current_page . '">delete</a></td>';
                             echo '</tr>';

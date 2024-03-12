@@ -148,7 +148,9 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
                 localtime_s(&current_time, &t);
 
                 //printf("%s\n", datetime);
+                //log(LOGLEVEL::INFO, "[check_for_sched_tasks()]: Checking task: ", taskname, " with schedule: ", datetime);
                 if (strcmp(datetime, "") != 0 && strcmp(command, "") != 0  && strcmp(taskname, "") != 0) {
+                    //log(LOGLEVEL::INFO, "[check_for_sched_tasks()]: Checking task: ", taskname, " with schedule: ", datetime);
                     if (is_task_due(taskname, datetime, current_time)) {
                         //printf("command:%s\n", command);
                         //printf("path:%s\n", path);

@@ -9,6 +9,11 @@
 #include "virus_ctrl.h"
 #include "scan.h"
 #include "settings.h"
+#include <mutex> // Include the mutex header
+
+// Define a mutex for thread synchronization
+std::mutex monitorMutex;
+
 bool is_directory(const std::string& path) {
     DWORD attributes = GetFileAttributes(path.c_str());
 
@@ -19,24 +24,25 @@ bool is_directory(const std::string& path) {
 
     return (attributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
 }
+
 void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
     // Allocate a buffer for the file name and copy the content
     std::wstring fileName(pInfo->FileName, pInfo->FileNameLength / sizeof(wchar_t));
 
-    //convert wstring to string
+    // Convert wstring to string
     std::string filename_str(fileName.begin(), fileName.end());
     filename_str = "c:\\" + filename_str;
-    //scan the file and send it to virus_ctrl if it is a virus and then process it
+
+    // Scan the file and send it to virus_ctrl if it is a virus and then process it
     std::transform(filename_str.begin(), filename_str.end(), filename_str.begin(), ::tolower);
-    if (!is_folder_included(filename_str.c_str()) or is_directory(filename_str) or is_folder_excluded(filename_str.c_str())) {
-		//dont scan excluded files or folders
-		return;
+    if (!is_folder_included(filename_str.c_str()) || is_directory(filename_str) || is_folder_excluded(filename_str.c_str())) {
+        // Don't scan excluded files or folders
+        return;
     }
     else {
         std::thread scan_thread(scan_file_t, filename_str);
         scan_thread.detach();
     }
-    //log(LOGLEVEL::INFO, "[process_changes()]: File change: ", filename_str.c_str(), " while monitoring directory for changes");
 }
 
 void monitor_directory(LPCSTR directory) {
@@ -71,7 +77,6 @@ void monitor_directory(LPCSTR directory) {
         buffer,
         bufferSize,
         TRUE,
-        //FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_SIZE | FILE_NOTIFY_CHANGE_FILE_NAME,
         FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE,
         NULL,
         &overlapped,
@@ -111,7 +116,7 @@ void monitor_directory(LPCSTR directory) {
                     buffer,
                     bufferSize,
                     TRUE,
-                    FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_SIZE | FILE_NOTIFY_CHANGE_FILE_NAME,
+                    FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE |FILE_NOTIFY_CHANGE_CREATION|FILE_NOTIFY_CHANGE_SIZE,
                     NULL,
                     &overlapped,
                     NULL) == 0) {
@@ -136,8 +141,11 @@ void monitor_directory(LPCSTR directory) {
 }
 
 void folder_scanner() {
-	//we are in a completely seperate thread then the main thread; unlimited resources wuhuii
-	//start the watch dir function used to monitor the dir for new files
+    // Lock access to the monitor function
+    std::lock_guard<std::mutex> lock(monitorMutex);
+
+    // We are in a completely separate thread than the main thread; unlimited resources wuhuii
+    // Start the watch dir function used to monitor the dir for new files
     monitor_directory("C:\\");
 }
 

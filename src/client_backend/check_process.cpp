@@ -5,6 +5,9 @@
 #include "app_ctrl.h"
 #include "settings.h"
 #include "scan.h"
+#include <mutex> // Include the mutex header
+
+std::mutex mtx; // Declare a mutex for thread synchronization
 
 void monitor_processes() {
     static DWORD previousProcessIds[1024] = { 0 }; // Previous snapshot of process IDs
@@ -17,55 +20,55 @@ void monitor_processes() {
         DWORD numProcesses = bytesReturned / sizeof(DWORD);
 
         // Check for new processes
-        //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: Checking for new processes; having ",numProcesses, " currently running");
         for (DWORD i = 0; i < numProcesses; ++i) {
             DWORD processId = processIds[i];
             BOOL isNewProcess = TRUE;
 
             // Check if the process is new
-            for (DWORD j = 0; j < 1024; ++j) {
-                if (processId == previousProcessIds[j]) {
-                    isNewProcess = FALSE;
-                    break;
+            {
+                std::lock_guard<std::mutex> guard(mtx); // Lock the mutex
+                for (DWORD j = 0; j < 1024; ++j) {
+                    if (processId == previousProcessIds[j]) {
+                        isNewProcess = FALSE;
+                        break;
+                    }
                 }
-            }
+            } // Unlock the mutex automatically when 'guard' goes out of scope
 
             // If the process is new, get its executable path and print it
             if (isNewProcess) {
                 // Open the process
                 HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
                 if (hProcess != NULL) {
-                    // Get the full path of the executable
-                    TCHAR exePath[500];
-                    char path[500+1];
-                    if (GetModuleFileNameEx(hProcess, NULL, exePath, 500) > 0) {
-                        // Print the full path of the executable
-                        strcpy_s(path, 500, exePath);
-                        //convert to lower case
-                        for(int z=0;z<strlen(path);z++)
+                    TCHAR exePath[MAX_PATH];
+                    char path[MAX_PATH];
+                    if (GetModuleFileNameEx(hProcess, NULL, exePath, MAX_PATH) > 0) {
+                        strcpy_s(path, MAX_PATH, exePath);
+                        for (int z = 0; z < strlen(path); z++)
                             path[z] = tolower(path[z]);
-                        //scan the file
-                        if (!is_folder_included(path) or is_folder_excluded(path)) {
-							//dont scan excluded files or folders
-						}
+
+                        if (!is_folder_included(path) || is_folder_excluded(path)) {
+                            // Don't scan excluded files or folders
+                        }
                         else {
-                            //log(LOGLEVEL::INFO, "[monitor_processes()]: New Process to scan: ", path, " while monitoring processes");
-							std::thread scan_thread(scan_process_t, path);
-							scan_thread.detach();
-						}
+                            std::thread scan_thread(scan_process_t, path);
+                            scan_thread.detach();
+                        }
                     }
-                    // Close the process handle
                     CloseHandle(hProcess);
                 }
             }
         }
 
         // Update the previous snapshot of process IDs
-        memcpy(previousProcessIds, processIds, sizeof(DWORD) * 1024);
+        {
+            std::lock_guard<std::mutex> guard(mtx); // Lock the mutex
+            memcpy(previousProcessIds, processIds, sizeof(DWORD) * 1024);
+        } // Unlock the mutex automatically when 'guard' goes out of scope
     }
     else {
-		log(LOGLEVEL::ERR, "[monitor_processes()]: Error enumerating processes");
-	}
+        log(LOGLEVEL::ERR, "[monitor_processes()]: Error enumerating processes");
+    }
 }
 void process_scanner() {
     //we are in a thread so we can do this, unlimited resources wuhuiii

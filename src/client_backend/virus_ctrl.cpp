@@ -6,8 +6,12 @@
 #include "settings.h"
 #include "connect.h"
 #include "security.h"
+#include <mutex> // Include the mutex header
 
+// Define a mutex for thread synchronization
+std::mutex virusCtrlMutex;
 int virus_ctrl_store( const char*path, const char*hash, const char*id) {
+	std::lock_guard<std::mutex> lock(virusCtrlMutex); // Lock the mute
 	FILE* fp;
 	char *db_path = new char[300];
 	strcpy_s(db_path, 295,VIRUS_CTRL_DB);
@@ -25,6 +29,7 @@ int virus_ctrl_store( const char*path, const char*hash, const char*id) {
 	}
 }
 int virus_ctrl_process( const char* id) {
+	std::lock_guard<std::mutex> lock(virusCtrlMutex); // Lock the mute
 	//take actions based on settings.
 	//eg delete infected files, quarantine them, etc
 	Sleep(100); //wait for the file to be written to the disk else the process that createt the file might not be finished yet
@@ -66,7 +71,27 @@ int virus_ctrl_process( const char* id) {
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while removing infected file: ", path," ",hash);
 					else
 						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Removed Virus: ", path, " ", hash, "");
-					break;
+					//call the server and say him that we have found a virus.
+					url[0] = '\0';
+					if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
+						strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
+						strcat_s(url, 1000, "file=");
+						strcat_s(url, 1000, url_encode(path));
+						strcat_s(url, 1000, "&hash=");
+						strcat_s(url, 1000, hash);
+						strcat_s(url, 1000, "&action=");
+						strcat_s(url, 1000, "remove");
+						strcat_s(url, 1000, "&machine_id=");
+						strcat_s(url, 1000, get_machineid(SECRETS));
+						strcat_s(url, 1000, "&apikey=");
+						strcat_s(url, 1000, get_apikey(SECRETS));
+						if (connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls")) != 0 or strcmp("wrt_ok", server_response) != 0)
+							log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
+					}
+					else {
+						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
+					}
+				break;
 
 				case 2://quarantine
 					strcpy_s(quarantine_path, 295, QUARANTINE_PATH);
@@ -76,7 +101,27 @@ int virus_ctrl_process( const char* id) {
 						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while quarantining infected file: ", path," ",hash);
 					else
 						log(LOGLEVEL::VIRUS, "[virus_ctrl_process()]:Quarantined Virus: ", path, " ", hash, " to ", quarantine_path);
-					break;
+					//call the server and say him that we have found a virus.
+					url[0] = '\0';
+					if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
+						strcat_s(url, 1000, "/api/php/virus/notify_virus.php?");
+						strcat_s(url, 1000, "file=");
+						strcat_s(url, 1000, url_encode(path));
+						strcat_s(url, 1000, "&hash=");
+						strcat_s(url, 1000, hash);
+						strcat_s(url, 1000, "&action=");
+						strcat_s(url, 1000, "quarantine");
+						strcat_s(url, 1000, "&machine_id=");
+						strcat_s(url, 1000, get_machineid(SECRETS));
+						strcat_s(url, 1000, "&apikey=");
+						strcat_s(url, 1000, get_apikey(SECRETS));
+						if (connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls")) != 0 or strcmp("wrt_ok", server_response) != 0)
+							log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
+					}
+					else {
+						log(LOGLEVEL::ERR, "[virus_ctrl_process()]:Error while notifying server about virus: ", path, " ", hash);
+					}
+				break;
 
 				case 3://ignore
 					//ignore this file and just continue. but for good measure we should log it

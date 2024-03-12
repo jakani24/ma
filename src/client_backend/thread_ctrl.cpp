@@ -35,27 +35,32 @@ int start_thread(const char* command) {
 		char* out2 = new char[100]; //for the command
 		char* out1 = new char[300]; //for the arguments
 		split((char*)command,';', (char*)out1, (char*)out2);
-		log(LOGLEVEL::INFO, "[start_thread()]: starting command: ", out1, " with arguments: ",out2);
+		//log(LOGLEVEL::INFO, "[start_thread()]: starting command: ", out1, " with arguments: ",out2);
 		//printf("out1: %s\n", out1);
 		//printf("out2: %s\n", out2);
 		//determine what should be executed
 		if (strcmp(out1, "scanfile") == 0) {
+			log(LOGLEVEL::INFO, "[start_thread()]: starting scanfile with arguments: ", out2);
 			//start a new thread with the scanfile function
 			std::thread t1(action_scanfile, out2);
 			t1.detach();
 		}
 		else if (strcmp(out1, "scanfolder") == 0) {
 			//start a new thread with the scanfolder function
+			log(LOGLEVEL::INFO, "[start_thread()]: starting scanfolder with arguments: ", out2);
 			std::thread t1(action_scanfolder, out2);
+			//log(LOGLEVEL::INFO, "[start_thread()]: started scanfolder with arguments: ", out2);
 			t1.detach();
 		}
 		else if (strcmp(out1, "update_settings") == 0) {
 			//start a new thread with the scanfolder function
+			log(LOGLEVEL::INFO, "[start_thread()]: starting update_settings with arguments: ", out2);
 			std::thread t1(action_update_settings);
 			t1.detach();
 		}
 		else if (strcmp(out1, "update_db") == 0) {
 			//start a new thread with the scanfolder function
+			log(LOGLEVEL::INFO, "[start_thread()]: starting update_db with arguments: ", out2);
 			std::thread t1(action_update_settings);
 			t1.detach();
 		}
