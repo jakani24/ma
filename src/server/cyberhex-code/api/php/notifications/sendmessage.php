@@ -33,7 +33,7 @@ function send($message){
 
 		while($row = $result->fetch_assoc()) {
 			$telegram_id=$row["telegram_id"];
-			exec("curl \"https://api.telegram.org/$telegram_bot/sendMessage?chat_id=$telegram_id&text=$message\" > /dev/null &");
+			echo("curl \"https://api.telegram.org/$telegram_bot/sendMessage?chat_id=$telegram_id&text=$message\" > /dev/null &");
 		}
 		$stmt -> close();
 	}
