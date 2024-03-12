@@ -11,7 +11,7 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
-$_SESSION["telegram_id"]=$telegram_id;
+$telegram_id=$_SESSION["telegram_id"];
 ?>
 <?php
 //update the info, if provided.
