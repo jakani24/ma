@@ -3,6 +3,12 @@
 //exec('run_baby_run > /dev/null &');
 
 function send($message){
+	include "../../../config.php";
+	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+	if ($conn->connect_error) {
+		$success=0;
+		die("Connection failed: " . $conn->connect_error);
+	}
 	//get apikey of telegram bot
 	$sql = "SELECT * FROM settings WHERE name = 'telegram_bot'";
 	$stmt = $conn->prepare($sql);
