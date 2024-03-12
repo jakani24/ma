@@ -4,7 +4,7 @@
 
 function send($message){
 	//get apikey of telegram bot
-	$sql = "SELECT value FROM settings WHERE name = 'telegram_bot'";
+	$sql = "SELECT * FROM settings WHERE name = 'telegram_bot'";
 	$stmt = $conn->prepare($sql);
 	// Execute the statement
 	$stmt->execute();
