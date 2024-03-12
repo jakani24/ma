@@ -20,6 +20,7 @@ function send($message){
 		echo "Telegram Bot API Key: " . $telegram_bot;
 	}
 }
+send("");
 ?>
 
 
