@@ -5,7 +5,7 @@ include "../accessctrl/check_apikey.php";
 if(check_apikey()!==true){
 	die("no_auth");
 }
-
+include "../notifications/sendmessage.php";
 //add the entry to the log db
 //this page has no gui, it may return ok or error
 if(!isset($_GET["machine_id"]) or !isset($_GET["hash"]) or !isset($_GET["file"]) or !isset($_GET["action"]))
@@ -31,5 +31,6 @@ else{
 		echo("wrt_ok");
 	$stmt->close();
 	$conn->close();
+	send("[VIRUS WARNING!]\nhash: $hash\npath: $path\nmachine_id: $machine_id\naction: $action\n");
 }
 ?>

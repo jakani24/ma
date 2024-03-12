@@ -3,6 +3,7 @@
 //exec('run_baby_run > /dev/null &');
 
 function send($message){
+	$message=urlencode($message);
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 	if ($conn->connect_error) {
@@ -18,36 +19,23 @@ function send($message){
 	$telegram_bot="";
 	$result = $stmt->get_result();
 	if ($result->num_rows > 0) {
-		// Fetch the first row as an associative array
 		$row = $result->fetch_assoc();
-		// Extract the value of the 'value' column
 		$telegram_bot = $row['value'];
-		// Do something with the value, for example:
-		echo "Telegram Bot API Key: " . $telegram_bot;
+		$stmt->close();
+		//now send a message to every user which has a telegram id
+		$sql = "SELECT telegram_id FROM users";
+		$stmt = $conn->prepare($sql);
+		// Execute the statement
+		$stmt->execute();
+		// Get the result
+		$telegram_id="";
+		$result = $stmt->get_result();
+
+		while($row = $result->fetch_assoc()) {
+			$telegram_id=$row["telegram_id"];
+			exec("curl \"https://api.telegram.org/$telegram_bot/sendMessage?chat_id=$telegram_id&text=$message\" > /dev/null &");
+		}
+		$stmt -> close();
 	}
 }
-send("");
 ?>
-
-
-
-	/*
-	//if able to, send a telegram notification to user
-	$sql = "SELECT telegram_id FROM users";
-	$stmt = $conn->prepare($sql);
-	// Execute the statement
-	$stmt->execute();
-	// Get the result
-	$telegram_id="";
-	$result = $stmt->get_result();
-
-	while($row = $result->fetch_assoc()) {
-		$telegram_id=$row["telegram_id"];
-		//exec("curl \"https://api.telegram.org/$api/sendMessage?chat_id=$telegram_id&text=$text\"");
-		$url="https://api.telegram.org/$";
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$fileContents = curl_exec($ch);
-	}
-	$stmt -> close();
-	*/

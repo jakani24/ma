@@ -11,6 +11,7 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
+$_SESSION["telegram_id"]=$telegram_id;
 ?>
 <?php
 //update the info, if provided.
@@ -19,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	include "../../../config.php";
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
+	$telegram_id=htmlspecialchars($_POST["telegram_id"]);
 	// Create connection
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
@@ -27,17 +29,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$success=0;
 		die("Connection failed: " . $conn->connect_error);
 	}
-	$stmt = $conn->prepare("UPDATE users set email = ?, username = ? where username = ?");
-	$stmt->bind_param("sss", $email, $username_new, $username);
+	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ? where username = ?");
+	$stmt->bind_param("ssss", $email, $username_new,$telegram_id, $username);
 	
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
+	$telegram_id=htmlspecialchars($_POST["telegram_id"]);
 	$stmt->execute();
 	$stmt->close();
 	$conn->close();
 	$username=$username_new;
 	$_SESSION["username"]=$username;
 	$_SESSION["email"]=$email;
+	$_SESSION["telegram_id"]=$telegram_id;
 }
 
 ?>
@@ -66,6 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						<div class="form-group">
 							<label for="email">Email:</label>
 							<input type="email" class="form-control" id="email" name="email" value="<?php echo($email); ?>" required>
+						</div>
+						<div class="form-group">
+							<label for="telegram_id">Telegram ID:</label>
+							<input type="text" class="form-control" id="telegram_id" name="telegram_id" value="<?php echo($telegram_id); ?>">
 						</div>
 						<div class="form-group">
 							<label for="perms">Permissions: 

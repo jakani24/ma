@@ -72,6 +72,7 @@ if(isset($_SESSION["login"])){
 									$_SESSION["login"]=true;
 									$_SESSION["perms"]=$row["perms"];
 									$_SESSION["email"]=$row["email"];
+									$_SESSION["telegram_id"]=$row["telegram_id"];
 									
 									echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
 									exit();
