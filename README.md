@@ -24,7 +24,7 @@ To get started with Cyberhex, follow these steps (there will be an instruction s
 For any issues or feature requests, please open an issue on GitHub. Contributions are welcome through pull requests.
 
 ## License
-This project is licensed under the BSD License.
+This project is licensed under the BSD-3 License.
 
 ## Acknowledgements
 Cyberhex was developed as part of the MA project for KSW, with contributions from Janis Steiner. I thank Emil Müller for his guidance and support throughout the project.
