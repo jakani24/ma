@@ -4,6 +4,8 @@
 #pragma comment(lib, "advapi32.lib")
 #include "permissions.h"
 #include <mutex> // Include mutex for synchronization
+#include <Windows.h>
+#include <io.h> // Include for _chmod function
 
 // Mutex for synchronizing file operations
 std::mutex fileMutex;
@@ -15,19 +17,19 @@ file cannot be deleted or modified by anyone. admin can delete
 
 */
 
-//mark as readonly
-int protect_file(char* path) {
+// Mark as read-only
+int protect_file(const char* path) {
     std::lock_guard<std::mutex> lock(fileMutex); // Lock the mutex
     return _chmod(path, _S_IREAD);
 }
 
-//mark as readwrite
-int unprotect_file(char* path) {
+// Mark as read-write
+int unprotect_file(const char* path) {
     std::lock_guard<std::mutex> lock(fileMutex); // Lock the mutex
     return _chmod(path, _S_IWRITE | _S_IREAD);
 }
 
-//deny all access and only grant access to admins
+// Deny all access and only grant access to admins
 BOOL create_file_protection(SECURITY_ATTRIBUTES* pSA)
 {
     // Define the SDDL for the DACL. This example sets 
@@ -41,10 +43,9 @@ BOOL create_file_protection(SECURITY_ATTRIBUTES* pSA)
     LPCSTR szSD = TEXT("D:")
         TEXT("(D;OICI;GA;;;BG)")         // Deny access to guest users
         TEXT("(D;OICI;GA;;;AN)")         // Deny access to unauthenticated users
-        //TEXT("(D;OICI;GA;;;AU)")         // Deny access to authenticated users do not execute else not even admins have rights anymore :(
+        //TEXT("(D;OICI;GA;;;AU)")       // Deny access to authenticated users do not execute else not even admins have rights anymore :(
         TEXT("(A;OICI;GA;;;BA)");        // Allow full control to builtin administrators
-    TEXT("(A;OICI;GA;;;AA)");        // Allow full control to normal administrators
-
+    TEXT("(A;OICI;GA;;;AA)");            // Allow full control to normal administrators
 
     if (NULL == pSA)
         return FALSE;

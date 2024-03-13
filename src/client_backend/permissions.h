@@ -13,5 +13,5 @@
 #include <windows.h>
 #include <sddl.h>
 #include <stdio.h>
-int protect_file(char* path);
-int unprotect_file(char* path);
+int protect_file(const char* path);
+int unprotect_file(const char* path);

@@ -3,12 +3,16 @@
 #define SETTINGS_H
 #include <iostream>
 #include <Windows.h>
-int get_setting(const char* setting_name);
-int get_setting(const char* setting_name,char*out);
+#include <string>
+int get_setting(const std::string& setting_name);
+std::string get_setting_string(const std::string& setting_name);
+
 int load_settings();
-bool is_folder_included(const char* path);
-bool is_folder_excluded(const char* path);
-void print_inclusions();
+void load_included_folders();
+void load_excluded_folders();
+bool is_folder_included(const std::string& path);
+bool is_folder_excluded(const std::string& path);
+void print_inclusions(); 
 
 int log_timeout_get();
 void log_timeout_set(int timeout);

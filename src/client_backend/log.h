@@ -6,10 +6,12 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <string>
 #include "connect.h"
 #include "well_known.h"
 #include "settings.h"
 #include "security.h"
+
 enum class LOGLEVEL {
     INFO,
     WARN,
@@ -27,7 +29,7 @@ std::string get_loglevel(LOGLEVEL level);
 
 template <typename... Args>
 void log(LOGLEVEL level, const std::string& message, Args&&... args) {
-    log_timeout_reset_set(log_timeout_reset_get()+1);
+    log_timeout_reset_set(log_timeout_reset_get() + 1);
     std::string prefix = get_loglevel(level);
     std::time_t now = std::time(nullptr);
     std::tm tm;
@@ -42,11 +44,9 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
         ((to_srv << ' ' << std::forward<Args>(args)), ...);
     }
     logStream << std::endl;
-    //to_srv << std::endl;
     std::string logString = logStream.str();
     std::string to_srv_string = to_srv.str();
     printf("info from logger: %s", logString.c_str());
-    // Open the file based on log level
     FILE* fp;
     switch (level) {
     case LOGLEVEL::INFO:
@@ -81,78 +81,67 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
         break;
     }
     if (error != 0) {
-        //panic, create log entry, return 1;
         return;
     }
     else {
-        //write log entry to disk
         fprintf_s(fp, "%s", logString.c_str());
         fclose(fp);
-
-        //write to general log file
         if (fopen_s(&fp, LOGFILE, "a") == 0) {
             fprintf_s(fp, "%s", logString.c_str());
             fclose(fp);
         }
-        //write to server log file only if we werent able to send the logs directly. this file will store them until we can upload them
-        if (fopen_s(&fp, SRV_LOGFILE, "a") == 0 && log_timeout_get() >= 5) { //if server already did not respon over 5 times, we add it to the log file
+        if (fopen_s(&fp, SRV_LOGFILE, "a") == 0 && log_timeout_get() >= 5) {
             fprintf_s(fp, "%s\n", to_srv_string.c_str());
             fclose(fp);
         }
     }
-    //send log so srv
-    //build up the log string: loglevel&logtext&machineid&date
-    //to_srv_string=includes the log message
-    //we now need to build up the request string and append the machineid
-    if (level!=LOGLEVEL::INFO_NOSEND && level!=LOGLEVEL::WARN_NOSEND && level!=LOGLEVEL::ERR_NOSEND && level!=LOGLEVEL::PANIC_NOSEND && log_timeout_get()<5) {
-        char* url = new char[3000];
+    if (level != LOGLEVEL::INFO_NOSEND && level != LOGLEVEL::WARN_NOSEND && level != LOGLEVEL::ERR_NOSEND && level != LOGLEVEL::PANIC_NOSEND/* && log_timeout_get() < 5*/) {
+        std::string url;
         int res = 0;
-        if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
-            strcat_s(url, 3000, "/api/php/log/add_entry.php?logtext=");//need to add machine_id and apikey
-            strcat_s(url, 3000, url_encode(to_srv_string.c_str()));
-            strcat_s(url, 3000, "&machine_id=");
-            strcat_s(url, 3000, get_machineid(SECRETS));
-            strcat_s(url, 3000, "&apikey=");
-            strcat_s(url, 3000, get_apikey(SECRETS));
-            res=fast_send(url, get_setting("communication:unsafe_tls"));
+        url = get_setting_string("server:server_url");
+        if (url!="" && url!="nan") {
+            url += "/api/php/log/add_entry.php?logtext=";
+            url += url_encode(to_srv_string);
+            url += "&machine_id=";
+            url += get_machineid(SECRETS);
+            url += "&apikey=";
+            url += get_apikey(SECRETS);
+            res = fast_send(url, get_setting("communication:unsafe_tls"));
+            //log(LOGLEVEL::INFO_NOSEND, "[log()]: sending log to server:", url, " ", res);
             if (res != 0) {
-                //we know that the server might be down, so we will increment the timeout counter
+                //log(LOGLEVEL::ERR_NOSEND, "[log()]: Error while sending log to server: ", url);
                 log_timeout_set(log_timeout_get() + 1);
             }
-            //we might not want to log an error occuring here because it will create a loop
-        }
-        delete[] url;
-    }//else we do not send the log to the server
+        }//else
+            //log(LOGLEVEL::ERR_NOSEND, "[log()]: Error while sending log to server: ", url);
+    }
+
+
     if (log_timeout_reset_get() > 100)
     {
         log_timeout_reset_set(0);
         log_timeout_set(0);
     }
-    //!!!i disabled this temporarely, because it does not really work and as long as the client is in lan the other code works anyway
-    if(log_timeout_reset_get()>100 && 1==0) { //after 100 log entrys, we cna try again to reach out ot the server.
+    /*if (log_timeout_reset_get() > 100 && 1 == 0) {
         log_timeout_reset_set(0);
         log_timeout_set(0);
-        //try to upload the server_log file, where we stored the logs which we could not upload.
-        char* url = new char[3000];
+        std::string url;
         int res = 0;
-        if (get_setting("server:server_url", url) == 0 or strcmp(url, "nan") == 0) {
-			strcat_s(url, 3000, "/api/php/log/add_log.php?machine_id=");
-			strcat_s(url, 3000, get_machineid(SECRETS));
-			strcat_s(url, 3000, "&apikey=");
-			strcat_s(url, 3000, get_apikey(SECRETS));
-            res=upload_to_srv(SRV_LOGFILE, url, get_setting("communication:unsafe_tls"));
+        url = get_setting("server:server_url");
+        ifif(url != "" && url != "nan") {
+            url += "/api/php/log/add_log.php?machine_id=";
+            url += get_machineid(SECRETS);
+            url += "&apikey=";
+            url += get_apikey(SECRETS);
+            res = upload_to_srv(SRV_LOGFILE, url, get_setting("communication:unsafe_tls"));
             if (res != 0) {
-				//we know that the server might be down, so we will increment the timeout counter
-				log_timeout_set(log_timeout_get() + 1);
+                log_timeout_set(log_timeout_get() + 1);
             }
             else {
-                //remove the logfile
                 remove(SRV_LOGFILE);
             }
-		}
-        delete [] url;
-	}
-    
+        }
+    }*/
 }
 
 #endif // LOGGER_H

@@ -1,72 +1,65 @@
 #include "security.h"
 #include <mutex> // Include the mutex header
+#include <string> // Include the string header
+#include <fstream> // Include the file stream header
 
 std::mutex fileMutex_sec; // Mutex to synchronize file access
 
-int check_cert(const char* cert, const char* secrets_path) {
-    FILE* fp;
-    if (fopen_s(&fp, secrets_path, "r") != 0) {
+int check_cert(const std::string& cert, const std::string& secrets_path) {
+    std::ifstream file(secrets_path);
+    if (!file.is_open()) {
         return 1;
     }
     else {
-        char secrets[505]; // Allocate memory on the stack
+        std::string secrets;
         std::lock_guard<std::mutex> lock(fileMutex_sec); // Lock file access
 
-        while (!feof(fp)) {
-            fscanf_s(fp, "%s", secrets, 500); // get the secret
-            if (strcmp("cert", secrets) == 0) {
-                fscanf_s(fp, "%s", secrets, 500); // get the secret
-                if (strcmp(cert, secrets) == 0) {
-                    fclose(fp);
+        while (file >> secrets) {
+            if (secrets == "cert") {
+                file >> secrets; // Get the secret
+                if (cert == secrets) {
                     return 0;
                 }
             }
         }
-        fclose(fp);
         return 2;
     }
 }
 
-char* get_apikey(const char* secrets_path) {
-    FILE* fp;
-    if (fopen_s(&fp, secrets_path, "r") != 0) {
-        return nullptr;
+std::string get_apikey(const std::string& secrets_path) {
+    std::ifstream file(secrets_path);
+    if (!file.is_open()) {
+        return "";
     }
     else {
-        char secrets[505]; // Allocate memory on the stack
+        std::string secrets;
         std::lock_guard<std::mutex> lock(fileMutex_sec); // Lock file access
 
-        while (!feof(fp)) {
-            fscanf_s(fp, "%s", secrets, 500); // get the secret
-            if (strcmp("apikey", secrets) == 0) {
-                fscanf_s(fp, "%s", secrets, 500); // get the secret
-                fclose(fp);
-                return secrets; // Return a dynamically allocated copy
+        while (file >> secrets) {
+            if (secrets == "apikey") {
+                file >> secrets; // Get the secret
+                return secrets; // Return the secret
             }
         }
-        fclose(fp);
-        return nullptr;
+        return "";
     }
 }
 
-char* get_machineid(const char* secrets_path) {
-    FILE* fp;
-    if (fopen_s(&fp, secrets_path, "r") != 0) {
-        return nullptr;
+std::string get_machineid(const std::string& secrets_path) {
+    std::ifstream file(secrets_path);
+    if (!file.is_open()) {
+        return "";
     }
     else {
-        char secrets[300]; // Allocate memory on the stack
+        std::string secrets;
         std::lock_guard<std::mutex> lock(fileMutex_sec); // Lock file access
 
-        while (!feof(fp)) {
-            fscanf_s(fp, "%s", secrets, 295); // get the secret
-            if (strcmp("machineid", secrets) == 0) {
-                fscanf_s(fp, "%s", secrets, 295); // get the secret
-                fclose(fp);
-                return secrets; // Return a dynamically allocated copy
+        while (file >> secrets) {
+            if (secrets == "machineid") {
+                file >> secrets; // Get the secret
+                return secrets; // Return the secret
             }
         }
-        fclose(fp);
-        return nullptr;
+        return "";
     }
 }

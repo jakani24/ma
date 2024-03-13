@@ -26,6 +26,7 @@ int main() {
     log(LOGLEVEL::INFO_NOSEND, "[main()]:Starting main thread.");
     int err = 0;
 	printf("welcome to the jakach security tool main thread\n");
+    //exit(0);
     if (load_settings() == 0) {//load the settings from the settings file
         if (update_settings("settings")!=0) { //update the settings from the server
             log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (settings) from server.");
@@ -46,7 +47,6 @@ int main() {
         log(LOGLEVEL::PANIC_NOSEND, "[main()]:Panic, no settings file loaded, terminating process!");
         exit(1);
 	}
-
     // Initialize hash databases
     err = initialize(DB_DIR);
     if (err != 0) {
@@ -97,11 +97,7 @@ int main() {
         if (can_run_thread()) {
             int queue_size = get_queue_size();
             for (int i = 0; i < queue_size; i++) {
-                char* queue_entry = new char[300 * 2 + 5];
-                queue_entry[0] = '\0';
-                queue_pop(queue_entry);
-                start_thread(queue_entry);
-                delete[] queue_entry;
+                start_thread(queue_pop());
             }
         }
 

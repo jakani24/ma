@@ -1,5 +1,6 @@
 #ifndef SETTINGS_CPP
 #define SETTINGS_CPP
+
 #include "settings.h"
 #include "well_known.h"
 #include "log.h"
@@ -10,15 +11,15 @@ std::mutex settingsMutex;
 std::mutex logMutex;
 
 int setting_virus_ctrl_virus_found_action = 0;
-char* setting_server_server_url = new char[300];
-char excluded_folders[100][300];
+std::string setting_server_server_url = "nan";
+std::string excluded_folders[1000];
 int excluded_folders_size = 0;
-char included_folders[100][300];
+std::string included_folders[1000];
 int included_folders_size = 0;
-bool setting_rtp_folder_scan_status = 1; //0=off, 1=on
-bool setting_rtp_process_scan_status = 1; //0=off, 1=on
-bool setting_virus_ctrl_virus_process_found_kill = 1; //0=do not kill, 1=kill
-bool setting_communication_unsafe_tls = 0; //0=do not allow communication via unsafe, self-signed certs, 1=allow communication via unsafe, self-signed certs
+bool setting_rtp_folder_scan_status = true; // 0=off, 1=on
+bool setting_rtp_process_scan_status = true; // 0=off, 1=on
+bool setting_virus_ctrl_virus_process_found_kill = true; // 0=do not kill, 1=kill
+bool setting_communication_unsafe_tls = false; // 0=do not allow communication via unsafe, self-signed certs, 1=allow communication via unsafe, self-signed certs
 int srv_log_timeout = 0;
 int log_timeout_reset = 0;
 
@@ -26,198 +27,163 @@ void load_included_folders();
 void load_excluded_folders();
 
 int load_settings() {
-    FILE* fp;
+    //std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings file operations
 
-    std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings file operations
+    std::ifstream file(SETTINGS_DB);
 
-    if (fopen_s(&fp, SETTINGS_DB, "r") != 0) {
+    if (!file.is_open()) {
         log(LOGLEVEL::ERR, "[load_settings()]: Could not open settings file. ", SETTINGS_DB);
-        strcpy_s(setting_server_server_url, 295, "nan");
+        setting_server_server_url = "nan";
         return 1;
     }
-    else {
-        char* settings_cmd = new char[505];
-        char* settings_arg = new char[300];
-        fscanf_s(fp, "%s", settings_cmd, 500); //the cert is always the first line
-        while (!feof(fp)) {
-            fscanf_s(fp, "%s", settings_cmd, 295); // get the command
-            //now check which setting it is.
-            if (strcmp(settings_cmd, "virus_ctrl:virus_found:action") == 0) {
-                fscanf_s(fp, "%s", settings_arg, 295); // get the argument
-                if (strcmp(settings_arg, "remove") == 0) {
-                    setting_virus_ctrl_virus_found_action = 1; //1=remove
-                }
-                else if (strcmp(settings_arg, "quarantine") == 0) {
-                    setting_virus_ctrl_virus_found_action = 2; //2=quarantine
-                }
-                else if (strcmp(settings_arg, "ignore") == 0) {
-                    setting_virus_ctrl_virus_found_action = 3; //3=ignore
-                }
-                else if (strcmp(settings_arg, "call_srv") == 0) {
-                    setting_virus_ctrl_virus_found_action = 4; //4=call_srv <= only call the server and tell it, do not remove or quarantine
-                }
+
+    std::string settings_cmd, settings_arg;
+    file>>settings_cmd;//the firs tline is our cert
+    while (file >> settings_cmd) {
+        file >> settings_arg;
+
+        // Process settings
+        //printf("aaaaaaaa,%s::,%s\n",settings_cmd.c_str(), settings_arg.c_str());
+        if (settings_cmd == "virus_ctrl:virus_found:action") {
+            if (settings_arg == "remove") {
+                setting_virus_ctrl_virus_found_action = 1;
             }
-            else if (strcmp(settings_cmd, "server:server_url") == 0) {
-                fscanf_s(fp, "%s", settings_arg, 295); // get the argument
-                strcpy_s(setting_server_server_url, 295, settings_arg);
+            else if (settings_arg == "quarantine") {
+                setting_virus_ctrl_virus_found_action = 2;
             }
-            else if (strcmp(settings_cmd, "rtp_folder_scan:status") == 0) {
-                fscanf_s(fp, "%s", settings_arg, 295); // get the argument
-                setting_rtp_folder_scan_status = (strcmp(settings_arg, "true") == 0); //1=on, 0=off
+            else if (settings_arg == "ignore") {
+                setting_virus_ctrl_virus_found_action = 3;
             }
-            else if (strcmp(settings_cmd, "rtp_process_scan:status") == 0) {
-                fscanf_s(fp, "%s", settings_arg, 295); // get the argument
-                setting_rtp_process_scan_status = (strcmp(settings_arg, "true") == 0); //1=on, 0=off
-            }
-            else if (strcmp(settings_cmd, "communication:unsafe_tls") == 0) {
-                fscanf_s(fp, "%s", settings_arg, 295); // get the argument
-                setting_communication_unsafe_tls = (strcmp(settings_arg, "allow") == 0); //1=allow, 0=block
-            }
-            else if (strcmp(settings_cmd, "virus_ctrl:virus_process_found:kill") == 0) {
-                fscanf_s(fp, "%s", settings_arg, 295); // get the argument
-                setting_virus_ctrl_virus_process_found_kill = (strcmp(settings_arg, "true") == 0); //1=kill, 0=do not kill
+            else if (settings_arg == "call_srv") {
+                setting_virus_ctrl_virus_found_action = 4;
             }
         }
-
-        delete[] settings_cmd;
-        delete[] settings_arg;
+        else if (settings_cmd == "server:server_url") {
+            setting_server_server_url = settings_arg;
+        }
+        else if (settings_cmd == "rtp_folder_scan:status") {
+            setting_rtp_folder_scan_status = (settings_arg == "true");
+        }
+        else if (settings_cmd == "rtp_process_scan:status") {
+            setting_rtp_process_scan_status = (settings_arg == "true");
+        }
+        else if (settings_cmd == "communication:unsafe_tls") {
+            setting_communication_unsafe_tls = (settings_arg == "allow");
+        }
+        else if (settings_cmd == "virus_ctrl:virus_process_found:kill") {
+            setting_virus_ctrl_virus_process_found_kill = (settings_arg == "true");
+        }
     }
+
+    file.close();
+
     load_included_folders();
     load_excluded_folders();
-    fclose(fp);
+
     return 0;
 }
 
-// We have two different get_setting functions. One for int and one for char* return values
-int get_setting(const char* setting_name) {
+// We have two different get_setting functions. One for int and one for std::string return values
+int get_setting(const std::string& setting_name) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
-    if (strcmp(setting_name, "virus_ctrl:virus_found:action") == 0) {
+    if (setting_name == "virus_ctrl:virus_found:action") {
         return setting_virus_ctrl_virus_found_action;
     }
-    if (strcmp(setting_name, "virus_ctrl:virus_process_found:kill") == 0) {
+    if (setting_name == "virus_ctrl:virus_process_found:kill") {
         return setting_virus_ctrl_virus_process_found_kill;
     }
-    else if (strcmp(setting_name, "rtp_folder_scan:status") == 0) {
+    else if (setting_name == "rtp_folder_scan:status") {
         return setting_rtp_folder_scan_status;
     }
-    else if (strcmp(setting_name, "rtp_process_scan:status") == 0) {
+    else if (setting_name == "rtp_process_scan:status") {
         return setting_rtp_process_scan_status;
     }
-    else if (strcmp(setting_name, "communication:unsafe_tls") == 0) {
+    else if (setting_name == "communication:unsafe_tls") {
         return setting_communication_unsafe_tls;
     }
 
     return -1;
 }
 
-int get_setting(const char* setting_name, char* out) {
+std::string get_setting_string(const std::string& setting_name) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
-    if (strcmp(setting_name, "server:server_url") == 0) {
-        strcpy_s(out, 295, setting_server_server_url);
-        return 0;
+    if (setting_name == "server:server_url") {
+        return setting_server_server_url;
     }
 
-    return -1;
+    return "nan";
 }
 
 void load_included_folders() {
-    FILE* fp;
-    if (fopen_s(&fp, INCLUDED_FOLDERS, "r") != 0) {
+    std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
+
+    std::ifstream file(INCLUDED_FOLDERS);
+
+    if (!file.is_open()) {
         log(LOGLEVEL::ERR, "[load_included_files()]: Could not open included folders file. ", INCLUDED_FOLDERS);
         return;
     }
-    else {
-        char* path = new char[505];
-        fscanf_s(fp, "%s", path, 500); //the cert is always the first line
-        while (!feof(fp)) {
-            //get the path of an excluded folder
-            path[0] = '\0';
-            //the path is encapsulated with "
-            int cnt = 0;
-            int chr = 0;
-            chr = fgetc(fp);
-            if (chr == '\"') {
-                chr = 0;
-                while (cnt < 295 && chr != '\"') {
-                    chr = fgetc(fp); //get a char
-                    if (chr != '\"')
-                        path[cnt] = chr;
-                    path[cnt + 1] = '\0';
-                    cnt++;
-                }
-                //now add the path to the array
-                if (included_folders_size < 95) {
-                    strcpy_s(included_folders[included_folders_size], 295, path);
-                    included_folders_size++;
-                }
-                else {
-                    log(LOGLEVEL::ERR, "[load_included_files()]: included folders array is full. Cannot add more folders.");
-                }
+
+    std::string line;
+    std::getline(file, line); // Skip the first line
+    while (std::getline(file, line)) {
+        size_t start_pos = line.find('"'); // Find the position of the first double quote
+        if (start_pos != std::string::npos) {
+            size_t end_pos = line.find('"', start_pos + 1); // Find the position of the second double quote
+            if (end_pos != std::string::npos) {
+                std::string path = line.substr(start_pos + 1, end_pos - start_pos - 1); // Extract the path between double quotes
+                included_folders[included_folders_size++] = path;
             }
         }
-        fclose(fp);
-        delete[] path;
     }
+
+    file.close();
 }
 
 void load_excluded_folders() {
-    FILE* fp;
-    if (fopen_s(&fp, EXCLUDED_FOLDERS, "r") != 0) {
-        log(LOGLEVEL::ERR, "[load_excluded_folders()]: Could not open excluded folders file. ", EXCLUDED_FOLDERS);
+    std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
+
+    std::ifstream file(EXCLUDED_FOLDERS);
+
+    if (!file.is_open()) {
+        log(LOGLEVEL::ERR, "[load_included_files()]: Could not open excluded folders file. ", INCLUDED_FOLDERS);
         return;
     }
-    else {
-        char* path = new char[505];
-        fscanf_s(fp, "%s", path, 500); //the cert is always the first line
-        while (!feof(fp)) {
-            //get the path of an excluded folder
-            path[0] = '\0';
-            //the path is encapsulated with "
-            int cnt = 0;
-            int chr = 0;
-            chr = fgetc(fp);
-            if (chr == '\"') {
-                chr = 0;
-                while (cnt < 295 && chr != '\"') {
-                    chr = fgetc(fp); //get a char
-                    if (chr != '\"')
-                        path[cnt] = chr;
-                    path[cnt + 1] = '\0';
-                    cnt++;
-                }
-                //now add the path to the array
-                if (excluded_folders_size < 95) {
-                    strcpy_s(excluded_folders[excluded_folders_size], 295, path);
-                    excluded_folders_size++;
-                }
-                else {
-                    log(LOGLEVEL::ERR, "[load_excluded_folders()]: Excluded folders array is full. Cannot add more folders.");
-                }
+
+    std::string line;
+    std::getline(file, line); // Skip the first line
+    while (std::getline(file, line)) {
+        size_t start_pos = line.find('"'); // Find the position of the first double quote
+        if (start_pos != std::string::npos) {
+            size_t end_pos = line.find('"', start_pos + 1); // Find the position of the second double quote
+            if (end_pos != std::string::npos) {
+                std::string path = line.substr(start_pos + 1, end_pos - start_pos - 1); // Extract the path between double quotes
+                excluded_folders[excluded_folders_size++] = path;
             }
         }
-        fclose(fp);
-        delete[] path;
     }
+
+    file.close();
 }
 
-bool is_folder_included(const char* path) {
+bool is_folder_included(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
     for (int i = 0; i < included_folders_size; i++) {
-        if (strstr(path, included_folders[i]) != 0 && strcmp(included_folders[i], "") != 0 && strcmp(included_folders[i], " ") != 0) {
+        if (path.find(included_folders[i]) != std::string::npos) {
             return true;
         }
     }
     return false;
 }
 
-bool is_folder_excluded(const char* path) {
+bool is_folder_excluded(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
     for (int i = 0; i < excluded_folders_size; i++) {
-        if (strstr(path, excluded_folders[i]) != 0 && strcmp(excluded_folders[i], "") != 0 && strcmp(excluded_folders[i], " ") != 0) {
+        if (path.find(excluded_folders[i]) != std::string::npos) {
             return true;
         }
     }
@@ -256,4 +222,4 @@ int log_timeout_reset_get() {
     return log_timeout_reset;
 }
 
-#endif
+#endif // SETTINGS_CPP

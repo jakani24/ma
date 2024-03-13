@@ -7,5 +7,5 @@
 #include <thread>
 #include <mutex>
 
-int start_thread(const char*command);
+int start_thread(const std::string& command);
 #endif

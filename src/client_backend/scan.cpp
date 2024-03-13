@@ -222,28 +222,23 @@ void scan_folder(const std::string& directory) {
 
 
 //for singlethreaded scans
-void action_scanfile(const char* filepath) {
+void action_scanfile(const std::string& filepath_) {
     thread_init();
+    const std::string filepath(filepath_);
     char* db_path = new char[300];
-
-    //log(LOGLEVEL::INFO, "[action_scanfile_t()]: Scanning file: ", filepath);
-    if (strlen(filepath) == 0 or strcmp("", filepath) == 0 or file_exists(filepath) == false) {
-        thread_shutdown();
-        delete[] db_path;
-        return; //no filepath given or file not accessible
-    }
+    char* hash = new char[300];
+    std::string hash_(md5_file_t(filepath));
+    if (strlen(hash_.c_str()) < 290)
+        strcpy_s(hash, 295, hash_.c_str());
     else {
-        char* hash = new char[300];
-        hash[0] = '\0';
-        strcpy_s(hash, 295, md5_file_t(filepath).c_str());
-        sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-        search_hash(db_path, hash, filepath);
-        delete[] hash;
+        strcpy_s(hash, 295, "");
+        log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not calculate hash for file: ", filepath);
     }
-    delete[] db_path;
+    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+    search_hash(db_path, hash, filepath);
     thread_shutdown();
 }
-void action_scanfolder(const char* folderpath) {
+void action_scanfolder(const std::string& folderpath) {
     thread_init();
     cnt = 0;
     thread_local std::string folderpath_(folderpath);

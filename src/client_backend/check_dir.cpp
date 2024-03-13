@@ -7,9 +7,11 @@
 #include "scan.h"
 #include "app_ctrl.h"
 #include "virus_ctrl.h"
-#include "scan.h"
 #include "settings.h"
 #include <mutex> // Include the mutex header
+#include <algorithm> // Include the algorithm header
+#include <string> // Include the string header
+#include <iostream> // Include the iostream header
 
 // Define a mutex for thread synchronization
 std::mutex monitorMutex;
@@ -117,7 +119,7 @@ void monitor_directory(LPCSTR directory) {
                     buffer,
                     bufferSize,
                     TRUE,
-                    FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE |FILE_NOTIFY_CHANGE_CREATION|FILE_NOTIFY_CHANGE_SIZE,
+                    FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE | FILE_NOTIFY_CHANGE_CREATION,
                     NULL,
                     &overlapped,
                     NULL) == 0) {

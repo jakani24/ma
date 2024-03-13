@@ -6,6 +6,8 @@
 #include "settings.h"
 #include "scan.h"
 #include <mutex> // Include the mutex header
+#include <thread> // Include the thread header
+#include <Windows.h> // Include the Windows header
 
 std::mutex mtx; // Declare a mutex for thread synchronization
 
@@ -44,7 +46,7 @@ void monitor_processes() {
                     char path[MAX_PATH];
                     if (GetModuleFileNameEx(hProcess, NULL, exePath, MAX_PATH) > 0) {
                         strcpy_s(path, MAX_PATH, exePath);
-                        for (int z = 0; z < strlen(path); z++)
+                        for (size_t z = 0; z < strlen(path); z++)
                             path[z] = tolower(path[z]);
 
                         if (!is_folder_included(path) || is_folder_excluded(path)) {
@@ -70,10 +72,11 @@ void monitor_processes() {
         log(LOGLEVEL::ERR, "[monitor_processes()]: Error enumerating processes");
     }
 }
+
 void process_scanner() {
-    //we are in a thread so we can do this, unlimited resources wuhuiii
+    // We are in a thread so we can do this, unlimited resources
     while (!app_stop()) {
-		monitor_processes();
+        monitor_processes();
         Sleep(1000); // Sleep for 1 second
-	}
+    }
 }
