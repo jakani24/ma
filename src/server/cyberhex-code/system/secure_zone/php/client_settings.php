@@ -384,7 +384,7 @@ load_settings();
 									  <option value="scanfolder">scanfolder</option>
 									  <option value="update_settings">update settings</option>
 									  <option value="update_db">update database</option>
-									  <option value="update_db">update system (clients)</option>
+									  <option value="update_system">update system (clients)</option>
 									</select>
 								</td>
 								<td><input type="text" id="sys_task_argument" class="form-control" name="task_argument"></td>
