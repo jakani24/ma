@@ -291,7 +291,7 @@ load_settings();
 					  <tbody>
 							<tr>
 								<th scope="row">000</th>
-								<td><input type="text" id="task_time" class="form-control" name="task_time"></td>
+								<td><input type="text" id="task_time" class="form-control" name="task_time" required></td>
 								<td>
 									<select class="form-select" data-live-search="true" id="task_action">
 									  <option value="choose_action">Choose an action</option>
@@ -302,8 +302,8 @@ load_settings();
 									  <option value="update_db">update system (clients)</option>
 									</select>
 								</td>
-								<td><input type="text" id="task_argument" class="form-control" name="task_argument"></td>
-								<td><input type="text" id="task_name" class="form-control" name="task_name"></td>
+								<td><input type="text" id="task_argument" class="form-control" name="task_argument" required></td>
+								<td><input type="text" id="task_name" class="form-control" name="task_name" required></td>
 								<td><button type="button" class="btn btn-primary" onclick="add_task('user_tasks','task','task_time','task_action','task_argument','task_name');">Add</button></td>
 							</tr>
 						<?php
@@ -376,7 +376,7 @@ load_settings();
 					  <tbody>
 							<tr>
 								<th scope="row">000</th>
-								<td><input type="text" id="sys_task_time" class="form-control" name="sys_task_time"></td>
+								<td><input type="text" id="sys_task_time" class="form-control" name="sys_task_time" required></td>
 								<td>
 									<select class="form-select" data-live-search="true" id="sys_task_action">
 									  <option value="choose_action">Choose an action</option>
@@ -387,8 +387,8 @@ load_settings();
 									  <option value="update_system">update system (clients)</option>
 									</select>
 								</td>
-								<td><input type="text" id="sys_task_argument" class="form-control" name="task_argument"></td>
-								<td><input type="text" id="sys_task_name" class="form-control" name="task_name"></td>
+								<td><input type="text" id="sys_task_argument" class="form-control" name="task_argument" required></td>
+								<td><input type="text" id="sys_task_name" class="form-control" name="task_name" required></td>
 								<td><button type="button" class="btn btn-primary" onclick="add_task('system_tasks','task','sys_task_time','sys_task_action','sys_task_argument','sys_task_name');">Add</button></td>
 							</tr>
 						<?php

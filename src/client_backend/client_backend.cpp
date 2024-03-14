@@ -47,9 +47,6 @@ int main() {
         log(LOGLEVEL::PANIC_NOSEND, "[main()]:Panic, no settings file loaded, terminating process!");
         exit(1);
 	}
-    //Sleep(3000);
-    //log(LOGLEVEL::INFO_NOSEND, "[main()]:Settings loaded successfully.");
-    //update_system();
 
     // Initialize hash databases
     err = initialize(DB_DIR);

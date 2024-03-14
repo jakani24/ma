@@ -153,6 +153,7 @@
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="thread_ctrl.cpp" />
     <ClCompile Include="update.cpp" />
+    <ClCompile Include="utils.cpp" />
     <ClCompile Include="virus_ctrl.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="settings.h" />
     <ClInclude Include="thread_ctrl.h" />
     <ClInclude Include="update.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="virus_ctrl.h" />
     <ClInclude Include="well_known.h" />
   </ItemGroup>

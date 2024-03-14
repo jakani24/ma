@@ -7,16 +7,7 @@
 #include "scan.h"
 #include "app_ctrl.h"
 #include "update.h"
-
-void split(const std::string& input, char delimiter, std::string& out1, std::string& out2) {
-    // Split a string at the delimiter. The delimiter only occurs once. 
-    // The first part is stored in out1 and the second part in out2.
-    size_t pos = input.find(delimiter);
-    if (pos != std::string::npos) {
-        out1 = input.substr(0, pos);
-        out2 = input.substr(pos + 1);
-    }
-}
+#include "utils.h"
 
 int start_thread(const std::string& command) {
     if (can_run_thread()) {

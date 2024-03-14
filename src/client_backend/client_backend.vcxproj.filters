@@ -69,6 +69,9 @@
     <ClCompile Include="check_process.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="md5hash.h">
@@ -120,6 +123,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="check_process.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
