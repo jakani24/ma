@@ -13,7 +13,7 @@ $perms = $_SESSION["perms"];
 if(isset($_GET["page"])){
 	$page=$_GET["page"];
 }else{
-	$page="welcome.php";
+	$page="welcome.php"; //this is actually the Dashboard
 }
 
 ?>
@@ -67,7 +67,10 @@ if(isset($_GET["page"])){
 				echo('<li><a href="index.php?page=user_list.php">User List</a></li>');
 		   ?>
 		  </ul>
-		  <p>Log</p>
+		  <?php
+				if($perms[2]=="1")
+					echo("<p>Log</p>");
+		  ?>
 		  <ul>
 			<?php
 		    if($perms[2]=="1")
@@ -76,7 +79,10 @@ if(isset($_GET["page"])){
 				echo('<li><a href="index.php?page=export_log.php">Export Log</a></li>');
 			?>
 		  </ul>
-		  <p>Cyberhex settings</p>
+		  <?php
+				if($perms[4]=="1" or $perms[5]=="1" or $perms[6]=="1")
+					echo("<p>Cyberhex settings</p>");
+		  ?>
 		  <ul>
 			<?php
 			if($perms[4]=="1")
@@ -87,7 +93,10 @@ if(isset($_GET["page"])){
 				echo('<li><a href="index.php?page=database_settings.php?show=update">Database Settings</a></li>');
 			?>
 		  </ul>
-		  <p>Clients</p>
+		  <?php
+				if($perms[7]=="1" or $perms[8]=="1")
+					echo("<p>Clients</p>");
+		   ?>
 		  <ul>
 		  <!-- <li><a href="index.php?page=mass_add_clients.php">Mass Add CLients</a></li> -->
 		  <?php

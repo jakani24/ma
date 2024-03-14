@@ -1,0 +1,8 @@
+#pragma once
+#define ID_HOME_BUTTON 0
+#define ID_STARTUP_BUTTON 1 
+#define ID_SCAN_FILE_BUTTON 2
+#define ID_SCAN_FOLDER_BUTTON 3
+#define ID_SETTINGS_BUTTON 4
+
+#define ID_WELCOME_TEXT 1000

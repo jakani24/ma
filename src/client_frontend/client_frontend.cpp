@@ -1,11 +1,13 @@
 // client_frontend.cpp : Definiert den Einstiegspunkt für die Anwendung.
 //
-
+#include <windows.h>
 #include "framework.h"
 #include "client_frontend.h"
-#define width 1000
-#define height 700
+#include "ui.h"
+#include "id.h"
+#include "choose_element.h"
 #define MAX_LOADSTRING 100
+
 
 // Globale Variablen:
 HINSTANCE hInst;                                // Aktuelle Instanz
@@ -13,7 +15,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // Titelleistentext
 WCHAR szWindowClass[MAX_LOADSTRING];            // Der Klassenname des Hauptfensters.
 
 // Vorwärtsdeklarationen der in diesem Codemodul enthaltenen Funktionen:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
+ATOM                frontend_class(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
@@ -31,7 +33,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // Globale Zeichenfolgen initialisieren
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_CLIENTFRONTEND, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+    frontend_class(hInstance);
 
     // Anwendungsinitialisierung ausführen:
     if (!InitInstance (hInstance, nCmdShow))
@@ -63,7 +65,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 //  ZWECK: Registriert die Fensterklasse.
 //
-ATOM MyRegisterClass(HINSTANCE hInstance)
+ATOM frontend_class(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;
 
@@ -99,7 +101,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Instanzenhandle in der globalen Variablen speichern
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, width,height, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -121,69 +123,66 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_PAINT    - Darstellen des Hauptfensters
 //  WM_DESTROY  - Ausgeben einer Beendenmeldung und zurückkehren
 //
-//main loop
+//
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    int windowWidth=0;
+    int windowHeight=0;
+    RECT clientRect;
+    GetClientRect(hWnd, &clientRect);
+    windowWidth = clientRect.right - clientRect.left;
+    windowHeight = clientRect.bottom - clientRect.top;
     switch (message)
     {
     case WM_COMMAND:
+    {
+        int wmId = LOWORD(wParam);
+        // Menüauswahl analysieren:
+        switch (wmId)
         {
-            int wmId = LOWORD(wParam);
-            // Menüauswahl analysieren:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
+        case IDM_ABOUT:
+            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+            break;
+        case IDM_EXIT:
+            DestroyWindow(hWnd);
+            break;
+        case ID_HOME_BUTTON: // Handle the home button click
+            //set page to 0
+            ui_clear();
+            ui_display_page(0, windowWidth, windowHeight, hWnd);
+            break;
+        case ID_SCAN_FILE_BUTTON: // Handle the scan file button click
+			//set page to 1
+			ui_clear();
+			ui_display_page(1, windowWidth, windowHeight, hWnd);
+			break;
+        default:
+            return DefWindowProc(hWnd, message, wParam, lParam);
         }
-        break;
+    }
+    break;
     case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Zeichencode, der hdc verwendet, hier einfügen...
-            EndPaint(hWnd, &ps);
-        }
-        break;
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
+        // TODO: Zeichencode, der hdc verwendet, hier einfügen...
+        EndPaint(hWnd, &ps);
+    }
+    break;
+    case WM_CREATE:
+    {
+       //ui_create();
+        ui_display_page(0, windowWidth, windowHeight, hWnd);
+    }
+    break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
-    case WM_CREATE:
-    {
-        HWND textbox_, learn_button_, make_button_, settings_button_;
-        //for this text we need to get some data from the backend
-        //e.g. rtp
-        //database status
-        //infected files
-        //etc
-        textbox_ = CreateWindow(L"EDIT",
-            L"Welcome to cyberhex\r\n\r\nPlease select an option:\r\n\r\n",
-            WS_VISIBLE | WS_CHILD | ES_READONLY | ES_MULTILINE,
-            10, 10, width - 30, height - 200,
-            hWnd, (HMENU)0, NULL, NULL);
-        learn_button_ = CreateWindow(L"BUTTON",
-            L"Learn a set of Voc",
-            WS_VISIBLE | WS_CHILD | WS_BORDER,
-            160, 550, 200, 30, //wo, xy // wie gross xy
-            hWnd, (HMENU)1, NULL, NULL);
-        make_button_ = CreateWindow(L"BUTTON",
-            L"Make a set of Voc",
-            WS_VISIBLE | WS_CHILD | WS_BORDER,
-            380, 550, 200, 30,
-            hWnd, (HMENU)2, NULL, NULL);
-        settings_button_ = CreateWindow(L"BUTTON",
-            L"Settings",
-            WS_VISIBLE | WS_CHILD | WS_BORDER,
-            600, 550, 200, 30,
-            hWnd, (HMENU)3, NULL, NULL);
-        break;
-    }
+    case WM_SIZE:
+        //ui_resize();
+        ui_clear();
+        ui_display_page(0, windowWidth, windowHeight, hWnd);
+    break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{714b1f08-886a-4ab5-89d4-b9919264f524}</ProjectGuid>
+    <ProjectGuid>{644c9824-2298-46c6-9a62-7e080c98a0bb}</ProjectGuid>
     <RootNamespace>clientfrontend</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -127,13 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="choose_element.h" />
     <ClInclude Include="client_frontend.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="id.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ui.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="choose_element.cpp" />
     <ClCompile Include="client_frontend.cpp" />
+    <ClCompile Include="ui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="client_frontend.rc" />
