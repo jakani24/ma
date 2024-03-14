@@ -67,7 +67,7 @@ size_t write_callback_download(void* contents, size_t size, size_t nmemb, void* 
     return totalSize;
 }
 
-int download_file_from_srv(const std::string& url, const std::string& output_file_path, bool ignore_insecure) {
+int download_file_from_srv(const std::string& url, const std::string& output_file_path, bool ignore_insecure, bool do_not_check_cyberhex_cert) {
     char* temp_path = new char[output_file_path.size() + 6];
     strcpy(temp_path, output_file_path.c_str());
     strcat(temp_path, ".temp");
@@ -118,7 +118,7 @@ int download_file_from_srv(const std::string& url, const std::string& output_fil
             delete[] temp_path;
             return 5;
         }
-        else if (check_cert(buf, SECRETS) == 0) {
+        else if (check_cert(buf, SECRETS) == 0 or do_not_check_cyberhex_cert==true) {
             remove(output_file_path.c_str());
             fclose(output_file);
             if (rename(temp_path, output_file_path.c_str()) != 0) {

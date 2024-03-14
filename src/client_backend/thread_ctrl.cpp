@@ -48,6 +48,12 @@ int start_thread(const std::string& command) {
             std::thread t1(action_update_db);
             t1.detach();
         }
+        else if (out1 == "update_system") {
+            // Start a new thread with the update_db function
+            log(LOGLEVEL::INFO, "[start_thread()]: starting update_system with arguments: ", out2);
+            std::thread t1(update_system);
+            t1.detach();
+        }
 
         while (can_run_thread()) {
             // Delay a bit to wait until the thread is started

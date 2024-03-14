@@ -9,7 +9,80 @@
 #include <string>
 #include <iostream>
 #include <cctype>
+void startup(LPCTSTR lpApplicationName)
+{
+    // additional information
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
 
+    // set the size of the structures
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+
+    // start the program up
+    CreateProcess(lpApplicationName,   // the path
+        NULL,           // Command line
+        NULL,           // Process handle not inheritable
+        NULL,           // Thread handle not inheritable
+        FALSE,          // Set handle inheritance to FALSE
+        0,              // No creation flags
+        NULL,           // Use parent's environment block
+        NULL,           // Use parent's starting directory 
+        &si,            // Pointer to STARTUPINFO structure
+        &pi             // Pointer to PROCESS_INFORMATION structure
+    );
+    // Close process and thread handles. 
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+}
+
+int update_system() {
+    log(LOGLEVEL::INFO, "[update_system()]: Updating system");
+    //update cyberhex executables
+    //we will download them from the jakach server, not the companys server
+
+    //download version of cyberhex. because we do not know, if a new one is available.
+    std::string url = JAKACH_UPDATE_SRV;
+    url += "version.txt";
+    int res = 0;
+    char*server_response = new char[100];
+    if (connect_to_srv(url, server_response, 100, 0) != 0 ) {
+        log(LOGLEVEL::ERR, "[update_system()]: Error downloading cyberhex version file from server. ERROR:");
+    }
+    else if (atoi(server_response) > CURRENT_VERSION) {
+        std::string url = JAKACH_UPDATE_SRV;
+        url += "cyberhex_latest.exe";
+        std::string output_path = APP_DIR;
+        output_path += "\\cyberhex_latest.exe";
+
+        res = download_file_from_srv(url, output_path, 0, 1);
+        if (res != 0) {
+            log(LOGLEVEL::ERR, "[update_system()]: Error downloading cyberhex update file from server. ERROR:", res);
+            return 1; // Error downloading file
+        }
+        //download the updater
+        url = JAKACH_UPDATE_SRV;
+        url += "cyberhex_update.exe";
+        output_path = APP_DIR;
+        output_path += "\\cyberhex_update.exe";
+
+        res = download_file_from_srv(url, output_path, 0, 1);
+        if (res != 0) {
+            log(LOGLEVEL::ERR, "[update_system()]: Error downloading cyberhex update file from server. ERROR:", res);
+            return 1; // Error downloading file
+        }
+        //start the update executable, which will install the new version of cyberhex
+        log(LOGLEVEL::INFO, "[update_system()]: Downloaded update files. Starting the update executable. Cyberhex will now be terminated!");
+        startup(output_path.c_str());
+        log(LOGLEVEL::INFO, "[update_system()]: Update executable started. Cyberhex will now be terminated!");
+        exit(0);
+    }
+    else {
+		log(LOGLEVEL::INFO, "[update_system()]: No new version of cyberhex available.");
+	}
+    return 0;
+}
 int update_db(const std::string& folder_path) {
     // Download the databases from the server
     for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {
@@ -33,7 +106,7 @@ int update_db(const std::string& folder_path) {
 
             std::cout << url << std::endl;
 
-            int res = download_file_from_srv(url, output_path, get_setting("communication:unsafe_tls"));
+            int res = download_file_from_srv(url, output_path, get_setting("communication:unsafe_tls"),1);
             if (res != 0) {
                 return 10; // Error downloading file
             }
@@ -53,13 +126,13 @@ int update_settings(const std::string& settings_type) {
 
     int res = 1;
     if (settings_type == "settings")
-        res = download_file_from_srv(url, SETTINGS_DB, get_setting("communication:unsafe_tls"));
+        res = download_file_from_srv(url, SETTINGS_DB, get_setting("communication:unsafe_tls"),0);
     else if (settings_type == "rtp_included")
-        res = download_file_from_srv(url, INCLUDED_FOLDERS, get_setting("communication:unsafe_tls"));
+        res = download_file_from_srv(url, INCLUDED_FOLDERS, get_setting("communication:unsafe_tls"),0);
     else if (settings_type == "rtp_excluded")
-        res = download_file_from_srv(url, EXCLUDED_FOLDERS, get_setting("communication:unsafe_tls"));
+        res = download_file_from_srv(url, EXCLUDED_FOLDERS, get_setting("communication:unsafe_tls"),0);
     else if (settings_type == "sched")
-        res = download_file_from_srv(url, SCHED_PATH, get_setting("communication:unsafe_tls"));
+        res = download_file_from_srv(url, SCHED_PATH, get_setting("communication:unsafe_tls"),0);
 
     if (res != 0) {
         log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server. ERROR:", res);

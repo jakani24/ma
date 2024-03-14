@@ -343,6 +343,10 @@ load_settings();
 									  echo('<option value="update_db" selected>update database</option>');
 									else
 										echo('<option value="update_db">update database</option>');
+									if($action=="update_system")
+									  echo('<option value="update_system" selected>update system (clients)</option>');
+									else
+										echo('<option value="update_system">update system (clients)</option>');
 									echo('</select>');
 									echo('</td>');
 									

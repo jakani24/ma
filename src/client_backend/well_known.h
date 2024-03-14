@@ -24,6 +24,8 @@
 
 #define FOLDER_DATABASE_DIR "C:\\Program Files\\cyberhex\\secure\\database\\folder"
 
+#define APP_DIR "C:\\Program Files\\cyberhex\\secure\\app"
+
 #define DB_DIR "C:\\Program Files\\cyberhex\\secure\\database"
 
 #define VIRUS_CTRL_DB "C:\\Program Files\\cyberhex\\secure\\database\\virus_ctrl_db.txt"
@@ -39,4 +41,7 @@
 
 #define INCLUDED_FOLDERS "C:\\Program Files\\cyberhex\\secure\\settings\\included_folders.txt"
 #define EXCLUDED_FOLDERS "C:\\Program Files\\cyberhex\\secure\\settings\\excluded_folders.txt"
+
+#define JAKACH_UPDATE_SRV "https://jakach.duckdns.org/cyberhex/latest/"
+#define CURRENT_VERSION 1
 #endif // !WELL_KNOWN_H

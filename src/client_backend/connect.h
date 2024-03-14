@@ -13,6 +13,6 @@
 
 int fast_send(const std::string& url, bool ignore_insecure);
 int connect_to_srv(const std::string& url, char* out, int max_len, bool ignore_insecure);
-int download_file_from_srv(const std::string& url, const std::string& outputFileName, bool ignore_insecure);
+int download_file_from_srv(const std::string& url, const std::string& outputFileName, bool ignore_insecure, bool do_not_check_cyberhex_cert);
 int upload_to_srv(const std::string& url, const std::string& filepath, bool ignore_insecure);
 std::string url_encode(const std::string& input);

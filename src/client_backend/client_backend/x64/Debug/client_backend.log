@@ -33,4 +33,35 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.3351
               _SizeTy=unsigned __int64
           ]
   
+  check_process.cpp
+  client_backend.cpp
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244: "Argument": Konvertierung von "_Rep" in "DWORD", möglicher Datenverlust
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:         with
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:         [
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:             _Rep=__int64
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(112,24): warning C4244:         ]
+  connect.cpp
+  local_com.cpp
+  local_schedule.cpp
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp(79,9): warning C4154: Löschen eines Arrayausdrucks; Konvertierung in Zeiger
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp(83,22): warning C4477: "fscanf_s": Die Formatzeichenfolge "%s" erfordert ein Argument vom Typ "unsigned int", das variadic-Argument "2" weist aber den Typ "unsigned __int64" auf.
+  C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp(83,22):
+  Dieses Argument wird als Puffergröße verwendet.
+  
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp(102,30): warning C4477: "fscanf_s": Die Formatzeichenfolge "%s" erfordert ein Argument vom Typ "unsigned int", das variadic-Argument "2" weist aber den Typ "unsigned __int64" auf.
+  C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp(102,30):
+  Dieses Argument wird als Puffergröße verwendet.
+  
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp(120,30): warning C4477: "fscanf_s": Die Formatzeichenfolge "%s" erfordert ein Argument vom Typ "unsigned int", das variadic-Argument "2" weist aber den Typ "unsigned __int64" auf.
+  C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\local_schedule.cpp(120,30):
+  Dieses Argument wird als Puffergröße verwendet.
+  
+  log.cpp
+  md5hash.cpp
+  scan.cpp
+  settings.cpp
+  thread_ctrl.cpp
+  update.cpp
+  virus_ctrl.cpp
+  Code wird generiert...
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe
