@@ -158,8 +158,6 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
     return 0; // Not found
 }
 
-// Rest of the code remains unchanged...
-
 
 bool file_exists(const std::string& filePath) {
     DWORD fileAttributes = GetFileAttributes(filePath.c_str());
@@ -235,7 +233,15 @@ void action_scanfile(const std::string& filepath_) {
         log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not calculate hash for file: ", filepath);
     }
     sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-    search_hash(db_path, hash, filepath);
+    if (search_hash(db_path, hash, filepath) != 1) {
+        //notify desktop client by writing to answer_com file
+        //if there is now virus, we notify here. if there is a virus we only notify in the virus_ctrl_process function
+        std::ofstream answer_com(ANSWER_COM_PATH,std::ios::app);
+        if (answer_com.is_open()) {
+            answer_com << "not_found " << "\"" << filepath_ << "\"" << " " << hash << " " << "no_action_taken" << "\n";
+            answer_com.close();
+        }
+    }
     thread_shutdown();
 }
 void action_scanfolder(const std::string& folderpath) {
@@ -243,6 +249,11 @@ void action_scanfolder(const std::string& folderpath) {
     cnt = 0;
     thread_local std::string folderpath_(folderpath);
     scan_folder(folderpath_);
+    std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+    if (answer_com.is_open()) {
+        answer_com << "end " << "\"" << "nothing" << "\"" << " " << "nothing" << " " << "nothing" << "\n";
+        answer_com.close();
+    }
     thread_shutdown();
 }
 

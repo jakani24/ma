@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{C434E5CA-752E-4D35-9986-BECF1CC34A98}|client_frontend_guilite.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C434E5CA-752E-4D35-9986-BECF1CC34A98}|client_frontend_guilite.vcxproj|C:\\VCPKG\\VCPKG-2023.08.09\\INSTALLED\\X64-WINDOWS\\INCLUDE\\NANOGUI\\GLUTIL.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\well_known.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,15 +22,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "glutil.h",
-              "DocumentMoniker": "C:\\vcpkg\\vcpkg-2023.08.09\\installed\\x64-windows\\include\\nanogui\\glutil.h",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\..\\vcpkg\\vcpkg-2023.08.09\\installed\\x64-windows\\include\\nanogui\\glutil.h",
-              "ToolTip": "C:\\vcpkg\\vcpkg-2023.08.09\\installed\\x64-windows\\include\\nanogui\\glutil.h",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\..\\vcpkg\\vcpkg-2023.08.09\\installed\\x64-windows\\include\\nanogui\\glutil.h",
-              "ViewState": "AQIAANwAAAAAAAAAAAD4v/gAAAAKAAAA",
+              "Title": "well_known.h",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\well_known.h",
+              "RelativeDocumentMoniker": "..\\client_backend\\well_known.h",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\well_known.h",
+              "RelativeToolTip": "..\\client_backend\\well_known.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-14T20:21:24.734Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-17T16:32:22.34Z"
             },
             {
               "$type": "Document",
@@ -40,7 +39,7 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AQIAAA0AAAAAAAAAAAD4vxUAAAA5AAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAP0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-14T19:45:55.142Z",
               "EditorCaption": ""

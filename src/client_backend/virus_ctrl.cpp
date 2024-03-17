@@ -16,6 +16,7 @@
 #include <windows.h>
 #include <tlhelp32.h>
 #include <cstring>
+#include <fstream>
 
 // Define a mutex for thread synchronization
 std::mutex virusCtrlMutex;
@@ -112,6 +113,13 @@ int virus_ctrl_process(const std::string& id) {
                 else {
                     log(LOGLEVEL::ERR, "[virus_ctrl_process()]: Error while notifying server about virus: ", path, " ", hash);
                 }
+                //notify desktop client
+                std::ofstream answer_com(ANSWER_COM_PATH,std::ios::app);
+                if (answer_com.is_open()) {
+                    answer_com << "found " << "\"" << path << "\"" << " " << hash << " " << action << "\n";
+                    answer_com.close();
+                }
+
             }
         }
         file.close();
