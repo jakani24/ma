@@ -80,7 +80,7 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
         return 1;
     }
     else {
-        fscanf_s(fp, "%s", command, _countof(command));
+        fscanf_s(fp, "%s", command, (unsigned int)_countof(command));
         fgetc(fp);
         while (!feof(fp)) {
             if (!feof(fp)) {
@@ -99,7 +99,7 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
                     }
                 }
 
-                fscanf_s(fp, "%s", command, _countof(command));
+                fscanf_s(fp, "%s", command, (unsigned int)_countof(command));
                 char path[300] = { '\0' };
                 cnt = 0;
                 chr = 0;
@@ -117,7 +117,7 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
                 }
 
                 char taskname[300] = { '\0' };
-                fscanf_s(fp, "%s", taskname, _countof(taskname));
+                fscanf_s(fp, "%s", taskname, (unsigned int)_countof(taskname));
                 fgetc(fp);
 
                 std::time_t t = std::time(nullptr);

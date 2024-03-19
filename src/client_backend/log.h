@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <thread>
 #include "connect.h"
 #include "well_known.h"
 #include "settings.h"
@@ -106,14 +107,11 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             url += get_machineid(SECRETS);
             url += "&apikey=";
             url += get_apikey(SECRETS);
-            res = fast_send(url, get_setting("communication:unsafe_tls"));
-            //log(LOGLEVEL::INFO_NOSEND, "[log()]: sending log to server:", url, " ", res);
-            if (res != 0) {
-                //log(LOGLEVEL::ERR_NOSEND, "[log()]: Error while sending log to server: ", url);
-                log_timeout_set(log_timeout_get() + 1);
-            }
-        }//else
-            //log(LOGLEVEL::ERR_NOSEND, "[log()]: Error while sending log to server: ", url);
+            //send with fastsend in new thread
+            std::thread send_thread(fast_send, url, get_setting("communication:unsafe_tls"));
+            send_thread.detach();
+            Sleep(10);//in order to wait for the thread to copy the params into its own memory
+        }
     }
 
 

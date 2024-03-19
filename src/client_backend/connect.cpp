@@ -7,14 +7,20 @@
 #include "security.h"
 #include <curl/curl.h>
 #include <string>
+#include <mutex>
+std::mutex connect_mutex;
 
+//this function is thread safe
 int fast_send(const std::string& url, bool ignore_insecure) {
-    CURL* curl;
-    CURLcode res;
+    std::lock_guard<std::mutex> lock(connect_mutex);
+    thread_local const std::string url_ = url;
+    thread_local const bool ignore_insecure_ = ignore_insecure;
+    thread_local CURL* curl;
+    thread_local CURLcode res;
     curl = curl_easy_init();
     if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        if (ignore_insecure)
+        curl_easy_setopt(curl, CURLOPT_URL, url_.c_str());
+        if (ignore_insecure_)
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1L);
         res = curl_easy_perform(curl);
@@ -33,7 +39,7 @@ static size_t write_callback_connect(void* contents, size_t size, size_t nmemb, 
     ((std::string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
 }
-
+//make this multi thread safe
 int connect_to_srv(const std::string& url, char* out, int max_len, bool ignore_insecure) {
     CURL* curl;
     CURLcode res;
@@ -185,5 +191,70 @@ int upload_to_srv(const std::string& url, const std::string& filepath, bool igno
     }
     return 2;
 }
-
+int send_to_pipe(const std::string& message) {
+    HANDLE hPipe;
+    DWORD dwRead;
+    DWORD dwWritten;
+    std::ofstream(MAIN_COM_PATH); // Create the pipe
+    hPipe = CreateFile(TEXT(MAIN_COM_PATH),
+        GENERIC_READ | GENERIC_WRITE,
+        0,
+        NULL,
+        OPEN_EXISTING,
+        0,
+        NULL);
+    if (hPipe != INVALID_HANDLE_VALUE)
+    {
+        WriteFile(hPipe,
+            message.c_str(),
+            strlen(message.c_str()) + 1,   // = length of string + terminating '\0' !!!
+            &dwWritten,
+            NULL);
+        CloseHandle(hPipe);
+        return 0;
+    }
+    else {
+		return 1;
+	}
+}
+std::string read_from_pipe() {
+    HANDLE hPipe;
+    DWORD dwRead;
+    char buffer[1000];
+    hPipe = CreateFile(TEXT(MAIN_COM_PATH),
+        GENERIC_READ,
+        0,
+        NULL,
+        OPEN_EXISTING,
+        0,
+        NULL);
+    if (hPipe != INVALID_HANDLE_VALUE)
+    {
+        if (ReadFile(hPipe, buffer, sizeof(buffer), &dwRead, NULL))
+        {
+            CloseHandle(hPipe);
+            buffer[dwRead] = '\0'; // Ensure null-termination after reading
+            std::ofstream(MAIN_COM_PATH); // delete the pipe
+            return std::string(buffer);
+        }
+        else
+        {
+            // ReadFile failed, print error
+            DWORD dwError = GetLastError();
+            // Handle dwError appropriately (e.g., log, display error message)
+            CloseHandle(hPipe);
+            std::ofstream(MAIN_COM_PATH); // delete the pipe
+            return "Error_reading_from_pipe";
+        }
+    }
+    else
+    {
+        // CreateFile failed, print error
+        DWORD dwError = GetLastError();
+        // Handle dwError appropriately (e.g., log, display error message)
+        std::ofstream(MAIN_COM_PATH); // delete the pipe
+        return "Error_creating_pipe";
+    }
+    std::ofstream(MAIN_COM_PATH); // delete the pipe
+}
 #endif

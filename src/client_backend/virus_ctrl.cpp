@@ -103,12 +103,10 @@ int virus_ctrl_process(const std::string& id) {
                     url += "&action=" + action;
                     url += "&machine_id=" + get_machineid(SECRETS);
                     url += "&apikey=" + get_apikey(SECRETS);
-                    char server_response[100];
-                    int res;
-                    if ((res = connect_to_srv(url, server_response, 100, get_setting("communication:unsafe_tls"))) != 0 || strcmp("wrt_ok", server_response) != 0) {
-                        log(LOGLEVEL::ERR, "[virus_ctrl_process()]: Error while notifying server about virus: ", path, " ", hash);
-                        //log(LOGLEVEL::ERR_NOSEND, "[virus_ctrl_process()]: Error while notifying server about virus: ", path, " ", hash, " response: ", server_response, " url: ", url, " res: ", res);
-                    }
+                    //send notification using fastsend
+                    std::thread send(fast_send, url, get_setting("communication:unsafe_tls"));
+                    send.detach();
+                    Sleep(10);//in order to wait for the thread to copy the params into its own memory
                 }
                 else {
                     log(LOGLEVEL::ERR, "[virus_ctrl_process()]: Error while notifying server about virus: ", path, " ", hash);

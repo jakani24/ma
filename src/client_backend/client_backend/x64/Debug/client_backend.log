@@ -1,2 +1,5 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
+  connect.cpp
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\connect.cpp(210,37): warning C4267: "Argument": Konvertierung von "size_t" nach "DWORD", Datenverlust möglich
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\connect.cpp(196,11): warning C4101: "dwRead": Unreferenzierte lokale Variable
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe

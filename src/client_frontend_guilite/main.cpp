@@ -8,9 +8,11 @@
 #include <locale>
 #include <codecvt>
 #include <fstream>
+
 #include "../client_backend/well_known.h"
+#include "connect.h"
 // Function to simulate file scanning
-void scan_file(nanogui::Screen*screen ,nanogui::Widget* contentWidget, const std::string& filePath) {
+void scan_file(nanogui::Screen* screen, nanogui::Widget* contentWidget, const std::string& filePath) {
     // Remove the answer file
     std::remove(ANSWER_COM_PATH);
     // Display the scanned file path in the window
@@ -18,16 +20,7 @@ void scan_file(nanogui::Screen*screen ,nanogui::Widget* contentWidget, const std
     screen->performLayout();
     bool answered = false;
     // Write command into com file
-    std::ofstream outputFile(MAIN_COM_PATH);
-    if (outputFile.is_open()) {
-        outputFile << "scanfile \"" << filePath << "\"";
-        outputFile.close();
-    }
-    else {
-        nanogui::Label* lineLabel2 = new nanogui::Label(contentWidget, "Error: Unable to talk to daemon!\n");
-        screen->performLayout();
-        return;
-    }
+    printf("%d\n",send_to_pipe("scanfile \"" + filePath + "\""));
     while (!answered) {
         // Wait for answer in file
         std::ifstream inputFile(ANSWER_COM_PATH);
@@ -81,7 +74,7 @@ void scan_file(nanogui::Screen*screen ,nanogui::Widget* contentWidget, const std
 }
 
 // Function to simulate folder scanning
-void scan_folder(nanogui::Screen*screen,nanogui::Widget* contentWidget, const std::string& filePath) {
+void scan_folder(nanogui::Screen* screen, nanogui::Widget* contentWidget, const std::string& filePath) {
     // Remove the answer file
     std::remove(ANSWER_COM_PATH);
     // Display the scanned folder path in the window
@@ -223,7 +216,7 @@ int main() {
         );
         if (!selectedFile.empty()) {
             // Call scan_file function in a separate thread
-            std::thread(scan_file,&screen, contentWidget, selectedFile).detach();
+            std::thread(scan_file, &screen, contentWidget, selectedFile).detach();
         }
         });
 
@@ -235,7 +228,7 @@ int main() {
         std::string selectedFolder = getFolderPath();
         if (!selectedFolder.empty()) {
             // Call scan_folder function in a separate thread
-            std::thread(scan_folder, &screen,contentWidget, selectedFolder).detach();
+            std::thread(scan_folder, &screen, contentWidget, selectedFolder).detach();
         }
         });
 
@@ -255,7 +248,7 @@ int main() {
     // Scroll panel will automatically take the size of its content
     //scrollPanel->setFixedHeight(300);
 
-    screen.setVisible(true);
+    //screen.setVisible(true);
 
 
     screen.setLayout(layout);

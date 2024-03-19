@@ -19,7 +19,7 @@
 #include "virus_ctrl.h"
 #include "update.h"
 #include "check_process.h"
-int main() {
+int main(int argc, char*argv[]) {
     //log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
     //return 0;
 
@@ -28,19 +28,21 @@ int main() {
 	printf("welcome to the jakach security tool main thread\n");
     //exit(0);
     if (load_settings() == 0) {//load the settings from the settings file
-        if (update_settings("settings")!=0) { //update the settings from the server
-            log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (settings) from server.");
+        if (argc != 2) {
+            if (update_settings("settings") != 0) { //update the settings from the server
+                log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (settings) from server.");
+            }
+            if (update_settings("rtp_included") != 0) { //update the settings from the server
+                log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (rtp_included) from server.");
+            }
+            if (update_settings("rtp_excluded") != 0) { //update the settings from the server
+                log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (rtp_excluded) from server.");
+            }
+            if (update_settings("sched") != 0) { //update the settings from the server
+                log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (scheduled_tasks) from server.");
+            }
+            load_settings(); //load the updated settings from the settings file
         }
-        if (update_settings("rtp_included")!=0) { //update the settings from the server
-            log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (rtp_included) from server.");
-        }
-        if (update_settings("rtp_excluded")!=0) { //update the settings from the server
-            log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (rtp_excluded) from server.");
-        }
-        if (update_settings("sched")!=0) { //update the settings from the server
-            log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (scheduled_tasks) from server.");
-        }
-        load_settings(); //load the updated settings from the settings file
     }
     else {
 		log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not load settings from file.");
