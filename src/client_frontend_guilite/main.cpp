@@ -131,14 +131,10 @@ void scan_folder(nanogui::Screen* screen, nanogui::Widget* contentWidget, const 
                     if (status == "end")
                         answered = true;
                 }
-                else {
-                    //answered = true;
-                    nanogui::Label* lineLabel10 = new nanogui::Label(contentWidget, "Error: Unable to talk to daemon!\n");
-                    nanogui::Label* lineLabel11 = new nanogui::Label(contentWidget, "------------------------------------------");
-                    screen->performLayout();
-                }
             }
             inputFile.close();
+            Sleep(50);
+            std::ofstream (ANSWER_COM_PATH);//clear the file
         }
         // Wait for 1 second before checking again
         std::this_thread::sleep_for(std::chrono::seconds(1));

@@ -46,16 +46,19 @@ int check_for_com_tasks(const std::string& com_name, const std::string& com_path
     std::string command="";
     std::string path="";
     line=read_from_pipe();
-    std::stringstream ss(line);
-    if (ss >> command) {
-        size_t start = line.find("\"") + 1; // Start after the opening quote
-        size_t end = line.find_last_of("\""); // Find the last quote
-        if (start != std::string::npos && end != std::string::npos) {
-            path = line.substr(start, end - start);
+    if (line != "") {
+        std::stringstream ss(line);
+        if (ss >> command) {
+            size_t start = line.find("\"") + 1; // Start after the opening quote
+            size_t end = line.find_last_of("\""); // Find the last quote
+            if (start != std::string::npos && end != std::string::npos) {
+                path = line.substr(start, end - start);
+            }
         }
+        std::string queue_entry = command + ";" + path;
+        queue_push(queue_entry.c_str());
+        return 1;
     }
-    std::string queue_entry = command + ";" + path;
-    queue_push(queue_entry.c_str());
     return 0;
 }
 #endif // !LOCAL_COM_CPP

@@ -1,4 +1,1 @@
-﻿  connect.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_frontend_guilite\connect.cpp(44,11): warning C4101: "dwWritten": Unreferenzierte lokale Variable
-LINK : warning LNK4044: Nicht erkannte Option /lOpenGL; wird ignoriert.
-  client_frontend_guilite.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_frontend_guilite\x64\Debug\client_frontend_guilite.exe
+﻿  client_frontend_guilite.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_frontend_guilite\x64\Debug\client_frontend_guilite.exe

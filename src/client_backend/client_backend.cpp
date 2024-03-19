@@ -86,16 +86,17 @@ int main(int argc, char*argv[]) {
         auto start = std::chrono::high_resolution_clock::now();
 
         // Check for tasks from user interface
+        //printf("checking for tasks from user interface\n");
         if (check_for_com_tasks(MAIN_COM, MAIN_COM_PATH) != 0) {
             // Log message commented out as this error is expected when the file doesn't exist
            // log(LOGLEVEL::ERR, "[main()]:Error opening communication file in: ", MAIN_COM_PATH);
         }
-
+        //printf("checking for tasks from sched interface\n");
         // Check for scheduled tasks
         if (check_for_sched_tasks(SCHED, SCHED_PATH) != 0) {
             log(LOGLEVEL::ERR, "[main()]:Error opening schedule file in: ", SCHED_PATH);
         }
-
+        //printf("checking for tasks from run interface\n");
         // Execute tasks from the queue
         if (can_run_thread()) {
             int queue_size = get_queue_size();
@@ -103,7 +104,6 @@ int main(int argc, char*argv[]) {
                 start_thread(queue_pop());
             }
         }
-
         // Sleep to ensure loop takes at least 1 second
         auto stop = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
