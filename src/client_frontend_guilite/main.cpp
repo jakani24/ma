@@ -20,7 +20,17 @@ void scan_file(nanogui::Screen* screen, nanogui::Widget* contentWidget, const st
     screen->performLayout();
     bool answered = false;
     // Write command into com file
-    printf("%d\n",send_to_pipe("scanfile \"" + filePath + "\""));
+    //printf("%d\n",send_to_pipe("scanfile \"" + filePath + "\""));
+    std::ofstream outputFile(MAIN_COM_PATH);
+    if (outputFile.is_open()) {
+        outputFile << "scanfile \"" << filePath << "\"";
+        outputFile.close();
+    }
+    else {
+        nanogui::Label* lineLabel2 = new nanogui::Label(contentWidget, "Error: Unable to talk to daemon!\n");
+        screen->performLayout();
+        return;
+    }
     while (!answered) {
         // Wait for answer in file
         std::ifstream inputFile(ANSWER_COM_PATH);
@@ -133,7 +143,7 @@ void scan_folder(nanogui::Screen* screen, nanogui::Widget* contentWidget, const 
                 }
             }
             inputFile.close();
-            Sleep(50);
+            Sleep(1000);//only see for new entrys ~ once a second
             std::ofstream (ANSWER_COM_PATH);//clear the file
         }
         // Wait for 1 second before checking again

@@ -10,7 +10,7 @@
 
 
 int check_for_com_tasks(const std::string& com_name, const std::string& com_path) {
-    /*std::ifstream file(com_path);
+    std::ifstream file(com_path);
     if (!file.is_open()) {
         return 1; // Error opening file
     }
@@ -41,7 +41,7 @@ int check_for_com_tasks(const std::string& com_name, const std::string& com_path
 
     file.close();
     std::remove(com_path.c_str());
-    */
+    /*
     std::string line;
     std::string command="";
     std::string path="";
@@ -58,7 +58,7 @@ int check_for_com_tasks(const std::string& com_name, const std::string& com_path
         std::string queue_entry = command + ";" + path;
         queue_push(queue_entry.c_str());
         return 1;
-    }
+    }*/
     return 0;
 }
 #endif // !LOCAL_COM_CPP

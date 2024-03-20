@@ -130,7 +130,7 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
 
     auto fileIter = fileHandles.find(dbname);
     if (fileIter == fileHandles.end() && dbname_.find("c:.jdbf") == std::string::npos) {
-        log(LOGLEVEL::ERR, "[search_hash()]: File mapping not initialized for ", dbname);
+        log(LOGLEVEL::ERR_NOSEND, "[search_hash()]: File mapping not initialized for ", dbname);
         return 2;
     }
     else if (fileIter == fileHandles.end()) {

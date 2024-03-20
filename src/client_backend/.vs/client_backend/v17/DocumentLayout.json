@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\virus_ctrl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:virus_ctrl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\scan.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:scan.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_process.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:check_process.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\client_backend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:client_backend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\thread_ctrl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:thread_ctrl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\client_backend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:client_backend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\virus_ctrl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:virus_ctrl.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\local_com.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -67,10 +71,6 @@
       "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:update.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_process.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:check_process.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\settings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:settings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -102,11 +102,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 12,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "connect.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\connect.h",
               "RelativeDocumentMoniker": "connect.h",
@@ -114,7 +114,8 @@
               "RelativeToolTip": "connect.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:44:13.879Z"
+              "WhenOpened": "2024-03-13T06:44:13.879Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -126,7 +127,8 @@
               "RelativeToolTip": "queue_ctrl.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:43:48.22Z"
+              "WhenOpened": "2024-03-13T06:43:48.22Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -138,11 +140,12 @@
               "RelativeToolTip": "queue _ctrl.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.295Z"
+              "WhenOpened": "2024-01-28T20:40:06.295Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "update.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\update.h",
               "RelativeDocumentMoniker": "update.h",
@@ -150,7 +153,8 @@
               "RelativeToolTip": "update.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:42:28.196Z"
+              "WhenOpened": "2024-03-13T06:42:28.196Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -162,7 +166,8 @@
               "RelativeToolTip": "settings.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAD0AAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-13T06:48:40.364Z"
+              "WhenOpened": "2024-03-13T06:48:40.364Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -174,94 +179,96 @@
               "RelativeToolTip": "settings.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:42:03.328Z"
+              "WhenOpened": "2024-03-13T06:42:03.328Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "scan.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\scan.h",
               "RelativeDocumentMoniker": "scan.h",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\scan.h",
               "RelativeToolTip": "scan.h",
-              "ViewState": "AQIAAAsAAAAAAAAAAABBwBMAAAAPAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAABRwBMAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:41:43.701Z"
+              "WhenOpened": "2024-03-13T06:41:43.701Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "scan.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\scan.cpp",
               "RelativeDocumentMoniker": "scan.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\scan.cpp",
               "RelativeToolTip": "scan.cpp",
-              "ViewState": "AQIAAH0AAAAAAAAAAAAIwJgAAAAYAAAA",
+              "ViewState": "AQIAAKYAAAAAAAAAAAAkwMsAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-01-28T20:40:06.248Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "connect.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\connect.cpp",
               "RelativeDocumentMoniker": "connect.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\connect.cpp",
               "RelativeToolTip": "connect.cpp",
-              "ViewState": "AQIAAM4AAAAAAAAAAAAIwNsAAAAeAAAA",
+              "ViewState": "AQIAAKcAAAAAAAAAAAAIwNsAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-01-28T20:40:06.315Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "client_backend.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\client_backend.cpp",
               "RelativeDocumentMoniker": "client_backend.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\client_backend.cpp",
               "RelativeToolTip": "client_backend.cpp",
-              "ViewState": "AQIAAFEAAAAAAAAAAAAAAGcAAAAcAAAA",
+              "ViewState": "AQIAADMAAAAAAAAAAAAkwE8AAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-01-28T20:40:06.279Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "thread_ctrl.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\thread_ctrl.cpp",
               "RelativeDocumentMoniker": "thread_ctrl.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\thread_ctrl.cpp",
               "RelativeToolTip": "thread_ctrl.cpp",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAABwAAAAsAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-13T06:52:01.533Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "local_com.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\local_com.cpp",
               "RelativeDocumentMoniker": "local_com.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\local_com.cpp",
               "RelativeToolTip": "local_com.cpp",
-              "ViewState": "AQIAACoAAAAAAAAAAAAAAAsAAAAXAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-17T16:34:14.678Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "virus_ctrl.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\virus_ctrl.cpp",
               "RelativeDocumentMoniker": "virus_ctrl.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\virus_ctrl.cpp",
               "RelativeToolTip": "virus_ctrl.cpp",
-              "ViewState": "AQIAAFoAAAAAAAAAAAAIwHcAAAAAAAAA",
+              "ViewState": "AQIAAEsAAAAAAAAAAAAIwHYAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-18T12:49:41.861Z",
               "EditorCaption": ""
@@ -276,19 +283,21 @@
               "RelativeToolTip": "virus_ctrl.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:45:51.845Z"
+              "WhenOpened": "2024-03-13T06:45:51.845Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "log.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\log.h",
               "RelativeDocumentMoniker": "log.h",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\log.h",
               "RelativeToolTip": "log.h",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAAAG4AAAA2AAAA",
+              "ViewState": "AQIAAEwAAAAAAAAAAABBwG4AAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:47:02.038Z"
+              "WhenOpened": "2024-03-13T06:47:02.038Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -300,23 +309,25 @@
               "RelativeToolTip": "local_com.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-13T06:49:41.823Z"
+              "WhenOpened": "2024-03-13T06:49:41.823Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "check_dir.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_dir.cpp",
               "RelativeDocumentMoniker": "check_dir.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_dir.cpp",
               "RelativeToolTip": "check_dir.cpp",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAC0AAAA7AAAA",
+              "ViewState": "AQIAAAQAAAAAAAAAAABBwC0AAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-13T06:48:31.009Z"
+              "WhenOpened": "2024-03-13T06:48:31.009Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "well_known.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\well_known.h",
               "RelativeDocumentMoniker": "well_known.h",
@@ -324,23 +335,25 @@
               "RelativeToolTip": "well_known.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAC0AAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-14T13:20:06.953Z"
+              "WhenOpened": "2024-03-14T13:20:06.953Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 1,
               "Title": "check_process.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_process.cpp",
               "RelativeDocumentMoniker": "check_process.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_process.cpp",
               "RelativeToolTip": "check_process.cpp",
-              "ViewState": "AQIAABcAAAAAAAAAAABRwDcAAABCAAAA",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAADcAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T13:35:33.369Z"
+              "WhenOpened": "2024-03-14T13:35:33.369Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "utils.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\utils.cpp",
               "RelativeDocumentMoniker": "utils.cpp",
@@ -348,11 +361,12 @@
               "RelativeToolTip": "utils.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T15:55:22.469Z"
+              "WhenOpened": "2024-03-14T15:55:22.469Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "utils.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\utils.h",
               "RelativeDocumentMoniker": "utils.h",
@@ -360,23 +374,25 @@
               "RelativeToolTip": "utils.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-14T15:55:30.524Z"
+              "WhenOpened": "2024-03-14T15:55:30.524Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "update.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\update.cpp",
               "RelativeDocumentMoniker": "update.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\update.cpp",
               "RelativeToolTip": "update.cpp",
-              "ViewState": "AQIAAAIAAAAAAAAAAABRwAkAAAARAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAIBZwAkAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.248Z"
+              "WhenOpened": "2024-01-28T20:40:06.248Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "local_schedule.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\local_schedule.cpp",
               "RelativeDocumentMoniker": "local_schedule.cpp",
@@ -384,7 +400,8 @@
               "RelativeToolTip": "local_schedule.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAEIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.279Z"
+              "WhenOpened": "2024-01-28T20:40:06.279Z",
+              "EditorCaption": ""
             }
           ]
         }

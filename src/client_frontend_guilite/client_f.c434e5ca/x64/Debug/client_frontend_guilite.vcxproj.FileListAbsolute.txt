@@ -1,0 +1,2 @@
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_frontend_guilite\x64\Debug\glfw3.dll
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_frontend_guilite\client_f.c434e5ca\x64\Debug\client_f.58F0C424.Up2Date
