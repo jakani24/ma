@@ -4,6 +4,9 @@
 #include <iostream>
 #include "log.h"
 #include <tlhelp32.h>
+#include <regex>
+#include <filesystem>
+#include <regex>
 
 void split(const std::string& input, char delimiter, std::string& out1, std::string& out2) {
     // Split a string at the delimiter. The delimiter only occurs once. 
@@ -13,6 +16,17 @@ void split(const std::string& input, char delimiter, std::string& out1, std::str
         out1 = input.substr(0, pos);
         out2 = input.substr(pos + 1);
     }
+}
+bool is_valid_path(const std::string& filename) {
+    for (char c : filename) {
+        if (c == '<' || c == '>' || c == '"' || c == '|' || c == '?' || c == '*' || c > 126 || c < 32 ) {
+            return 0; // Special character found
+        }
+    }
+    if (!std::filesystem::exists(filename)) {
+        return 0; // File does not exist
+    }
+    return 1; // No special character found
 }
 
 
@@ -91,4 +105,17 @@ void kill_process(const std::string& path) {
         hRes = Process32Next(hSnapShot, &pEntry);
     }
     CloseHandle(hSnapShot);
+}
+
+
+bool file_exists(const std::string& filePath) {
+    DWORD fileAttributes = GetFileAttributes(filePath.c_str());
+
+    if (fileAttributes == INVALID_FILE_ATTRIBUTES) {
+        // The file does not exist or there was an error
+        return false;
+    }
+
+    // Check if it's a regular file and not a directory
+    return (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
 }

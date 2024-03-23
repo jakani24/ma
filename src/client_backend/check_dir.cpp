@@ -12,6 +12,7 @@
 #include <algorithm> // Include the algorithm header
 #include <string> // Include the string header
 #include <iostream> // Include the iostream header
+#include "utils.h"
 
 // Define a mutex for thread synchronization
 std::mutex monitorMutex;
@@ -36,15 +37,17 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
     filename_str = "c:\\" + filename_str;
 
     // Scan the file and send it to virus_ctrl if it is a virus and then process it
-    std::transform(filename_str.begin(), filename_str.end(), filename_str.begin(), ::tolower);
-    if (!is_folder_included(filename_str.c_str()) || is_directory(filename_str) || is_folder_excluded(filename_str.c_str())) {
-        // Don't scan excluded files or folders
-        return;
-    }
-    else {
-        //log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: File ", filename_str, " has been changed. Scanning it for viruses");
-        std::thread scan_thread(scan_file_t, filename_str);
-        scan_thread.detach();
+    if (is_valid_path(filename_str)) { //filter out invalid paths and paths with weird characters
+        std::transform(filename_str.begin(), filename_str.end(), filename_str.begin(), ::tolower);
+        if (!is_folder_included(filename_str.c_str()) || is_directory(filename_str) || is_folder_excluded(filename_str.c_str())) {
+            // Don't scan excluded files or folders
+            return;
+        }
+        else {
+            //log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: File ", filename_str, " has been changed. Scanning it for viruses");
+            std::thread scan_thread(scan_file_t, filename_str);
+            scan_thread.detach();
+        }
     }
 }
 

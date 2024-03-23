@@ -7,14 +7,6 @@
       "RelativeMoniker": "D:0:0:{C434E5CA-752E-4D35-9986-BECF1CC34A98}|client_frontend_guilite.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C434E5CA-752E-4D35-9986-BECF1CC34A98}|client_frontend_guilite.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\connect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{C434E5CA-752E-4D35-9986-BECF1CC34A98}|client_frontend_guilite.vcxproj|solutionrelative:connect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C434E5CA-752E-4D35-9986-BECF1CC34A98}|client_frontend_guilite.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\connect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{C434E5CA-752E-4D35-9986-BECF1CC34A98}|client_frontend_guilite.vcxproj|solutionrelative:connect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\well_known.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -25,35 +17,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "connect.cpp",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\connect.cpp",
-              "RelativeDocumentMoniker": "connect.cpp",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\connect.cpp",
-              "RelativeToolTip": "connect.cpp",
-              "ViewState": "AQIAACEAAAAAAAAAAAAIwC0AAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-19T18:03:49.536Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "connect.h",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\connect.h",
-              "RelativeDocumentMoniker": "connect.h",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\connect.h",
-              "RelativeToolTip": "connect.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-19T18:03:42.761Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "well_known.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\well_known.h",
               "RelativeDocumentMoniker": "..\\client_backend\\well_known.h",
@@ -71,7 +39,7 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend_guilite\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AQIAAGYAAAAAAAAAAAAAAJEAAAA0AAAA",
+              "ViewState": "AQIAAGwAAAAAAAAAAAAAAJYAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-14T19:45:55.142Z",
               "EditorCaption": ""

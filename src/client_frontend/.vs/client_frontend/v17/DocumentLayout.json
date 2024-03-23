@@ -3,28 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\ui.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|solutionrelative:ui.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\choose_element.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|solutionrelative:choose_element.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\choose_element.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|solutionrelative:choose_element.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\client_frontend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|solutionrelative:client_frontend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\id.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|solutionrelative:id.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\ui.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{644C9824-2298-46C6-9A62-7E080C98A0BB}|client_frontend.vcxproj|solutionrelative:ui.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4A82AA44-A521-4B6B-99F1-F8F32D7AC57B}|client_frontend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\client_frontend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4A82AA44-A521-4B6B-99F1-F8F32D7AC57B}|client_frontend.vcxproj|solutionrelative:client_frontend.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,84 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "choose_element.h",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\choose_element.h",
-              "RelativeDocumentMoniker": "choose_element.h",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\choose_element.h",
-              "RelativeToolTip": "choose_element.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAGAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-14T17:06:27.941Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "choose_element.cpp",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\choose_element.cpp",
-              "RelativeDocumentMoniker": "choose_element.cpp",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\choose_element.cpp",
-              "RelativeToolTip": "choose_element.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAABJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T17:06:16.884Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "id.h",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\id.h",
-              "RelativeDocumentMoniker": "id.h",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\id.h",
-              "RelativeToolTip": "id.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-14T16:31:43.692Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ui.h",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\ui.h",
-              "RelativeDocumentMoniker": "ui.h",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\ui.h",
-              "RelativeToolTip": "ui.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-14T16:28:38.361Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ui.cpp",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\ui.cpp",
-              "RelativeDocumentMoniker": "ui.cpp",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\ui.cpp",
-              "RelativeToolTip": "ui.cpp",
-              "ViewState": "AQIAACoAAAAAAAAAAAAwwC8AAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T16:28:29.863Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "client_frontend.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\client_frontend.cpp",
               "RelativeDocumentMoniker": "client_frontend.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_frontend\\client_frontend.cpp",
               "RelativeToolTip": "client_frontend.cpp",
-              "ViewState": "AQIAAHsAAAAAAAAAAAAAAJwAAAA3AAAA",
+              "ViewState": "AQIAAA4BAAAAAAAAAAAAADYBAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T16:22:29.931Z",
+              "WhenOpened": "2024-03-23T13:52:32.121Z",
               "EditorCaption": ""
             }
           ]

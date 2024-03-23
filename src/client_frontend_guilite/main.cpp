@@ -10,7 +10,6 @@
 #include <fstream>
 
 #include "../client_backend/well_known.h"
-#include "connect.h"
 // Function to simulate file scanning
 void scan_file(nanogui::Screen* screen, nanogui::Widget* contentWidget, const std::string& filePath) {
     // Remove the answer file
@@ -61,7 +60,6 @@ void scan_file(nanogui::Screen* screen, nanogui::Widget* contentWidget, const st
                     }
                     else {
                         nanogui::Label* lineLabel7 = new nanogui::Label(contentWidget, "No virus found in file: " + scannedFilePath + "\n");
-                        nanogui::Label* lineLabel8 = new nanogui::Label(contentWidget, "File: " + scannedFilePath + " is not infected\n");
                     }
                     nanogui::Label* lineLabel9 = new nanogui::Label(contentWidget, "------------------------------------------");
                     screen->performLayout();
@@ -133,7 +131,6 @@ void scan_folder(nanogui::Screen* screen, nanogui::Widget* contentWidget, const 
                         }
                         else {
                             nanogui::Label* lineLabel7 = new nanogui::Label(contentWidget, "No virus found in file: " + scannedFilePath + "\n");
-                            nanogui::Label* lineLabel8 = new nanogui::Label(contentWidget, "File: " + scannedFilePath + " is not infected\n");
                         }
                         nanogui::Label* lineLabel9 = new nanogui::Label(contentWidget, "------------------------------------------");
                         screen->performLayout();

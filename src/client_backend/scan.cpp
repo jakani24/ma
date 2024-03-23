@@ -16,6 +16,8 @@
 #include "virus_ctrl.h"
 #include "app_ctrl.h"
 #include <mutex> // Include the mutex header
+#include <filesystem>
+#include "utils.h"
 
 // Define mutexes for thread synchronization
 std::mutex fileHandlesMutex;
@@ -29,7 +31,8 @@ std::unordered_map<std::string, HANDLE> mappingHandles;
 std::unordered_map<std::string, char*> fileData;
 
 int cnt = 0;
-unsigned int num_threads = 0;
+int num_threads = 0;
+int all_files = 0;
 
 //load all the db files into memory
 int initialize(const std::string& folderPath) {
@@ -158,17 +161,33 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
     return 0; // Not found
 }
 
+//function to get num of files in idr and its subdirs etc
+int get_num_files(const std::string& directory) {
+	std::string search_path = directory + "\\*.*";
+	WIN32_FIND_DATA find_file_data;
+	HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
+	int num_files = 0;
+    if (hFind == INVALID_HANDLE_VALUE) {
+		log(LOGLEVEL::ERR_NOSEND, "[get_num_files()]: Could not open directory: ", search_path.c_str(), " while scanning files inside directory.");
+		return 0;
+	}
 
-bool file_exists(const std::string& filePath) {
-    DWORD fileAttributes = GetFileAttributes(filePath.c_str());
+    do {
+        if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
+			continue; // Skip the current and parent directories
+		}
 
-    if (fileAttributes == INVALID_FILE_ATTRIBUTES) {
-        // The file does not exist or there was an error
-        return false;
-    }
-
-    // Check if it's a regular file and not a directory
-    return (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
+		const std::string full_path = directory + "\\" + find_file_data.cFileName;
+        if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+        // If it's a directory, recurse into it
+                    num_files += get_num_files(full_path);
+        }
+        else {
+            num_files++;
+         }
+    } while (FindNextFile(hFind, &find_file_data) != 0);
+    FindClose(hFind);
+    return num_files;
 }
 
 //this is the main function to scan folders. it will then start multuiple threads based on the number of cores / settings
@@ -196,20 +215,39 @@ void scan_folder(const std::string& directory) {
         else {
             //action scanfile_t will start the trheads for scanning the hashes
              //action_scanfile_t(full_path.c_str());
-
              //do multithreading here
+            int thread_timeout = 0;
             while (num_threads >= std::thread::hardware_concurrency()) {
                 Sleep(10);
+                thread_timeout++;
+                if (thread_timeout == 100 * 60) {//if there is for more than 30 seconds no thread available, chances are high, that the threads did not temrinate correctly but aren t running anymore. so set the counter to 0 because else it might just stop the scan.
+                    num_threads = 0;
+                }
             }
-            //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path, "threads: ",num_threads);
-            std::thread scan_thread(scan_file_t, full_path);
-            scan_thread.detach();
-            //Sleep(1);
 
+            if (is_valid_path(full_path)) { //filter out invalid paths and paths with weird characters
+                std::uintmax_t fileSize = std::filesystem::file_size(full_path);
+                if (fileSize > 4000000000) {//4gb
+                    log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: File too large to scan: ", full_path);
+                }
+                else {
+                    std::thread scan_thread(scan_file_t, full_path);
+                    scan_thread.detach();
+                }
+            }else
+                log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Invalid path: ", full_path);
             cnt++;
             if (cnt % 100 == 0) {
                 printf("Processed %d files;\n", cnt);
                 //printf("Number of threads: %d\n", num_threads);
+            }
+            if (cnt % 1000 == 0) {
+                //send progress to com file
+                std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+                if (answer_com.is_open()) {
+					answer_com << "progress " <<  (cnt*100/(all_files+1)) << "\n";
+					answer_com.close();
+				}
             }
         }
     } while (FindNextFile(hFind, &find_file_data) != 0);
@@ -225,29 +263,40 @@ void action_scanfile(const std::string& filepath_) {
     const std::string filepath(filepath_);
     char* db_path = new char[300];
     char* hash = new char[300];
-    std::string hash_(md5_file_t(filepath));
-    if (strlen(hash_.c_str()) < 290)
-        strcpy_s(hash, 295, hash_.c_str());
-    else {
-        strcpy_s(hash, 295, "");
-        log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not calculate hash for file: ", filepath);
-    }
-    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-    if (search_hash(db_path, hash, filepath) != 1) {
-        //notify desktop client by writing to answer_com file
-        //if there is now virus, we notify here. if there is a virus we only notify in the virus_ctrl_process function
-        std::ofstream answer_com(ANSWER_COM_PATH,std::ios::app);
-        if (answer_com.is_open()) {
-            answer_com << "not_found " << "\"" << filepath_ << "\"" << " " << hash << " " << "no_action_taken" << "\n";
-            answer_com.close();
+    if (is_valid_path(filepath_)) { //filter out invalid paths and paths with weird characters
+        std::string hash_(md5_file_t(filepath));
+        if (strlen(hash_.c_str()) < 290)
+            strcpy_s(hash, 295, hash_.c_str());
+        else {
+            strcpy_s(hash, 295, "");
+            log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not calculate hash for file: ", filepath);
+        }
+        sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+        if (search_hash(db_path, hash, filepath) != 1) {
+            //notify desktop client by writing to answer_com file
+            //if there is now virus, we notify here. if there is a virus we only notify in the virus_ctrl_process function
+            std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+            if (answer_com.is_open()) {
+                answer_com << "not_found " << "\"" << filepath_ << "\"" << " " << hash << " " << "no_action_taken" << "\n";
+                answer_com.close();
+            }
         }
     }
+	else
+		log(LOGLEVEL::INFO_NOSEND, "[action_scanfile()]: Invalid path: ", filepath_);
     thread_shutdown();
 }
 void action_scanfolder(const std::string& folderpath) {
     thread_init();
-    cnt = 0;
     thread_local std::string folderpath_(folderpath);
+    cnt = 0;
+    all_files = get_num_files(folderpath_);
+    //tell the desktop client that the scan has started
+    std::ofstream answer_com1(ANSWER_COM_PATH, std::ios::app);
+    if (answer_com1.is_open()) {
+		answer_com1 << "start " << all_files << "\n";
+		answer_com1.close();
+	}
     scan_folder(folderpath_);
     std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
     if (answer_com.is_open()) {
@@ -274,7 +323,6 @@ void scan_file_t(const std::string& filepath_) {
     num_threads--;
 }
 void scan_process_t(const std::string& filepath_) {
-    num_threads++;
     thread_local const std::string filepath(filepath_);
     thread_local char* db_path = new char[300];
     thread_local char* hash = new char[300];
@@ -288,6 +336,5 @@ void scan_process_t(const std::string& filepath_) {
             log(LOGLEVEL::VIRUS, "[scan_process_t()]: Killing process: ", filepath);
         }
     }
-    num_threads--;
 }
 #endif

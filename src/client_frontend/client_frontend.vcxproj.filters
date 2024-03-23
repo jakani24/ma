@@ -27,25 +27,10 @@
     <ClInclude Include="client_frontend.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ui.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="id.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="choose_element.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client_frontend.cpp">
       <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="ui.cpp">
-      <Filter>Headerdateien</Filter>
-    </ClCompile>
-    <ClCompile Include="choose_element.cpp">
-      <Filter>Headerdateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

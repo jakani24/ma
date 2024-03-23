@@ -51,12 +51,7 @@ int start_thread(const std::string& command) {
             t1.detach();
             has_run = 1;
         }
-        if (has_run) {
-            while (can_run_thread()) {
-                // Delay a bit to wait until the thread is started
-                std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            }
-        }
+        Sleep(10); // Sleep for 10 ms to give the thread time to start
     }
     return 0;
 }

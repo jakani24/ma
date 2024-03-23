@@ -8,6 +8,7 @@
 #include <mutex> // Include the mutex header
 #include <thread> // Include the thread header
 #include <Windows.h> // Include the Windows header
+#include "utils.h"
 
 std::mutex mtx; // Declare a mutex for thread synchronization
 
@@ -48,13 +49,14 @@ void monitor_processes() {
                         strcpy_s(path, MAX_PATH, exePath);
                         for (size_t z = 0; z < strlen(path); z++)
                             path[z] = tolower(path[z]);
-
-                        if (!is_folder_included(path) || is_folder_excluded(path)) {
-                            // Don't scan excluded files or folders
-                        }
-                        else {
-                            std::thread scan_thread(scan_process_t, path);
-                            scan_thread.detach();
+                        if (is_valid_path(path)) { //filter out invalid paths and paths with weird characters
+                            if (!is_folder_included(path) || is_folder_excluded(path)) {
+                                // Don't scan excluded files or folders
+                            }
+                            else {
+                                std::thread scan_thread(scan_process_t, path);
+                                scan_thread.detach();
+                            }
                         }
                     }
                     CloseHandle(hProcess);
