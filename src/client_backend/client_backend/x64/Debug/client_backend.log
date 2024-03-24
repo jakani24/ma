@@ -1,11 +1,11 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
   check_dir.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(49,38): warning C4018: ">=": Konflikt zwischen "signed" und "unsigned"
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(50,38): warning C4018: ">=": Konflikt zwischen "signed" und "unsigned"
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18): warning C4244: "=": Konvertierung von "wchar_t" in "char", möglicher Datenverlust
   (Quelldatei „check_dir.cpp“ wird kompiliert)
   C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18):
   der Vorlageninstanziierungskontext (der älteste zuerst) ist
-  	C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(36,29):
+  	C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(37,29):
   	Siehe Verweis auf die gerade kompilierte Instanziierung "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)" der Funktions-Vorlage.
           with
           [
@@ -13,7 +13,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.3351
               _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
               _Alloc=std::allocator<char>
           ]
-  		C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(36,29):
+  		C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(37,29):
   		Ersten Verweis auf "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string" in "process_changes" anzeigen
   	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2600,17):
   	Siehe Verweis auf die gerade kompilierte Instanziierung "void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)" der Funktions-Vorlage.

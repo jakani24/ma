@@ -31,6 +31,7 @@ bool is_directory(const std::string& path) {
 void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
     // Allocate a buffer for the file name and copy the content
     std::wstring fileName(pInfo->FileName, pInfo->FileNameLength / sizeof(wchar_t));
+    fileName.push_back(L'\0'); //NULL-terminate the string
 
     // Convert wstring to string
     std::string filename_str(fileName.begin(), fileName.end());
