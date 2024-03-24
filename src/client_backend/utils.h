@@ -9,3 +9,4 @@ void startup(LPCTSTR lpApplicationName);
 void split(const std::string& input, char delimiter, std::string& out1, std::string& out2);
 bool is_valid_path(const std::string& filename);
 bool file_exists(const std::string& filename);
+int get_num_running_threads();

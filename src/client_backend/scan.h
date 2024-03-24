@@ -18,3 +18,5 @@ void scan_file_t(const std::string& filepath_);
 int initialize(const std::string& folderPath);
 void scan_process_t(const std::string& filepath_);
 void cleanup();
+int get_num_threads();
+int set_num_threads(int num_threads);

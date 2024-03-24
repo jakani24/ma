@@ -49,11 +49,22 @@ void monitor_processes() {
                         strcpy_s(path, MAX_PATH, exePath);
                         for (size_t z = 0; z < strlen(path); z++)
                             path[z] = tolower(path[z]);
+                        //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: New process: ", path);
                         if (is_valid_path(path)) { //filter out invalid paths and paths with weird characters
                             if (!is_folder_included(path) || is_folder_excluded(path)) {
                                 // Don't scan excluded files or folders
                             }
                             else {
+                                int thread_timeout = 0;
+                                while (get_num_threads() >= std::thread::hardware_concurrency()) {
+                                    Sleep(10);
+                                    thread_timeout++;
+                                    if (thread_timeout == 100 * 60) {//if there is for more than 30 seconds no thread available, chances are high, that the threads did not temrinate correctly but aren t running anymore. so set the counter to 0 because else it might just stop the scan.
+                                         set_num_threads(0);
+                                         //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: Resetting thread counter because of timeout");
+                                    }
+                                }
+                                //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: Scanning process: ", path);
                                 std::thread scan_thread(scan_process_t, path);
                                 scan_thread.detach();
                             }

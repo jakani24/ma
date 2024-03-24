@@ -4,6 +4,7 @@
 #include <iostream>
 #include "log.h"
 #include <tlhelp32.h>
+#include <winternl.h>
 #include <regex>
 #include <filesystem>
 #include <regex>
@@ -118,4 +119,30 @@ bool file_exists(const std::string& filePath) {
 
     // Check if it's a regular file and not a directory
     return (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
+}
+
+int get_num_running_threads() {
+    DWORD runningThreads = 0;
+    HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+
+    if (hSnapshot != INVALID_HANDLE_VALUE) {
+        THREADENTRY32 te;
+        te.dwSize = sizeof(THREADENTRY32);
+
+        if (Thread32First(hSnapshot, &te)) {
+            do {
+                if (te.dwSize >= FIELD_OFFSET(THREADENTRY32, th32OwnerProcessID) +
+                    sizeof(te.th32OwnerProcessID)) {
+                    if (te.th32OwnerProcessID == GetCurrentProcessId()) {
+                        runningThreads++;
+                    }
+                }
+                te.dwSize = sizeof(THREADENTRY32);
+            } while (Thread32Next(hSnapshot, &te));
+        }
+
+        CloseHandle(hSnapshot);
+    }
+
+    return runningThreads;
 }

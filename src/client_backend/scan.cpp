@@ -8,6 +8,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <stack>
 #include <time.h>
 #include "md5hash.h"
 #include <string>
@@ -34,6 +35,15 @@ int cnt = 0;
 int num_threads = 0;
 int all_files = 0;
 
+int get_num_threads() {
+	std::lock_guard<std::mutex> lock(numThreadsMutex);
+	return num_threads;
+}
+int set_num_threads(int num) {
+	std::lock_guard<std::mutex> lock(numThreadsMutex);
+	num_threads = num;
+	return 0;
+}
 //load all the db files into memory
 int initialize(const std::string& folderPath) {
     for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {
@@ -115,9 +125,9 @@ void cleanup() {
 //the latest and fastest version of searching a hash by now
 int search_hash(const std::string& dbname_, const std::string& hash_, const std::string& filepath_) {
     // Check if the file mapping is already open for the given filename
-    std::string dbname;
-    std::string hash;
-    std::string filepath;
+    thread_local std::string dbname;
+    thread_local std::string hash;
+    thread_local std::string filepath;
     {
         std::lock_guard<std::mutex> lock(fileHandlesMutex);
         dbname = dbname_;
@@ -161,98 +171,134 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
     return 0; // Not found
 }
 
-//function to get num of files in idr and its subdirs etc
+//function to get num of files in idr and its subdirs etc (iterative)
 int get_num_files(const std::string& directory) {
-	std::string search_path = directory + "\\*.*";
-	WIN32_FIND_DATA find_file_data;
-	HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
-	int num_files = 0;
+    std::string search_path = directory + "\\*.*";
+    WIN32_FIND_DATA find_file_data;
+    HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
+    int num_files = 0;
+
     if (hFind == INVALID_HANDLE_VALUE) {
-		log(LOGLEVEL::ERR_NOSEND, "[get_num_files()]: Could not open directory: ", search_path.c_str(), " while scanning files inside directory.");
-		return 0;
-	}
+        //std::cerr << "[get_num_files()]: Could not open directory: " << search_path << " while scanning files inside directory." << std::endl;
+        log(LOGLEVEL::ERR_NOSEND, "[get_num_files()]: Could not open directory: ", search_path, " while scanning files inside directory.");
+        return 0;
+    }
 
-    do {
-        if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
-			continue; // Skip the current and parent directories
-		}
+    // Stack to store directories to be traversed iteratively
+    std::stack<std::string> directories;
+    directories.push(directory);
 
-		const std::string full_path = directory + "\\" + find_file_data.cFileName;
-        if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-        // If it's a directory, recurse into it
-                    num_files += get_num_files(full_path);
+    while (!directories.empty()) {
+        std::string current_dir = directories.top();
+        directories.pop();
+
+        search_path = current_dir + "\\*.*";
+        hFind = FindFirstFile(search_path.c_str(), &find_file_data);
+
+        if (hFind != INVALID_HANDLE_VALUE) {
+            do {
+                if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
+                    continue; // Skip the current and parent directories
+                }
+
+                const std::string full_path = current_dir + "\\" + find_file_data.cFileName;
+                if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+                    // If it's a directory, add it to the stack
+                    directories.push(full_path);
+                }
+                else {
+                    num_files++;
+                }
+            } while (FindNextFile(hFind, &find_file_data) != 0);
+            FindClose(hFind);
         }
         else {
-            num_files++;
-         }
-    } while (FindNextFile(hFind, &find_file_data) != 0);
-    FindClose(hFind);
+            log(LOGLEVEL::ERR_NOSEND, "[get_num_files()]: Could not open directory: ", current_dir, " while scanning files inside directory.");
+            //std::cerr << "[get_num_files()]: Could not open directory: " << current_dir << " while scanning files inside directory." << std::endl;
+        }
+    }
+
     return num_files;
 }
 
 //this is the main function to scan folders. it will then start multuiple threads based on the number of cores / settings
+std::stack<std::string> directories; // Stack to store directories to be scanned
+
 void scan_folder(const std::string& directory) {
-    std::string search_path = directory + "\\*.*";
-    WIN32_FIND_DATA find_file_data;
-    HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
+    directories.push(directory);
 
-    if (hFind == INVALID_HANDLE_VALUE) {
-        log(LOGLEVEL::WARN, "[scan_folder()]: Could not open directory: ", search_path.c_str(), " while scanning files inside directory.");
-        return;
-    }
+    while (!directories.empty()) {
+        std::string current_dir = directories.top();
+        directories.pop();
 
-    do {
-        if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
-            continue; // Skip the current and parent directories
-        }
+        std::string search_path = current_dir + "\\*.*";
+        WIN32_FIND_DATA find_file_data;
+        HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
 
-
-        const std::string full_path = directory + "\\" + find_file_data.cFileName;
-        if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-            // If it's a directory, recurse into it
-            scan_folder(full_path);
-        }
-        else {
-            //action scanfile_t will start the trheads for scanning the hashes
-             //action_scanfile_t(full_path.c_str());
-             //do multithreading here
-            int thread_timeout = 0;
-            while (num_threads >= std::thread::hardware_concurrency()) {
-                Sleep(10);
-                thread_timeout++;
-                if (thread_timeout == 100 * 60) {//if there is for more than 30 seconds no thread available, chances are high, that the threads did not temrinate correctly but aren t running anymore. so set the counter to 0 because else it might just stop the scan.
-                    num_threads = 0;
+        if (hFind != INVALID_HANDLE_VALUE) {
+            do {
+                if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
+                    continue; // Skip the current and parent directories
                 }
-            }
 
-            if (is_valid_path(full_path)) { //filter out invalid paths and paths with weird characters
-                std::uintmax_t fileSize = std::filesystem::file_size(full_path);
-                if (fileSize > 4000000000) {//4gb
-                    log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: File too large to scan: ", full_path);
+                const std::string full_path = current_dir + "\\" + find_file_data.cFileName;
+                if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+                    // If it's a directory, add it to the stack
+                    directories.push(full_path);
                 }
                 else {
-                    std::thread scan_thread(scan_file_t, full_path);
-                    scan_thread.detach();
+                    // Do multithreading here
+                    int thread_timeout = 0;
+                    //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
+                    while (get_num_threads() >= std::thread::hardware_concurrency()) {
+                        Sleep(10);
+                        thread_timeout++;
+                        //printf("Thread timeout: %d\n", thread_timeout);
+                        if (thread_timeout == 100 * 20) {
+                            // If there is no available thread for more than 30 seconds, reset the thread counter
+                            set_num_threads(0);
+                        }
+                    }
+                    //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
+                    if (is_valid_path(full_path)) { // Filter out invalid paths and paths with weird characters
+                        std::uintmax_t fileSize = std::filesystem::file_size(full_path);
+                        if (fileSize > 4000000000) { // 4GB
+                            log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: File too large to scan: ", full_path);
+                        }
+                        else {
+                            std::thread scan_thread(scan_file_t, full_path);
+                            scan_thread.detach();
+                        }
+                    }
+                    else {
+                        log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Invalid path: ", full_path);
+                    }
+                    cnt++;
+                    if (cnt % 100 == 0) {
+                        printf("Processed %d files;\n", cnt);
+                        //printf("Number of threads: %d\n", num_threads);
+                    }
+                    if (cnt % 1000 == 0) {
+                        int actual_threads = get_num_threads();
+                        if(get_num_threads()>actual_threads)
+                            set_num_threads(actual_threads);//correct value of threads minus the main and the rtp thread
+                        printf("Number of threads: %d\n", get_num_threads());
+                        //send progress to com file
+                        std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+                        if (answer_com.is_open()) {
+                            answer_com << "progress " << (cnt * 100 / (all_files + 1)) << "\n";
+                            answer_com.close();
+                        }
+                    }
                 }
-            }else
-                log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Invalid path: ", full_path);
-            cnt++;
-            if (cnt % 100 == 0) {
-                printf("Processed %d files;\n", cnt);
-                //printf("Number of threads: %d\n", num_threads);
-            }
-            if (cnt % 1000 == 0) {
-                //send progress to com file
-                std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
-                if (answer_com.is_open()) {
-					answer_com << "progress " <<  (cnt*100/(all_files+1)) << "\n";
-					answer_com.close();
-				}
-            }
+            } while (FindNextFile(hFind, &find_file_data) != 0);
+            FindClose(hFind);
         }
-    } while (FindNextFile(hFind, &find_file_data) != 0);
-
-    FindClose(hFind);
+        else {
+            log(LOGLEVEL::ERR_NOSEND, "[scan_folder()]: Could not open directory: ", current_dir, " while scanning files inside directory.");
+            //std::cerr << "[scan_folder()]: Could not open directory: " << current_dir << " while scanning files inside directory." << std::endl;
+        }
+    }
 }
 
 
@@ -307,7 +353,7 @@ void action_scanfolder(const std::string& folderpath) {
 }
 
 void scan_file_t(const std::string& filepath_) {
-    num_threads++;
+    set_num_threads(get_num_threads() + 1);
     thread_local const std::string filepath(filepath_);
     thread_local char* db_path = new char[300];
     thread_local char* hash = new char[300];
@@ -320,9 +366,10 @@ void scan_file_t(const std::string& filepath_) {
     }
     sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
     search_hash(db_path, hash, filepath);
-    num_threads--;
+    set_num_threads(get_num_threads() - 1);
 }
 void scan_process_t(const std::string& filepath_) {
+    set_num_threads(get_num_threads() + 1);
     thread_local const std::string filepath(filepath_);
     thread_local char* db_path = new char[300];
     thread_local char* hash = new char[300];
@@ -336,5 +383,6 @@ void scan_process_t(const std::string& filepath_) {
             log(LOGLEVEL::VIRUS, "[scan_process_t()]: Killing process: ", filepath);
         }
     }
+    set_num_threads(get_num_threads() - 1);
 }
 #endif

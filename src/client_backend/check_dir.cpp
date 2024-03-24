@@ -45,8 +45,19 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
         }
         else {
             //log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: File ", filename_str, " has been changed. Scanning it for viruses");
+            int thread_timeout = 0;
+            while (get_num_threads() >= std::thread::hardware_concurrency()) {
+                Sleep(10);
+                thread_timeout++;
+                if (thread_timeout == 100 * 60) {//if there is for more than 30 seconds no thread available, chances are high, that the threads did not temrinate correctly but aren t running anymore. so set the counter to 0 because else it might just stop the scan.
+                    set_num_threads(0);
+                }
+            }
+            //log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: Scanning new file: ", filename_str);
             std::thread scan_thread(scan_file_t, filename_str);
             scan_thread.detach();
+            Sleep(1);
+
         }
     }
 }
@@ -91,7 +102,11 @@ void monitor_directory(LPCSTR directory) {
         CloseHandle(hDir);
         return;
     }
-
+    if (overlapped.hEvent == NULL) {
+		log(LOGLEVEL::ERR, "[monitor_directory()]: Error creating event for directory changes: ", GetLastError(), " while monitoring directory for changes");
+		CloseHandle(hDir);
+		return;
+	}
     log(LOGLEVEL::INFO, "[monitor_directory()]: Monitoring directory: ", directory, " for changes");
 
     // Wait for changes
@@ -107,8 +122,7 @@ void monitor_directory(LPCSTR directory) {
                 do {
                     process_changes(pInfo);
 
-                    pInfo = reinterpret_cast<FILE_NOTIFY_INFORMATION*>(
-                        reinterpret_cast<BYTE*>(pInfo) + pInfo->NextEntryOffset);
+                    pInfo = reinterpret_cast<FILE_NOTIFY_INFORMATION*>(reinterpret_cast<BYTE*>(pInfo) + pInfo->NextEntryOffset);
 
                 } while (pInfo->NextEntryOffset != 0);
 

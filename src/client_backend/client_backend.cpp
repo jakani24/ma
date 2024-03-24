@@ -19,7 +19,9 @@
 #include "virus_ctrl.h"
 #include "update.h"
 #include "check_process.h"
+#include "utils.h"
 int main(int argc, char*argv[]) {
+
     //log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
     //return 0;
 
