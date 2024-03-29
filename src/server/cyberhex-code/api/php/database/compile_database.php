@@ -133,7 +133,7 @@ foreach ($files as $file) {
     }
 }
 set_time_limit(0);
-//download_files($excluded);
+download_files($excluded);
 //make a zip file with all the files in it.
 create_zip($directory);
 ?>
