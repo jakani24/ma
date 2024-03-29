@@ -4,6 +4,7 @@
 bool app_stop_ = false;
 bool can_run_thread_ = true;
 bool can_scan_folder_ = true;
+bool debug_mode_ = false;
 int app_stop() {
 	return app_stop_;
 }
@@ -28,5 +29,12 @@ int scan_folder_init() {
 int scan_folder_shutdown() {
 	can_scan_folder_ = true;
 	return can_scan_folder_;
+}
+int debug_mode() {
+	return debug_mode_;
+}
+int debug_mode_init() {
+	debug_mode_ = true;
+	return debug_mode_;
 }
 #endif

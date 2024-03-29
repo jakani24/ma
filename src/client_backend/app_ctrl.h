@@ -7,4 +7,6 @@ int thread_shutdown();
 int can_scan_folder();
 int scan_folder_init();
 int scan_folder_shutdown();
+int debug_mode();
+int debug_mode_init();
 #endif

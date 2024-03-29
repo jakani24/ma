@@ -76,7 +76,7 @@ int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
     FILE* fp = nullptr;
     char command[505];
     if (fopen_s(&fp, sched_path, "r") != 0) {
-        delete[] command;
+        //delete[] command;
         return 1;
     }
     else {

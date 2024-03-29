@@ -10,3 +10,5 @@ void split(const std::string& input, char delimiter, std::string& out1, std::str
 bool is_valid_path(const std::string& filename);
 bool file_exists(const std::string& filename);
 int get_num_running_threads();
+bool has_read_access(const std::string& path);
+void delete_all_files(const std::string& directoryPath);

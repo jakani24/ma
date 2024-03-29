@@ -8,7 +8,15 @@
 #include <stdio.h>
 #include "download.h"
 #include "well_known.h"
-#pragma comment(lib, "advapi32.lib")
+#include <iostream>
+#include <windows.h>
+#include <objbase.h> // For CoInitialize and CoUninitialize
+#include <objidl.h>  // For IPersistFile
+#include <propvarutil.h> // For InitPropVariantFromString
+#include <shobjidl.h> // For IShellLink
+#include <shlobj.h>
+#include <propkey.h> // For PKEY_AppUserModel_ID
+
 /*
 Tasks to do:
 - launch as admin
@@ -646,7 +654,99 @@ int copy(const char* source_path, const char* destination_path) {
 
 
     return 0;
+
 }
+
+
+HRESULT create_shortcut(const wchar_t* targetPath, const wchar_t* shortcutPath, const wchar_t* iconPath) {
+    // Initialize the COM library
+    HRESULT hr = CoInitialize(NULL);
+    if (FAILED(hr)) {
+        return hr;
+    }
+
+    // Create an instance of the ShellLink interface
+    IShellLink* pShellLink = NULL;
+    hr = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&pShellLink);
+    if (FAILED(hr)) {
+        CoUninitialize();
+        return hr;
+    }
+
+    // Set the path of the target file
+    pShellLink->SetPath(targetPath);
+
+    // Query the IPropertyStore interface
+    IPropertyStore* pPropertyStore = NULL;
+    hr = pShellLink->QueryInterface(IID_IPropertyStore, (void**)&pPropertyStore);
+    if (FAILED(hr)) {
+        pShellLink->Release();
+        CoUninitialize();
+        return hr;
+    }
+
+    // Load the icon file and set the System.Icon property
+    PROPVARIANT propvar;
+    hr = InitPropVariantFromString(iconPath, &propvar);
+    if (SUCCEEDED(hr)) {
+        hr = pPropertyStore->SetValue(PKEY_AppUserModel_ID, propvar);
+        if (SUCCEEDED(hr)) {
+            hr = pPropertyStore->Commit();
+            if (FAILED(hr)) {
+                CoUninitialize();
+                pPropertyStore->Release();
+                pShellLink->Release();
+                return hr;
+            }
+        }
+        else {
+            CoUninitialize();
+            pPropertyStore->Release();
+            pShellLink->Release();
+            return hr;
+        }
+        PropVariantClear(&propvar); // Free memory allocated by InitPropVariantFromString
+    }
+    else {
+        CoUninitialize();
+        pPropertyStore->Release();
+        pShellLink->Release();
+        return hr;
+    }
+
+    // Release the IPropertyStore interface
+    pPropertyStore->Release();
+
+    // Query the IPersistFile interface
+    IPersistFile* pPersistFile = NULL;
+    hr = pShellLink->QueryInterface(IID_IPersistFile, (void**)&pPersistFile);
+    if (FAILED(hr)) {
+        pShellLink->Release();
+        CoUninitialize();
+        return hr;
+    }
+
+    // Save the shortcut to disk
+    hr = pPersistFile->Save(shortcutPath, TRUE);
+    if (FAILED(hr)) {
+        pPersistFile->Release();
+        pShellLink->Release();
+        CoUninitialize();
+        return hr;
+    }
+
+    // Release COM interfaces
+    pPersistFile->Release();
+    pShellLink->Release();
+
+    // Uninitialize the COM library
+    CoUninitialize();
+
+    return S_OK; // Success
+}
+
+
+
 int main()
 {
     printf("Welcome to the Cyberhex installer!\n");
@@ -797,6 +897,17 @@ int main()
             std::cerr << "Task creation failed!" << std::endl;
             error=5;
         }
+        //create the shortcut
+        
+        if (error == 0) {
+			printf("Creating shortcut\n");
+            HRESULT hr = create_shortcut(L"C:\\Program Files\\cyberhex\\app\\cyberhex_desktop.exe", L"C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\cyberhex.lnk", L"C:\\Program Files\\cyberhex\\app\\icon.ico");
+            if (FAILED(hr))
+            {
+				std::cerr << "Shortcut creation failed!" << std::endl;
+				error = 6;
+			}
+		}
        
     }
     switch (error) {

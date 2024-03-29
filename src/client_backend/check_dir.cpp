@@ -32,11 +32,11 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
     // Allocate a buffer for the file name and copy the content
     std::wstring fileName(pInfo->FileName, pInfo->FileNameLength / sizeof(wchar_t));
     fileName.push_back(L'\0'); //NULL-terminate the string
-
+    //if (debug_mode())
+    //    std::wcout<<"[HIGH_ALERT_DEBUG/NO_DISK_WRITE]: file changed " << fileName <<std::endl;
     // Convert wstring to string
     std::string filename_str(fileName.begin(), fileName.end());
     filename_str = "c:\\" + filename_str;
-
     // Scan the file and send it to virus_ctrl if it is a virus and then process it
     if (is_valid_path(filename_str)) { //filter out invalid paths and paths with weird characters
         std::transform(filename_str.begin(), filename_str.end(), filename_str.begin(), ::tolower);
@@ -45,7 +45,6 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
             return;
         }
         else {
-            //log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: File ", filename_str, " has been changed. Scanning it for viruses");
             int thread_timeout = 0;
             while (get_num_threads() >= std::thread::hardware_concurrency()) {
                 Sleep(10);
@@ -54,7 +53,8 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
                     set_num_threads(0);
                 }
             }
-            //log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: Scanning new file: ", filename_str);
+            if (debug_mode())
+                log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: File ", filename_str.c_str(), " has been changed. Scanning it for viruses");
             std::thread scan_thread(scan_file_t, filename_str);
             scan_thread.detach();
             Sleep(1);

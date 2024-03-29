@@ -61,6 +61,30 @@ function download_files($excluded){
     sort_hashes("/var/www/html/database_srv/buf.md5", $excluded);
 }
 
+function create_zip($directory) {
+    // Create a new ZipArchive object
+    $zip = new ZipArchive();
+    
+    // Open or create the zip file
+    if ($zip->open('sig.zip', ZipArchive::CREATE) !== TRUE) {
+    }
+    
+    // Get list of files in the directory
+    $files = scandir($directory);
+    
+    // Loop through each file
+    foreach ($files as $file) {
+        // Check if it's a regular file and has a .txt extension
+        if (is_file($directory . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) == 'jdbf') {
+            // Add the file to the zip archive
+            $zip->addFile($directory . '/' . $file, $file);
+        }
+    }
+    
+    // Close the zip file
+    $zip->close();
+    
+}
 
 
 include "../../../config.php";
@@ -109,5 +133,7 @@ foreach ($files as $file) {
     }
 }
 set_time_limit(0);
-download_files($excluded);
+//download_files($excluded);
+//make a zip file with all the files in it.
+create_zip($directory);
 ?>

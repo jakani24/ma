@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:ma_installer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\well_known.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:well_known.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:download.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "well_known.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\well_known.h",
               "RelativeDocumentMoniker": "well_known.h",
@@ -42,7 +42,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "download.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.cpp",
               "RelativeDocumentMoniker": "download.cpp",
@@ -54,7 +54,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "download.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.h",
               "RelativeDocumentMoniker": "download.h",
@@ -72,7 +72,7 @@
               "RelativeDocumentMoniker": "ma_installer.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\ma_installer.cpp",
               "RelativeToolTip": "ma_installer.cpp",
-              "ViewState": "AQIAAPoAAAAAAAAAAAAAACcDAAAnAAAA",
+              "ViewState": "AQIAAGgDAAAAAAAAAAAAAIQDAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2023-12-22T18:52:51.74Z",
               "EditorCaption": ""

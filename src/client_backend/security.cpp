@@ -2,6 +2,8 @@
 #include <mutex> // Include the mutex header
 #include <string> // Include the string header
 #include <fstream> // Include the file stream header
+#include "md5hash.h"
+#include "well_known.h"
 
 std::mutex fileMutex_sec; // Mutex to synchronize file access
 
@@ -62,4 +64,29 @@ std::string get_machineid(const std::string& secrets_path) {
         }
         return "";
     }
+}
+
+bool selfcheck() {
+    //hash all the cyberhex files and check if they have been tampered with
+    if (md5_file_t(DLL_LIBCRYPTO_PATH) != DLL_LIBCRYPTO_HASH)
+        return 1;
+    if(md5_file_t(DLL_LIBCURL_PATH)!=DLL_LIBCURL_HASH)
+        return 2;
+    if(md5_file_t(DLL_MSVCP140_PATH)!=DLL_MSVCP140_HASH)
+        return 3;
+    if(md5_file_t(DLL_MSVCP140D_PATH)!=DLL_MSVCP140D_HASH)
+        return 4;
+    if(md5_file_t(DLL_VCRUNTIME140_PATH)!=DLL_VCRUNTIME140_HASH)
+        return 5;
+    if(md5_file_t(DLL_VCRUNTIME140D_PATH)!=DLL_VCRUNTIME140D_HASH)
+        return 6;
+    if(md5_file_t(DLL_VCRUNTIME140_1D_PATH)!=DLL_VCRUNTIME140_1D_HASH)
+        return 7;
+    if(md5_file_t(DLL_ZLIB1_PATH)!=DLL_ZLIB1_HASH)
+        return 8;
+    if(md5_file_t(DLL_UCRTBASED_PATH)!=DLL_UCRTBASED_HASH)
+        return 9;
+    //if(md5_file_t(APP_PATH)!=APP_HASH)
+	//	return 10;
+    return 0;
 }

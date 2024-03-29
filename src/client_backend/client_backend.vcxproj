@@ -155,6 +155,7 @@
     <ClCompile Include="update.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="virus_ctrl.cpp" />
+    <ClCompile Include="zip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="check_dir.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="utils.h" />
     <ClInclude Include="virus_ctrl.h" />
     <ClInclude Include="well_known.h" />
+    <ClInclude Include="zip.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="client_backend.rc" />

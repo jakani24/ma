@@ -143,7 +143,7 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
 
     auto fileIter = fileHandles.find(dbname);
     if (fileIter == fileHandles.end() && dbname_.find("c:.jdbf") == std::string::npos) {
-        log(LOGLEVEL::ERR_NOSEND, "[search_hash()]: File mapping not initialized for ", dbname);
+        //log(LOGLEVEL::ERR_NOSEND, "[search_hash()]: File mapping not initialized for ", dbname);
         return 2;
     }
     else if (fileIter == fileHandles.end()) {
@@ -247,6 +247,9 @@ void scan_folder(const std::string& directory) {
                     directories.push(full_path);
                 }
                 else {
+                    if(debug_mode())
+						log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
+
                     // Do multithreading here
                     int thread_timeout = 0;
                     //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
@@ -279,7 +282,7 @@ void scan_folder(const std::string& directory) {
                         //printf("Number of threads: %d\n", num_threads);
                     }
                     if (cnt % 1000 == 0) {
-                        int actual_threads = get_num_threads();
+                        int actual_threads = get_num_running_threads();
                         if(get_num_threads()>actual_threads)
                             set_num_threads(actual_threads);//correct value of threads minus the main and the rtp thread
                         printf("Number of threads: %d\n", get_num_threads());
@@ -296,7 +299,6 @@ void scan_folder(const std::string& directory) {
         }
         else {
             log(LOGLEVEL::ERR_NOSEND, "[scan_folder()]: Could not open directory: ", current_dir, " while scanning files inside directory.");
-            //std::cerr << "[scan_folder()]: Could not open directory: " << current_dir << " while scanning files inside directory." << std::endl;
         }
     }
 }
@@ -309,7 +311,9 @@ void action_scanfile(const std::string& filepath_) {
     const std::string filepath(filepath_);
     char* db_path = new char[300];
     char* hash = new char[300];
-    if (is_valid_path(filepath_)) { //filter out invalid paths and paths with weird characters
+    //printf("start\n");
+    if (is_valid_path(filepath)) { //filter out invalid paths and paths with weird characters
+        //printf("valid\n");
         std::string hash_(md5_file_t(filepath));
         if (strlen(hash_.c_str()) < 290)
             strcpy_s(hash, 295, hash_.c_str());
@@ -356,14 +360,14 @@ void scan_file_t(const std::string& filepath_) {
     set_num_threads(get_num_threads() + 1);
     thread_local const std::string filepath(filepath_);
     thread_local char* db_path = new char[300];
-    thread_local char* hash = new char[300];
-    thread_local std::string hash_(md5_file_t(filepath));
-    if (strlen(hash_.c_str()) < 290)
-        strcpy_s(hash, 295, hash_.c_str());
-    else{
-        strcpy_s(hash, 295, "");
-        log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not calculate hash for file: ", filepath);
-    }
+    //thread_local char* hash = new char[300];
+    thread_local std::string hash(md5_file_t(filepath));
+    //if (strlen(hash_.c_str()) < 290)
+    //    strcpy_s(hash, 295, hash_.c_str());
+    //else{
+    //    strcpy_s(hash, 295, "");
+    //    log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not calculate hash for file: ", filepath);
+    //}
     sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
     search_hash(db_path, hash, filepath);
     set_num_threads(get_num_threads() - 1);

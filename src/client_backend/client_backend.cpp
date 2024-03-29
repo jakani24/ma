@@ -49,7 +49,25 @@ int main(int argc, char*argv[]) {
     else {
 		log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not load settings from file.");
         log(LOGLEVEL::PANIC_NOSEND, "[main()]:Panic, no settings file loaded, terminating process!");
+        Sleep(1000); //wait for the log to be written
         exit(1);
+	}
+    //do self check
+    if ((err=selfcheck())!=0) {
+        log(LOGLEVEL::PANIC, "[main()]:This installation of cyberhex failed the self check! Application may be tampered with!", err);
+		log(LOGLEVEL::PANIC, "[main()]:Panic, self check failed, terminating process!");
+        Sleep(1000); //wait for the log to be written and swnt to the server
+		exit(1);
+	}
+    printf("self check passed\n");
+    update_db2(DB_DIR);
+
+
+    //init debug mode if needed
+    if (argc == 2) {
+        if (strcmp(argv[1], "-d") == 0) {
+			debug_mode_init();
+		}
 	}
 
     // Initialize hash databases

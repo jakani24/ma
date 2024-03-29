@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <regex>
 
+namespace fs = std::filesystem;
 void split(const std::string& input, char delimiter, std::string& out1, std::string& out2) {
     // Split a string at the delimiter. The delimiter only occurs once. 
     // The first part is stored in out1 and the second part in out2.
@@ -19,16 +20,23 @@ void split(const std::string& input, char delimiter, std::string& out1, std::str
     }
 }
 bool is_valid_path(const std::string& filename) {
+    //printf("1\n");
     for (char c : filename) {
         if (c == '<' || c == '>' || c == '"' || c == '|' || c == '?' || c == '*' || c > 126 || c < 32 ) {
             return 0; // Special character found
         }
     }
-    if (!std::filesystem::exists(filename)) {
-        return 0; // File does not exist
-    }
+    //printf("2\n");
+    //if (!file_exists(filename)) {
+    //    return 0; // File does not exist
+    //}
+    //printf("3\n");
+    if (!has_read_access(filename)) {//this also fails if the file does not exist
+		return 0; // No read access
+	}
     return 1; // No special character found
 }
+
 
 
 void startup(LPCTSTR lpApplicationName)
@@ -145,4 +153,26 @@ int get_num_running_threads() {
     }
 
     return runningThreads;
+}
+
+bool has_read_access(const std::string &path) {
+	// Check if the current process has read access to the file
+    FILE* fp;
+    if(fopen_s(&fp, path.c_str(), "r")==0){
+        fclose(fp);
+		return true;
+	}
+	return false;
+}
+
+void delete_all_files(const std::string& directoryPath) {
+    for (const auto& entry : fs::directory_iterator(directoryPath)) {
+        if (fs::is_regular_file(entry)) {
+            try {
+                fs::remove(entry.path());
+            }
+            catch (const std::exception& e) {
+            }
+        }
+    }
 }

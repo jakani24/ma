@@ -11,6 +11,8 @@
 #include <string>
 #include <iostream>
 #include <cctype>
+#include <filesystem>
+#include "zip.h"
 
 int update_system() {
     thread_init();
@@ -60,6 +62,29 @@ int update_system() {
     thread_shutdown();
     return 0;
 }
+
+int update_db2(const std::string&folder_path) {
+    //remove the old databases
+    std::string path = folder_path + "\\";
+    delete_all_files(folder_path); //remove all files in the folder
+
+    std::string url = get_setting_string("server:server_url");
+    if (url.empty() || url == "nan") {
+        return 2; // Invalid server URL
+    }
+    url += "/database_srv/sig.zip";
+    std::string output_path = folder_path + "\\" + "sig.zip";
+    int res = download_file_from_srv(url, output_path, get_setting("communication:unsafe_tls"), 1);
+
+    if (res != 0) {
+		return 10; // Error downloading file
+	}
+
+    //unzip the file
+    unzip(output_path, folder_path);
+    return 0;
+}
+
 int update_db(const std::string& folder_path) {
     // Download the databases from the server
     for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {

@@ -44,10 +44,11 @@ int md5_file(const char* path, char* md5Hash) {
 std::string md5_file_t(const std::string& path_) {
     std::string path(path_);
     FILE* fp = fopen(path.c_str(), "rb");
+    //printf("%s\n",path.c_str());
     if (!fp) {
         // Log the error if needed (uncomment if required)
-        // log(LOGLEVEL::WARN, "[md5_file_t()]: Could not open file for scanning ", path.c_str());
-        return path; // Return the path because otherwise, it might crash (if we send a nullptr)
+        // log(LOGLEVEL::WARN_NOSEND, "[md5_file_t()]: Could not open file for scanning ", path.c_str());
+        return "nan"; // Return the path because otherwise, it might crash (if we send a nullptr)
     }
 
     // Lock access to the file
