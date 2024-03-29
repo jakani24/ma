@@ -66,7 +66,7 @@ function create_zip($directory) {
     $zip = new ZipArchive();
     
     // Open or create the zip file
-    if ($zip->open('sig.zip', ZipArchive::CREATE) !== TRUE) {
+    if ($zip->open($directory."/sig.zip", ZipArchive::CREATE) !== TRUE) {
     }
     
     // Get list of files in the directory
