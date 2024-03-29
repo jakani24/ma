@@ -59,8 +59,9 @@ int main(int argc, char*argv[]) {
         Sleep(1000); //wait for the log to be written and swnt to the server
 		exit(1);
 	}
-    printf("self check passed\n");
-    update_db2(DB_DIR);
+    //printf("self check passed\n");
+    //update_db2(DB_DIR);
+    //printf("db update finished\n");
 
 
     //init debug mode if needed

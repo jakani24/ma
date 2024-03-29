@@ -86,6 +86,11 @@ int update_db2(const std::string&folder_path) {
 }
 
 int update_db(const std::string& folder_path) {
+    return update_db2(folder_path); //redirect to the new update funtion
+
+    //this was the old code:
+    // 
+    // 
     // Download the databases from the server
     for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {
         for (char secondChar = '0'; secondChar <= 'f'; ++secondChar) {
