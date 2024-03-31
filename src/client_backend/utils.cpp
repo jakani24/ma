@@ -8,8 +8,12 @@
 #include <regex>
 #include <filesystem>
 #include <regex>
+#include <mutex>
 
 namespace fs = std::filesystem;
+
+int num_threads = 0;
+std::mutex numThreadsMutex;
 void split(const std::string& input, char delimiter, std::string& out1, std::string& out2) {
     // Split a string at the delimiter. The delimiter only occurs once. 
     // The first part is stored in out1 and the second part in out2.
@@ -21,11 +25,11 @@ void split(const std::string& input, char delimiter, std::string& out1, std::str
 }
 bool is_valid_path(const std::string& filename) {
     //printf("1\n");
-    for (char c : filename) {
-        if (c == '<' || c == '>' || c == '"' || c == '|' || c == '?' || c == '*' || c > 126 || c < 32 ) {
-            return 0; // Special character found
-        }
-    }
+    //for (char c : filename) {
+    //    if (c == '<' || c == '>' || c == '"' || c == '|' || c == '?' || c == '*' || c > 126 || c < 32 ) {
+    //        return 0; // Special character found
+    //    }
+    //}
     //printf("2\n");
     //if (!file_exists(filename)) {
     //    return 0; // File does not exist
@@ -175,4 +179,18 @@ void delete_all_files(const std::string& directoryPath) {
             }
         }
     }
+}
+
+int get_num_threads() {
+    std::lock_guard<std::mutex> lock(numThreadsMutex);
+    return num_threads;
+}
+int set_num_threads(int num) {
+    std::lock_guard<std::mutex> lock(numThreadsMutex);
+    num_threads = num;
+    return 0;
+}
+
+bool thread_safety() { //if this is set to false the deepscan funcitons will utilize up to thousands of threads and completely destroy your machine. but it will be fast.
+    return true;
 }

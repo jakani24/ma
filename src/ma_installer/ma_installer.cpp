@@ -798,6 +798,9 @@ int main()
         }if (error == 0) {
             printf("Creating directory for application\n");
             error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\app");		        	//create secure folder for application files
+        }if (error == 0) {
+            printf("Creating directory for application\n");
+            error = create_secure_folder(L"C:\\Program Files\\cyberhex\\secure\\yara");		        	//create secure folder for application files
         }
 
         //download files from server

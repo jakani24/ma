@@ -27,6 +27,7 @@
 #define APP_DIR "C:\\Program Files\\cyberhex\\secure\\app"
 
 #define DB_DIR "C:\\Program Files\\cyberhex\\secure\\database"
+#define YARA_DB_DIR "C:\\Program Files\\cyberhex\\secure\\yara"
 
 #define VIRUS_CTRL_DB "C:\\Program Files\\cyberhex\\secure\\database\\virus_ctrl_db.txt"
 

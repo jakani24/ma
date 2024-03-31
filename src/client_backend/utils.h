@@ -12,3 +12,6 @@ bool file_exists(const std::string& filename);
 int get_num_running_threads();
 bool has_read_access(const std::string& path);
 void delete_all_files(const std::string& directoryPath);
+int get_num_threads();
+int set_num_threads(int num);
+bool thread_safety();

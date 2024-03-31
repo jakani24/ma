@@ -17,6 +17,5 @@ void action_scanfolder(const std::string& folderpath);
 void scan_file_t(const std::string& filepath_);
 int initialize(const std::string& folderPath);
 void scan_process_t(const std::string& filepath_);
+int get_num_files(const std::string& directory);
 void cleanup();
-int get_num_threads();
-int set_num_threads(int num_threads);

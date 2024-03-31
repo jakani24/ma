@@ -75,6 +75,9 @@
     <ClCompile Include="zip.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="deepscan.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="md5hash.h">
@@ -132,6 +135,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="zip.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="deepscan.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

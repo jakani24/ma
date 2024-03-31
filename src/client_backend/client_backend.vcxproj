@@ -142,6 +142,7 @@
     <ClCompile Include="check_process.cpp" />
     <ClCompile Include="client_backend.cpp" />
     <ClCompile Include="connect.cpp" />
+    <ClCompile Include="deepscan.cpp" />
     <ClCompile Include="local_com.cpp" />
     <ClCompile Include="local_schedule.cpp" />
     <ClCompile Include="log.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="check_dir.h" />
     <ClInclude Include="check_process.h" />
     <ClInclude Include="connect.h" />
+    <ClInclude Include="deepscan.h" />
     <ClInclude Include="local_com.h" />
     <ClInclude Include="local_schedule.h" />
     <ClInclude Include="log.h" />

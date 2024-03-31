@@ -3,7 +3,7 @@
 #include <thread>
 #include <curl/curl.h>
 #include <openssl/md5.h>
-//#include <yara.h>
+#include <yara.h>
 #include "app_ctrl.h"
 #include "md5hash.h"
 #include "connect.h"
@@ -20,14 +20,18 @@
 #include "update.h"
 #include "check_process.h"
 #include "utils.h"
-int main(int argc, char*argv[]) {
+#include "deepscan.h"
+int main(int argc, char* argv[]) {
 
     //log(LOGLEVEL::INFO, "[main()]:Starting main thread.");
     //return 0;
+    //runner();
+    //printf("done\n");
+
 
     log(LOGLEVEL::INFO_NOSEND, "[main()]:Starting main thread.");
     int err = 0;
-	printf("welcome to the jakach security tool main thread\n");
+    printf("welcome to the jakach security tool main thread\n");
     //exit(0);
     if (load_settings() == 0) {//load the settings from the settings file
         if (argc != 2) {
@@ -47,18 +51,18 @@ int main(int argc, char*argv[]) {
         }
     }
     else {
-		log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not load settings from file.");
+        log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not load settings from file.");
         log(LOGLEVEL::PANIC_NOSEND, "[main()]:Panic, no settings file loaded, terminating process!");
         Sleep(1000); //wait for the log to be written
         exit(1);
-	}
+    }
     //do self check
-    if ((err=selfcheck())!=0) {
+    if ((err = selfcheck()) != 0) {
         log(LOGLEVEL::PANIC, "[main()]:This installation of cyberhex failed the self check! Application may be tampered with!", err);
-		log(LOGLEVEL::PANIC, "[main()]:Panic, self check failed, terminating process!");
+        log(LOGLEVEL::PANIC, "[main()]:Panic, self check failed, terminating process!");
         Sleep(1000); //wait for the log to be written and swnt to the server
-		exit(1);
-	}
+        exit(1);
+    }
     //printf("self check passed\n");
     //update_db2(DB_DIR);
     //printf("db update finished\n");
@@ -67,12 +71,13 @@ int main(int argc, char*argv[]) {
     //init debug mode if needed
     if (argc == 2) {
         if (strcmp(argv[1], "-d") == 0) {
-			debug_mode_init();
-		}
-	}
+            debug_mode_init();
+        }
+    }
 
     // Initialize hash databases
     err = initialize(DB_DIR);
+    log(LOGLEVEL::INFO_NOSEND, "[main()]:Hash databases initialized.");
     if (err != 0) {
         switch (err) {
         case 1:
@@ -102,6 +107,15 @@ int main(int argc, char*argv[]) {
         process_scanner_thread.detach();
     }
 
+
+    //initialize the deep scan database
+    yr_initialize();
+    init_yara_rules(YARA_DB_DIR);
+    log(LOGLEVEL::INFO_NOSEND, "[main()]:Yara rules initialized.");
+//    std::string a("C:\\users\\janis\\documents");
+//    deepscan_folder(a);
+
+    // 
     // Main thread loop
     while (!app_stop()) {
         auto start = std::chrono::high_resolution_clock::now();
@@ -131,6 +145,6 @@ int main(int argc, char*argv[]) {
         if (duration.count() < 1000)
             Sleep(1000 - duration.count());
     }
-
+    yr_finalize();
     return 0;
 }

@@ -5,6 +5,7 @@
 #include "log.h"
 #include "well_known.h"
 #include "scan.h"
+#include "deepscan.h"
 #include "app_ctrl.h"
 #include "update.h"
 #include "utils.h"
@@ -23,10 +24,24 @@ int start_thread(const std::string& command) {
             t1.detach();
             has_run = 1;
         }
+        if (out1 == "deepscanfile") {
+            log(LOGLEVEL::INFO, "[start_thread()]: starting deepscanfile with arguments: ", out2);
+            // Start a new thread with the scanfile function
+            std::thread t1(action_deepscanfile, out2);
+            t1.detach();
+            has_run = 1;
+        }
         else if (out1 == "scanfolder") {
             // Start a new thread with the scanfolder function
             log(LOGLEVEL::INFO, "[start_thread()]: starting scanfolder with arguments: ", out2);
             std::thread t1(action_scanfolder, out2);
+            t1.detach();
+            has_run = 1;
+        }
+        else if (out1 == "deepscanfolder") {
+            // Start a new thread with the scanfolder function
+            log(LOGLEVEL::INFO, "[start_thread()]: starting deepscanfolder with arguments: ", out2);
+            std::thread t1(action_deepscanfolder, out2);
             t1.detach();
             has_run = 1;
         }

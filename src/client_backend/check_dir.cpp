@@ -46,7 +46,7 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
         }
         else {
             int thread_timeout = 0;
-            while (get_num_threads() >= std::thread::hardware_concurrency()) {
+            while (get_num_threads()-1 >= std::thread::hardware_concurrency()) {
                 Sleep(10);
                 thread_timeout++;
                 if (thread_timeout == 100 * 60) {//if there is for more than 30 seconds no thread available, chances are high, that the threads did not temrinate correctly but aren t running anymore. so set the counter to 0 because else it might just stop the scan.

@@ -25,25 +25,16 @@ std::mutex fileHandlesMutex;
 std::mutex mappingHandlesMutex;
 std::mutex fileDataMutex;
 std::mutex cntMutex;
-std::mutex numThreadsMutex;
 
 std::unordered_map<std::string, HANDLE> fileHandles;
 std::unordered_map<std::string, HANDLE> mappingHandles;
 std::unordered_map<std::string, char*> fileData;
 
 int cnt = 0;
-int num_threads = 0;
+
 int all_files = 0;
 
-int get_num_threads() {
-	std::lock_guard<std::mutex> lock(numThreadsMutex);
-	return num_threads;
-}
-int set_num_threads(int num) {
-	std::lock_guard<std::mutex> lock(numThreadsMutex);
-	num_threads = num;
-	return 0;
-}
+
 //load all the db files into memory
 int initialize(const std::string& folderPath) {
     for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {
@@ -163,9 +154,9 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
     size_t foundPos = fileContent.find(hash);
     if (foundPos != std::string::npos) {
         //log(LOGLEVEL::VIRUS, "[search_hash()]: Found virus: ", hash, " in file: ", filepath);
-        virus_ctrl_store(filepath.c_str(), hash.c_str(), hash.c_str());
+        virus_ctrl_store(filepath, hash, hash);
         //afterwards do the processing with that file
-        virus_ctrl_process(hash.c_str());
+        virus_ctrl_process(hash);
         return 1; // Found
     }
     return 0; // Not found
