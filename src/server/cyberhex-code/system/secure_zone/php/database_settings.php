@@ -254,10 +254,10 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							$i=0;
 							foreach($yara_files as $yara_files){
 								if($i>=$start && $i <=$stop){
-									//write out the file
+									//list out the file
 									echo '<tr>';
 									echo '<td>' . $i . '</td>';
-									echo '<td>' . basename($yara_files[$i]) . '</td>';
+									echo '<td>' . basename($yara_files) . '</td>';
 									echo '<td><a href="'.str_replace("/var/www/html","",$yara_files[$i]).'" download>Download</a></td>';
 									echo '<td><a href="view_log.php?delete_yar='.$yara_files[$i].'&page=' . $current_page . '">delete</a></td>';
 									echo '</tr>';
