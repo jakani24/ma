@@ -71,11 +71,10 @@ function list_yara_files($dir) {
                 $path = $dir . '/' . $entry;
                 // If the entry is a directory, call the function recursively
                 if (is_dir($path)) {
-					$buf=list_yara_files($path);
+					$buf[]=list_yara_files($path);
 					foreach($buf as $newpath){
 						$yar_files[]=$newpath;
 					}
-                    //$yar_files = array_merge($yar_files, list_yara_files($path));
                 }
                 // If the entry is a file and ends with .yar extension, add it to the array
                 elseif (is_file($path) && pathinfo($path, PATHINFO_EXTENSION) === 'yar') {
