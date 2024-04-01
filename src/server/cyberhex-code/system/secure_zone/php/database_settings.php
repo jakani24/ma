@@ -231,7 +231,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							$current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 							$offset = ($current_page - 1) * $page_size;
 							
-							$yara_files[]=list_yar_files("/var/www/html/database_srv/");
+							$yara_files[]=list_yara_files("/var/www/html/database_srv/");
 							$total_entries=count($yara_files);
 							// Calculate total pages
 							$total_pages = ceil($total_entries / $page_size);
