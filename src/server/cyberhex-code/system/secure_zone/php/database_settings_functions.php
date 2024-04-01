@@ -73,7 +73,7 @@ function list_yara_files($dir) {
                 if (is_dir($path)) {
 					$buf=list_yara_files($path);
 					foreach($buf as $newpath){
-						$yar_files[]=$newpath
+						$yar_files[]=$newpath;
 					}
                     //$yar_files = array_merge($yar_files, list_yara_files($path));
                 }
