@@ -249,8 +249,8 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							echo '<tbody>';
 							
 							
-							$start=$offset*page_size;
-							$stop=$start+page_size;
+							$start=$offset*$page_size;
+							$stop=$start+$page_size;
 							
 							for($i=$start;$i<$stop;$i++){
 								if($i<=$total_entries){
