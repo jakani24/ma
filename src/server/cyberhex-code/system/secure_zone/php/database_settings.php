@@ -251,7 +251,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							
 							$start=$offset*$page_size;
 							$stop=$start+$page_size;
-							
+							$i=0;
 							foreach($yara_files as $yara_files){
 								if($i>=$start && $i <=$stop){
 									//write out the file
@@ -261,7 +261,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 									echo '<td><a href="view_log.php?delete_yar='.$yara_files[$i].'&page=' . $current_page . '">delete</a></td>';
 									echo '<td><a href="'.str_replace("/var/www/html","",$yara_files[$i]).'" download>Download</a></td>';
 									echo '</tr>';
-										
+									$i++;
 								}
 								
 							}
@@ -274,7 +274,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							echo '<nav aria-label="Page navigation">';
 							echo '<ul class="pagination justify-content-center">';
 							for ($i = 1; $i <= $total_pages; $i++) {
-								echo '<li class="page-item ' . ($i == $current_page ? 'active' : '') . '"><a class="page-link" href="view_log.php?page=' . $i . $filter_query . '">' . $i . '</a></li>';
+								echo '<li class="page-item ' . ($i == $current_page ? 'active' : '') . '"><a class="page-link" href="view_log.php?page='.$i.'">' . $i . '</a></li>';
 							}
 							echo '</ul>';
 							echo '</nav>';
