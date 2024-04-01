@@ -126,7 +126,7 @@ function remove_directory($dir) {
             // Check if the current item is a directory
             if (is_dir($filePath)) {
                 // Recursively call the function for subdirectories
-                removeDirectory($filePath);
+                remove_directory($filePath);
             } else {
                 // Delete the file
                 unlink($filePath);
