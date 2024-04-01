@@ -153,9 +153,9 @@ $files = glob($directory . '/*');
 // Iterate over each file and delete it
 foreach ($files as $file) {
     // Check if the file is a regular file (not a directory)
-    if (is_file($file)) {
+    //if (is_file($file)) {
         unlink($file);
-    }
+    //}
 }
 set_time_limit(0);
 download_files($excluded);

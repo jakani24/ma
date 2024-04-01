@@ -37,7 +37,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action";
                 <div class="card-header">
                     <h4>Dashboard</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="overflow-x:auto">
 					<h4>Current Threads</h4>
 					<!-- table with all log entrys => delete button -->
                     <?php
