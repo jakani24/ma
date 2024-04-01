@@ -71,7 +71,7 @@ function list_yara_files($dir) {
                 $path = $dir . '/' . $entry;
                 // If the entry is a directory, call the function recursively
                 if (is_dir($path)) {
-					$buf[]=list_yara_files($path);
+					$buf=list_yara_files($path);
 					foreach($buf as $newpath){
 						$yar_files[]=$newpath;
 					}
