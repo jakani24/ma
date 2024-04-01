@@ -249,7 +249,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							echo '<tbody>';
 							
 							
-							$start=$offset*$page_size;
+							$start=$offset;
 							$stop=$start+$page_size;
 							$i=0;
 							foreach($yara_files as $yara_file){
