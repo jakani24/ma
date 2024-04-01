@@ -229,15 +229,11 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							//list the yara rules that we have
 							$page_size = 50;
 							$current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-							$offset = ($current_page - 1) * $page_size;
-							
+
 							$yara_files=list_yara_files("/var/www/html/database_srv/");
 							$total_entries=count($yara_files);
 							// Calculate total pages
 							$total_pages = ceil($total_entries / $page_size);
-
-							//if page=1, get yara files 0-50, page=2: 51-100 etc
-							
 							
 							// Display log entries
 							echo '<table class="table" style="overflow-x:auto">';
@@ -249,11 +245,13 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							echo '<tbody>';
 							
 							
-							$start=$offset;
+							$start=($current_page - 1) * $page_size;
 							$stop=$start+$page_size;
+							echo($start);
+							echo($stop);
 							$i=0;
 							foreach($yara_files as $yara_file){
-								if($i>=$start && $i <=$stop){
+								if($i>=$start && $i<=$stop){
 									//list out the file
 									echo '<tr>';
 									echo '<td>' . $i . '</td>';
