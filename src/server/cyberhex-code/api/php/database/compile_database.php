@@ -111,6 +111,35 @@ function unzip($zipFile, $destination) {
     }
 }
 
+function remove_directory($dir) {
+    if (!is_dir($dir)) {
+        return false;
+    }
+
+    // Open the directory
+    $handle = opendir($dir);
+
+    // Loop through the directory
+    while (false !== ($file = readdir($handle))) {
+        if ($file != "." && $file != "..") {
+            $filePath = $dir . DIRECTORY_SEPARATOR . $file;
+            // Check if the current item is a directory
+            if (is_dir($filePath)) {
+                // Recursively call the function for subdirectories
+                removeDirectory($filePath);
+            } else {
+                // Delete the file
+                unlink($filePath);
+            }
+        }
+    }
+
+    // Close the directory handle
+    closedir($handle);
+
+    // Remove the directory itself
+    return rmdir($dir);
+}
 
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
@@ -156,7 +185,7 @@ foreach ($files as $file) {
     if (is_file($file)) {
         unlink($file);
     }else{
-		rmdir($file);
+		remove_directory($file);
 	}
 }
 set_time_limit(0);
