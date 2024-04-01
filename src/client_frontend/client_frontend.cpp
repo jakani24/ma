@@ -9,6 +9,8 @@
 
 #define IDM_SCAN_FILE 101
 #define IDM_SCAN_FOLDER 102
+#define IDM_DEEP_SCAN_FILE 103
+#define IDM_DEEP_SCAN_FOLDER 104
 
 
 std::wstring string_to_widestring(const std::string& str) {
@@ -35,17 +37,23 @@ void update_textfield(HWND hWndTextField, const std::string& text) {
     SendMessage(hWndTextField, EM_REPLACESEL, FALSE, (LPARAM)string_to_widestring(text).c_str());
 }
 
-void scan_file(HWND hWndTextField, const std::string& filePath) {
+void scan_file(HWND hWndTextField, const std::string& filePath, bool deep) {
     // Remove the answer file
     std::remove(ANSWER_COM_PATH);
     // Display the scanned file path in the window
-    update_textfield(hWndTextField, "Scanning file: " + filePath + "\r\n");
+    if(!deep)
+        update_textfield(hWndTextField, "Scanning file: " + filePath + "\r\n");
+    else
+        update_textfield(hWndTextField, "Deep scanning file: " + filePath + "\r\n");
     bool answered = false;
     // Write command into com file
     //printf("%d\n",send_to_pipe("scanfile \"" + filePath + "\""));
     std::ofstream outputFile(MAIN_COM_PATH);
     if (outputFile.is_open()) {
-        outputFile << "scanfile \"" << filePath << "\"";
+        if(!deep)
+			outputFile << "scanfile \"" << filePath << "\"";
+		else
+            outputFile << "deepscanfile \"" << filePath << "\"";
         outputFile.close();
     }
     else {
@@ -76,7 +84,6 @@ void scan_file(HWND hWndTextField, const std::string& filePath) {
 
                     if (status == "found") {
                         update_textfield(hWndTextField, "Virus found in file: " + scannedFilePath + "\r\n");
-                        update_textfield(hWndTextField, "File: " + scannedFilePath + " is infected\r\n");
                         update_textfield(hWndTextField, "Hash: " + hash + "\r\n");
                         update_textfield(hWndTextField, "Action taken: " + action + "\r\n");
 
@@ -103,19 +110,25 @@ void scan_file(HWND hWndTextField, const std::string& filePath) {
 }
 
 // Function to simulate folder scanning
-void scan_folder(HWND hProgressBar,HWND hWndTextField, const std::string& folderPath) {
+void scan_folder(HWND hProgressBar,HWND hWndTextField, const std::string& folderPath,bool deep) {
     //set progress bar to 0
     SendMessage(hProgressBar, PBM_SETPOS, 0, 0);
     int num_of_found = 0;
     // Remove the answer file
     std::remove(ANSWER_COM_PATH);
     // Display the scanned folder path in the window
-    update_textfield(hWndTextField, "Scanning folder: " + folderPath + "\r\n");
+    if(!deep)
+        update_textfield(hWndTextField, "Scanning folder: " + folderPath + "\r\n");
+    else
+        update_textfield(hWndTextField, "Deep scanning folder: " + folderPath + "\r\n");
     bool answered = false;
     // Write command into com file
     std::ofstream outputFile(MAIN_COM_PATH);
     if (outputFile.is_open()) {
-        outputFile << "scanfolder \"" << folderPath << "\"";
+        if(!deep)
+            outputFile << "scanfolder \"" << folderPath << "\"";
+        else
+            outputFile << "deepscanfolder \"" << folderPath << "\"";
         outputFile.close();
     }
     else {
@@ -147,7 +160,6 @@ void scan_folder(HWND hProgressBar,HWND hWndTextField, const std::string& folder
 
                         if (status == "found") {
                             update_textfield(hWndTextField, "Virus found in file: " + scannedFilePath + "\r\n");
-                            update_textfield(hWndTextField, "File: " + scannedFilePath + " is infected\r\n");
                             update_textfield(hWndTextField, "Hash: " + hash + "\r\n");
                             update_textfield(hWndTextField, "Action taken: " + action + "\r\n");
                             num_of_found++;
@@ -168,7 +180,7 @@ void scan_folder(HWND hProgressBar,HWND hWndTextField, const std::string& folder
                         std::string all_files;
                         inputFile.ignore(1); // Ignore space
                         inputFile >> all_files;
-                        update_textfield(hWndTextField, "Folder scan started with "+ all_files +" files queued for scan\r\n");
+                        update_textfield(hWndTextField, "Folder scan started with "+ all_files +" files queued for scan\r\n\r\n");
                     }
                     else if (status == "end") {
                         answered = true;
@@ -244,22 +256,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         // Create the "Scan File" button
         CreateWindowEx(NULL, L"BUTTON", L"Scan File",
             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-            20, 10, 100, 30, hWnd, (HMENU)IDM_SCAN_FILE, GetModuleHandle(NULL), NULL);
+            20, 10, 150, 30, hWnd, (HMENU)IDM_SCAN_FILE, GetModuleHandle(NULL), NULL);
 
         // Create the "Scan Folder" button
         CreateWindowEx(NULL, L"BUTTON", L"Scan Folder",
             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-            20, 50, 100, 30, hWnd, (HMENU)IDM_SCAN_FOLDER, GetModuleHandle(NULL), NULL);
+            20, 50, 150, 30, hWnd, (HMENU)IDM_SCAN_FOLDER, GetModuleHandle(NULL), NULL);
+
+        // Create the "Deep Scan File" button
+        CreateWindowEx(NULL, L"BUTTON", L"Deep Scan File",
+            WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+            20, 90, 150, 30, hWnd, (HMENU)IDM_DEEP_SCAN_FILE, GetModuleHandle(NULL), NULL);
+
+        // Create the "Deep Scan Folder" button
+        CreateWindowEx(NULL, L"BUTTON", L"Deep Scan Folder",
+            WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+            20, 130, 150, 30, hWnd, (HMENU)IDM_DEEP_SCAN_FOLDER, GetModuleHandle(NULL), NULL);
 
         // Create a multi-line edit control for displaying text
         hWndTextField = CreateWindowEx(WS_EX_CLIENTEDGE, L"EDIT", NULL,
             WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY,
-            140, 10, width-140-20, height-10-50, hWnd, NULL, NULL, NULL);
-        update_textfield(hWndTextField, "Welcome to Cyberhex endpoint protection!\r\n");
+            190, 10, width-190-20, height-10-50, hWnd, NULL, NULL, NULL);
+        update_textfield(hWndTextField, "Welcome to Cyberhex endpoint protection!\r\n\r\n");
 
         hProgressBar = CreateWindowEx(0, PROGRESS_CLASS, NULL,
             WS_CHILD | WS_VISIBLE | PBS_SMOOTH,
-            140, height-40, 200, 20, hWnd, NULL, NULL, NULL);
+            190, height-40, width - 190 - 20, 20, hWnd, NULL, NULL, NULL);
         SendMessage(hProgressBar, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
         SendMessage(hProgressBar, PBM_SETSTEP, 1, 0);
     }
@@ -267,8 +289,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     case WM_SIZE:
     {
 		// Resize the text field to fit the window
-		MoveWindow(hWndTextField, 140, 10, width - 140 - 20, height - 10 - 50, TRUE);
-        MoveWindow(hProgressBar, 140, height - 40, 200, 20, TRUE);
+		MoveWindow(hWndTextField, 190, 10, width - 190 - 20, height - 10 - 50, TRUE);
+        MoveWindow(hProgressBar, 190, height - 40, width - 190 - 20, 20, TRUE);
         break;
 	}
     case WM_COMMAND:
@@ -298,7 +320,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             if (GetOpenFileName(&ofn) == TRUE) {
                 std::wstring selectedFile = ofn.lpstrFile; // Use std::wstring for wide characters
                 std::string narrowSelectedFile(selectedFile.begin(), selectedFile.end());
-                std::thread(scan_file, hWndTextField, narrowSelectedFile).detach();
+                std::thread(scan_file, hWndTextField, narrowSelectedFile,0).detach();
             }
         }
         break;
@@ -308,9 +330,44 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             // Call scan_folder function in a separate thread
             std::string selected_folder = getFolderPath(hWnd);
             if(selected_folder!="")
-                std::thread(scan_folder,hProgressBar, hWndTextField, selected_folder).detach();
+                std::thread(scan_folder,hProgressBar, hWndTextField, selected_folder,0).detach();
         }
         break;
+        case IDM_DEEP_SCAN_FILE:
+        {
+            // Open file dialog to select a file
+            // Call scan_file function in a separate thread
+            OPENFILENAME ofn;
+            WCHAR szFile[MAX_PATH] = L""; // Use WCHAR for Unicode compatibility
+
+            ZeroMemory(&ofn, sizeof(ofn));
+            ofn.lStructSize = sizeof(ofn);
+            ofn.hwndOwner = hWnd;
+            ofn.lpstrFile = szFile;
+            ofn.lpstrFile[0] = L'\0'; // Use wide character constant L'\0'
+            ofn.nMaxFile = sizeof(szFile);
+            ofn.lpstrFilter = L"All Files\0*.*\0"; // Use wide character string literal L""
+            ofn.nFilterIndex = 1;
+            ofn.lpstrFileTitle = NULL;
+            ofn.lpstrInitialDir = NULL;
+            ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+            if (GetOpenFileName(&ofn) == TRUE) {
+                std::wstring selectedFile = ofn.lpstrFile; // Use std::wstring for wide characters
+                std::string narrowSelectedFile(selectedFile.begin(), selectedFile.end());
+                std::thread(scan_file, hWndTextField, narrowSelectedFile, 1).detach();
+            }
+
+        }
+        break;
+        case IDM_DEEP_SCAN_FOLDER:
+        {
+			// Open folder picker dialog
+			// Call scan_folder function in a separate thread
+			std::string selected_folder = getFolderPath(hWnd);
+			if(selected_folder!="")
+				std::thread(scan_folder,hProgressBar, hWndTextField, selected_folder,1).detach();
+		}
         default:
             return DefWindowProc(hWnd, message, wParam, lParam);
         }

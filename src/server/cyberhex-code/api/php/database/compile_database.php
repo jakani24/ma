@@ -42,7 +42,7 @@ function sort_hashes($inputFile, $excluded) {
 }
 function download_files($excluded){
     //download from virusshare
-    $file_count=485;
+    /*$file_count=485;
     for($i=0;$i<$file_count;$i++){
         $fileNumber = sprintf('%05d', $i);
         $url="https://virusshare.com/hashfiles/VirusShare_$fileNumber.md5";
@@ -58,7 +58,15 @@ function download_files($excluded){
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $fileContents = curl_exec($ch);
     file_put_contents("/var/www/html/database_srv/buf.md5", $fileContents);
-    sort_hashes("/var/www/html/database_srv/buf.md5", $excluded);
+    sort_hashes("/var/www/html/database_srv/buf.md5", $excluded);*/
+	//download yara rules
+	$url="https://jakach.duckdns.org/cyberhex/yara/yara.zip";
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $fileContents = curl_exec($ch);
+    file_put_contents("/var/www/html/database_srv/yara.zip", $fileContents);
+	//unzip the yara rules
+	unzip("/var/www/html/database_srv/yara.zip","/var/www/html/database/");
 }
 
 function create_zip($directory) {
@@ -84,6 +92,23 @@ function create_zip($directory) {
     // Close the zip file
     $zip->close();
     
+}
+function unzip($zipFile, $destination) {
+    // Create a new ZipArchive object
+    $zip = new ZipArchive;
+    
+    // Open the zip file
+    if ($zip->open($zipFile) === TRUE) {
+        // Extract all files to the destination directory
+        $zip->extractTo($destination);
+        
+        // Close the zip file
+        $zip->close();
+        
+        return true; // Extraction successful
+    } else {
+        return false; // Failed to open the zip file
+    }
 }
 
 
@@ -129,7 +154,7 @@ $files = glob($directory . '/*');
 foreach ($files as $file) {
     // Check if the file is a regular file (not a directory)
     if (is_file($file)) {
-        unlink($file);
+        //unlink($file);
     }
 }
 set_time_limit(0);

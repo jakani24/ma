@@ -144,7 +144,7 @@ void deepscan_folder(const std::string& directory) {
                         printf("Processed %d files;\n", deep_cnt);
                         //printf("Number of threads: %d\n", num_threads);
                     }
-                    if (deep_cnt % 1000 == 0) {
+                    if (deep_cnt % 100 == 0) {
                         int actual_threads = get_num_running_threads();
                         if (get_num_threads() > actual_threads)
                             set_num_threads(actual_threads);//correct value of threads
@@ -195,15 +195,21 @@ int process_callback(YR_SCAN_CONTEXT* context,int message, void* message_data, v
 bool deepscan_file_t(const std::string&file_path) {
     set_num_threads(get_num_threads() + 1);
     //we do not need to make a new instance of yara rules, because they are global and do not get deteled or modified
-    //std::lock_guard<std::mutex> lock(yara_scan_mutex);
     thread_local std::string file_path_(file_path);
-    //get globally set yara rules and iterate over them
-    Callback_data* callback_data = new Callback_data();
-    for (YR_RULES* rule : compiled_rules) {
-        callback_data->filepath = file_path_;
-        yr_rules_scan_file(rule, file_path.c_str(), 0, process_callback, callback_data, 5000);
+    //first we scan the file with the normal scanner, which means md5
+    thread_local std::string hash(md5_file_t(file_path));
+    thread_local char* db_path = new char[300];
+
+    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+    if (search_hash(db_path, hash, file_path) != 1) { //if we allready found a match in the database, we do not need to scan the file with yara
+        //get globally set yara rules and iterate over them
+        Callback_data* callback_data = new Callback_data();
+        for (YR_RULES* rule : compiled_rules) {
+            callback_data->filepath = file_path_;
+            yr_rules_scan_file(rule, file_path.c_str(), 0, process_callback, callback_data, 5000);
+        }
+        set_num_threads(get_num_threads() - 1);
     }
-    set_num_threads(get_num_threads() - 1);
     return true;
 }
 
@@ -230,22 +236,27 @@ void action_deepscanfolder(const std::string& folderpath) {
 //for singlethreaded scans
 void action_deepscanfile(const std::string& filepath_) {
     thread_init();
-    std::string filepath(filepath_);
+    std::string file_path(filepath_);
     char* db_path = new char[300];
-    char* hash = new char[300];
     action_deepscan_is_virus = 0;
     //printf("start\n");
-    if (is_valid_path(filepath)) { //filter out invalid paths and paths with weird characters
-        deepscan_file_t(filepath);
-        if (action_deepscan_is_virus == 0) {
-            std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
-            if (answer_com.is_open()) {
-                answer_com << "not_found " << "\"" << filepath << "\"" << " " << hash << " " << "no_action_taken" << "\n";
-                answer_com.close();
+    if (is_valid_path(file_path)) { //filter out invalid paths and paths with weird characters
+        //first scan the file with the normal scanner, which means md5
+        thread_local char* db_path = new char[300];
+        thread_local std::string hash(md5_file_t(file_path));
+        sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+        if (search_hash(db_path, hash, file_path) != 1) { //if we allready found a match in the database, we do not need to scan the file with yara
+            deepscan_file_t(file_path);
+            if (action_deepscan_is_virus == 0) {
+                std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+                if (answer_com.is_open()) {
+                    answer_com << "not_found " << "\"" << file_path << "\"" << " " << hash << " " << "no_action_taken" << "\n";
+                    answer_com.close();
+                }
             }
         }
     }
     else
-        log(LOGLEVEL::INFO_NOSEND, "[action_scanfile()]: Invalid path: ", filepath_);
+        log(LOGLEVEL::INFO_NOSEND, "[action_scanfile()]: Invalid path: ", file_path);
     thread_shutdown();
 }

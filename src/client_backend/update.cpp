@@ -63,6 +63,28 @@ int update_system() {
     return 0;
 }
 
+int update_yara(const std::string& folder_path) {
+    //remove the old databases
+    std::string path = folder_path + "\\";
+    delete_all_files(folder_path); //remove all files in the folder
+
+    std::string url = get_setting_string("server:server_url");
+    if (url.empty() || url == "nan") {
+        return 2; // Invalid server URL
+    }
+    url += "/database_srv/yara.zip";
+    std::string output_path = folder_path + "\\" + "yara.zip";
+    int res = download_file_from_srv(url, output_path, get_setting("communication:unsafe_tls"), 1);
+
+    if (res != 0) {
+        return 10; // Error downloading file
+    }
+
+    //unzip the file
+    unzip(output_path, folder_path);
+    return 0;
+}
+
 int update_db2(const std::string&folder_path) {
     //remove the old databases
     std::string path = folder_path + "\\";
@@ -86,6 +108,7 @@ int update_db2(const std::string&folder_path) {
 }
 
 int update_db(const std::string& folder_path) {
+    update_yara(YARA_DB_DIR); //update the yara databases
     return update_db2(folder_path); //redirect to the new update funtion
 
     //this was the old code:
