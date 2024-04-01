@@ -252,8 +252,8 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							$start=$offset*$page_size;
 							$stop=$start+$page_size;
 							
-							for($i=$start;$i<$stop;$i++){
-								if($i<=$total_entries){
+							foreach($yara_files as $yara_files){
+								if($i>=$start && $i <=$stop){
 									//write out the file
 									echo '<tr>';
 									echo '<td>' . $i . '</td>';
@@ -261,14 +261,15 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 									echo '<td><a href="view_log.php?delete_yar='.$yara_files[$i].'&page=' . $current_page . '">delete</a></td>';
 									echo '<td><a href="'.str_replace("/var/www/html","",$yara_files[$i]).'" download>Download</a></td>';
 									echo '</tr>';
+										
 								}
 								
 							}
+								
 							
 							echo '</tbody>';
 							echo '</table>';
-							$conn->close();
-							
+
 							// Display pagination links with filter query
 							echo '<nav aria-label="Page navigation">';
 							echo '<ul class="pagination justify-content-center">';
