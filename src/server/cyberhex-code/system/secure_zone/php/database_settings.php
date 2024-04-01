@@ -247,8 +247,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 							
 							$start=($current_page - 1) * $page_size;
 							$stop=$start+$page_size;
-							echo($start);
-							echo($stop);
+
 							$i=0;
 							foreach($yara_files as $yara_file){
 								if($i>=$start && $i<=$stop){
@@ -259,9 +258,8 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 									echo '<td><a href="'.str_replace("/var/www/html","",$yara_file).'" download>Download</a></td>';
 									echo '<td><a href="view_log.php?delete_yar='.$yara_file.'&page=' . $current_page . '">delete</a></td>';
 									echo '</tr>';
-									$i++;
 								}
-								
+								$i++;
 							}
 								
 							
