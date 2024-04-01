@@ -58,4 +58,31 @@ function safe_settings($db){//load settings
 	$conn->close();
 	
 }
+
+function list_yara_files($dir) {
+    $yar_files = [];
+
+    // Open the directory
+    if ($handle = opendir($dir)) {
+        // Iterate over each entry in the directory
+        while (false !== ($entry = readdir($handle))) {
+            // Exclude current directory (.) and parent directory (..)
+            if ($entry != "." && $entry != "..") {
+                $path = $dir . '/' . $entry;
+                // If the entry is a directory, call the function recursively
+                if (is_dir($path)) {
+                    $yar_files = array_merge($yar_files, list_yar_files($path));
+                }
+                // If the entry is a file and ends with .yar extension, add it to the array
+                elseif (is_file($path) && pathinfo($path, PATHINFO_EXTENSION) === 'yar') {
+                    $yar_files[] = $path;
+                }
+            }
+        }
+        // Close the directory handle
+        closedir($handle);
+    }
+
+    return $yar_files;
+}
 ?>

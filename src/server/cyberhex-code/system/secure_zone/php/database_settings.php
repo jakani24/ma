@@ -226,11 +226,58 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 					<div id="yara" style="display:none">
 						<h4>Yara Rules (for deepscans)</h4>
 						<?php
-							//upload new yara rules here
-						?>
-						<?php
 							//list the yara rules that we have
+							$page_size = 50;
+							$current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+							$offset = ($current_page - 1) * $page_size;
 							
+							$yara_files[]=list_yar_files("/var/www/html/database_srv/");
+							$total_entries=count($yara_files);
+							// Calculate total pages
+							$total_pages = ceil($total_entries / $page_size);
+
+							//if page=1, get yara files 0-50, page=2: 51-100 etc
+							
+							
+							// Display log entries
+							echo '<table class="table" style="overflow-x:auto">';
+							echo '<thead>';
+							echo '<tr>'; 
+							echo '<th>Entry id</th><th>Name</th><th>Download Rule</th><th>Delete Rule</th>';
+							echo '</tr>';
+							echo '</thead>';
+							echo '<tbody>';
+							
+							
+							$start=$offset*page_size;
+							$stop=$start+page_size;
+							
+							for($i=$start;$i<$stop;$i++){
+								if($i<=$total_entries){
+									//write out the file
+									echo '<tr>';
+									echo '<td>' . $i . '</td>';
+									echo '<td>' . basename($yara_files[$i]) . '</td>';
+									echo '<td><a href="view_log.php?delete_yar='.$yara_files[$i].'&page=' . $current_page . '">delete</a></td>';
+									echo '<td><a href="'.str_replace("/var/www/html","",$yara_files[$i]).'" download>Download</a></td>';
+									echo '</tr>';
+								}
+								
+							}
+							
+							echo '</tbody>';
+							echo '</table>';
+							$conn->close();
+							
+							// Display pagination links with filter query
+							echo '<nav aria-label="Page navigation">';
+							echo '<ul class="pagination justify-content-center">';
+							for ($i = 1; $i <= $total_pages; $i++) {
+								echo '<li class="page-item ' . ($i == $current_page ? 'active' : '') . '"><a class="page-link" href="view_log.php?page=' . $i . $filter_query . '">' . $i . '</a></li>';
+							}
+							echo '</ul>';
+							echo '</nav>';
+                   
 						?>
 					
 					</div>
