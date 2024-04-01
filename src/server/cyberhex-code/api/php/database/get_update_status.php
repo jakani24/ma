@@ -9,7 +9,7 @@
 	$totalFiles = count($files) - (16 * 16);
 
 	// Calculate the percentage
-	$percentage = ($totalFiles / 485+5) * 100;
+	$percentage = ($totalFiles / (485+5)) * 100;
 
 	// Ensure the percentage is within the range 0-100
 	$percentage = max(0, min(100, $percentage));
