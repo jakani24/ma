@@ -66,7 +66,7 @@ function download_files($excluded){
     $fileContents = curl_exec($ch);
     file_put_contents("/var/www/html/database_srv/yara.zip", $fileContents);
 	//unzip the yara rules
-	unzip("/var/www/html/database_srv/yara.zip","/var/www/html/database/");
+	unzip("/var/www/html/database_srv/yara.zip","/var/www/html/database_srv/");
 }
 
 function create_zip($directory) {
