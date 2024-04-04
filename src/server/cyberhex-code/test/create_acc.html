@@ -51,7 +51,7 @@
                 if (authenticatorAttestationServerResponse.success) {
                     reloadServerPreview();
                     window.alert(authenticatorAttestationServerResponse.msg || 'registration success');
-
+					alert(1);
                 } else {
                     throw new Error(authenticatorAttestationServerResponse.msg);
                 }
