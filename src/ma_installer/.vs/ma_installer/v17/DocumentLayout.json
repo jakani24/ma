@@ -7,16 +7,56 @@
       "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:ma_installer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:create_folder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\service.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:service.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\setup_var.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:setup_var.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\update.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:update.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\zip.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:zip.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:download.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:create_folder.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\service.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:service.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\setup_var.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:setup_var.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\update.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:update.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\well_known.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:well_known.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:download.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\zip.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:zip.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:download.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,35 +66,161 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "create_folder.h",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.h",
+              "RelativeDocumentMoniker": "create_folder.h",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.h",
+              "RelativeToolTip": "create_folder.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-04T15:28:46.78Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "create_folder.cpp",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.cpp",
+              "RelativeDocumentMoniker": "create_folder.cpp",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.cpp",
+              "RelativeToolTip": "create_folder.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-04T15:28:38.27Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "service.h",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\service.h",
+              "RelativeDocumentMoniker": "service.h",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\service.h",
+              "RelativeToolTip": "service.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-04T15:26:27.978Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "service.cpp",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\service.cpp",
+              "RelativeDocumentMoniker": "service.cpp",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\service.cpp",
+              "RelativeToolTip": "service.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-04T15:26:20.564Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "setup_var.h",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\setup_var.h",
+              "RelativeDocumentMoniker": "setup_var.h",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\setup_var.h",
+              "RelativeToolTip": "setup_var.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-04T15:23:38.898Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "setup_var.cpp",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\setup_var.cpp",
+              "RelativeDocumentMoniker": "setup_var.cpp",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\setup_var.cpp",
+              "RelativeToolTip": "setup_var.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-04T15:23:26.149Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "update.h",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\update.h",
+              "RelativeDocumentMoniker": "update.h",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\update.h",
+              "RelativeToolTip": "update.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-04T15:21:36.65Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "update.cpp",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\update.cpp",
+              "RelativeDocumentMoniker": "update.cpp",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\update.cpp",
+              "RelativeToolTip": "update.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-04T15:21:28.758Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "zip.h",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\zip.h",
+              "RelativeDocumentMoniker": "zip.h",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\zip.h",
+              "RelativeToolTip": "zip.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-04T15:07:00.819Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "zip.cpp",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\zip.cpp",
+              "RelativeDocumentMoniker": "zip.cpp",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\zip.cpp",
+              "RelativeToolTip": "zip.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-04T15:06:51.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "well_known.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\well_known.h",
               "RelativeDocumentMoniker": "well_known.h",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\well_known.h",
               "RelativeToolTip": "well_known.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAOAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAAqwEgAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-02-17T10:06:35.859Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "download.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.cpp",
               "RelativeDocumentMoniker": "download.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.cpp",
               "RelativeToolTip": "download.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2023-12-22T19:47:31.583Z"
+              "WhenOpened": "2023-12-22T19:47:31.583Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 13,
               "Title": "download.h",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\download.h",
               "RelativeDocumentMoniker": "download.h",
@@ -72,7 +238,7 @@
               "RelativeDocumentMoniker": "ma_installer.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\ma_installer.cpp",
               "RelativeToolTip": "ma_installer.cpp",
-              "ViewState": "AQIAAPMCAAAAAAAAAAAAAB8DAABXAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2023-12-22T18:52:51.74Z",
               "EditorCaption": ""

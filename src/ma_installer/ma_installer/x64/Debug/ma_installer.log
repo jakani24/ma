@@ -1,4 +1,11 @@
-﻿  ma_installer.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\ma_installer.cpp(807,15): warning C4101: "fp": Unreferenzierte lokale Variable
+﻿  create_folder.cpp
+  download.cpp
+  ma_installer.cpp
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\ma_installer.cpp(154,15): warning C4101: "fp": Unreferenzierte lokale Variable
+  service.cpp
+  setup_var.cpp
+  update.cpp
+  zip.cpp
+  Code wird generiert...
   ma_installer.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\x64\Debug\ma_installer.exe
 C:\vcpkg\vcpkg-2023.08.09\scripts\buildsystems\msbuild\vcpkg.targets(228,5): warning : [vcpkg] Failed to gather app local DLL dependencies, program may not run. Set VcpkgApplocalDeps to false in your project file to suppress this warning. PowerShell arguments: -ExecutionPolicy Bypass -noprofile -File "C:\vcpkg\vcpkg-2023.08.09\scripts\buildsystems\msbuild\applocal.ps1" "C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\ma_installer\x64\Debug\ma_installer.exe" "C:\vcpkg\vcpkg-2023.08.09\installed\x64-windows\debug\bin" "ma_installer\x64\Debug\ma_installer.tlog\ma_installer.write.1u.tlog" "ma_installer\x64\Debug\vcpkg.applocal.log"

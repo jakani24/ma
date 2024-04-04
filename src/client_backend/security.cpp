@@ -1,3 +1,14 @@
+/*
+This file contains the implementation of the security functions.
+
+Functions:
+- check_cert(): This function checks if the certificate is valid.
+- get_apikey(): This function returns the API key.
+- get_machineid(): This function returns the machine ID.
+- selfcheck(): This function checks if the files have been tampered with.
+
+*/
+
 #include "security.h"
 #include <mutex> // Include the mutex header
 #include <string> // Include the string header

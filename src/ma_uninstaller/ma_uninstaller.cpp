@@ -1,8 +1,13 @@
-// ma_uninstaller.cpp : Diese Datei enthält die Funktion "main". Hier beginnt und endet die Ausführung des Programms.
-//
-//todo:
-/* remove folders
-* remove background task
+/*
+This file contains the uninstaller for the Cyberhex application. It removes the application directory and the background task.
+
+DO:
+- Check if the programm is run as admin
+- If not, request admin rights
+- Stop the Cyberhex application
+- Remove the application directory
+- Remove the background task
+- Show a message box with the result
 */
 #include <iostream>
 #include <Windows.h>
@@ -217,6 +222,7 @@ int main()
         case 4:
             printf("Failed to remove directory.\n");
 			MessageBox(NULL, L"Failed to remove directory!", L"Error", MB_OK);
+        break;
 		default:
 			printf("Unknown error\n");
             MessageBox(NULL, L"Unknown error!", L"Error", MB_OK);

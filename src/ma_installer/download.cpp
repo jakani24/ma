@@ -1,3 +1,12 @@
+/*
+This file is part of the download library. This library is used to download files from a server.
+
+Functions:
+	- download_file_from_srv: Downloads a file from a server and saves it to a file.
+
+*/
+
+
 #pragma warning(disable:4996)
 #ifndef CONNECT_CPP
 #define CONNECT_CPP

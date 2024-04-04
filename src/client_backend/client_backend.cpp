@@ -1,3 +1,10 @@
+/*
+This file is the main file for the client backend. It is responsible for starting the main thread and initializing all the other threads and functions. It also contains the main loop for the main thread which checks for tasks from the user interface, scheduled tasks, and tasks from the queue. It also initializes the hash databases, the yara rules, and the real-time protection threads. The main thread will run until the app_stop() function returns true, which is set by the user interface when the user wants to stop the application.
+
+Functions:
+- main(): The main function of the client backend. It initializes the hash databases, yara rules, and real-time protection threads. It then enters a loop where it checks for tasks from the user interface, scheduled tasks, and tasks from the queue. It will run until the app_stop() function returns true.
+*/
+
 #pragma warning(disable:4996)
 #include <iostream>
 #include <thread>

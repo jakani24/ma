@@ -17,6 +17,6 @@ curl -O -L https://github.com/jakani24/cyberhex_bin_distro/raw/main/msvcp140d.dl
 curl -O -L https://github.com/jakani24/cyberhex_bin_distro/raw/main/vcruntime140d.dll
 curl -O -L https://github.com/jakani24/cyberhex_bin_distro/raw/main/ucrtbased.dll
 curl -O -L https://github.com/jakani24/cyberhex_bin_distro/raw/main/zlibd1.dll
-curl -O -L https://github.com/jakani24/cyberhex_bin_distro/raw/main/cyberhex_logo2.ico.dll
+curl -O -L https://github.com/jakani24/cyberhex_bin_distro/raw/main/cyberhex_logo2.ico
 echo "Download finished, starting installer"
 start ma_installer.exe

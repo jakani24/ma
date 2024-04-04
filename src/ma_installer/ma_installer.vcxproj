@@ -127,12 +127,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="create_folder.cpp" />
     <ClCompile Include="download.cpp" />
     <ClCompile Include="ma_installer.cpp" />
+    <ClCompile Include="service.cpp" />
+    <ClCompile Include="setup_var.cpp" />
+    <ClCompile Include="update.cpp" />
+    <ClCompile Include="zip.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="create_folder.h" />
     <ClInclude Include="download.h" />
+    <ClInclude Include="service.h" />
+    <ClInclude Include="setup_var.h" />
+    <ClInclude Include="update.h" />
     <ClInclude Include="well_known.h" />
+    <ClInclude Include="zip.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

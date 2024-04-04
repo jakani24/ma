@@ -1,3 +1,17 @@
+/*
+This is the deepscan.cpp file. This file contains the implementation of the deepscan functions
+
+Functions:
+- load_yara_rules(): This function loads the YARA rules from a file and compiles them.
+- init_yara_rules(): This function initializes the YARA rules by loading them from a folder.
+- deepscan_folder(): This function scans all the files in a folder recursively.
+- deepscan_file_t(): This function scans a single file using YARA rules.
+- action_deepscanfolder(): This function is the action function for deepscanfolder.
+- action_deepscanfile(): This function is the action function for deepscanfile.
+
+
+*/
+
 #include "deepscan.h"
 #include "virus_ctrl.h"
 #include "md5hash.h"
@@ -192,6 +206,7 @@ int process_callback(YR_SCAN_CONTEXT* context,int message, void* message_data, v
     }
 	return CALLBACK_CONTINUE;
 }
+/*
 bool deepscan_file_t(const std::string&file_path) {
     set_num_threads(get_num_threads() + 1);
     //we do not need to make a new instance of yara rules, because they are global and do not get deteled or modified
@@ -207,6 +222,42 @@ bool deepscan_file_t(const std::string&file_path) {
         for (YR_RULES* rule : compiled_rules) {
             callback_data->filepath = file_path_;
             yr_rules_scan_file(rule, file_path.c_str(), 0, process_callback, callback_data, 5000);
+        }
+        set_num_threads(get_num_threads() - 1);
+    }
+    return true;
+}
+*/
+bool deepscan_file_t(const std::string& file_path) {
+    set_num_threads(get_num_threads() + 1);
+    // we do not need to make a new instance of yara rules, because they are global and do not get deleted or modified
+    thread_local std::string file_path_(file_path);
+    // first we scan the file with the normal scanner, which means md5
+    thread_local std::string hash(md5_file_t(file_path));
+    thread_local char* db_path = new char[300];
+
+    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+    if (search_hash(db_path, hash, file_path) != 1) { // if we already found a match in the database, we do not need to scan the file with yara
+        // Load file into memory
+        std::ifstream file_stream(file_path, std::ios::binary | std::ios::ate);
+        if (!file_stream.is_open()) {
+            // handle error if file cannot be opened
+            return false;
+        }
+        std::streamsize file_size = file_stream.tellg();
+        file_stream.seekg(0, std::ios::beg);
+        std::vector<char> file_content(file_size);
+        if (!file_stream.read(file_content.data(), file_size)) {
+            // handle error if file content cannot be read
+            return false;
+        }
+        file_stream.close();
+
+        // get globally set yara rules and iterate over them
+        Callback_data* callback_data = new Callback_data();
+        for (YR_RULES* rule : compiled_rules) {
+            callback_data->filepath = file_path_;
+            yr_rules_scan_mem(rule, reinterpret_cast<const uint8_t*>(file_content.data()), file_content.size(), 0, process_callback, callback_data, 5000);
         }
         set_num_threads(get_num_threads() - 1);
     }

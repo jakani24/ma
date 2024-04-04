@@ -1,10 +1,19 @@
+/*
+This file includes the unzip function which is used to unzip files. The function uses the IShellDispatch interface to interact with the Windows Shell and extract the contents of a ZIP file to a specified destination folder. The function takes two parameters: the source ZIP file path and the destination folder path where the contents will be extracted.
+
+Functions:
+- unzip(): This function extracts the contents of a ZIP file to a specified destination folder using the IShellDispatch interface. It takes two parameters: the source ZIP file path and the destination folder path.
+
+Code copied from:
+- https://vcpptips.wordpress.com/2013/10/28/how-to-zipunzip-files/
+*/
+
 #include "zip.h"
 #include <windows.h>
 #include <string.h>
 #include <iostream>
 #include <Shldisp.h>
 #include <codecvt>
-//thanks https://vcpptips.wordpress.com/2013/10/28/how-to-zipunzip-files/
 
 void unzip(const std::string& source, const std::string& dest)
 {

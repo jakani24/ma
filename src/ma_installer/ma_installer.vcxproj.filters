@@ -21,12 +21,42 @@
     <ClCompile Include="download.cpp">
       <Filter>Headerdateien</Filter>
     </ClCompile>
+    <ClCompile Include="zip.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="update.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="setup_var.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="service.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="create_folder.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="download.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="well_known.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="zip.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="update.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="setup_var.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="service.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="create_folder.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
