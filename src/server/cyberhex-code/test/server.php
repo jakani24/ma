@@ -1,5 +1,5 @@
 <?php
-require_once '../src/WebAuthn.php';
+require_once 'WebAuthn.php';
 try {
     session_start();
 
