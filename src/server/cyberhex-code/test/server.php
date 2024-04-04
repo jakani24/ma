@@ -191,9 +191,6 @@ try {
         $_SESSION['registrations'][] = $data;
 
         $msg = 'registration success.';
-        if ($data->rootValid === false) {
-            $msg = 'registration ok, but certificate does not match any of the selected root ca.';
-        }
 
         $return = new stdClass();
         $return->success = true;
