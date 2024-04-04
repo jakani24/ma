@@ -188,14 +188,15 @@ try {
         // process the get request. throws WebAuthnException if it fails
         $WebAuthn->processGet($clientDataJSON, $authenticatorData, $signature, $credentialPublicKey, $challenge, null, $userVerification === 'required');
 
-        $return = new stdClass();
-        $return->success = true;
 		//we have authenticated the user!
 		$_SESSION["username"]=$userName;
 		$_SESSION["login"]=true;
 		$_SESSION["perms"]="111111111111111111111111";
 		$_SESSION["email"]="janis.st44@gmail.com";
 		$_SESSION["telegram_id"]="1234";
+
+        $return = new stdClass();
+        $return->success = true;
 
         header('Content-Type: application/json');
         print(json_encode($return));
