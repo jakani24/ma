@@ -24,27 +24,27 @@ try {
 
         // Formats
         $formats = [];
-        if (filter_input(INPUT_GET, 'fmt_android-key')) {
+        //if (filter_input(INPUT_GET, 'fmt_android-key')) {
             $formats[] = 'android-key';
-        }
-        if (filter_input(INPUT_GET, 'fmt_android-safetynet')) {
+        //}
+        ///if (filter_input(INPUT_GET, 'fmt_android-safetynet')) {
             $formats[] = 'android-safetynet';
-        }
-        if (filter_input(INPUT_GET, 'fmt_apple')) {
+        //}
+        //if (filter_input(INPUT_GET, 'fmt_apple')) {
             $formats[] = 'apple';
-        }
-        if (filter_input(INPUT_GET, 'fmt_fido-u2f')) {
+        //}
+        //if (filter_input(INPUT_GET, 'fmt_fido-u2f')) {
             $formats[] = 'fido-u2f';
-        }
-        if (filter_input(INPUT_GET, 'fmt_none')) {
+        //}
+        //if (filter_input(INPUT_GET, 'fmt_none')) {
             $formats[] = 'none';
-        }
-        if (filter_input(INPUT_GET, 'fmt_packed')) {
+        //}
+        //if (filter_input(INPUT_GET, 'fmt_packed')) {
             $formats[] = 'packed';
-        }
-        if (filter_input(INPUT_GET, 'fmt_tpm')) {
+        //}
+        //if (filter_input(INPUT_GET, 'fmt_tpm')) {
             $formats[] = 'tpm';
-        }
+        //}
 
         $rpId = 'localhost';
         if (filter_input(INPUT_GET, 'rpId')) {
@@ -55,11 +55,18 @@ try {
         }
 
         // types selected on front end
-        $typeUsb = !!filter_input(INPUT_GET, 'type_usb');
-        $typeNfc = !!filter_input(INPUT_GET, 'type_nfc');
-        $typeBle = !!filter_input(INPUT_GET, 'type_ble');
-        $typeInt = !!filter_input(INPUT_GET, 'type_int');
-        $typeHyb = !!filter_input(INPUT_GET, 'type_hybrid');
+        //$typeUsb = !!filter_input(INPUT_GET, 'type_usb');
+        //$typeNfc = !!filter_input(INPUT_GET, 'type_nfc');
+        //$typeBle = !!filter_input(INPUT_GET, 'type_ble');
+        //$typeInt = !!filter_input(INPUT_GET, 'type_int');
+        //$typeHyb = !!filter_input(INPUT_GET, 'type_hybrid');
+		
+		
+		$typeUsb = true;
+		$typeNfc = true;
+		$typeBle = true;
+		$typeInt = true;
+		$typeHyb = true;
 
         // cross-platform: true, if type internal is not allowed
         //                 false, if only internal is allowed
