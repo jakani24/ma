@@ -47,13 +47,6 @@ try {
             $formats[] = 'tpm';
         //}
 
-        $rpId = 'localhost';
-        if (filter_input(INPUT_GET, 'rpId')) {
-            $rpId = filter_input(INPUT_GET, 'rpId', FILTER_VALIDATE_DOMAIN);
-            if ($rpId === false) {
-                throw new Exception('invalid relying party ID');
-            }
-        }
 		$rpId=$_SERVER['SERVER_NAME'];
         // types selected on front end
         //$typeUsb = !!filter_input(INPUT_GET, 'type_usb');

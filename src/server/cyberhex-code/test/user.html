@@ -198,7 +198,15 @@
             }
             return window.btoa(binary);
         }
-
+		
+		function ascii_to_hex(str) {
+			let hex = '';
+			for (let i = 0; i < str.length; i++) {
+				let ascii = str.charCodeAt(i).toString(16);
+				hex += ('00' + ascii).slice(-2); // Ensure each hex value is 2 characters long
+			}
+			return hex;
+		}
         /**
          * Get URL parameter
          * @returns {String}
@@ -230,9 +238,9 @@
             url += '&fmt_packed=1';
             url += '&fmt_tpm=1';
 
-            url += '&rpId=' + encodeURIComponent(document.getElementById('rpId').value);
+            url += '&rpId=auth.jakach.com';
 
-            url += '&userId=' + encodeURIComponent(document.getElementById('userId').value);
+            url += '&userId=' + encodeURIComponent(ascii_to_hex(document.getElementById('userName').value));
             url += '&userName=' + encodeURIComponent(document.getElementById('userName').value);
             url += '&userDisplayName=' + encodeURIComponent(document.getElementById('userDisplayName').value);
 
@@ -338,19 +346,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>&nbsp;</div>
 
-
-                    <div>&nbsp;</div>
-                    <div style="font-weight: bold">Relying Party</div>
-                    <p style="margin:0 0 5px 0;font-size:0.9em;font-style: italic;">A valid domain string that identifies the
-                        WebAuthn Relying Party<br/>on whose behalf a given registration or authentication ceremony is being performed.</p>
-                    <div>
-                        <label for="rpId">RP ID:</label>
-                        <input type="text" id="rpId" name="rpId" value="">
-                    </div>
-
-                    <div>&nbsp;</div>
                     <div style="font-weight: bold">User</div>
                     <div style="margin-bottom:12px">
                         <label for="userId">User ID (Hex):</label>
