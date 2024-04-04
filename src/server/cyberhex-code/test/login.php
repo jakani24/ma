@@ -202,3 +202,100 @@ try {
 }
 
 ?>
+
+
+
+
+
+
+
+
+
+<?php
+//with db:
+/*
+require_once 'WebAuthn.php';
+// Assuming you've already established a database connection here
+
+try {
+    // Read input parameters
+    $fn = filter_input(INPUT_GET, 'fn');
+    $requireResidentKey = !!filter_input(INPUT_GET, 'requireResidentKey');
+    $userVerification = filter_input(INPUT_GET, 'userVerification', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_SPECIAL_CHARS);
+    $userName = filter_input(INPUT_GET, 'userName', FILTER_SANITIZE_SPECIAL_CHARS);
+    $userDisplayName = filter_input(INPUT_GET, 'userDisplayName', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    // Validate and sanitize input
+    $userId = preg_replace('/[^0-9a-f]/i', '', $userId);
+    $userName = preg_replace('/[^0-9a-z]/i', '', $userName);
+    $userDisplayName = preg_replace('/[^0-9a-z öüäéèàÖÜÄÉÈÀÂÊÎÔÛâêîôû]/i', '', $userDisplayName);
+
+    $post = trim(file_get_contents('php://input'));
+    if ($post) {
+        $post = json_decode($post, null, 512, JSON_THROW_ON_ERROR);
+    }
+
+    // Initialize WebAuthn
+    $rpId=$_SERVER['SERVER_NAME'];
+    $WebAuthn = new lbuchs\WebAuthn\WebAuthn('WebAuthn Library', $rpId);
+
+    // Other configurations...
+
+    // Handle different functions
+    if ($fn === 'getCreateArgs') {
+        // Get create arguments
+        $createArgs = $WebAuthn->getCreateArgs(\hex2bin($userId), $userName, $userDisplayName, 60*4, $requireResidentKey, $userVerification);
+        header('Content-Type: application/json');
+        print(json_encode($createArgs));
+
+        // Save challenge to session or somewhere else if needed
+    } else if ($fn === 'getGetArgs') {
+        // Get get arguments
+        // Retrieve credential IDs from the database based on $userId
+        $ids = []; // Fetch credential IDs from the database
+        $getArgs = $WebAuthn->getGetArgs($ids, 60*4);
+        header('Content-Type: application/json');
+        print(json_encode($getArgs));
+
+        // Save challenge to session or somewhere else if needed
+    } else if ($fn === 'processGet') {
+        // Process get
+        // Retrieve registration data from the database based on credential ID
+        $id = base64_decode($post->id);
+        $stmt = $conn->prepare("SELECT * FROM registrations WHERE credentialId = ?");
+        $stmt->execute([$id]);
+        $registration = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$registration) {
+            throw new Exception('Public Key for credential ID not found!');
+        }
+
+        $clientDataJSON = base64_decode($post->clientDataJSON);
+        $authenticatorData = base64_decode($post->authenticatorData);
+        $signature = base64_decode($post->signature);
+        $userHandle = base64_decode($post->userHandle);
+        $challenge = $_SESSION['challenge'] ?? '';
+        $credentialPublicKey = $registration['publicKey'];
+
+        // Process the get request
+        $WebAuthn->processGet($clientDataJSON, $authenticatorData, $signature, $credentialPublicKey, $challenge, null, $userVerification === 'required');
+
+        // Authentication success
+        $return = new stdClass();
+        $return->success = true;
+        header('Content-Type: application/json');
+        print(json_encode($return));
+    }
+
+} catch (Throwable $ex) {
+    $return = new stdClass();
+    $return->success = false;
+    $return->msg = $ex->getMessage();
+
+    header('Content-Type: application/json');
+    print(json_encode($return));
+}
+*/
+?>

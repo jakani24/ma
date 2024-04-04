@@ -57,6 +57,7 @@
 			}
 
 			// Create user table
+			//INSERT INTO registrations (userId, credentialId, publicKey, counter) VALUES (?, ?, ?, ?)");
 			$sql = "CREATE TABLE IF NOT EXISTS users (
 				id INT AUTO_INCREMENT PRIMARY KEY,
 				username VARCHAR(255) NOT NULL,
@@ -64,7 +65,11 @@
 				perms VARCHAR(255),
 				password VARCHAR(255),
 				2fa VARCHAR(255),
-				telegram_id VARCHAR(255)
+				telegram_id VARCHAR(255),
+				user_hex_id VARCHAR(255):
+				credential_id VARBINARY(64),
+				public_key TEXT,
+				counter INT
 			)";
 
 			if ($conn->query($sql) === TRUE) {
