@@ -51,7 +51,6 @@
                 if (authenticatorAttestationServerResponse.success) {
                     reloadServerPreview();
                     window.alert(authenticatorAttestationServerResponse.msg || 'registration success');
-					alert(1);
                 } else {
                     throw new Error(authenticatorAttestationServerResponse.msg);
                 }
@@ -202,13 +201,13 @@
             if (location.protocol !== 'https:' && location.host !== 'localhost') {
                 location.href = location.href.replace('http', 'https');
             }
-            if (!document.getElementById('rpId').value) {
-                document.getElementById('rpId').value = location.hostname;
-            }
+            //if (!document.getElementById('rpId').value) {
+            //    document.getElementById('rpId').value = location.hostname;
+            //}
 
-            if (!document.getElementById('attestation_yes').checked) {
-                setAttestation(false);
-            }
+            //if (!document.getElementById('attestation_yes').checked) {
+            //    setAttestation(false);
+            //}
         }
 
         </script>
