@@ -190,13 +190,15 @@ try {
 
         $return = new stdClass();
         $return->success = true;
+		//we have authenticated the user!
+		$_SESSION["username"]=$userName;
+		$_SESSION["login"]=true;
+		$_SESSION["perms"]="111111111111111111111111";
+		$_SESSION["email"]="janis.st44@gmail.com";
+		$_SESSION["telegram_id"]="1234";
 
         header('Content-Type: application/json');
         print(json_encode($return));
-
-    // ------------------------------------
-    // proccess clear registrations
-    // ------------------------------------
 
     }
 } catch (Throwable $ex) {
