@@ -8,49 +8,56 @@
          * creates a new FIDO2 registration
          * @returns {undefined}
          */
-        async function createRegistration() {
+       
+
+        /**
+         * checks a FIDO2 registration
+         * @returns {undefined}
+         */
+        async function checkRegistration() {
             try {
 
-                // check browser support
                 if (!window.fetch || !navigator.credentials || !navigator.credentials.create) {
                     throw new Error('Browser not supported.');
                 }
 
-                // get create args
-                let rep = await window.fetch('create_acc.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
-                const createArgs = await rep.json();
+                // get check args
+                let rep = await window.fetch('login.php?fn=getGetArgs' + getGetParams(), {method:'GET',cache:'no-cache'});
+                const getArgs = await rep.json();
 
                 // error handling
-                if (createArgs.success === false) {
-                    throw new Error(createArgs.msg || 'unknown error occured');
+                if (getArgs.success === false) {
+                    throw new Error(getArgs.msg);
                 }
 
                 // replace binary base64 data with ArrayBuffer. a other way to do this
                 // is the reviver function of JSON.parse()
-                recursiveBase64StrToArrayBuffer(createArgs);
+                recursiveBase64StrToArrayBuffer(getArgs);
 
-                // create credentials
-                const cred = await navigator.credentials.create(createArgs);
+                // check credentials with hardware
+                const cred = await navigator.credentials.get(getArgs);
 
-                // create object
+                // create object for transmission to server
                 const authenticatorAttestationResponse = {
-                    transports: cred.response.getTransports  ? cred.response.getTransports() : null,
+                    id: cred.rawId ? arrayBufferToBase64(cred.rawId) : null,
                     clientDataJSON: cred.response.clientDataJSON  ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
-                    attestationObject: cred.response.attestationObject ? arrayBufferToBase64(cred.response.attestationObject) : null
+                    authenticatorData: cred.response.authenticatorData ? arrayBufferToBase64(cred.response.authenticatorData) : null,
+                    signature: cred.response.signature ? arrayBufferToBase64(cred.response.signature) : null,
+                    userHandle: cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
                 };
 
-                // check auth on server side
-                rep = await window.fetch('create_acc.php?fn=processCreate' + getGetParams(), {
-                    method  : 'POST',
-                    body    : JSON.stringify(authenticatorAttestationResponse),
-                    cache   : 'no-cache'
+                // send to server
+                rep = await window.fetch('login.php?fn=processGet' + getGetParams(), {
+                    method:'POST',
+                    body: JSON.stringify(authenticatorAttestationResponse),
+                    cache:'no-cache'
                 });
                 const authenticatorAttestationServerResponse = await rep.json();
 
-                // prompt server response
+                // check server response
                 if (authenticatorAttestationServerResponse.success) {
                     reloadServerPreview();
-                    window.alert(authenticatorAttestationServerResponse.msg || 'registration success');
+                    window.alert(authenticatorAttestationServerResponse.msg || 'login success');
                 } else {
                     throw new Error(authenticatorAttestationServerResponse.msg);
                 }
@@ -61,10 +68,8 @@
             }
         }
 
-
-
         function queryFidoMetaDataService() {
-            window.fetch('create_acc.php?fn=queryFidoMetaDataService' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
+            window.fetch('login.php?fn=queryFidoMetaDataService' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
                 return response.json();
 
             }).then(function(json) {
@@ -201,13 +206,6 @@
             if (location.protocol !== 'https:' && location.host !== 'localhost') {
                 location.href = location.href.replace('http', 'https');
             }
-            //if (!document.getElementById('rpId').value) {
-            //    document.getElementById('rpId').value = location.hostname;
-            //}
-
-            //if (!document.getElementById('attestation_yes').checked) {
-            //    setAttestation(false);
-            //}
         }
 
         </script>
@@ -259,8 +257,9 @@
                     <table>
                         <tbody><tr>
                                 <td>
-                                    <button type="button" onclick="createRegistration()">&#10133; new registration</button>
+                                    <button type="button" onclick="checkRegistration()">&#10068; check registration</button>
                                 </td>
+
                             </tr>
                         </tbody>
                     </table>
@@ -272,6 +271,10 @@
                         <i style="font-size: 0.8em;">only for display, i.e., aiding the user in determining the difference between user accounts with similar display names.</i>
                     </div>
                 </div>
+            </div>
+            <div class="serverPreview">
+                <p style="margin-left:10px;font-weight: bold;">Here you can see what's saved on the server:</p>
+                <iframe src="login.php?fn=getStoredDataHtml" id="serverPreview"></iframe>
             </div>
         <div>
     </body>
