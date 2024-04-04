@@ -149,12 +149,6 @@ try {
         // save challange to session. you have to deliver it to processGet later.
         $_SESSION['challenge'] = $WebAuthn->getChallenge();
 
-
-
-    // ------------------------------------
-    // process create
-    // ------------------------------------
-
     }else if ($fn === 'processGet') {
         $clientDataJSON = base64_decode($post->clientDataJSON);
         $authenticatorData = base64_decode($post->authenticatorData);
@@ -197,6 +191,7 @@ try {
 
         $return = new stdClass();
         $return->success = true;
+		$return->j=true;
 
         header('Content-Type: application/json');
         print(json_encode($return));
