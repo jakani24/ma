@@ -86,28 +86,28 @@ try {
         $WebAuthn = new lbuchs\WebAuthn\WebAuthn('WebAuthn Library', $rpId, $formats);
 
         // add root certificates to validate new registrations
-        if (filter_input(INPUT_GET, 'solo')) {
+        //if (filter_input(INPUT_GET, 'solo')) {
             $WebAuthn->addRootCertificates('rootCertificates/solo.pem');
-        }
-        if (filter_input(INPUT_GET, 'apple')) {
+        //}
+        //if (filter_input(INPUT_GET, 'apple')) {
             $WebAuthn->addRootCertificates('rootCertificates/apple.pem');
-        }
-        if (filter_input(INPUT_GET, 'yubico')) {
+        //}
+        //if (filter_input(INPUT_GET, 'yubico')) {
             $WebAuthn->addRootCertificates('rootCertificates/yubico.pem');
-        }
-        if (filter_input(INPUT_GET, 'hypersecu')) {
+        //}
+        //if (filter_input(INPUT_GET, 'hypersecu')) {
             $WebAuthn->addRootCertificates('rootCertificates/hypersecu.pem');
-        }
-        if (filter_input(INPUT_GET, 'google')) {
+        //}
+        //if (filter_input(INPUT_GET, 'google')) {
             $WebAuthn->addRootCertificates('rootCertificates/globalSign.pem');
             $WebAuthn->addRootCertificates('rootCertificates/googleHardware.pem');
-        }
-        if (filter_input(INPUT_GET, 'microsoft')) {
+        //}
+        //if (filter_input(INPUT_GET, 'microsoft')) {
             $WebAuthn->addRootCertificates('rootCertificates/microsoftTpmCollection.pem');
-        }
-        if (filter_input(INPUT_GET, 'mds')) {
+        //}
+        //if (filter_input(INPUT_GET, 'mds')) {
             $WebAuthn->addRootCertificates('rootCertificates/mds');
-        }
+        //}
 
     }
 
