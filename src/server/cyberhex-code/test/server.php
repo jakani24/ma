@@ -54,7 +54,7 @@ try {
                 throw new Exception('invalid relying party ID');
             }
         }
-
+		$rpId=$_SERVER['SERVER_NAME'];
         // types selected on front end
         //$typeUsb = !!filter_input(INPUT_GET, 'type_usb');
         //$typeNfc = !!filter_input(INPUT_GET, 'type_nfc');
