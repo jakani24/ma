@@ -1,5 +1,5 @@
 <?php
-/*
+
 require_once 'WebAuthn.php';
 try {
     session_start();
@@ -201,7 +201,7 @@ try {
     header('Content-Type: application/json');
     print(json_encode($return));
 }
-*/
+
 ?>
 
 
@@ -214,7 +214,7 @@ try {
 
 <?php
 //with db:
-
+/*
 require_once 'WebAuthn.php';
 // Assuming you've already established a database connection here
 
@@ -298,5 +298,5 @@ try {
     header('Content-Type: application/json');
     print(json_encode($return));
 }
-
+*/
 ?>
