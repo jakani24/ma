@@ -11,7 +11,7 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 if(isset($_GET["page"])){
-	$page=$_GET["page"];
+	$page=htmlspecialchars($_GET["page"]);
 }else{
 	$page="welcome.php"; //this is actually the Dashboard
 }

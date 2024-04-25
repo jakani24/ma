@@ -98,15 +98,15 @@ function safe_settings(){
 	}
 	if($_GET["update"]=="rtp_included"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE rtp_included set path= ? WHERE id=$id");
-		$stmt->bind_param("s",$value);
+		$stmt = $conn->prepare("UPDATE rtp_included set path= ? WHERE id=?");
+		$stmt->bind_param("si",$value,$id);
 		$stmt->execute();
 		$stmt->close();
 	}
 	if($_GET["update"]=="rtp_excluded"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE rtp_excluded set path= ? WHERE id=$id");
-		$stmt->bind_param("s",$value);
+		$stmt = $conn->prepare("UPDATE rtp_excluded set path= ? WHERE id=?");
+		$stmt->bind_param("si",$value,$id);
 		$stmt->execute();
 		$stmt->close();
 	}

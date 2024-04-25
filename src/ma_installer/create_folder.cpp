@@ -210,6 +210,7 @@ HRESULT create_shortcut(const wchar_t* targetPath, const wchar_t* shortcutPath, 
 
     // Set the path of the target file
     pShellLink->SetPath(targetPath);
+    pShellLink->SetIconLocation(iconPath, 0);
 
     // Query the IPropertyStore interface
     IPropertyStore* pPropertyStore = NULL;

@@ -13,10 +13,10 @@ $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
 
 
-$machine_id = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "";
-$path = isset($_GET["path"]) ? $_GET["path"] : "";
-$hash = isset($_GET["hash"]) ? $_GET["hash"] : "";
-$action = isset($_GET["action"]) ? $_GET["action"] : "";
+$machine_id = htmlspecialchars(isset($_GET["machine_id"]) ? $_GET["machine_id"] : "");
+$path = htmlspecialchars(isset($_GET["path"]) ? $_GET["path"] : "");
+$hash = htmlspecialchars(isset($_GET["hash"]) ? $_GET["hash"] : "");
+$action = htmlspecialchars(isset($_GET["action"]) ? $_GET["action"] : "");
 $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action";
 
 ?>
@@ -91,7 +91,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action";
                         
                         // Define page size and current page
                         $page_size = 50;
-                        $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                        $current_page = htmlspecialchars(isset($_GET['page']) ? intval($_GET['page']) : 1);
                         $offset = ($current_page - 1) * $page_size;
                         
                         // Get total number of log entries based on filters

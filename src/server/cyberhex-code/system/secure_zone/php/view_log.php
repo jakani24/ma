@@ -21,10 +21,10 @@ if($perms[2]!=="1"){
 
 // Handle filter submission
 
-$loglevel = isset($_GET["loglevel"]) ? $_GET["loglevel"] : "";
-$logtext = isset($_GET["logtext"]) ? $_GET["logtext"] : "";
-$machine_id = isset($_GET["machine_id"]) ? $_GET["machine_id"] : "";
-$time = isset($_GET["time"]) ? $_GET["time"] : "";
+$loglevel = htmlspecialchars(isset($_GET["loglevel"]) ? $_GET["loglevel"] : "");
+$logtext = htmlspecialchars(isset($_GET["logtext"]) ? $_GET["logtext"] : "");
+$machine_id = htmlspecialchars(isset($_GET["machine_id"]) ? $_GET["machine_id"] : "");
+$time = htmlspecialchars(isset($_GET["time"]) ? $_GET["time"] : "");
 $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time";
 
 
@@ -99,7 +99,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         
                         // Define page size and current page
                         $page_size = 50;
-                        $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                        $current_page = htmlspecialchars(isset($_GET['page']) ? intval($_GET['page']) : 1);
                         $offset = ($current_page - 1) * $page_size;
                         
                         // Get total number of log entries based on filters

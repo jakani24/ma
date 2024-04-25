@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\ma_installer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:ma_installer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:create_folder.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\ma_installer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|solutionrelative:ma_installer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AAE7A550-D2C0-45AC-8C26-ED57DF20BFC3}|ma_installer.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\service.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -66,29 +66,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "create_folder.h",
-              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.h",
-              "RelativeDocumentMoniker": "create_folder.h",
-              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.h",
-              "RelativeToolTip": "create_folder.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-04T15:28:46.78Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "create_folder.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.cpp",
               "RelativeDocumentMoniker": "create_folder.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.cpp",
               "RelativeToolTip": "create_folder.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABFAAAA",
+              "ViewState": "AQIAALsAAAAAAAAAAAAAANQAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-04-04T15:28:38.27Z",
               "EditorCaption": ""
@@ -115,8 +103,7 @@
               "RelativeToolTip": "service.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-04T15:26:20.564Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-04T15:26:20.564Z"
             },
             {
               "$type": "Document",
@@ -140,8 +127,7 @@
               "RelativeToolTip": "setup_var.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-04T15:23:26.149Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-04T15:23:26.149Z"
             },
             {
               "$type": "Document",
@@ -165,8 +151,7 @@
               "RelativeToolTip": "update.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-04T15:21:28.758Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-04T15:21:28.758Z"
             },
             {
               "$type": "Document",
@@ -190,8 +175,7 @@
               "RelativeToolTip": "zip.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-04-04T15:06:51.493Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-04T15:06:51.493Z"
             },
             {
               "$type": "Document",
@@ -215,8 +199,7 @@
               "RelativeToolTip": "download.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2023-12-22T19:47:31.583Z",
-              "EditorCaption": ""
+              "WhenOpened": "2023-12-22T19:47:31.583Z"
             },
             {
               "$type": "Document",
@@ -232,7 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ma_installer.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\ma_installer.cpp",
               "RelativeDocumentMoniker": "ma_installer.cpp",
@@ -242,6 +225,18 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2023-12-22T18:52:51.74Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "create_folder.h",
+              "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.h",
+              "RelativeDocumentMoniker": "create_folder.h",
+              "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\ma_installer\\create_folder.h",
+              "RelativeToolTip": "create_folder.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-04T15:28:46.78Z"
             }
           ]
         }

@@ -1,9 +1,0 @@
-﻿  main.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: "APIENTRY": Makro-Neudefinition
-  (Quelldatei „main.cpp“ wird kompiliert)
-  C:\vcpkg\vcpkg-2023.08.09\installed\x64-windows\include\GLFW\glfw3.h(123,1):
-  Siehe vorherige Definition von "APIENTRY"
-  
-LINK : warning LNK4044: Nicht erkannte Option /lOpenGL; wird ignoriert.
-LINK : warning LNK4044: Nicht erkannte Option /lOpenGL; wird ignoriert.
-  client_frontend_guilite.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_frontend_guilite\x64\Debug\client_frontend_guilite.exe
