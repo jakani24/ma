@@ -297,6 +297,8 @@ load_settings();
 									  <option value="choose_action">Choose an action</option>
 									  <option value="scanfile">scanfile</option>
 									  <option value="scanfolder">scanfolder</option>
+									  <option value="deepscanfile">deepscanfile</option>
+									  <option value="deepscanfolder">deepscanfolder</option>
 									  <option value="update_settings">update settings</option>
 									  <option value="update_db">update database</option>
 									  <option value="update_db">update system (clients)</option>
@@ -328,14 +330,22 @@ load_settings();
 									echo("<td>");
 									echo('<select class="form-select" data-live-search="true" id="task_action'.$row["id"].'" onchange="update_task(\'user_tasks\','.$row["id"].',\'task_time'.$row["id"].'\',\'task_action'.$row["id"].'\',\'task_argument'.$row["id"].'\',\'task_name'.$row["id"].'\');">');
 									  echo('<option value="choose_action">Choose an action</option>');
-									  if($action=="scanfile")
+									if($action=="scanfile")
 										echo('<option value="scanfile" selected >scanfile</option>');
 									else
 										echo('<option value="scanfile" >scanfile</option>');
-									 if($action=="scanfolder")
+									if($action=="scanfolder")
 									  echo('<option value="scanfolder" selected>scanfolder</option>');
 									else
 										echo('<option value="scanfolder">scanfolder</option>');
+									if($action=="deepscanfile")
+										echo('<option value="deepscanfile" selected >deepscanfile</option>');
+									else
+										echo('<option value="deepscanfile" >deepscanfile</option>');
+									if($action=="deepscanfolder")
+									  echo('<option value="deepscanfolder" selected>deepscanfolder</option>');
+									else
+										echo('<option value="deepscanfolder">deepscanfolder</option>');
 									if($action=="update_settings")
 									  echo('<option value="update_settings" selected>update settings</option>');
 									else
