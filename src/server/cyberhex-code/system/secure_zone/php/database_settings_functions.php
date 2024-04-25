@@ -42,16 +42,16 @@ function safe_settings($db){//load settings
 	//update signature
 	if($_GET["update"]=="sig"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE $db set signature= ? WHERE id=$id");
-		$stmt->bind_param("s",$value);
+		$stmt = $conn->prepare("UPDATE $db set signature= ? WHERE id=?");
+		$stmt->bind_param("si",$value,$id);
 		$stmt->execute();
 		$stmt->close();
 	}
 	//update signature description
 	if($_GET["update"]=="sig_desc"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE $db set description= ? WHERE id=$id");
-		$stmt->bind_param("s",$value);
+		$stmt = $conn->prepare("UPDATE $db set description= ? WHERE id=?");
+		$stmt->bind_param("si",$value,$id);
 		$stmt->execute();
 		$stmt->close();
 	}
