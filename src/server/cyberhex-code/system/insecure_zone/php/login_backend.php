@@ -175,7 +175,7 @@ try {
 		$_SESSION["perms"]=$row["perms"];
 		$_SESSION["email"]=$row["email"];
 		$_SESSION["telegram_id"]=$row["telegram_id"];
-		$_SESSION["allow_pw_llgin"]=$row["allow_pw_login"];
+		$_SESSION["allow_pw_login"]=$row["allow_pw_login"];
 		
         $return = new stdClass();
         $return->success = true;
