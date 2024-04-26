@@ -337,29 +337,9 @@ try {
         }
 		
 		$_SESSION["registrations"]["credentialId"]=$row["credential_id"];
-
-        if ($requireResidentKey) {
-            if (!isset($_SESSION['registrations']) || !is_array($_SESSION['registrations']) || count($_SESSION['registrations']) === 0) {
-                throw new Exception('we do not have any registrations in session to check the registration');
-            }
-
-        } else {
-            // load registrations from session stored there by processCreate.
-            // normaly you have to load the credential Id's for a username
-            // from the database.
-            if (isset($_SESSION['registrations']) && is_array($_SESSION['registrations'])) {
-                foreach ($_SESSION['registrations'] as $reg) {
-                    if ($reg->userId === $userId) {
-                        $ids[] = $reg->credentialId;
-                    }
-                }
-            }
-
-
-            if (count($ids) === 0) {
-                throw new Exception('no registrations in session for userId ' . $userId);
-            }
-        }
+		
+		$ids[]=$row["credential_id"];
+        $_SESSION["registrations"]["userId"]=$userId;
 
         $getArgs = $WebAuthn->getGetArgs($ids, 60*4, $typeUsb, $typeNfc, $typeBle, $typeHyb, $typeInt, $userVerification);
 
