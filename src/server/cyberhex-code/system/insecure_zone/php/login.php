@@ -241,7 +241,7 @@ async function checkRegistration() {
 					<br>
 					<p>Or</p>
 					<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Login with a passkey</button>
-					<br>
+					<br><br>
 					<div class="alert alert-danger" role="alert" style="display:none" id="no_passkey">
 						You do not have a passkey associatet with your account.
 					</div>
