@@ -354,8 +354,10 @@ try {
         // Retrieve registration data from the database based on credential ID
         $id = base64_decode($post->id);
         $stmt = $conn->prepare("SELECT * FROM users WHERE credential_id = ?");
-        $stmt->execute([$id]);
-        $registration = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bind_param("s", $_SESSION["registrations"]["credentialId"]);
+        $stmt->execute();
+		$registration = $stmt->get_result();
+		$row = $registration->fetch_assoc();
         
         if (!$registration) {
             throw new Exception('Public Key for credential ID not found!');
@@ -366,7 +368,7 @@ try {
         $signature = base64_decode($post->signature);
         $userHandle = base64_decode($post->userHandle);
         $challenge = $_SESSION['challenge'] ?? '';
-        $credentialPublicKey = $registration['public_key'];
+        $credentialPublicKey = $row['public_key'];
 
         // Process the get request
         $WebAuthn->processGet($clientDataJSON, $authenticatorData, $signature, $credentialPublicKey, $challenge, null, $userVerification === 'required');
