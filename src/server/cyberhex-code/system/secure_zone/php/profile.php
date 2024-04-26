@@ -84,7 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" readonly>
 						</div>
 						<div class="form-group">
-							<label for="pw_login">Allow password logins. (Please make shure you have a passkey, if you disable this!)</label>
 							<?php
 								if($_SESSION["allow_pw_login"]==1){
 									echo("<input type='checkbox' id='pw_login' name='pw_login' checked>");
@@ -92,8 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='pw_login' name='pw_login'>");
 								}
 							?>
-							
-							<input type="checkbox" id="pw_login" name="pw_login">
+							<label for="pw_login">Allow password logins. (Please make shure you have a passkey, if you disable this!)</label>
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
