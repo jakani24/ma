@@ -31,7 +31,7 @@ if(isset($_GET["page"])){
 	<nav class="navbar navbar-light bg-light">
 	  <div class="container-fluid">
 		<span class="navbar-text">
-		  Cyberhex (<?php echo(explode(".",$page))[0]; ?>)
+		  Cyberhex (<?php echo(str_replace("_"," ",explode(".",$page))[0]); ?>)
 		</span>
 		<span class="navbar-text text-center">
 		  <?php echo($username); ?>
