@@ -238,21 +238,46 @@ try {
 
     // Handle different functions
     if ($fn === 'getCreateArgs') {
-        // Get create arguments
-        $createArgs = $WebAuthn->getCreateArgs(\hex2bin($userId), $userName, $userDisplayName, 60*4, $requireResidentKey, $userVerification);
+        $createArgs = $WebAuthn->getCreateArgs(\hex2bin($userId), $userName, $userDisplayName, 60*4, $requireResidentKey, $userVerification, $crossPlatformAttachment);
+
         header('Content-Type: application/json');
         print(json_encode($createArgs));
 
-        // Save challenge to session or somewhere else if needed
+        // save challange to session. you have to deliver it to processGet later.
+        $_SESSION['challenge'] = $WebAuthn->getChallenge();
+
     } else if ($fn === 'getGetArgs') {
-        // Get get arguments
-        // Retrieve credential IDs from the database based on $userId
-        $ids = []; // Fetch credential IDs from the database
-        $getArgs = $WebAuthn->getGetArgs($ids, 60*4);
+        $ids = [];
+
+        if ($requireResidentKey) {
+            if (!isset($_SESSION['registrations']) || !is_array($_SESSION['registrations']) || count($_SESSION['registrations']) === 0) {
+                throw new Exception('we do not have any registrations in session to check the registration');
+            }
+
+        } else {
+            // load registrations from session stored there by processCreate.
+            // normaly you have to load the credential Id's for a username
+            // from the database.
+            if (isset($_SESSION['registrations']) && is_array($_SESSION['registrations'])) {
+                foreach ($_SESSION['registrations'] as $reg) {
+                    if ($reg->userId === $userId) {
+                        $ids[] = $reg->credentialId;
+                    }
+                }
+            }
+
+            if (count($ids) === 0) {
+                throw new Exception('no registrations in session for userId ' . $userId);
+            }
+        }
+
+        $getArgs = $WebAuthn->getGetArgs($ids, 60*4, $typeUsb, $typeNfc, $typeBle, $typeHyb, $typeInt, $userVerification);
+
         header('Content-Type: application/json');
         print(json_encode($getArgs));
 
-        // Save challenge to session or somewhere else if needed
+        // save challange to session. you have to deliver it to processGet later.
+        $_SESSION['challenge'] = $WebAuthn->getChallenge();
     } else if ($fn === 'processCreate') {
         // Process create
 		$challenge = $_SESSION['challenge'];
@@ -261,6 +286,11 @@ try {
 
         // Process create and store data in the database
         $data = $WebAuthn->processCreate($clientDataJSON, $attestationObject, $challenge, $userVerification === 'required', true, false);
+	
+		// add user infos
+        $data->userId = $userId;
+        $data->userName = $userName;
+        $data->userDisplayName = $userDisplayName;
 
         // Store registration data in the database
         $stmt = $conn->prepare("INSERT INTO registrations (userId, credentialId, publicKey, counter) VALUES (?, ?, ?, ?)");
