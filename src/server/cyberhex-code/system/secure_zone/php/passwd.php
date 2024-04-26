@@ -180,9 +180,9 @@ $email = $_SESSION["email"];
 
             url += '&rpId=auth.jakach.com';
 			
-            url += '&userId=' + '<?php echo($username);?>';
-            url += '&userName=' + '<?php echo($username);?>';
-            url += '&userDisplayName=' + '<?php echo($username);?>';
+            url += '&userId=' + encodeURIComponent(ascii_to_hex('<?php echo($username);?>'));
+            url += '&userName=' + encodeURIComponent('<?php echo($username);?>');
+            url += '&userDisplayName=' + encodeURIComponent('<?php echo($username);?>');
 
             url += '&userVerification=discouraged';
 
