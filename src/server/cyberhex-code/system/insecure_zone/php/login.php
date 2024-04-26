@@ -70,7 +70,7 @@ async function checkRegistration() {
                 reloadServerPreview();
 				if(err.message=="User does not exist"){
 					//we will display a warning here later on
-					alert("User does not exist!!! check line 71 of login.html to set warning");
+					//alert("User does not exist!!! check line 71 of login.html to set warning");
 					var alert_message=document.getElementById("no_passkey");
 					alert_message.style.display="block";
 				}else{
