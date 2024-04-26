@@ -374,6 +374,13 @@ try {
         $WebAuthn->processGet($clientDataJSON, $authenticatorData, $signature, $credentialPublicKey, $challenge, null, $userVerification === 'required');
 
         // Authentication success
+		//set sessionso user is authenticated
+		$_SESSION["username"]=$row["username"];
+		$_SESSION["login"]=true;
+		$_SESSION["perms"]=$row["perms"];
+		$_SESSION["email"]=$row["email"];
+		$_SESSION["telegram_id"]=$row["telegram_id"];
+		
         $return = new stdClass();
         $return->success = true;
         header('Content-Type: application/json');

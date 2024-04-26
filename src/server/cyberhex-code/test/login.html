@@ -57,7 +57,9 @@
                 // check server response
                 if (authenticatorAttestationServerResponse.success) {
                     reloadServerPreview();
-                    window.alert(authenticatorAttestationServerResponse.msg || 'login success');
+                    //window.alert(authenticatorAttestationServerResponse.msg || 'login success');
+					//auth success, send to index
+					window.location.href = "/system/secure_zone/php/index.php";
                 } else {
                     throw new Error(authenticatorAttestationServerResponse.msg);
                 }
@@ -76,7 +78,9 @@
                if (json.success) {
                    window.alert(json.msg);
                } else {
-                   throw new Error(json.msg);
+                   if(json.msg=="User does not exist"){
+					alert("User does not exist!");
+				   }
                }
             }).catch(function(err) {
                 window.alert(err.message || 'unknown error occured');
