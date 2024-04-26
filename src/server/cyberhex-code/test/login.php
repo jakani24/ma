@@ -317,6 +317,20 @@ try {
     } else if ($fn === 'getGetArgs') {
         $ids = [];
 
+		//get registrations form user table
+		//put credential id into session where userid = $userId
+		
+		$stmt = $conn->prepare("SELECT credential_id FROM user WHERE user_hex_id = ?");
+		$stmt->execute([$userId]);
+        $registration = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+        
+        if (!$registration) {
+            throw new Exception('Public Key for user ID not found!');
+        }
+		
+		$_SESSION["registrations"]->credentialId=$registration["credential_id"];
+
         if ($requireResidentKey) {
             if (!isset($_SESSION['registrations']) || !is_array($_SESSION['registrations']) || count($_SESSION['registrations']) === 0) {
                 throw new Exception('we do not have any registrations in session to check the registration');
@@ -333,6 +347,7 @@ try {
                     }
                 }
             }
+
 
             if (count($ids) === 0) {
                 throw new Exception('no registrations in session for userId ' . $userId);
