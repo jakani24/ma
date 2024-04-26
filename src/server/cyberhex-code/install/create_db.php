@@ -68,6 +68,7 @@
 				telegram_id VARCHAR(255),
 				user_hex_id VARCHAR(255),
 				credential_id VARBINARY(64),
+				allow_pw_login INT,
 				public_key TEXT,
 				counter INT
 			)";

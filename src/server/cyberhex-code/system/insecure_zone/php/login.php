@@ -271,19 +271,27 @@ async function checkRegistration() {
 							// Check if the user exists and verify the password
 							if ($result->num_rows > 0) {
 								$row = $result->fetch_assoc();
-								if (password_verify($password, $row['password'])) {
-									$_SESSION["username"]=$username;
-									$_SESSION["login"]=true;
-									$_SESSION["perms"]=$row["perms"];
-									$_SESSION["email"]=$row["email"];
-									$_SESSION["telegram_id"]=$row["telegram_id"];
-									
-									echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
-									exit();
-								} else {
+								if($row["allow_pw_login"]==1){
+									if (password_verify($password, $row['password'])) {
+										$_SESSION["username"]=$username;
+										$_SESSION["login"]=true;
+										$_SESSION["perms"]=$row["perms"];
+										$_SESSION["email"]=$row["email"];
+										$_SESSION["telegram_id"]=$row["telegram_id"];
+										$_SESSION["allow_pw_login"]=$row["allow_pw_login"];
+										
+										echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
+										exit();
+									} else {
+										echo '<div class="alert alert-danger" role="alert">
+												Incorrect username or password.
+											  </div>';
+									}
+								}
+								else{
 									echo '<div class="alert alert-danger" role="alert">
-											Incorrect username or password.
-										  </div>';
+										Password login is disabled on your account. Please use your passkey
+									  </div>';
 								}
 							} else {
 								echo '<div class="alert alert-danger" role="alert">

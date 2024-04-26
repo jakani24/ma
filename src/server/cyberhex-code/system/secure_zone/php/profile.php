@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
 	$telegram_id=htmlspecialchars($_POST["telegram_id"]);
+	$pw_login=isset($_POST["pw_login"]);
 	// Create connection
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
@@ -29,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$success=0;
 		die("Connection failed: " . $conn->connect_error);
 	}
-	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ? where username = ?");
-	$stmt->bind_param("ssss", $email, $username_new,$telegram_id, $username);
+	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ? where username = ?");
+	$stmt->bind_param("sssis", $email, $username_new,$telegram_id, $pw_login, $username);
 	
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
@@ -42,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION["username"]=$username;
 	$_SESSION["email"]=$email;
 	$_SESSION["telegram_id"]=$telegram_id;
+	$_SESSION["allow_pw_login"]=$pw_login;
 }
 
 ?>
@@ -80,6 +82,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								<a data-bs-target="#perms_help" data-bs-toggle="modal" href="#perms_help">?</a>
 							</label>
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" readonly>
+						</div>
+						<div class="form-group">
+							<label for="pw_login">Allow password logins. (Please make shure you have a passkey, if you disable this!)</label>
+							<?php
+								if($_SESSION["allow_pw_login"]==1){
+									echo("<input type='checkbox' id='pw_login' name='pw_login' checked>");
+								}else{
+									echo("<input type='checkbox' id='pw_login' name='pw_login'>");
+								}
+							?>
+							
+							<input type="checkbox" id="pw_login" name="pw_login">
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>

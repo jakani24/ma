@@ -66,7 +66,6 @@ $email = $_SESSION["email"];
                 if (authenticatorAttestationServerResponse.success) {
                     reloadServerPreview();
                     window.alert(authenticatorAttestationServerResponse.msg || 'registration success');
-					window.location.href = "end.php";
                 } else {
                     throw new Error(authenticatorAttestationServerResponse.msg);
                 }
