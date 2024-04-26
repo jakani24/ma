@@ -361,11 +361,14 @@ try {
         $data->userId = $userId;
         $data->userName = $userName;
         $data->userDisplayName = $userDisplayName;
+		$data->email="a@a.com";
+		$data->perms="11111111111111111";
+		$data->password="...";
 
         // Store registration data in the database
-        $stmt = $conn->prepare("INSERT INTO users (username,user_hex_id, credential_id, public_key, counter) VALUES (?,?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users (email,perms,password,username,user_hex_id, credential_id, public_key, counter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 		//var_dump($data);
-        $stmt->execute([$data->userName,$userId, $data->credentialId, $data->credentialPublicKey, $data->signatureCounter]);
+        $stmt->execute([$data->email,$data->perms,$data->email, $data->userName, $userId, $data->credentialId, $data->credentialPublicKey, $data->signatureCounter]);
 
         $msg = 'registration success.';
         $return = new stdClass();
