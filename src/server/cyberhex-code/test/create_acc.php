@@ -365,7 +365,7 @@ try {
         // Store registration data in the database
         $stmt = $conn->prepare("INSERT INTO users (user_hex_id, credential_id, public_key, counter) VALUES (?, ?, ?, ?)");
 		var_dump($data);
-        $stmt->execute([$userId, $data->credentialId, $data->publicKey, $data->counter]);
+        $stmt->execute([$userId, $data->credentialId, $data->credentialPublicKey, $data->signatureCounter]);
 
         $msg = 'registration success.';
         $return = new stdClass();
