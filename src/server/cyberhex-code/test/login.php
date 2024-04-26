@@ -329,13 +329,14 @@ try {
 		$stmt->bind_param("s", $userId);
         $stmt->execute();
 		$registration = $stmt->get_result();
+		$row = $registration->fetch_assoc();
 		
         
         if (!$registration) {
             throw new Exception('Public Key for user ID not found!');
         }
 		
-		$_SESSION["registrations"]->credentialId=$registration["credential_id"];
+		$_SESSION["registrations"]->credentialId=$row["credential_id"];
 
         if ($requireResidentKey) {
             if (!isset($_SESSION['registrations']) || !is_array($_SESSION['registrations']) || count($_SESSION['registrations']) === 0) {
