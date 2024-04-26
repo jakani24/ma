@@ -97,7 +97,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 						//now display the normal page
                         // Define page size and current page
                         $page_size = 50;
-                        $current_page = htmlspecialchars(isset($_GET['page']) ? intval($_GET['page']) : 1;
+                        $current_page = htmlspecialchars(isset($_GET['page']) ? intval($_GET['page']) : 1);
                         $offset = ($current_page - 1) * $page_size;
 
                         // Get total number of log entries based on filters

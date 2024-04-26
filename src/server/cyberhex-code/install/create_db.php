@@ -66,7 +66,7 @@
 				password VARCHAR(255),
 				2fa VARCHAR(255),
 				telegram_id VARCHAR(255),
-				user_hex_id VARCHAR(255):
+				user_hex_id VARCHAR(255),
 				credential_id VARBINARY(64),
 				public_key TEXT,
 				counter INT
