@@ -163,9 +163,10 @@ try {
         $data->userDisplayName = $userDisplayName;
 
         // Store registration data in the database
-        $stmt = $conn->prepare("INSERT INTO users (user_hex_id, credential_id, public_key, counter) VALUES (?, ?, ?, ?)");
+		$stmt = $conn->prepare("UPDATE users set user_hex_id = ?, credential_id = ?, public_key = ?, counter = ? WHERE username = ?");
+        //$stmt = $conn->prepare("INSERT INTO users (user_hex_id, credential_id, public_key, counter) VALUES (?, ?, ?, ?)");
 		//var_dump($data);
-        $stmt->execute([$userId, $data->credentialId, $data->credentialPublicKey, $data->signatureCounter]);
+        $stmt->execute([$userId, $data->credentialId, $data->credentialPublicKey, $data->signatureCounter,$userName]);
 
         $msg = 'registration success.';
         $return = new stdClass();
