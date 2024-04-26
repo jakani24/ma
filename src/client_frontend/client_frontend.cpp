@@ -11,6 +11,7 @@
 #define IDM_SCAN_FOLDER 102
 #define IDM_DEEP_SCAN_FILE 103
 #define IDM_DEEP_SCAN_FOLDER 104
+#define IDM_QUICK_SCAN 105
 
 
 std::wstring string_to_widestring(const std::string& str) {
@@ -91,13 +92,13 @@ void scan_file(HWND hWndTextField, const std::string& filePath, bool deep) {
                     else {
                         update_textfield(hWndTextField, "No virus found in file: " + scannedFilePath + "\r\n");
                     }
-                    update_textfield(hWndTextField, "------------------------------------------\r\n");
+                    update_textfield(hWndTextField, "------------------------------------------------------------------------------------\r\n");
                 }
             }
             else {
                 answered = true;
                 update_textfield(hWndTextField, "Error: Unable to talk to daemon!\n");
-                update_textfield(hWndTextField, "------------------------------------------\n");
+                update_textfield(hWndTextField, "------------------------------------------------------------------------------------\r\n");
             }
             inputFile.close();
             std::remove(ANSWER_COM_PATH);
@@ -167,7 +168,7 @@ void scan_folder(HWND hProgressBar,HWND hWndTextField, const std::string& folder
                         else {
                             update_textfield(hWndTextField, "No virus found in file: " + scannedFilePath + "\r\n");
                         }
-                        update_textfield(hWndTextField, "------------------------------------------\r\n");
+                        update_textfield(hWndTextField, "------------------------------------------------------------------------------------\r\n");
                     }
                     else if (status == "progress") {
                         std::string progress;
@@ -196,13 +197,91 @@ void scan_folder(HWND hProgressBar,HWND hWndTextField, const std::string& folder
     }
     update_textfield(hWndTextField, "Folder scan completed\r\n");
     update_textfield(hWndTextField, "Number of infected files: " + std::to_string(num_of_found) + "\r\n");
-    update_textfield(hWndTextField, "------------------------------------------\r\n");
+    update_textfield(hWndTextField, "------------------------------------------------------------------------------------\r\n");
     SendMessage(hProgressBar, PBM_SETPOS, 100, 0);
     // Remove the answer file
     std::remove(ANSWER_COM_PATH);
 }
 
+void quick_scan(HWND hProgressBar, HWND hWndTextField) {
+    //set progress bar to 0
+    SendMessage(hProgressBar, PBM_SETPOS, 0, 0);
+    int num_of_found = 0;
+    // Remove the answer file
+    std::remove(ANSWER_COM_PATH);
 
+    update_textfield(hWndTextField, "Running quick scan\r\n");
+    bool answered = false;
+    // Write command into com file
+    std::ofstream outputFile(MAIN_COM_PATH);
+    if (outputFile.is_open()) {
+        outputFile << "quick_scan \"" << "_._" << "\"";
+        outputFile.close();
+    }
+    else {
+        update_textfield(hWndTextField, "Error: Unable to talk to daemon!\n");
+        return;
+    }
+
+    while (!answered) {
+        // Wait for answer in file
+        std::ifstream inputFile(ANSWER_COM_PATH);
+        // The structure of the answer file is as follows:
+        // found/not_found
+        // filepath
+        // hash
+        // action_taken/no_action_taken
+        if (inputFile.is_open()) {
+            std::string status, scannedFilePath, hash, action;
+            while (!inputFile.eof()) {
+                if (inputFile >> status) {
+                    if (status == "found" || status == "not_found") {
+                        inputFile.ignore(1); // Ignore space
+                        inputFile.ignore(1); // Ignore starting double quote
+                        std::getline(inputFile, scannedFilePath, '\"'); // Read until closing double quote
+                        inputFile.ignore(1); // Ignore space between filepath and hash
+                        inputFile.ignore(1); // Ignore starting double quote
+                        std::getline(inputFile, hash, ' '); // Read until space
+                        std::getline(inputFile, action); // Read until end of line
+
+                        //answered = true;
+
+                        if (status == "found") {
+                            update_textfield(hWndTextField, "Virus found in file: " + scannedFilePath + "\r\n");
+                            update_textfield(hWndTextField, "Hash: " + hash + "\r\n");
+                            update_textfield(hWndTextField, "Action taken: " + action + "\r\n");
+                            num_of_found++;
+                        }
+                        else {
+                            update_textfield(hWndTextField, "No virus found in file: " + scannedFilePath + "\r\n");
+                        }
+                        update_textfield(hWndTextField, "------------------------------------------------------------------------------------\r\n");
+                    }
+                    else if (status == "start") {
+                        std::string all_files;
+                        inputFile.ignore(1); // Ignore space
+                        inputFile >> all_files;
+                        update_textfield(hWndTextField, "Quick scan started\r\n\r\n");
+                    }
+                    else if (status == "end") {
+                        answered = true;
+                    }
+                }
+            }
+            inputFile.close();
+            std::ofstream(ANSWER_COM_PATH);//clear the file
+            Sleep(1000);//only see for new entrys ~ once a second
+        }
+        // Wait for 1 second before checking again
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    update_textfield(hWndTextField, "Quick scan completed\r\n");
+    update_textfield(hWndTextField, "Number of infected files: " + std::to_string(num_of_found) + "\r\n");
+    update_textfield(hWndTextField, "------------------------------------------------------------------------------------\r\n");
+    SendMessage(hProgressBar, PBM_SETPOS, 100, 0);
+    // Remove the answer file
+    std::remove(ANSWER_COM_PATH);
+}
 
 std::string getFolderPath(HWND hWnd) {
     std::wstring selectedFolderPath;
@@ -223,8 +302,6 @@ std::string getFolderPath(HWND hWnd) {
     if (pidlSelected != NULL) {
         SHGetPathFromIDList(pidlSelected, selectedPath);
 
-        // Convert TCHAR array to std::string
-        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
         selectedFolderPath = selectedPath;
 
         // Free the PIDL
@@ -238,7 +315,9 @@ std::string getFolderPath(HWND hWnd) {
     // Uninitialize COM
     CoUninitialize();
 
-    return std::string(selectedFolderPath.begin(), selectedFolderPath.end());
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    std::string narrowSelectedFolder = converter.to_bytes(selectedFolderPath);
+    return narrowSelectedFolder;
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -272,6 +351,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         CreateWindowEx(NULL, L"BUTTON", L"Deep Scan Folder",
             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
             20, 130, 150, 30, hWnd, (HMENU)IDM_DEEP_SCAN_FOLDER, GetModuleHandle(NULL), NULL);
+
+        //create the quick scan button
+        CreateWindowEx(NULL, L"BUTTON", L"Quick Scan",
+            WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+            20, 170, 150, 30, hWnd, (HMENU)IDM_QUICK_SCAN, GetModuleHandle(NULL), NULL);
 
         // Create a multi-line edit control for displaying text
         hWndTextField = CreateWindowEx(WS_EX_CLIENTEDGE, L"EDIT", NULL,
@@ -319,7 +403,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
             if (GetOpenFileName(&ofn) == TRUE) {
                 std::wstring selectedFile = ofn.lpstrFile; // Use std::wstring for wide characters
-                std::string narrowSelectedFile(selectedFile.begin(), selectedFile.end());
+                std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+                std::string narrowSelectedFile = converter.to_bytes(selectedFile);
                 std::thread(scan_file, hWndTextField, narrowSelectedFile,0).detach();
             }
         }
@@ -354,8 +439,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
             if (GetOpenFileName(&ofn) == TRUE) {
                 std::wstring selectedFile = ofn.lpstrFile; // Use std::wstring for wide characters
-                std::string narrowSelectedFile(selectedFile.begin(), selectedFile.end());
-                std::thread(scan_file, hWndTextField, narrowSelectedFile, 1).detach();
+                std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+                std::string narrowSelectedFile = converter.to_bytes(selectedFile);
+                std::thread(scan_file, hWndTextField, narrowSelectedFile, 0).detach();
             }
 
         }
@@ -367,6 +453,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 			std::string selected_folder = getFolderPath(hWnd);
 			if(selected_folder!="")
 				std::thread(scan_folder,hProgressBar, hWndTextField, selected_folder,1).detach();
+		}
+        break;
+        case IDM_QUICK_SCAN:
+        {
+            std::thread(quick_scan, hProgressBar, hWndTextField).detach();
 		}
         default:
             return DefWindowProc(hWnd, message, wParam, lParam);

@@ -60,6 +60,7 @@ YR_RULES* load_yara_rules(const char* ruleFilePath, YR_RULES* compiledRules = nu
         //std::cerr << "Failed to compile YARA rules from file: " << ruleFilePath << std::endl;
         log(LOGLEVEL::ERR_NOSEND, "[load_yara_rules()]: Failed to compile YARA rules from file: ", ruleFilePath);
         yr_compiler_destroy(compiler);
+        fclose(file);
         return nullptr;
     }
 
@@ -68,7 +69,7 @@ YR_RULES* load_yara_rules(const char* ruleFilePath, YR_RULES* compiledRules = nu
 
     // Destroy the compiler
     yr_compiler_destroy(compiler);
-
+    fclose(file);
     return compiledRules;
 }
 void init_yara_rules(const char* folderPath) {
@@ -206,28 +207,6 @@ int process_callback(YR_SCAN_CONTEXT* context,int message, void* message_data, v
     }
 	return CALLBACK_CONTINUE;
 }
-/*
-bool deepscan_file_t(const std::string&file_path) {
-    set_num_threads(get_num_threads() + 1);
-    //we do not need to make a new instance of yara rules, because they are global and do not get deteled or modified
-    thread_local std::string file_path_(file_path);
-    //first we scan the file with the normal scanner, which means md5
-    thread_local std::string hash(md5_file_t(file_path));
-    thread_local char* db_path = new char[300];
-
-    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-    if (search_hash(db_path, hash, file_path) != 1) { //if we allready found a match in the database, we do not need to scan the file with yara
-        //get globally set yara rules and iterate over them
-        Callback_data* callback_data = new Callback_data();
-        for (YR_RULES* rule : compiled_rules) {
-            callback_data->filepath = file_path_;
-            yr_rules_scan_file(rule, file_path.c_str(), 0, process_callback, callback_data, 5000);
-        }
-        set_num_threads(get_num_threads() - 1);
-    }
-    return true;
-}
-*/
 bool deepscan_file_t(const std::string& file_path) {
     set_num_threads(get_num_threads() + 1);
     // we do not need to make a new instance of yara rules, because they are global and do not get deleted or modified

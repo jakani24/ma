@@ -119,8 +119,7 @@ int main(int argc, char* argv[]) {
     yr_initialize();
     init_yara_rules(YARA_DB_DIR);
     log(LOGLEVEL::INFO_NOSEND, "[main()]:Yara rules initialized.");
-//    std::string a("C:\\users\\janis\\documents");
-//    deepscan_folder(a);
+
 
     // 
     // Main thread loop

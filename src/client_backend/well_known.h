@@ -69,5 +69,4 @@
 #define DLL_ZLIB1_PATH "C:\\Program Files\\cyberhex\\secure\\app\\zlib1.dll"
 #define DLL_UCRTBASED_PATH "C:\\Program Files\\cyberhex\\secure\\app\\ucrtbased.dll"
 
-
 #endif // !WELL_KNOWN_H

@@ -66,6 +66,12 @@ int start_thread(const std::string& command) {
             t1.detach();
             has_run = 1;
         }
+        else if (out1 == "quick_scan"){
+            log(LOGLEVEL::INFO, "[start_thread()]: starting quickscan with arguments: ");
+            std::thread t1(do_quickscan);
+            t1.detach();
+            has_run = 1;
+        }
         Sleep(10); // Sleep for 10 ms to give the thread time to start
     }
     return 0;

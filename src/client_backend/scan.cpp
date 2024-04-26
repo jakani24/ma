@@ -25,9 +25,11 @@ std::mutex fileHandlesMutex;
 std::mutex mappingHandlesMutex;
 std::mutex fileDataMutex;
 std::mutex cntMutex;
+std::mutex sizeHandlesMutex;
 
 std::unordered_map<std::string, HANDLE> fileHandles;
 std::unordered_map<std::string, HANDLE> mappingHandles;
+std::unordered_map<std::string, DWORD> sizeHandles;
 std::unordered_map<std::string, char*> fileData;
 
 int cnt = 0;
@@ -85,6 +87,11 @@ int initialize(const std::string& folderPath) {
                 std::lock_guard<std::mutex> lock(fileDataMutex);
                 fileData[filename] = fileDataPtr;
             }
+            {
+                std::lock_guard<std::mutex> lock(sizeHandlesMutex);
+				sizeHandles[filename] = GetFileSize(hFile, NULL);
+            }
+            CloseHandle(hFile);
         }
     }
     return 0;
@@ -132,21 +139,22 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
         filepath = filepath_;
     }
 
-    auto fileIter = fileHandles.find(dbname);
-    if (fileIter == fileHandles.end() && dbname_.find("c:.jdbf") == std::string::npos) {
+
+   // auto fileIter = fileHandles.find(dbname);
+    //if (fileIter == fileHandles.end() && dbname_.find("c:.jdbf") == std::string::npos) {
         //log(LOGLEVEL::ERR_NOSEND, "[search_hash()]: File mapping not initialized for ", dbname);
-        return 2;
-    }
-    else if (fileIter == fileHandles.end()) {
-        return 2;
-    }
+    //    return 2;
+    //}
+    //else if (fileIter == fileHandles.end()) {
+    //    return 2;
+    //}
 
     // Use fileData for subsequent searches
     DWORD fileSize;
     std::string fileContent;
     {
         std::lock_guard<std::mutex> lock(fileDataMutex);
-        fileSize = GetFileSize(fileHandles[dbname], NULL);
+        fileSize = sizeHandles[dbname];
         fileContent = std::string(fileData[dbname], fileSize);
     }
 
@@ -379,5 +387,41 @@ void scan_process_t(const std::string& filepath_) {
         }
     }
     set_num_threads(get_num_threads() - 1);
+}
+
+void do_quickscan() {
+    thread_init();
+    //scan windows startup folders & commonly infected places
+    //tell the desktop client that the scan has started
+    std::ofstream answer_com1(ANSWER_COM_PATH, std::ios::app);
+    if (answer_com1.is_open()) {
+        answer_com1 << "start " << 0 << "\n";
+        answer_com1.close();
+    }
+    //general startup folder
+    scan_folder("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup");
+    //find every users startupfolder and scan it:
+    std::string user_folder = "C:\\Users\\*";
+    std::string user_folder_no_wildcrad = "C:\\Users";
+    WIN32_FIND_DATA find_file_data;
+    HANDLE hFind = FindFirstFile(user_folder.c_str(), &find_file_data);
+    if (hFind != INVALID_HANDLE_VALUE) {
+        do {
+            if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
+				continue; // Skip the current and parent directories
+			}
+			std::string full_path = user_folder_no_wildcrad + "\\" + find_file_data.cFileName + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
+			scan_folder(full_path);
+            //printf("Scanning: %s\n", full_path.c_str());
+		} while (FindNextFile(hFind, &find_file_data) != 0);
+		FindClose(hFind);
+        printf("finished\n");
+	}
+    std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+    if (answer_com.is_open()) {
+        answer_com << "end " << "\"" << "nothing" << "\"" << " " << "nothing" << " " << "nothing" << "\n";
+        answer_com.close();
+    }
+    thread_shutdown();
 }
 #endif

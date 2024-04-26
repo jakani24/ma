@@ -107,6 +107,7 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             url += get_machineid(SECRETS);
             url += "&apikey=";
             url += get_apikey(SECRETS);
+            //printf("sending to srv: %s", url.c_str());
             //send with fastsend in new thread
             std::thread send_thread(fast_send, url, get_setting("communication:unsafe_tls"));
             send_thread.detach();

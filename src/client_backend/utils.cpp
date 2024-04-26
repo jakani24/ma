@@ -24,17 +24,6 @@ void split(const std::string& input, char delimiter, std::string& out1, std::str
     }
 }
 bool is_valid_path(const std::string& filename) {
-    //printf("1\n");
-    //for (char c : filename) {
-    //    if (c == '<' || c == '>' || c == '"' || c == '|' || c == '?' || c == '*' || c > 126 || c < 32 ) {
-    //        return 0; // Special character found
-    //    }
-    //}
-    //printf("2\n");
-    //if (!file_exists(filename)) {
-    //    return 0; // File does not exist
-    //}
-    //printf("3\n");
     if (!has_read_access(filename)) {//this also fails if the file does not exist
 		return 0; // No read access
 	}

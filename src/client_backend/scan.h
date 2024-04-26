@@ -20,3 +20,4 @@ void scan_process_t(const std::string& filepath_);
 int get_num_files(const std::string& directory);
 int search_hash(const std::string& dbname_, const std::string& hash_, const std::string& filepath_);
 void cleanup();
+void do_quickscan();

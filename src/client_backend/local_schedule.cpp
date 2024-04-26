@@ -73,10 +73,11 @@ void unlock_task(const std::string& task_name) {
 }
 
 int check_for_sched_tasks(const char* sched_name, const char* sched_path) {
-    FILE* fp = nullptr;
+    FILE* fp;
     char command[505];
-    if (fopen_s(&fp, sched_path, "r") != 0) {
-        //delete[] command;
+    int a;
+    if ((a=fopen_s(&fp, sched_path, "r")) != 0) {
+        //printf("%d\n",a);
         return 1;
     }
     else {

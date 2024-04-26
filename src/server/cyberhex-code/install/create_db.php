@@ -87,7 +87,7 @@
 			// Create log table
 			$sql = "CREATE TABLE IF NOT EXISTS log (
 				id INT AUTO_INCREMENT PRIMARY KEY,
-				logtext VARCHAR(255) NOT NULL,
+				logtext VARCHAR(500) NOT NULL,
 				loglevel VARCHAR(255) NOT NULL,
 				machine_id VARCHAR(255),
 				time VARCHAR(255)
