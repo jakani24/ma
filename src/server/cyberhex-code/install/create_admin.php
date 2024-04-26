@@ -31,6 +31,7 @@
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
+						<br>
                         <button type="submit" class="btn btn-primary btn-block">Create user</button>
                     </form>
 					<?php
@@ -61,7 +62,7 @@
 							$stmt->close();
 							$conn->close();
 							echo '<br><div class="alert alert-success" role="alert">
-								Admin user created successfully! <a href="end.php">Continue installation</a>
+								Admin user created successfully! <a href="add_passkey.php">Continue installation</a>
 							</div>';
 						}
 
