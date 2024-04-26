@@ -102,8 +102,6 @@ $conn->close();
                 <div class="card-header">
                     <h4>View log</h4>
                 </div>
-				<!-- add pie chart with error/virus etc -->
-				<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
                 <div class="card-body" style="overflow-x:auto">
                     <!-- table with all log entrys => delete button -->
                     <?php
@@ -188,7 +186,9 @@ $conn->close();
                         $stmt->bind_param("ssssii", $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
                         $stmt->execute();
                         $result = $stmt->get_result();
-                        
+                        if($current_page==1){
+							echo("<div id='piechart_3d' style='width: 900px; height: 500px;'></div>");
+						}
                         // Display log entries
                         echo '<table class="table" style="overflow-x:auto">';
                         echo '<thead>';
