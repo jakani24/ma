@@ -236,6 +236,7 @@ async function checkRegistration() {
 						<br>
                         <button type="submit" class="btn btn-primary btn-block">Login with password</button>
                     </form>
+					<br>
 					<p>Or</p>
 					<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Login with a passkey</button>
 					<!-- php code to verify password-->
