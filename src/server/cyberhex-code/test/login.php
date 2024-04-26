@@ -353,7 +353,7 @@ try {
         // Process get
         // Retrieve registration data from the database based on credential ID
         $id = base64_decode($post->id);
-        $stmt = $conn->prepare("SELECT * FROM user WHERE credential_id = ?");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE credential_id = ?");
         $stmt->execute([$id]);
         $registration = $stmt->fetch(PDO::FETCH_ASSOC);
         
