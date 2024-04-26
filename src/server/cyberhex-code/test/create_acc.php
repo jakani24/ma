@@ -1,5 +1,5 @@
 <?php
-
+/*
 require_once 'WebAuthn.php';
 try {
     session_start();
@@ -196,16 +196,21 @@ try {
     header('Content-Type: application/json');
     print(json_encode($return));
 }
-
+*/
 ?>
 
 
 <?php
 //with db:
-/*
+
 require_once 'WebAuthn.php';
 // Assuming you've already established a database connection here
-
+include "../../config.php";
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+if ($conn->connect_error) {
+	$success=0;
+	die("Connection failed: " . $conn->connect_error);
+}
 try {
     // Read input parameters
     $fn = filter_input(INPUT_GET, 'fn');
@@ -279,6 +284,6 @@ try {
 }
 
 
-*/
+
 
 ?>
