@@ -325,7 +325,7 @@ try {
 		//get registrations form user table
 		//put credential id into session where userid = $userId
 		
-		$stmt = $conn->prepare("SELECT credential_id FROM user WHERE user_hex_id = ?");
+		$stmt = $conn->prepare("SELECT credential_id FROM users WHERE user_hex_id = ?");
 		$stmt->execute([$userId]);
         $registration = $stmt->fetch(PDO::FETCH_ASSOC);
 		
