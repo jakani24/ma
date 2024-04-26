@@ -336,7 +336,7 @@ try {
             throw new Exception('Public Key for user ID not found!');
         }
 		
-		$_SESSION["registrations"]->credentialId=$row["credential_id"];
+		$_SESSION["registrations"]["credentialId"]=$row["credential_id"];
 
         if ($requireResidentKey) {
             if (!isset($_SESSION['registrations']) || !is_array($_SESSION['registrations']) || count($_SESSION['registrations']) === 0) {
