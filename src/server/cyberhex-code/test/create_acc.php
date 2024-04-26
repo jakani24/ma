@@ -210,6 +210,7 @@ if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
 try {
+	session_start();
     // Read input parameters
     $fn = filter_input(INPUT_GET, 'fn');
     $requireResidentKey = !!filter_input(INPUT_GET, 'requireResidentKey');
