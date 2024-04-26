@@ -208,7 +208,12 @@ try {
 
 require_once 'WebAuthn.php';
 // Assuming you've already established a database connection here
-
+include "../config.php";
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
+if ($conn->connect_error) {
+	$success=0;
+	die("Connection failed: " . $conn->connect_error);
+}
 try {
     session_start();
 
