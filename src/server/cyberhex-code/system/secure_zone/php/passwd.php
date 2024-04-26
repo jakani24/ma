@@ -32,7 +32,7 @@ $email = $_SESSION["email"];
                 }
 
                 // get create args
-                let rep = await window.fetch('/system/insecure_zone/php/create_admin_backend.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
+                let rep = await window.fetch('/system/insecure_zone/php/add_user_passkey.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
                 const createArgs = await rep.json();
 
                 // error handling
@@ -55,7 +55,7 @@ $email = $_SESSION["email"];
                 };
 
                 // check auth on server side
-                rep = await window.fetch('/system/insecure_zone/php/create_admin_backend.php?fn=processCreate' + getGetParams(), {
+                rep = await window.fetch('/system/insecure_zone/php/add_user_passkey.php?fn=processCreate' + getGetParams(), {
                     method  : 'POST',
                     body    : JSON.stringify(authenticatorAttestationResponse),
                     cache   : 'no-cache'
@@ -80,7 +80,7 @@ $email = $_SESSION["email"];
 
 
         function queryFidoMetaDataService() {
-            window.fetch('/system/insecure_zone/php/create_admin_backend.php?fn=queryFidoMetaDataService' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
+            window.fetch('/system/insecure_zone/php/add_user_passkey.php?fn=queryFidoMetaDataService' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
                 return response.json();
 
             }).then(function(json) {
@@ -180,9 +180,9 @@ $email = $_SESSION["email"];
 
             url += '&rpId=auth.jakach.com';
 			
-            url += '&userId=' + <?php echo($username);?>;
-            url += '&userName=' + <?php echo($username);?>;
-            url += '&userDisplayName=' + <?php echo($username);?>;
+            url += '&userId=' + '<?php echo($username);?>';
+            url += '&userName=' + '<?php echo($username);?>';
+            url += '&userDisplayName=' + '<?php echo($username);?>';
 
             url += '&userVerification=discouraged';
 
