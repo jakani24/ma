@@ -254,6 +254,7 @@ try {
         // Save challenge to session or somewhere else if needed
     } else if ($fn === 'processCreate') {
         // Process create
+		$challenge = $_SESSION['challenge'];
         $clientDataJSON = base64_decode($post->clientDataJSON);
         $attestationObject = base64_decode($post->attestationObject);
 
@@ -280,8 +281,4 @@ try {
     header('Content-Type: application/json');
     print(json_encode($return));
 }
-
-
-
-
 ?>
