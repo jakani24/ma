@@ -332,7 +332,7 @@ try {
 		$row = $registration->fetch_assoc();
 		
         
-        if (!$registration) {
+        if ($registration->num_rows > 0) {
             throw new Exception('Public Key for user ID not found!');
         }
 		
