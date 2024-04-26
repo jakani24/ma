@@ -36,7 +36,7 @@ if(isset($_SESSION["login"])){
                     </form>
 					<br>
 					<p>Or</p>
-					<button type="button" onclick="checkRegistration()">&#10068; Login with a passkey</button>
+					<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">&#10068; Login with a passkey</button>
 					<!-- php code to verify password-->
 					<?php
 						// Check if the form is submitted
