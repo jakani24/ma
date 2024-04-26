@@ -363,7 +363,7 @@ try {
         $data->userDisplayName = $userDisplayName;
 
         // Store registration data in the database
-        $stmt = $conn->prepare("INSERT INTO registrations (userId, credentialId, publicKey, counter) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users (user_hex_id, credential_id, public_key, counter) VALUES (?, ?, ?, ?)");
         $stmt->execute([$userId, $data->credentialId, $data->publicKey, $data->counter]);
 
         $msg = 'registration success.';
