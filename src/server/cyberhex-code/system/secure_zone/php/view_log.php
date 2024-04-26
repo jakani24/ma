@@ -27,7 +27,39 @@ $machine_id = htmlspecialchars(isset($_GET["machine_id"]) ? $_GET["machine_id"] 
 $time = htmlspecialchars(isset($_GET["time"]) ? $_GET["time"] : "");
 $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time";
 
+include "../../../config.php";
+//get data for pie chart
+$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+}
+$sql = "SELECT count(*) AS counter FROM log WHERE loglevel = 'VIRUS'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$virus=$row["count"];
+$sql = "SELECT count(*) AS counter FROM log WHERE loglevel = 'INFO'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$info=$row["count"];
+$sql = "SELECT count(*) AS counter FROM log WHERE loglevel = 'WARNING'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$warn=$row["count"];
+$sql = "SELECT count(*) AS counter FROM log WHERE loglevel = 'ERROR'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+$err=$row["count"];
 
+$stmt->close();
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +67,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-     <title>Change Password</title>
+     <title>View log</title>
 	 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -44,14 +76,14 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Entrys', 'Loglevel'],
-          ['Virus',     11],
-          ['Error',      2],
-          ['Info',  2],
-          ['Warning', 2],
+          ['Virus',     <?php echo($virus);?>],
+          ['Error',      <?php echo($err);?>],
+          ['Info',  <?php echo($info);?>],
+          ['Warning', <?php echo($warn)?>],
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Log Entrys',
           is3D: true,
         };
 
@@ -75,8 +107,6 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                 <div class="card-body" style="overflow-x:auto">
                     <!-- table with all log entrys => delete button -->
                     <?php
-                        //include db pw
-                        include "../../../config.php";
                         //delete entry if requested and if user has rights to do that
                         if(isset($_GET["delete"])){
                             if($perms[3]!=="1"){
