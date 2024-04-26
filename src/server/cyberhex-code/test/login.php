@@ -333,7 +333,7 @@ try {
 		
         
         if ($registration->num_rows <= 0) {
-            throw new Exception('Public Key for user ID not found!');
+            throw new Exception('User does not exist');
         }
 		
 		$_SESSION["registrations"]["credentialId"]=$row["credential_id"];
