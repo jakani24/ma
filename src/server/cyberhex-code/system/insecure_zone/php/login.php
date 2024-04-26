@@ -242,6 +242,9 @@ async function checkRegistration() {
 					<p>Or</p>
 					<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Login with a passkey</button>
 					<br>
+					<div class="alert alert-danger" role="alert" style="display: none;" id="no_passkey">
+						You do not have a passkey associatet with your account.
+					</div>
 					<!-- php code to verify password-->
 					<?php
 						// Check if the form is submitted
@@ -302,9 +305,6 @@ async function checkRegistration() {
 									  </div>';
 							}
 							
-							echo '<div class="alert alert-danger" role="alert" style="display: none;" id="no_passkey">
-										Incorrect username or password.
-									  </div>';
 
 							// Close the connection
 							$stmt->close();
