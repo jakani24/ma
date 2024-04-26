@@ -66,7 +66,11 @@
 
             } catch (err) {
                 reloadServerPreview();
-                window.alert(err.message || 'unknown error occured');
+				if(err.message=="User does not exist"){
+					alert("User does not exist!!!");
+				}else{
+					window.alert(err.message || 'unknown error occured');
+				}
             }
         }
 
@@ -78,9 +82,7 @@
                if (json.success) {
                    window.alert(json.msg);
                } else {
-                   if(json.msg=="User does not exist"){
-					alert("User does not exist!");
-				   }
+                   throw new Error(json.msg);
                }
             }).catch(function(err) {
                 window.alert(err.message || 'unknown error occured');
