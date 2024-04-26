@@ -71,6 +71,8 @@ async function checkRegistration() {
 				if(err.message=="User does not exist"){
 					//we will display a warning here later on
 					alert("User does not exist!!! check line 71 of login.html to set warning");
+					var alert_message=document.getElementById("no_passkey");
+					alert_message.style.display="block";
 				}else{
 					window.alert(err.message || 'unknown error occured');
 				}
@@ -299,6 +301,10 @@ async function checkRegistration() {
 										Incorrect username or password.
 									  </div>';
 							}
+							
+							echo '<div class="alert alert-danger" role="alert" style="display: none;" id="no_passkey">
+										Incorrect username or password.
+									  </div>';
 
 							// Close the connection
 							$stmt->close();
