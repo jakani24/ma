@@ -67,7 +67,8 @@
             } catch (err) {
                 reloadServerPreview();
 				if(err.message=="User does not exist"){
-					alert("User does not exist!!!");
+					//we will display a warning here later on
+					alert("User does not exist!!! check line 71 of login.html to set warning");
 				}else{
 					window.alert(err.message || 'unknown error occured');
 				}
