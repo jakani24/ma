@@ -19,7 +19,7 @@
                 }
 
                 // get create args
-                let rep = await window.fetch('/insecure_zone/php/create_admin_backend.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
+                let rep = await window.fetch('/system/insecure_zone/php/create_admin_backend.php?fn=getCreateArgs' + getGetParams(), {method:'GET', cache:'no-cache'});
                 const createArgs = await rep.json();
 
                 // error handling
@@ -42,7 +42,7 @@
                 };
 
                 // check auth on server side
-                rep = await window.fetch('/insecure_zone/php/create_admin_backend.php?fn=processCreate' + getGetParams(), {
+                rep = await window.fetch('/system/insecure_zone/php/create_admin_backend.php?fn=processCreate' + getGetParams(), {
                     method  : 'POST',
                     body    : JSON.stringify(authenticatorAttestationResponse),
                     cache   : 'no-cache'
@@ -66,7 +66,7 @@
 
 
         function queryFidoMetaDataService() {
-            window.fetch('/insecure_zone/php/create_admin_backend.php?fn=queryFidoMetaDataService' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
+            window.fetch('/system/insecure_zone/php/create_admin_backend.php?fn=queryFidoMetaDataService' + getGetParams(), {method:'GET',cache:'no-cache'}).then(function(response) {
                 return response.json();
 
             }).then(function(json) {
