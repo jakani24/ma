@@ -62,7 +62,7 @@
 							$stmt->close();
 							$conn->close();
 							echo '<br><div class="alert alert-success" role="alert">
-								Admin user created successfully! <a href="add_passkey.php">Continue installation</a>
+								Admin user created successfully! <a href="add_passkey.php?username='.$username.'">Continue installation</a>
 							</div>';
 						}
 
