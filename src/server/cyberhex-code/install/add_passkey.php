@@ -220,7 +220,7 @@ async function createRegistration() {
                     <h4>Add a passkey?</h4>
                 </div>
                 <div class="card-body">
-				<input type="text" id="username" name="username" value="<?php echo($_GET["username"]); ?>" style="display:hidden"></input>
+				<input type="text" id="username" name="username" value="<?php echo($_GET["username"]); ?>" style="display: none;"></input>
 				<p>You can add a device specific passkey which allows you to login in securely with your fingerprint / hardware key etc.</p>
 					<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Add a passkey</button>
 					<br><br>
