@@ -100,7 +100,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT count(*) AS log_count FROM machines,vir_notify WHERE machine_location LIKE ? AND path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ?";
+                        $sql = "SELECT count(vir_notify.id) AS log_count FROM machines,vir_notify WHERE machine_name=machine_id AND machine_location LIKE ? AND path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $path = "%" . $path . "%";
                         $hash = "%" . $hash . "%";

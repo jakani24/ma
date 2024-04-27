@@ -104,7 +104,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         $offset = ($current_page - 1) * $page_size;
 
                         // Get total number of log entries based on filters
-                        $sql = "SELECT count(*) AS log_count FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
+                        $sql = "SELECT count(log.id) AS log_count FROM machines,log WHERE machine_name=machine_id AND machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
