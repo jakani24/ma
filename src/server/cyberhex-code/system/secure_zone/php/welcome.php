@@ -132,7 +132,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                         echo '<table class="table" style="overflow-x:auto">';
                         echo '<thead>';
                         echo '<tr>'; 
-                        echo '<th>Entry id</th><th>Machine id</th><th>File</th><th>Hash</th><th>Action taken</th><th>Delete entry</th>';
+                        echo '<th>Entry id</th><th>Machine id</th><th>Location</th><th>File</th><th>Hash</th><th>Action taken</th><th>Delete entry</th>';
                         echo '</tr>';
                         echo '</thead>';
                         echo '<tbody>';
@@ -143,9 +143,9 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                         echo '<input type="hidden" name="filter_submit" value="true">';
                         echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%","",$machine_id) . '"></td>';
+						echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="path" placeholder="' . str_replace("%","",$path) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="hash" placeholder="' . str_replace("%","",$hash) . '"></td>';
-						//echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="action" placeholder="' . str_replace("%","",$action) . '"></td>';
                         echo '<td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all">Delete log</button></td>';
                         echo '</form>';
@@ -155,9 +155,9 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                             echo '<tr>';
                             echo '<td>' . $row["id"] . '</td>';
                             echo '<td>' . $row["machine_id"] . '</td>';
+							echo '<td>' . $row["machine_location"] . '</td>';
                             echo '<td>' . $row["path"] . '</td>';
                             echo '<td>' . $row["hash"] . '</td>';
-							//echo '<td>' . $row["machine_location"] . '</td>';
                             echo '<td>' . $row["action"] . '</td>';
                             echo '<td><a href="welcome.php?delete=' . $row["id"] . $filter_query . '&page=' . $current_page . '">delete</a></td>';
                             echo '</tr>';
