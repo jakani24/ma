@@ -238,10 +238,13 @@ async function checkRegistration() {
 						<br>
 						<div class="row">
 							<div class="col">
-								<button type="submit" class="btn btn-primary btn-block">Login with password</button>
+								<button style="align:left" type="submit" class="btn btn-primary btn-block">Login with password</button>
 							</div>
 							<div class="col">
-								<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Login with a passkey</button>
+								Or
+							</div>
+							<div class="col">
+								<button style="align:right" type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Login with a passkey</button>
 							</div>
 						</div>
 					</form>
