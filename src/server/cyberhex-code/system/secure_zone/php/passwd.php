@@ -242,7 +242,8 @@ $email = $_SESSION["email"];
 						<br>
                         <button type="submit" class="btn btn-primary btn-block">Update</button>
 						<br>
-						<p>Or</p>
+						Or
+						<br>
 						<button type="button" class="btn btn-primary btn-block" onclick="createRegistration()">Add a passkey</button>
                     </form>
 					<br>

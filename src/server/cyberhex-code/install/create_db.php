@@ -57,7 +57,6 @@
 			}
 
 			// Create user table
-			//INSERT INTO registrations (userId, credentialId, publicKey, counter) VALUES (?, ?, ?, ?)");
 			$sql = "CREATE TABLE IF NOT EXISTS users (
 				id INT AUTO_INCREMENT PRIMARY KEY,
 				username VARCHAR(255) NOT NULL,
