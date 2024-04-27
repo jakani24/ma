@@ -90,9 +90,10 @@ $conn->close();
         var chart = new google.visualization.PieChart(document.getElementById('log_spread'));
         chart.draw(data, options);
       }
+	  
 	  google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
+      google.charts.setOnLoadCallback(drawChart2);
+      function drawChart2() {
         var data = google.visualization.arrayToDataTable([
           ['Entrys', 'Loglevel'],
           ['Virus',     <?php echo($virus);?>],
@@ -106,7 +107,7 @@ $conn->close();
           is3D: true,
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('machine_spread'));
+        var chart2 = new google.visualization.PieChart(document.getElementById('machine_spread'));
         chart.draw(data, options);
       }
     </script>
@@ -207,7 +208,7 @@ $conn->close();
                         $result = $stmt->get_result();
                         if($current_page==1){
 							echo("<div class='row'><div class='col' id='log_spread' style='width: 30%; height: auto;'></div>");
-							echo("<div class='col'  id='log_spread' style='width: 30%; height: auto;'></div></div>");
+							echo("<div class='col' id='machine_spread' style='width: 30%; height: auto;'></div></div>");
 						}
                         // Display log entries
                         echo '<table class="table" style="overflow-x:auto">';
