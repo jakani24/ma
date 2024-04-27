@@ -196,7 +196,7 @@ $conn->close();
                         $total_entries = $row["log_count"];
                         
                         // Calculate total pages
-                        $total_pages = ceil($total_entries / $page_size);
+                        $total_pages = ceil($total_entries / $page_size*2);
                         
                         // Query log entries for the current page with filters
                         $sql = "SELECT * FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? AND machine_name=machine_id ORDER BY log.id DESC LIMIT ?, ?";
