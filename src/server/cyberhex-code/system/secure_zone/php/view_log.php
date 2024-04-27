@@ -25,7 +25,7 @@ $loglevel = htmlspecialchars(isset($_GET["loglevel"]) ? $_GET["loglevel"] : "");
 $logtext = htmlspecialchars(isset($_GET["logtext"]) ? $_GET["logtext"] : "");
 $machine_id = htmlspecialchars(isset($_GET["machine_id"]) ? $_GET["machine_id"] : "");
 $time = htmlspecialchars(isset($_GET["time"]) ? $_GET["time"] : "");
-$location = htmlspecialchars(isset($_GET["machine_location"]) ? $_GET["machine_location"] : "");
+$machine_location = htmlspecialchars(isset($_GET["machine_location"]) ? $_GET["machine_location"] : "");
 $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time&machine_location=$machine_location";
 
 include "../../../config.php";
