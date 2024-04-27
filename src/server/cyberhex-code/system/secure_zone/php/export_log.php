@@ -158,6 +158,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                             echo '<td>' . $row["loglevel"] . '</td>';
                             echo '<td>' . $row["logtext"] . '</td>';
                             echo '<td>' . $row["machine_id"] . '</td>';
+							echo '<td>' . $row["machine_location"] . '</td>';
                             echo '<td>' . $row["time"] . '</td>';
                             echo '</tr>';
                         }
