@@ -240,7 +240,7 @@ async function checkRegistration() {
 							<div class="col">
 								<button style="align:left" type="submit" class="btn btn-primary btn-block">Login with password</button>
 							</div>
-							<div class="col">
+							<div style="align:center" class="col">
 								Or
 							</div>
 							<div class="col">
