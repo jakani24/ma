@@ -236,11 +236,15 @@ async function checkRegistration() {
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
 						<br>
-                        <button type="submit" class="btn btn-primary btn-block">Login with password</button>
-                    </form>
-					<br>
-					<p>Or</p>
-					<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Login with a passkey</button>
+						<div class="row">
+							<div class="col">
+								<button type="submit" class="btn btn-primary btn-block">Login with password</button>
+							</div>
+							<div class="col">
+								<button type="button" class="btn btn-primary btn-block" onclick="checkRegistration()">Login with a passkey</button>
+							</div>
+						</div>
+					</form>
 					<br><br>
 					<div class="alert alert-danger" role="alert" style="display:none" id="no_passkey">
 						You do not have a passkey associatet with your account.

@@ -67,7 +67,7 @@ int start_thread(const std::string& command) {
             has_run = 1;
         }
         else if (out1 == "quick_scan"){
-            log(LOGLEVEL::INFO, "[start_thread()]: starting quickscan with arguments: ");
+            log(LOGLEVEL::INFO, "[start_thread()]: starting quickscan");
             std::thread t1(do_quickscan);
             t1.detach();
             has_run = 1;
