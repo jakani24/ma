@@ -205,7 +205,7 @@ $conn->close();
                         $logtext = "%" . $logtext . "%";
                         $machine_id = "%" . $machine_id . "%";
                         $time = "%" . $time . "%";
-                        $stmt->bind_param("ssssii", $machine_location, $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
+                        $stmt->bind_param("sssssii", $machine_location, $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         if($current_page==1){
