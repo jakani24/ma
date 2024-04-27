@@ -117,7 +117,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                         $total_pages = ceil($total_entries / $page_size);
                         
                         // Query log entries for the current page with filters
-                        $sql = "SELECT * FROM machines,vir_notify WHERE machine_location LIKE ? AND path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ? AND machine_name=machine_id ORDER BY id DESC LIMIT ?, ?";
+                        $sql = "SELECT * FROM machines,vir_notify WHERE machine_location LIKE ? AND path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ? AND machine_name=machine_id ORDER BY log.id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
                         $path = "%" . $path . "%";
                         $hash = "%" . $hash . "%";
