@@ -80,7 +80,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 							$stmt->execute();
 							$result = $stmt->get_result();
 
-							fwrite ($fp,"Entry id;Loglevel;Logtext;Machine id;Time & date\n");
+							fwrite ($fp,"Entry id;Loglevel;Logtext;Machine id;Machine Location;Time & date\n");
 							//now add entrys
 							while ($row = $result->fetch_assoc()) {
 								fwrite($fp,$row["id"] . ';');

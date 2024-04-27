@@ -100,13 +100,14 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT count(*) AS log_count FROM vir_notify WHERE path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ?";
+                        $sql = "SELECT count(*) AS log_count FROM machines,vir_notify WHERE machine_location LIKE ? AND path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $path = "%" . $path . "%";
                         $hash = "%" . $hash . "%";
                         $machine_id = "%" . $machine_id . "%";
+						$machine_location = "%" . $machine_location . "%";
                         $action = "%" . $action . "%";
-                        $stmt->bind_param("ssss", $path, $hash, $machine_id, $action);
+                        $stmt->bind_param("sssss",$machine_location, $path, $hash, $machine_id, $action);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         $row = $result->fetch_assoc();
@@ -116,13 +117,14 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                         $total_pages = ceil($total_entries / $page_size);
                         
                         // Query log entries for the current page with filters
-                        $sql = "SELECT * FROM vir_notify WHERE path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ? ORDER BY id DESC LIMIT ?, ?";
+                        $sql = "SELECT * FROM machines,vir_notify WHERE machine_location LIKE ? AND path LIKE ? AND hash LIKE ? AND machine_id LIKE ? AND action LIKE ? AND machine_name=machine_id ORDER BY id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
                         $path = "%" . $path . "%";
                         $hash = "%" . $hash . "%";
                         $machine_id = "%" . $machine_id . "%";
+						$machine_location = "%" . $machine_location . "%";
                         $action = "%" . $action . "%";
-                        $stmt->bind_param("ssssii", $path, $hash, $machine_id, $action, $offset, $page_size);
+                        $stmt->bind_param("sssssii",$machine_location, $path, $hash, $machine_id, $action, $offset, $page_size);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         
