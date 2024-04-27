@@ -182,7 +182,7 @@ $conn->close();
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT count(*) AS log_count FROM log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
+                        $sql = "SELECT count(*) AS log_count FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
