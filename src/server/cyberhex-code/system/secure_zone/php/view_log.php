@@ -198,7 +198,7 @@ $conn->close();
                         $total_pages = ceil($total_entries / $page_size);
                         
                         // Query log entries for the current page with filters
-                        $sql = "SELECT * FROM log,machines WHERE loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? AND machine_name=machine_id ORDER BY log.id DESC LIMIT ?, ?";
+                        $sql = "SELECT * FROM machines,log WHERE loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? AND machine_name=machine_id ORDER BY log.id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
@@ -215,7 +215,7 @@ $conn->close();
                         echo '<table class="table" style="overflow-x:auto">';
                         echo '<thead>';
                         echo '<tr>'; 
-                        echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th><th>Location</th><th>Delete entry</th>';
+                        echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Location</th><th>Time & date</th><th>Delete entry</th>';
                         echo '</tr>';
                         echo '</thead>';
                         echo '<tbody>';
@@ -228,7 +228,7 @@ $conn->close();
                         echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . str_replace("%","",$loglevel) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . str_replace("%","",$logtext) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%","",$machine_id) . '"></td>';
-						echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
+						echo '<td><input type="text" class="form-control" name="machine_location" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$time) . '"></td>';
                         echo '<td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_all">Delete log</button></td>';
                         echo '</form>';
