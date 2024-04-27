@@ -187,7 +187,7 @@ $conn->close();
                         $stmt->execute();
                         $result = $stmt->get_result();
                         if($current_page==1){
-							echo("<div id='piechart_3d' style='width: 900px; height: 500px;'></div>");
+							echo("<div id='piechart_3d' style='width: 30%; height: auto;'></div>");
 						}
                         // Display log entries
                         echo '<table class="table" style="overflow-x:auto">';
