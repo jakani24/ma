@@ -71,45 +71,44 @@ $conn->close();
 	 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Entrys', 'Loglevel'],
-          ['Virus',     <?php echo($virus);?>],
-          ['Error',      <?php echo($err);?>],
-          ['Info',  <?php echo($info);?>],
-          ['Warning', <?php echo($warn)?>],
-        ]);
+    google.charts.load("current", {packages:["corechart"]});
+	google.charts.setOnLoadCallback(drawCharts);
 
-        var options = {
-          title: 'Log Entrys',
-          is3D: true,
-        };
+	function drawCharts() {
+	  // First Chart
+	  var data1 = google.visualization.arrayToDataTable([
+		['Entrys', 'Loglevel'],
+		['Virus',     <?php echo($virus);?>],
+		['Error',      <?php echo($err);?>],
+		['Info',  <?php echo($info);?>],
+		['Warning', <?php echo($warn)?>],
+	  ]);
 
-        var chart = new google.visualization.PieChart(document.getElementById('log_spread'));
-        chart.draw(data, options);
-      }
+	  var options1 = {
+		title: 'Log Entrys',
+		is3D: true,
+	  };
+
+	  var chart1 = new google.visualization.PieChart(document.getElementById('log_spread_1'));
+	  chart1.draw(data1, options1);
+
+	  // Second Chart
+	  var data2 = google.visualization.arrayToDataTable([
+		['Category', 'Value'],
+		['Category 1', 100],
+		['Category 2', 200],
+		['Category 3', 300],
+	  ]);
+
+	  var options2 = {
+		title: 'Second Chart',
+		// Add your options here
+	  };
+
+	  var chart2 = new google.visualization.ColumnChart(document.getElementById('second_chart'));
+	  chart2.draw(data2, options2);
+	}
 	  
-	  google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart2);
-      function drawChart2() {
-        var data = google.visualization.arrayToDataTable([
-          ['Entrys', 'Loglevel'],
-          ['Virus',     <?php echo($virus);?>],
-          ['Error',      <?php echo($err);?>],
-          ['Info',  <?php echo($info);?>],
-          ['Warning', <?php echo($warn)?>],
-        ]);
-
-        var options = {
-          title: 'Log Entrys',
-          is3D: true,
-        };
-
-        var chart2 = new google.visualization.PieChart(document.getElementById('machine_spread'));
-        chart.draw(data, options);
-      }
     </script>
 
 </head>
