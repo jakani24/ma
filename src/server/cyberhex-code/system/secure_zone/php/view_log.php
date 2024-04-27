@@ -93,6 +93,7 @@ $conn->close();
 	  chart1.draw(data1, options1);
 
 	  // Second Chart
+	  //we would be able to draw a second one if we want
 	  var data2 = google.visualization.arrayToDataTable([
 		['Category', 'Value'],
 		['Category 1', 100],
@@ -102,7 +103,7 @@ $conn->close();
 
 	  var options2 = {
 		title: 'Second Chart',
-		// Add your options here
+		is3D: true,
 	  };
 
 	  var chart2 = new google.visualization.ColumnChart(document.getElementById('machine_spread'));
@@ -207,7 +208,7 @@ $conn->close();
                         $result = $stmt->get_result();
                         if($current_page==1){
 							echo("<div class='row'><div class='col' id='log_spread' style='width: 30%; height: auto;'></div>");
-							echo("<div class='col' id='machine_spread' style='width: 30%; height: auto;'></div></div>");
+							echo("<div style='display:none' class='col' id='machine_spread' style='width: 30%; height: auto;'></div></div>");
 						}
                         // Display log entries
                         echo '<table class="table" style="overflow-x:auto">';
