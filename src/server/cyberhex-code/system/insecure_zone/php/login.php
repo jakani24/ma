@@ -16,7 +16,7 @@ if(isset($_SESSION["login"])){
       background-image: url('/logo.png');
       background-size: cover;
       background-position: center;
-      height: 100vh; /* Set height to viewport height */
+      height: 100%; /* Set height to viewport height */
     }
   </style>
 </head>
