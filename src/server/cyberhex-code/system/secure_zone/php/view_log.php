@@ -204,6 +204,7 @@ $conn->close();
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
                         $machine_id = "%" . $machine_id . "%";
+						$machine_location = "%" . $machine_location . "%";
                         $time = "%" . $time . "%";
                         $stmt->bind_param("sssssii", $machine_location, $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
                         $stmt->execute();

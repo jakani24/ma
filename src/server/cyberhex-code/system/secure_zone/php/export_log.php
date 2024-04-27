@@ -24,7 +24,8 @@ $loglevel = htmlspecialchars(isset($_GET["loglevel"]) ? $_GET["loglevel"] : "");
 $logtext = htmlspecialchars(isset($_GET["logtext"]) ? $_GET["logtext"] : "");
 $machine_id = htmlspecialchars(isset($_GET["machine_id"]) ? $_GET["machine_id"] : "");
 $time = htmlspecialchars(isset($_GET["time"]) ? $_GET["time"] : "");
-$filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time";
+$machine_location = htmlspecialchars(isset($_GET["machine_location"]) ? $_GET["machine_location"] : "");
+$filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time&machine_location=$machine_location";
 
 ?>
 <!DOCTYPE html>
@@ -101,13 +102,14 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         $offset = ($current_page - 1) * $page_size;
 
                         // Get total number of log entries based on filters
-                        $sql = "SELECT count(*) AS log_count FROM log WHERE loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
+                        $sql = "SELECT count(*) AS log_count FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
                         $machine_id = "%" . $machine_id . "%";
+						$machine_location = "%" . $machine_location . "%";
                         $time = "%" . $time . "%";
-                        $stmt->bind_param("ssss", $loglevel, $logtext, $machine_id, $time);
+                        $stmt->bind_param("sssss",$machine_location, $loglevel, $logtext, $machine_id, $time);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         $row = $result->fetch_assoc();
@@ -117,13 +119,14 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         $total_pages = ceil($total_entries / $page_size);
 
                         // Query log entries for the current page with filters
-                        $sql = "SELECT * FROM log WHERE loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? ORDER BY id DESC LIMIT ?, ?";
+                        $sql = "SELECT * FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? AND machine_name=machine_id ORDER BY log.id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
                         $machine_id = "%" . $machine_id . "%";
+						$machine_location = "%" . $machine_location . "%";
                         $time = "%" . $time . "%";
-                        $stmt->bind_param("ssssii", $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
+                        $stmt->bind_param("sssssii", $machine_location, $loglevel, $logtext, $machine_id, $time, $offset, $page_size);
                         $stmt->execute();
                         $result = $stmt->get_result();
 
@@ -131,7 +134,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<table class="table" style="overflow-x:auto">';
                         echo '<thead>';
                         echo '<tr>';
-                        echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Time & date</th>';
+                        echo '<th>Entry id</th><th>Loglevel</th><th>Logtext</th><th>Machine id</th><th>Location</th><th>Time & date</th>';
                         echo '</tr>';
                         echo '</thead>';
                         echo '<tbody>';
@@ -144,6 +147,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
                         echo '<td><input type="text" class="form-control" name="loglevel" placeholder="' . str_replace("%", "", $loglevel) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="logtext" placeholder="' . str_replace("%", "", $logtext) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%", "", $machine_id) . '"></td>';
+						echo '<td><input type="text" class="form-control" name="machine_location" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%", "", $time) . '"></td>';
                         echo '</form>';
                         echo '</tr>';
