@@ -207,7 +207,7 @@ $conn->close();
                         $stmt->execute();
                         $result = $stmt->get_result();
                         if($current_page==1){
-							echo("<div id='log_spread' style='width: 700px; height: 400px;'></div>");
+							echo("<div id='log_spread' style='width: 700px; height: 350px;'></div>");
 							//echo("<div style='display:none' class='col' id='machine_spread' style='width: 30%; height: auto;'></div></div>");
 						}
                         // Display log entries
