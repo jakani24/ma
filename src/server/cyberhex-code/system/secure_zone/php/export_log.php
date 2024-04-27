@@ -69,11 +69,12 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 							$fp=fopen("/var/www/html/export/cyberhex_log_export.csv","w");
 							//do all the logic here and write into file
 							// Query log entries for the export file with filters
-							$sql = "SELECT * FROM log WHERE loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? ORDER BY id DESC";
+							$sql = "SELECT count(*) AS log_count FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
 							$stmt = $conn->prepare($sql);
 							$loglevel = "%" . $loglevel . "%";
 							$logtext = "%" . $logtext . "%";
 							$machine_id = "%" . $machine_id . "%";
+							$machine_location = "%" . $machine_location . "%";
 							$time = "%" . $time . "%";
 							$stmt->bind_param("ssss", $loglevel, $logtext, $machine_id, $time);
 							$stmt->execute();
@@ -86,6 +87,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 								fwrite($fp,$row["loglevel"] . ';');
 								fwrite($fp,$row["logtext"] . ';');
 								fwrite($fp,$row["machine_id"] . ';');
+								fwrite($fp,$row["machine_location"] . ';');
 								fwrite($fp,$row["time"] . ";\n");
 							}
 							fclose($fp);

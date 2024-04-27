@@ -17,7 +17,8 @@ $machine_id = htmlspecialchars(isset($_GET["machine_id"]) ? $_GET["machine_id"] 
 $path = htmlspecialchars(isset($_GET["path"]) ? $_GET["path"] : "");
 $hash = htmlspecialchars(isset($_GET["hash"]) ? $_GET["hash"] : "");
 $action = htmlspecialchars(isset($_GET["action"]) ? $_GET["action"] : "");
-$filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action";
+$machine_location = htmlspecialchars(isset($_GET["machine_location"]) ? $_GET["machine_location"] : "");
+$filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&machine_location=$machine_location";
 
 ?>
 <!DOCTYPE html>
