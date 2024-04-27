@@ -1,4 +1,3 @@
-#cyberhex installer downloader
 @echo off
 echo "Downloading Cyberhex installer"
 curl -O -L https://github.com/jakani24/cyberhex_bin_distro/raw/main/ma_installer.exe
