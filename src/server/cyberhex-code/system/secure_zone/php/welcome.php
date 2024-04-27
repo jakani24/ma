@@ -143,7 +143,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                         echo '<input type="hidden" name="filter_submit" value="true">';
                         echo '<td><button type="submit" class="btn btn-primary btn-block">Filter</button></td>';
                         echo '<td><input type="text" class="form-control" name="machine_id" placeholder="' . str_replace("%","",$machine_id) . '"></td>';
-						echo '<td><input type="text" class="form-control" name="time" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
+						echo '<td><input type="text" class="form-control" name="machine_location" placeholder="' . str_replace("%","",$machine_location) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="path" placeholder="' . str_replace("%","",$path) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="hash" placeholder="' . str_replace("%","",$hash) . '"></td>';
                         echo '<td><input type="text" class="form-control" name="action" placeholder="' . str_replace("%","",$action) . '"></td>';
