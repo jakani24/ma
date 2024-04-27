@@ -89,7 +89,7 @@ $conn->close();
 		is3D: true,
 	  };
 
-	  var chart1 = new google.visualization.PieChart(document.getElementById('log_spread_1'));
+	  var chart1 = new google.visualization.PieChart(document.getElementById('log_spread'));
 	  chart1.draw(data1, options1);
 
 	  // Second Chart
@@ -105,7 +105,7 @@ $conn->close();
 		// Add your options here
 	  };
 
-	  var chart2 = new google.visualization.ColumnChart(document.getElementById('second_chart'));
+	  var chart2 = new google.visualization.ColumnChart(document.getElementById('machine_spread'));
 	  chart2.draw(data2, options2);
 	}
 	  
