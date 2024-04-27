@@ -87,7 +87,26 @@ $conn->close();
           is3D: true,
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        var chart = new google.visualization.PieChart(document.getElementById('log_spread'));
+        chart.draw(data, options);
+      }
+	  google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Entrys', 'Loglevel'],
+          ['Virus',     <?php echo($virus);?>],
+          ['Error',      <?php echo($err);?>],
+          ['Info',  <?php echo($info);?>],
+          ['Warning', <?php echo($warn)?>],
+        ]);
+
+        var options = {
+          title: 'Log Entrys',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('machine_spread'));
         chart.draw(data, options);
       }
     </script>
@@ -187,7 +206,8 @@ $conn->close();
                         $stmt->execute();
                         $result = $stmt->get_result();
                         if($current_page==1){
-							echo("<div id='piechart_3d' style='width: 30%; height: auto;min-height:300px'></div>");
+							echo("<div class='row'><div class='col' id='log_spread' style='width: 30%; height: auto;'></div>");
+							echo("<div class='col'  id='log_spread' style='width: 30%; height: auto;'></div></div>");
 						}
                         // Display log entries
                         echo '<table class="table" style="overflow-x:auto">';
