@@ -6,6 +6,7 @@ RUN docker-php-ext-install mysqli
 RUN a2enmod ssl
 RUN service apache2 restart
 COPY ./cyberhex-code /var/www/html
+COPY ./logo.png /var/www/html/logo.png
 RUN mkdir -p /var/www/html/install/
 RUN mkdir -p /var/www/html/database_srv
 RUN mkdir -p /var/www/html/export
