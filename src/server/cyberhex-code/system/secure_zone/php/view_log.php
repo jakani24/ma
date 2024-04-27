@@ -182,7 +182,7 @@ $conn->close();
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT count(*) AS log_count FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
+                        $sql = "SELECT count(log.id) AS log_count FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
@@ -196,7 +196,7 @@ $conn->close();
                         $total_entries = $row["log_count"];
                         
                         // Calculate total pages
-                        $total_pages = ceil(($total_entries/2) / $page_size);
+                        $total_pages = ceil(($total_entries) / $page_size);
                         
                         // Query log entries for the current page with filters
                         $sql = "SELECT * FROM machines,log WHERE machine_location LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND machine_id LIKE ? AND time LIKE ? AND machine_name=machine_id ORDER BY log.id DESC LIMIT ?, ?";
