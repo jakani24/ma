@@ -37,3 +37,5 @@
 *.pem
 *.key
 *.vsidx
+src/client_backend/.vs/client_backend/v17/ipch/AutoPCH/2281dd451529c04a/SCAN.ipch
+*.ipch
