@@ -392,6 +392,8 @@ load_settings();
 									  <option value="choose_action">Choose an action</option>
 									  <option value="scanfile">scanfile</option>
 									  <option value="scanfolder">scanfolder</option>
+									  <option value="deepscanfile">deepscanfile</option>
+									  <option value="deepscanfolder">deepscanfolder</option>
 									  <option value="update_settings">update settings</option>
 									  <option value="update_db">update database</option>
 									  <option value="update_system">update system (clients)</option>
@@ -430,6 +432,14 @@ load_settings();
 									  echo('<option value="scanfolder" selected>scanfolder</option>');
 									else
 										echo('<option value="scanfolder">scanfolder</option>');
+									if($action=="deepscanfile")
+										echo('<option value="deepscanfile" selected >deepscanfile</option>');
+									else
+										echo('<option value="deepscanfile" >deepscanfile</option>');
+									if($action=="deepscanfolder")
+									  echo('<option value="deepscanfolder" selected>deepscanfolder</option>');
+									else
+										echo('<option value="deepscanfolder">deepscanfolder</option>');
 									if($action=="update_settings")
 									  echo('<option value="update_settings" selected>update settings</option>');
 									else

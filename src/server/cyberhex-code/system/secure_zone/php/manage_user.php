@@ -58,7 +58,7 @@ include "perms_functions.php";
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4>Add a user</h4>
+                    <h4>Manage a user</h4>
                 </div>
                 <div class="card-body">
 					<form action="manage_user.php?update=true&userid=<?php echo($m_userid); ?>" method="post">
