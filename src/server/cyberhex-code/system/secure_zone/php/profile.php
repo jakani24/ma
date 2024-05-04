@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$success=0;
 		die("Connection failed: " . $conn->connect_error);
 	}
-	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ? where username = ?");
-	$stmt->bind_param("sssis", $email, $username_new,$telegram_id, $pw_login, $username);
+	$user_hex_id=bin2hex($user_hex_id);
+	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ?, user_hex_id = ? where username = ?");
+	$stmt->bind_param("sssiss", $email, $username_new,$telegram_id, $pw_login,$user_hex_id , $username);
 	
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
