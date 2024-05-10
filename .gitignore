@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 *.tlog
+*.log
 
 # Compiled Object files
 *.slo
