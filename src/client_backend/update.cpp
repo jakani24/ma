@@ -163,6 +163,8 @@ int update_settings(const std::string& settings_type) {
         res = download_file_from_srv(url, EXCLUDED_FOLDERS, get_setting("communication:unsafe_tls"),0);
     else if (settings_type == "sched")
         res = download_file_from_srv(url, SCHED_PATH, get_setting("communication:unsafe_tls"),0);
+    else if (settings_type == "disalowed_start")
+        res = download_file_from_srv(url, DISALLOWED_START_FOLDERS, get_setting("communication:unsafe_tls"), 0);
 
     if (res != 0) {
         log(LOGLEVEL::ERR, "[update_settings()]: Error downloading settings database file from server. ERROR:", res);

@@ -39,6 +39,7 @@ void monitor_processes() {
             } // Unlock the mutex automatically when 'guard' goes out of scope
 
             // If the process is new, get its executable path and print it
+
             if (isNewProcess) {
                 // Open the process
                 HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processId);
@@ -54,16 +55,13 @@ void monitor_processes() {
                             if (!is_folder_included(path) || is_folder_excluded(path)) {
                                 // Don't scan excluded files or folders
                             }
+                            else if (is_disallowed_sart_folder(path)) {
+                                //kill_process(path);
+                                log(LOGLEVEL::INFO, "[monitor_processes()]: Starting apps from this location is not allowed: ", path);
+                            }
                             else {
                                 int thread_timeout = 0;
-                                while (get_num_threads()-1 >= std::thread::hardware_concurrency()) {
-                                    Sleep(10);
-                                    thread_timeout++;
-                                    if (thread_timeout == 100 * 60) {//if there is for more than 30 seconds no thread available, chances are high, that the threads did not temrinate correctly but aren t running anymore. so set the counter to 0 because else it might just stop the scan.
-                                         set_num_threads(0);
-                                         //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: Resetting thread counter because of timeout");
-                                    }
-                                }
+
                                 //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: Scanning process: ", path);
                                 std::thread scan_thread(scan_process_t, path);
                                 scan_thread.detach();
@@ -74,7 +72,6 @@ void monitor_processes() {
                 }
             }
         }
-
         // Update the previous snapshot of process IDs
         {
             std::lock_guard<std::mutex> guard(mtx); // Lock the mutex
@@ -90,6 +87,6 @@ void process_scanner() {
     // We are in a thread so we can do this, unlimited resources
     while (!app_stop()) {
         monitor_processes();
-        Sleep(1000); // Sleep for 1 second
+        Sleep(200); // Sleep for 1 second
     }
 }

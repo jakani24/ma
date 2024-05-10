@@ -12,6 +12,7 @@ void load_included_folders();
 void load_excluded_folders();
 bool is_folder_included(const std::string& path);
 bool is_folder_excluded(const std::string& path);
+bool is_disallowed_sart_folder(const std::string& path);
 void print_inclusions(); 
 
 int log_timeout_get();

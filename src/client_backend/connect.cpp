@@ -147,13 +147,15 @@ std::string url_encode(const std::string& input) {
     static const char* const safe_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
     std::string encoded;
     for (char c : input) {
-        if (std::strchr(safe_chars, c) != nullptr) {
-            encoded += c;
-        }
-        else {
-            char temp[4];
-            sprintf(temp, "%%%02X", (unsigned char)c);
-            encoded += temp;
+        if (c != '\0') {
+            if (std::strchr(safe_chars, c) != nullptr) {
+                encoded += c;
+            }
+            else {
+                char temp[4];
+                sprintf(temp, "%%%02X", (unsigned char)c);
+                encoded += temp;
+            }
         }
     }
     return encoded;

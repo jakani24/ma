@@ -42,6 +42,7 @@
 
 #define INCLUDED_FOLDERS "C:\\Program Files\\cyberhex\\secure\\settings\\included_folders.txt"
 #define EXCLUDED_FOLDERS "C:\\Program Files\\cyberhex\\secure\\settings\\excluded_folders.txt"
+#define DISALLOWED_START_FOLDERS "C:\\Program Files\\cyberhex\\secure\\settings\\disallowed_start_folders.txt"
 
 #define JAKACH_UPDATE_SRV "https://jakach.duckdns.org/cyberhex/latest/"
 #define CURRENT_VERSION 1

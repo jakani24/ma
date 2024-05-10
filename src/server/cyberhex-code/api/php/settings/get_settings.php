@@ -64,6 +64,21 @@ if(isset($_GET["rtp_excluded"])){
 	$stmt -> close();
 	
 }
+if(isset($_GET["dissalowed_start"])){
+	echo(load_secret()."\n");
+	//load all the entrys from a db table
+	$sql = "SELECT path,id FROM dissalowed_start ORDER BY id";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	while ($row = $result->fetch_assoc()){
+			echo("\"".$row["path"]."\"\n");
+	}
+	$stmt -> close();
+	
+}
 if(isset($_GET["sched"])){
 	echo(load_secret()."\n");
 	//load all the entrys from a db table

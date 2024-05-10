@@ -184,6 +184,23 @@
 						Error creating table rtp_excluded: ' . $conn->error .'
 				</div>';
 			}
+			
+			// Create dissalowed_start table
+			$sql = "CREATE TABLE IF NOT EXISTS disalowed_start (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				path VARCHAR(255) NOT NULL UNIQUE
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table disalowed_start created successfully!
+				</div>';
+			} else {
+				$success=0;
+					echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table disalowed_start: ' . $conn->error .'
+				</div>';
+			}
 
 			// Create api table
 			$sql = "CREATE TABLE IF NOT EXISTS api (

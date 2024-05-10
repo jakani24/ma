@@ -72,6 +72,8 @@ int update_settings(const char* settings_type) {
         res = download_file_from_srv(url, EXCLUDED_FOLDERS);
     else if (strcmp(settings_type, "sched") == 0)
         res = download_file_from_srv(url, SCHED_PATH);
+    else if (strcmp(settings_type, "dissalowed_start") == 0)
+        res = download_file_from_srv(url, DISALLOWED_START_FOLDERS);
     //int res = 0;
     if (res != 0) {
         return 1;
@@ -92,6 +94,10 @@ int action_update_settings() {
     }
     //update the excluded folders
     if (update_settings("rtp_excluded") != 0) {
+        err = 9;
+    }
+    //update the disallowed start folders
+    if (update_settings("dissalowed_start") != 0) {
         err = 9;
     }
     //update the schedule

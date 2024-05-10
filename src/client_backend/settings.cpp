@@ -16,6 +16,8 @@ std::string excluded_folders[1000];
 int excluded_folders_size = 0;
 std::string included_folders[1000];
 int included_folders_size = 0;
+std::string disallowed_start_folders[1000];
+int disallowed_start_folders_size = 0;
 bool setting_rtp_folder_scan_status = true; // 0=off, 1=on
 bool setting_rtp_process_scan_status = true; // 0=off, 1=on
 bool setting_virus_ctrl_virus_process_found_kill = true; // 0=do not kill, 1=kill
@@ -25,6 +27,7 @@ int log_timeout_reset = 0;
 
 void load_included_folders();
 void load_excluded_folders();
+void load_disallowed_start_folders();
 
 int load_settings() {
     //std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings file operations
@@ -79,6 +82,7 @@ int load_settings() {
 
     load_included_folders();
     load_excluded_folders();
+    load_disallowed_start_folders();
 
     return 0;
 }
@@ -168,6 +172,31 @@ void load_excluded_folders() {
     file.close();
 }
 
+void load_disallowed_start_folders() {
+    std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
+	std::ifstream file(DISALLOWED_START_FOLDERS);
+    if (!file.is_open()) {
+        printf("Could not open disallowed start folders file. %s\n", DISALLOWED_START_FOLDERS);
+		log(LOGLEVEL::ERR, "[load_disallowed_start_folders()]: Could not open disallowed start folders file. ", DISALLOWED_START_FOLDERS);
+		return;
+	}
+
+	std::string line;
+	std::getline(file, line); // Skip the first line
+    while (std::getline(file, line)) {
+		size_t start_pos = line.find('"'); // Find the position of the first double quote
+        if (start_pos != std::string::npos) {
+			size_t end_pos = line.find('"', start_pos + 1); // Find the position of the second double quote
+            if (end_pos != std::string::npos) {
+				std::string path = line.substr(start_pos + 1, end_pos - start_pos - 1); // Extract the path between double quotes
+				disallowed_start_folders[disallowed_start_folders_size++] = path;
+			}
+		}
+	}
+
+	file.close();
+}
+
 bool is_folder_included(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
@@ -189,6 +218,18 @@ bool is_folder_excluded(const std::string& path) {
     }
     return false;
 }
+bool is_disallowed_sart_folder(const std::string& path) {
+	std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
+
+    for (int i = 0; i < disallowed_start_folders_size; i++) {
+        if (path.find(disallowed_start_folders[i]) != std::string::npos) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
 
 void print_inclusions() {
     std::lock_guard<std::mutex> lock(logMutex); // Lock access to log printing

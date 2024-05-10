@@ -96,6 +96,7 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             fclose(fp);
         }
     }
+    //printf("info from logger2: %s", logString.c_str());
     if (level != LOGLEVEL::INFO_NOSEND && level != LOGLEVEL::WARN_NOSEND && level != LOGLEVEL::ERR_NOSEND && level != LOGLEVEL::PANIC_NOSEND/* && log_timeout_get() < 5*/) {
         std::string url;
         int res = 0;
@@ -121,26 +122,6 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
         log_timeout_reset_set(0);
         log_timeout_set(0);
     }
-    /*if (log_timeout_reset_get() > 100 && 1 == 0) {
-        log_timeout_reset_set(0);
-        log_timeout_set(0);
-        std::string url;
-        int res = 0;
-        url = get_setting("server:server_url");
-        ifif(url != "" && url != "nan") {
-            url += "/api/php/log/add_log.php?machine_id=";
-            url += get_machineid(SECRETS);
-            url += "&apikey=";
-            url += get_apikey(SECRETS);
-            res = upload_to_srv(SRV_LOGFILE, url, get_setting("communication:unsafe_tls"));
-            if (res != 0) {
-                log_timeout_set(log_timeout_get() + 1);
-            }
-            else {
-                remove(SRV_LOGFILE);
-            }
-        }
-    }*/
 }
 
 #endif // LOGGER_H

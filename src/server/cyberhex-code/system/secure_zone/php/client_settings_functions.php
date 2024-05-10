@@ -60,6 +60,12 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($_GET["update"]=="setting_ac_status"){		
+		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
+		$stmt->bind_param("sss",$name,$value,$value);
+		$stmt->execute();
+		$stmt->close();
+	}
 	if($_GET["update"]=="setting_rtp_folder_scan_status"){		
 		$stmt = $conn->prepare("INSERT INTO settings (name,value) VALUES (?,?) ON DUPLICATE KEY UPDATE value = ?;");
 		$stmt->bind_param("sss",$name,$value,$value);
@@ -92,6 +98,13 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
+	if($_GET["update"]=="disalowed_start"){	
+		$id=htmlspecialchars($_GET["id"]);
+		$stmt = $conn->prepare("UPDATE disalowed_start set path= ? WHERE id=?");
+		$stmt->bind_param("si",$value,$id);
+		$stmt->execute();
+		$stmt->close();
+	}
 	if($_GET["update"]=="user_tasks"){	
 		$id=htmlspecialchars($_GET["id"]);
 		$stmt = $conn->prepare("UPDATE user_tasks set task = ? WHERE id=?");
@@ -116,6 +129,7 @@ function load_settings(){
 	global $setting_rtp_folder_scan_status;
 	global $setting_rtp_process_scan_status;
 	global $setting_communication_unsafe_tls;
+	global $setting_ac_status;
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 	if ($conn->connect_error) {
@@ -195,6 +209,18 @@ function load_settings(){
 	$row = $result->fetch_assoc();
 	if($row!==null){
 		$setting_communication_unsafe_tls=$row["value"];
+	}
+	
+	//get setting: setting_ac_status
+	$sql = "SELECT * FROM settings WHERE name = 'setting_ac_status'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_ac_status=$row["value"];
 	}
 	$stmt -> close();
 	$conn -> close();

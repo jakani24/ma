@@ -24,6 +24,7 @@ $setting_communication_unsafe_tls = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
+$setting_ac_status=0;
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 if ($conn->connect_error) {
@@ -137,6 +138,9 @@ load_settings();
 					  </li>
 					  <li class="nav-item">
 						<a class="nav-link" href="client_settings.php?show=task" id="task_tab">Task Settings</a>
+					  </li>
+					  <li class="nav-item">
+						<a class="nav-link" href="client_settings.php?show=disalowed_start" id="task_tab">Task Settings</a>
 					  </li>
 
 					</ul>
@@ -458,6 +462,55 @@ load_settings();
 									echo("<td><input type=\"text\" id=\"sys_task_argument".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$argument."\" oninput=\"update_task('system_tasks',".$row["id"].",'sys_task_time".$row["id"]."','sys_task_action".$row["id"]."','sys_task_argument".$row["id"]."','sys_task_name".$row["id"]."');\"></td>");
 									echo("<td><input type=\"text\" id=\"sys_task_name".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$name."\" oninput=\"update_task('system_tasks',".$row["id"].",'sys_task_time".$row["id"]."','sys_task_action".$row["id"]."','sys_task_argument".$row["id"]."','sys_task_name".$row["id"]."');\"></td>");
 									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('system_tasks',".$row["id"].");\">Delete</button></td>");
+								echo("</tr>");
+							}
+							
+							$stmt -> close();
+						?>
+						</tbody>
+						</table>
+					</div>
+					<div id="disalowed_start" style="display:none">
+						<h4>Application control</h4>
+						<h7>AC: on/off</h7>
+						<div class="form-check form-switch">
+							<?php if($setting_ac_status=="true")
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_ac_status')\" checked>");
+							else
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_ac_status')\">");
+							?>
+							<label class="form-check-label" for="flexSwitchCheckDefault">Activate Application control (for this to work you must activate rpt process scan too!)</label>
+						</div>
+						<br>
+						<h7>Frolders from where no app is allowed to start:</h7>
+						<table class="table">
+						<thead>
+						<tr>
+						  <th scope="col">#</th>
+						  <th scope="col">Path</th>
+						  <th scope="col">Add / Delete</th>
+						</tr>
+					  </thead>
+					  <tbody>
+							<tr>
+								<th scope="row">000</th>
+								<td><input type="text" id="rtp_included" class="form-control" name="name"></td>
+								<td><button type="button" class="btn btn-primary" onclick="add_item('disalowed_start','disalowed_start','path');">Add</button></td>
+							</tr>
+						<?php
+							//load all the entrys from a db table
+							$sql = "SELECT path,id FROM disalowed_start ORDER BY id";
+							$stmt = $conn->prepare($sql);
+							// Execute the statement
+							$stmt->execute();
+							// Get the result
+							$result = $stmt->get_result();
+							while ($row = $result->fetch_assoc()){
+								//print out the items
+								echo("<tr>");
+									echo("<th scope=\"row\">".$row["id"]."</th>");
+									echo("<td><input type=\"text\" id=\"disalowed_start".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('disalowed_start".$row["id"]."','disalowed_start','".$row["id"]."');\"></td>");
+									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('disalowed_start',".$row["id"].");\">Delete</button></td>");
 								echo("</tr>");
 							}
 							
