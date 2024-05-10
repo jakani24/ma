@@ -12,6 +12,7 @@ $setting_virus_ctrl_virus_process_found_kill=0;
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
 $setting_communication_unsafe_tls="not coonfigured yet";
+$setting_ac_status=0;
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 	if ($conn->connect_error) {
@@ -33,6 +34,7 @@ if(isset($_GET["settings"])){
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
 	echo("rtp_process_scan:status ".$setting_rtp_process_scan_status."\n");
 	echo("communication:unsafe_tls ".$setting_communication_unsafe_tls."\n");
+	echo("application_control:status ".$setting_ac_status."\n");
 }
 if(isset($_GET["rtp_included"])){
 	echo(load_secret()."\n");
