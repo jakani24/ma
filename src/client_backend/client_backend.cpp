@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
             if (update_settings("sched") != 0) { //update the settings from the server
                 log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (scheduled_tasks) from server.");
             }
-            if (update_settings("disalowed_start") != 0) { //update the settings from the server
+            if (update_settings("disallowed_start") != 0) { //update the settings from the server
                 log(LOGLEVEL::ERR_NOSEND, "[main()]:Could not update settings (scheduled_tasks) from server.");
             }
             load_settings(); //load the updated settings from the settings file

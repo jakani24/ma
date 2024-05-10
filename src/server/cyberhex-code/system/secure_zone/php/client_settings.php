@@ -140,7 +140,7 @@ load_settings();
 						<a class="nav-link" href="client_settings.php?show=task" id="task_tab">Task Settings</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="client_settings.php?show=disallowed_start" id="disallowed_start_tab">Application Control</a>
+						<a class="nav-link" href="client_settings.php?show=application_control" id="application_control_tab">Application Control</a>
 					  </li>
 
 					</ul>
@@ -470,7 +470,7 @@ load_settings();
 						</tbody>
 						</table>
 					</div>
-					<div id="disallowed_start" style="display:none">
+					<div id="application_control" style="display:none">
 						<h4>Application control</h4>
 						<h7>AC: on/off</h7>
 						<div class="form-check form-switch">

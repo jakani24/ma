@@ -64,10 +64,10 @@ if(isset($_GET["rtp_excluded"])){
 	$stmt -> close();
 	
 }
-if(isset($_GET["dissalowed_start"])){
+if(isset($_GET["disallowed_start"])){
 	echo(load_secret()."\n");
 	//load all the entrys from a db table
-	$sql = "SELECT path,id FROM dissalowed_start ORDER BY id";
+	$sql = "SELECT path,id FROM disallowed_start ORDER BY id";
 	$stmt = $conn->prepare($sql);
 	// Execute the statement
 	$stmt->execute();
