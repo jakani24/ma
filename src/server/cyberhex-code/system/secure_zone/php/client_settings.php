@@ -140,7 +140,7 @@ load_settings();
 						<a class="nav-link" href="client_settings.php?show=task" id="task_tab">Task Settings</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="client_settings.php?show=disalowed_start" id="disalowed_start_tab">Application Control</a>
+						<a class="nav-link" href="client_settings.php?show=disallowed_start" id="disallowed_start_tab">Application Control</a>
 					  </li>
 
 					</ul>
@@ -470,7 +470,7 @@ load_settings();
 						</tbody>
 						</table>
 					</div>
-					<div id="disalowed_start" style="display:none">
+					<div id="disallowed_start" style="display:none">
 						<h4>Application control</h4>
 						<h7>AC: on/off</h7>
 						<div class="form-check form-switch">
@@ -494,12 +494,12 @@ load_settings();
 					  <tbody>
 							<tr>
 								<th scope="row">000</th>
-								<td><input type="text" id="disalowed_start" class="form-control" name="name"></td>
-								<td><button type="button" class="btn btn-primary" onclick="add_item('disalowed_start','disalowed_start','path');">Add</button></td>
+								<td><input type="text" id="disallowed_start" class="form-control" name="name"></td>
+								<td><button type="button" class="btn btn-primary" onclick="add_item('disallowed_start','disallowed_start','path');">Add</button></td>
 							</tr>
 						<?php
 							//load all the entrys from a db table
-							$sql = "SELECT path,id FROM disalowed_start ORDER BY id";
+							$sql = "SELECT path,id FROM disallowed_start ORDER BY id";
 							$stmt = $conn->prepare($sql);
 							// Execute the statement
 							$stmt->execute();
@@ -509,8 +509,8 @@ load_settings();
 								//print out the items
 								echo("<tr>");
 									echo("<th scope=\"row\">".$row["id"]."</th>");
-									echo("<td><input type=\"text\" id=\"disalowed_start".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('disalowed_start".$row["id"]."','disalowed_start','".$row["id"]."');\"></td>");
-									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('disalowed_start',".$row["id"].");\">Delete</button></td>");
+									echo("<td><input type=\"text\" id=\"disallowed_start".$row["id"]."\" class=\"form-control\" name=\"name\" value=\"".$row["path"]."\" oninput=\"update_textfield('disallowed_start".$row["id"]."','disallowed_start','".$row["id"]."');\"></td>");
+									echo("<td><button type=\"button\" class=\"btn btn-danger\" onclick=\"delete_item('disallowed_start',".$row["id"].");\">Delete</button></td>");
 								echo("</tr>");
 							}
 							

@@ -98,9 +98,9 @@ function safe_settings(){
 		$stmt->execute();
 		$stmt->close();
 	}
-	if($_GET["update"]=="disalowed_start"){	
+	if($_GET["update"]=="disallowed_start"){	
 		$id=htmlspecialchars($_GET["id"]);
-		$stmt = $conn->prepare("UPDATE disalowed_start set path= ? WHERE id=?");
+		$stmt = $conn->prepare("UPDATE disallowed_start set path= ? WHERE id=?");
 		$stmt->bind_param("si",$value,$id);
 		$stmt->execute();
 		$stmt->close();

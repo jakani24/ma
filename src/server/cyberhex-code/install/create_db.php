@@ -186,7 +186,7 @@
 			}
 			
 			// Create dissalowed_start table
-			$sql = "CREATE TABLE IF NOT EXISTS disalowed_start (
+			$sql = "CREATE TABLE IF NOT EXISTS disallowed_start (
 				id INT AUTO_INCREMENT PRIMARY KEY,
 				path VARCHAR(255) NOT NULL UNIQUE
 			)";
