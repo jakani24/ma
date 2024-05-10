@@ -154,8 +154,7 @@
               "RelativeToolTip": "permissions.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-10T11:48:55.871Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T11:48:55.871Z"
             },
             {
               "$type": "Document",
@@ -167,8 +166,7 @@
               "RelativeToolTip": "check_dir.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-13T06:48:31.009Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-13T06:48:31.009Z"
             },
             {
               "$type": "Document",
@@ -180,8 +178,7 @@
               "RelativeToolTip": "settings.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-13T06:48:40.364Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-13T06:48:40.364Z"
             },
             {
               "$type": "Document",
@@ -218,8 +215,7 @@
               "RelativeToolTip": "update.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.248Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-28T20:40:06.248Z"
             },
             {
               "$type": "Document",
@@ -231,8 +227,7 @@
               "RelativeToolTip": "utils.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T15:55:22.469Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T15:55:22.469Z"
             },
             {
               "$type": "Document",
@@ -244,8 +239,7 @@
               "RelativeToolTip": "log.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAABKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-26T20:39:34.98Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-26T20:39:34.98Z"
             },
             {
               "$type": "Document",
@@ -269,8 +263,7 @@
               "RelativeToolTip": "thread_ctrl.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-13T06:52:01.533Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-13T06:52:01.533Z"
             },
             {
               "$type": "Document",
@@ -294,8 +287,7 @@
               "RelativeToolTip": "md5hash.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAABYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-28T14:00:18.147Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-28T14:00:18.147Z"
             },
             {
               "$type": "Document",
@@ -307,8 +299,7 @@
               "RelativeToolTip": "deepscan.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAEcAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-31T08:30:41.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-31T08:30:41.528Z"
             },
             {
               "$type": "Document",
@@ -320,8 +311,7 @@
               "RelativeToolTip": "virus_ctrl.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAABaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-18T12:49:41.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-18T12:49:41.861Z"
             },
             {
               "$type": "Document",
@@ -333,8 +323,7 @@
               "RelativeToolTip": "security.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-29T07:05:00.157Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-29T07:05:00.157Z"
             },
             {
               "$type": "Document",
@@ -358,8 +347,7 @@
               "RelativeToolTip": "zip.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-29T07:57:04.198Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-29T07:57:04.198Z"
             },
             {
               "$type": "Document",
@@ -407,8 +395,7 @@
               "RelativeToolTip": "queue _ctrl.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.295Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-28T20:40:06.295Z"
             },
             {
               "$type": "Document",
@@ -444,8 +431,7 @@
               "RelativeToolTip": "check_process.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAB3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T13:35:33.369Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T13:35:33.369Z"
             },
             {
               "$type": "Document",
@@ -457,8 +443,7 @@
               "RelativeToolTip": "scan.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAABbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.248Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-28T20:40:06.248Z"
             },
             {
               "$type": "Document",
@@ -470,8 +455,7 @@
               "RelativeToolTip": "connect.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-28T20:40:06.315Z"
             },
             {
               "$type": "Document",
