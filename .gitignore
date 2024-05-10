@@ -42,3 +42,8 @@
 #certification files
 *.pem
 *.key
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.opendb
