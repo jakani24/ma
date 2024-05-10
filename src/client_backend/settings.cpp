@@ -21,6 +21,7 @@ int disallowed_start_folders_size = 0;
 bool setting_rtp_folder_scan_status = true; // 0=off, 1=on
 bool setting_rtp_process_scan_status = true; // 0=off, 1=on
 bool setting_virus_ctrl_virus_process_found_kill = true; // 0=do not kill, 1=kill
+bool setting_ac_status = true; // 0=off, 1=on
 bool setting_communication_unsafe_tls = false; // 0=do not allow communication via unsafe, self-signed certs, 1=allow communication via unsafe, self-signed certs
 int srv_log_timeout = 0;
 int log_timeout_reset = 0;
@@ -73,6 +74,9 @@ int load_settings() {
         else if (settings_cmd == "communication:unsafe_tls") {
             setting_communication_unsafe_tls = (settings_arg == "allow");
         }
+        else if (settings_cmd == "application_control:status") {
+            setting_ac_status = (settings_arg == "true");
+        }
         else if (settings_cmd == "virus_ctrl:virus_process_found:kill") {
             setting_virus_ctrl_virus_process_found_kill = (settings_arg == "true");
         }
@@ -106,6 +110,9 @@ int get_setting(const std::string& setting_name) {
     else if (setting_name == "communication:unsafe_tls") {
         return setting_communication_unsafe_tls;
     }
+    else if (setting_name == "application_control:status") {
+		return setting_ac_status;
+	}
 
     return -1;
 }

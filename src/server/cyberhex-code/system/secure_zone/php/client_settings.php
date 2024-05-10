@@ -475,9 +475,9 @@ load_settings();
 						<h7>AC: on/off</h7>
 						<div class="form-check form-switch">
 							<?php if($setting_ac_status=="true")
-								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_ac_status')\" checked>");
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault3\" onclick=\"update_switch('flexSwitchCheckDefault3','setting_ac_status')\" checked>");
 							else
-								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault\" onclick=\"update_switch('flexSwitchCheckDefault','setting_ac_status')\">");
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"flexSwitchCheckDefault3\" onclick=\"update_switch('flexSwitchCheckDefault3','setting_ac_status')\">");
 							?>
 							<label class="form-check-label" for="flexSwitchCheckDefault">Activate Application control (for this to work you must activate rpt process scan too!)</label>
 						</div>

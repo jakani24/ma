@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\settings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:settings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_process.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:check_process.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\settings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|solutionrelative:settings.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{56E65283-AAC9-43F6-9613-72BE8D648AC4}|client_backend.vcxproj|C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\update.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -138,7 +138,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Document",
@@ -154,13 +154,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "settings.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\settings.cpp",
               "RelativeDocumentMoniker": "settings.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\settings.cpp",
               "RelativeToolTip": "settings.cpp",
-              "ViewState": "AQIAACYAAAAAAAAAAAAYwEkAAABJAAAA",
+              "ViewState": "AQIAAEsAAAAAAAAAAAAAAHIAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-13T06:48:40.364Z",
               "EditorCaption": ""
@@ -199,8 +199,7 @@
               "RelativeToolTip": "update.cpp",
               "ViewState": "AQIAAHkAAAAAAAAAAAAvwKUAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-28T20:40:06.248Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-28T20:40:06.248Z"
             },
             {
               "$type": "Document",
@@ -408,13 +407,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "check_process.cpp",
               "DocumentMoniker": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_process.cpp",
               "RelativeDocumentMoniker": "check_process.cpp",
               "ToolTip": "C:\\Users\\janis\\Documents\\Projekte_mit_c\\ma\\ma\\src\\client_backend\\check_process.cpp",
               "RelativeToolTip": "check_process.cpp",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAADkAAAA7AAAA",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAADgAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-14T13:35:33.369Z",
               "EditorCaption": ""

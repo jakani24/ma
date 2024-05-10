@@ -55,7 +55,7 @@ void monitor_processes() {
                             if (!is_folder_included(path) || is_folder_excluded(path)) {
                                 // Don't scan excluded files or folders
                             }
-                            else if (is_disallowed_sart_folder(path)) {
+                            else if (is_disallowed_sart_folder(path) && get_setting("application_control:status")) {
                                 //kill_process(path);
                                 log(LOGLEVEL::INFO, "[monitor_processes()]: Starting apps from this location is not allowed: ", path);
                             }
