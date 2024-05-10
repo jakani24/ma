@@ -1,3 +1,11 @@
+/*
+This file contains the implementation of the thread control functions. And houses the start functions of the scheduler
+
+Functions:
+	- start_thread(): This function starts a new thread with the specified command.
+
+*/
+
 #ifndef THREAD_CTRL_CPP
 #define THREAD_CTRL_CPP
 

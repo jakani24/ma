@@ -1,3 +1,23 @@
+/*
+This file contains utility functions that are used by the main program. All funcitons that do not belong to one single action / process but are used widely in the whole system are here
+
+Functions:
+    - split(): This function splits a string at the delimiter. The delimiter only occurs once. The first part is stored in out1 and the second part in out2.
+    - is_valid_path(): This function checks if the path is valid. It checks if the file exists and if the current process has read access to the file.
+    - startup(): This function starts the program.
+    - get_filename(): This function returns the filename from a path.
+    - strcasecmp(): This function compares two strings case-insensitive.
+    - kill_process(): This function kills a process.
+    - file_exists(): This function checks if a file exists.
+    - get_num_running_threads(): This function returns the number of running threads.
+    - has_read_access(): This function checks if the current process has read access to the file.
+    - delete_all_files(): This function deletes all files in a directory.
+    - get_num_threads(): This function returns the number of threads.
+    - set_num_threads(): This function sets the number of threads.
+    - thread_safety(): This function checks if the thread safety is enabled.
+
+*/
+
 #include "utils.h"
 #include <windows.h>
 #include <string.h>

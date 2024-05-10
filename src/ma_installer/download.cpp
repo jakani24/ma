@@ -44,6 +44,7 @@ int download_file_from_srv(const char* url, const char* outputFileName) {
         return 7;
     }
 
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     // Set the write callback function
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, output_file);
@@ -59,4 +60,7 @@ int download_file_from_srv(const char* url, const char* outputFileName) {
 
     return 0;
 }
+
+
+
 #endif

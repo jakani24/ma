@@ -1,3 +1,12 @@
+/*
+This file controlls the queue of the scheduler
+
+Functions:
+	- queue_push(): This function pushes a string to the queue.
+	- queue_pop(): This function pops a string from the queue.
+	- get_queue_size(): This function returns the size of the queue.
+*/
+
 #ifndef QUEUE_CTRL_CPP
 #define QUEUE_CTRL_CPP
 

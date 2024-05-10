@@ -1,3 +1,20 @@
+/*
+This file contains the implementation of the functions that are used to connect to the server, download files from the server, upload files to the server, and send messages to the server.
+
+Functions:
+    - fast_send(): This function sends a request to the server.
+    - write_callback_connect(): This function is a callback function that is used to write the response from the server to a string.
+    - connect_to_srv(): This function connects to the server and downloads a file.
+    - write_callback_download(): This function is a callback function that is used to write the response from the server to a file.
+    - download_file_from_srv(): This function downloads a file from the server.
+    - url_encode(): This function encodes a URL.
+    - upload_to_srv(): This function uploads a file to the server.
+    - send_to_pipe(): This function sends a message to a named pipe.
+    - read_from_pipe(): This function reads a message from a named pipe.
+
+
+*/
+
 #pragma warning(disable:4996)
 #ifndef CONNECT_CPP
 #define CONNECT_CPP

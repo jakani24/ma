@@ -1,3 +1,11 @@
+/*
+This file contains the implementation of the md5hash.h header file. It containes the functions to hash files using the MD5 algorithm. It also contains a mutex for thread synchronization.
+
+Functions:
+	- md5_file(): This function hashes a file using the MD5 algorithm.
+	- md5_file_t(): This function hashes a file using the MD5 algorithm. It is thread-safe.
+*/
+
 #pragma warning(disable:4996)
 #include "md5hash.h"
 #include "log.h"

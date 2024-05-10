@@ -1,3 +1,21 @@
+/*
+This file contains the functions to scan files and folders for viruses.
+
+Functions:
+    - initialize(): This function loads all the database files into memory.
+    - cleanup(): This function is called when you are done using the file mappings.
+    - search_hash(): This function searches for a hash in a database file.
+    - get_num_files(): This function gets the number of files in a directory and its subdirectories.
+    - scan_folder(): This function scans a folder and its subdirectories for viruses.
+    - action_scanfile(): This function scans a file for viruses. If called by scheduler
+    - action_scanfolder(): This function scans a folder for viruses. If called by scheduler
+    - scan_file_t(): This function scans a file for viruses in a separate thread.
+    - scan_process_t(): This function scans a process for viruses in a separate thread.
+    - do_quickscan(): This function performs a quick scan of the system.
+
+*/
+
+
 #ifndef SCAN_CPP
 #define SCAN_CPP
 #include "scan.h"

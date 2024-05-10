@@ -1,3 +1,11 @@
+/*
+This file containes the cyberhex logger, with functions to log messages to the log files and to the server.
+
+Functions:
+	- get_loglevel(): This function returns the log level as a string.
+	- log(): This function logs a message to the log files and to the server.
+*/
+
 #pragma once
 #ifndef LOG_H
 #define LOG_H

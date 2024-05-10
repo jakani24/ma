@@ -1,3 +1,17 @@
+/*
+This file contains the functions to update the cyberhex system. And its components
+
+Functions:
+    - update_system(): This function updates the cyberhex system.
+    - update_yara(): This function updates the yara databases.
+    - update_db2(): This function updates the sig databases.
+    - update_db(): This function updates the databases. Calls update_db2()
+    - update_settings(): This function updates the settings.
+    - action_update_settings(): This function updates the settings. if caled by scheduler
+    - action_update_db(): This function updates the databases. if called by scheduler
+
+*/
+
 #ifndef UPDATE_CPP
 #define UPDATE_CPP
 

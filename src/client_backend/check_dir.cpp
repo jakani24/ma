@@ -1,3 +1,13 @@
+/*
+This file containes functions to process changes in the filesystem. it houses the rtp file scanner.
+
+Functions:
+    - process_changes(): This function processes the changes in the file system.
+    - monitor_directory(): This function monitors the directory for changes.
+    - folder_scanner(): This function scans the folder for changes. And initiates the other functions
+    - is_directory(): This function checks if the path is a directory.
+*/
+
 #ifndef CHECK_DIR_CPP
 #define CHECK_DIR_CPP
 #include "check_dir.h"

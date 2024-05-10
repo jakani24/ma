@@ -1,3 +1,12 @@
+/*
+This file contains the implementation of the virus control module. It handles virus files based on the settings, calls the server and desktop client to notify about the virus, and stores the infected files in a database.
+
+Functions:
+	- virus_ctrl_store(): This function stores the path of the infected file in the database.
+	- virus_ctrl_process(): This function processes the infected files based on the settings.
+
+*/
+
 #ifndef VIRUS_CTRL_CPP
 #define VIRUS_CTRL_CPP
 

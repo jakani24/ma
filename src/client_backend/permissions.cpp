@@ -1,3 +1,12 @@
+/*
+This file contains the implementation of the functions to handle file permissions -> to protect files from being modified or deleted by unauthorized users.
+
+Functions:
+	- protect_file(): This function marks a file as read-only.
+	- unprotect_file(): This function marks a file as read-write.
+	- create_file_protection(): This function creates a file protection for a file using ACL.
+*/
+
 #ifndef PERMISSIONS_CPP
 #define PERMISSIONS_CPP
 #define _WIN32_WINNT 0x0500

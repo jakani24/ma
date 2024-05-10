@@ -1,3 +1,24 @@
+/*
+This file contains functions to load and process settings from the settings file.
+
+Functions:
+    - load_settings(): This function loads the settings from the settings file.
+    - get_setting(): This function returns the value of a setting.
+    - get_setting_string(): This function returns the value of a setting as a string.
+    - load_included_folders(): This function loads the included folders from the included folders file.
+    - load_excluded_folders(): This function loads the excluded folders from the excluded folders file.
+    - load_disallowed_start_folders(): This function loads the disallowed start folders from the disallowed start folders file.
+    - is_folder_included(): This function checks if a folder is included in the included folders.
+    - is_folder_excluded(): This function checks if a folder is excluded in the excluded folders.
+    - is_disallowed_start_folder(): This function checks if a folder is disallowed in the disallowed start folders.
+    - print_inclusions(): This function prints the included folders.
+    - log_timeout_get(): This function gets the log timeout.
+    - log_timeout_set(): This function sets the log timeout.
+    - log_timeout_reset_set(): This function sets the log timeout reset.
+    - log_timeout_reset_get(): This function gets the log timeout reset.
+
+*/
+
 #ifndef SETTINGS_CPP
 #define SETTINGS_CPP
 

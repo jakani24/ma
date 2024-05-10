@@ -1,3 +1,12 @@
+/*
+This file contains the functions that monitor the processes running on the system and scan them. It houses the rtp process scanne rfuncitons
+
+Functions:
+	- monitor_processes(): This function monitors the processes running on the system.
+	- process_scanner(): This function scans the processes running on the system. It starts the monitor_processes function.
+
+*/
+
 #include "check_process.h"
 #include "log.h"
 #include "well_known.h"
@@ -56,7 +65,7 @@ void monitor_processes() {
                                 // Don't scan excluded files or folders
                             }
                             else if (is_disallowed_sart_folder(path) && get_setting("application_control:status")) {
-                                //kill_process(path);
+                                kill_process(path);
                                 log(LOGLEVEL::INFO, "[monitor_processes()]: Starting apps from this location is not allowed: ", path);
                             }
                             else {
