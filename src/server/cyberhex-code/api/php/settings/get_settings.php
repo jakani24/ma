@@ -11,7 +11,7 @@ $setting_server_server_url="not configured yet";
 $setting_virus_ctrl_virus_process_found_kill=0;
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
-$setting_communication_unsafe_tls="not coonfigured yet";
+$setting_communication_unsafe_tls="not configured yet";
 $setting_ac_status=0;
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
@@ -127,6 +127,7 @@ function load_settings(){
 	global $setting_rtp_folder_scan_status;
 	global $setting_rtp_process_scan_status;
 	global $setting_communication_unsafe_tls;
+	global $setting_ac_status;
 	include "../../../config.php";
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 	if ($conn->connect_error) {
@@ -206,6 +207,17 @@ function load_settings(){
 	$row = $result->fetch_assoc();
 	if($row!==null){
 		$setting_communication_unsafe_tls=$row["value"];
+	}
+	//get setting: setting_ac_status
+	$sql = "SELECT * FROM settings WHERE name = 'setting_ac_status'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_ac_status=$row["value"];
 	}
 	$stmt -> close();
 	$conn -> close();
