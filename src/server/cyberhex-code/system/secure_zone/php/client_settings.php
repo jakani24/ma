@@ -140,7 +140,7 @@ load_settings();
 						<a class="nav-link" href="client_settings.php?show=task" id="task_tab">Task Settings</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="client_settings.php?show=disalowed_start" id="task_tab">Task Settings</a>
+						<a class="nav-link" href="client_settings.php?show=disalowed_start" id="task_tab">Application Control</a>
 					  </li>
 
 					</ul>
@@ -494,7 +494,7 @@ load_settings();
 					  <tbody>
 							<tr>
 								<th scope="row">000</th>
-								<td><input type="text" id="rtp_included" class="form-control" name="name"></td>
+								<td><input type="text" id="disalowed_start" class="form-control" name="name"></td>
 								<td><button type="button" class="btn btn-primary" onclick="add_item('disalowed_start','disalowed_start','path');">Add</button></td>
 							</tr>
 						<?php
