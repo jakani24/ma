@@ -140,7 +140,7 @@ load_settings();
 						<a class="nav-link" href="client_settings.php?show=task" id="task_tab">Task Settings</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="client_settings.php?show=disalowed_start" id="task_tab">Application Control</a>
+						<a class="nav-link" href="client_settings.php?show=disalowed_start" id="disalowed_start_tab">Application Control</a>
 					  </li>
 
 					</ul>
