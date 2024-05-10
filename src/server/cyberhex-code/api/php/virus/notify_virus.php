@@ -29,8 +29,17 @@ else{
 		echo("wrt_err");
 	else
 		echo("wrt_ok");
+	
+	$sql="SELECT machine_location FROM machines WHERE machine_name = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("s", $machine_id);
+	$stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $location = $row["machine_location"];
+	
 	$stmt->close();
 	$conn->close();
-	send("[VIRUS WARNING!]\nhash: $hash\npath: $path\nmachine_id: $machine_id\naction: $action\n");
+	send("[VIRUS WARNING!]\nhash: $hash\npath: $path\nmachine_id: $machine_id\nmachine_location: $location\naction: $action\n");
 }
 ?>
