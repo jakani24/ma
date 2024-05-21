@@ -113,7 +113,7 @@ if(isset($_GET["page"])){
 		<div class="col-10" >
 		 <!-- iframe -->
 		 
-			<iframe src="<?php echo(str_replace(["://","http"],""$page)); ?>" width="100%" height="1000px" frameborder="0" style="overflow:hidden"></iframe>
+			<iframe src="<?php echo(str_replace(["://","http"],"",$page)); ?>" width="100%" height="1000px" frameborder="0" style="overflow:hidden"></iframe>
 		</div>
 	  </div>
 	</div>
