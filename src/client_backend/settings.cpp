@@ -25,6 +25,7 @@ Functions:
 #include "settings.h"
 #include "well_known.h"
 #include "log.h"
+#include "utils.h"
 #include <mutex> // Include the mutex header
 
 // Define mutexes for thread synchronization
@@ -166,7 +167,7 @@ void load_included_folders() {
             size_t end_pos = line.find('"', start_pos + 1); // Find the position of the second double quote
             if (end_pos != std::string::npos) {
                 std::string path = line.substr(start_pos + 1, end_pos - start_pos - 1); // Extract the path between double quotes
-                included_folders[included_folders_size++] = path;
+                included_folders[included_folders_size++] = to_lower(path);
             }
         }
     }
@@ -192,7 +193,7 @@ void load_excluded_folders() {
             size_t end_pos = line.find('"', start_pos + 1); // Find the position of the second double quote
             if (end_pos != std::string::npos) {
                 std::string path = line.substr(start_pos + 1, end_pos - start_pos - 1); // Extract the path between double quotes
-                excluded_folders[excluded_folders_size++] = path;
+                excluded_folders[excluded_folders_size++] = to_lower(path);
             }
         }
     }
@@ -217,7 +218,7 @@ void load_disallowed_start_folders() {
 			size_t end_pos = line.find('"', start_pos + 1); // Find the position of the second double quote
             if (end_pos != std::string::npos) {
 				std::string path = line.substr(start_pos + 1, end_pos - start_pos - 1); // Extract the path between double quotes
-				disallowed_start_folders[disallowed_start_folders_size++] = path;
+				disallowed_start_folders[disallowed_start_folders_size++] = to_lower(path);
 			}
 		}
 	}
@@ -227,9 +228,9 @@ void load_disallowed_start_folders() {
 
 bool is_folder_included(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
-
+    std::string lower_path=to_lower(path);
     for (int i = 0; i < included_folders_size; i++) {
-        if (path.find(included_folders[i]) != std::string::npos) {
+        if (lower_path.find(included_folders[i]) != std::string::npos) {
             return true;
         }
     }
@@ -238,9 +239,9 @@ bool is_folder_included(const std::string& path) {
 
 bool is_folder_excluded(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
-
+    std::string lower_path = to_lower(path);
     for (int i = 0; i < excluded_folders_size; i++) {
-        if (path.find(excluded_folders[i]) != std::string::npos) {
+        if (lower_path.find(excluded_folders[i]) != std::string::npos) {
             return true;
         }
     }
@@ -248,9 +249,9 @@ bool is_folder_excluded(const std::string& path) {
 }
 bool is_disallowed_sart_folder(const std::string& path) {
 	std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
-
+    std::string lower_path = to_lower(path);
     for (int i = 0; i < disallowed_start_folders_size; i++) {
-        if (path.find(disallowed_start_folders[i]) != std::string::npos) {
+        if ((lower_path.find(disallowed_start_folders[i]) != std::string::npos) or matches_pattern(lower_path, disallowed_start_folders[i])) {
 			return true;
 		}
 	}

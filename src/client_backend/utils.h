@@ -15,3 +15,5 @@ void delete_all_files(const std::string& directoryPath);
 int get_num_threads();
 int set_num_threads(int num);
 bool thread_safety();
+std::string to_lower(const std::string& str);
+bool matches_pattern(const std::string& str, const std::string& pattern);

@@ -122,40 +122,16 @@ int update_db2(const std::string&folder_path) {
 }
 
 int update_db(const std::string& folder_path) {
+    //check if we have connection to the server
+    char*buffer=new char [100];
+    std::string output_path = folder_path + "\\" + "test.tmp";
+    if (download_file_from_srv(get_setting_string("server:server_url"), output_path, get_setting("communication:unsafe_tls"), 1)!=0) {
+        log(LOGLEVEL::ERR, "[update_db()]: Error connecting to server.");
+		return 1; // Error connecting to server
+	}
+    delete buffer;
     update_yara(YARA_DB_DIR); //update the yara databases
     return update_db2(folder_path); //redirect to the new update funtion
-
-    //this was the old code:
-    // 
-    // 
-    // Download the databases from the server
-    for (char firstChar = '0'; firstChar <= 'f'; ++firstChar) {
-        for (char secondChar = '0'; secondChar <= 'f'; ++secondChar) {
-            // Ensure that the characters are valid hexadecimal digits
-            if (!std::isxdigit(firstChar) || !std::isxdigit(secondChar) || std::isupper(firstChar) || std::isupper(secondChar)) {
-                continue;
-            }
-
-            // Create the filename based on the naming convention
-            std::string file_name = std::string(1, firstChar) + secondChar + ".jdbf";
-
-            // Create the strings to download the files
-            std::string url = get_setting_string("server:server_url");
-            if (url.empty() || url == "nan") {
-                return 2; // Invalid server URL
-            }
-            url += "/database_srv/" + file_name;
-
-            std::string output_path = folder_path + "\\" + file_name;
-
-            std::cout << url << std::endl;
-
-            int res = download_file_from_srv(url, output_path, get_setting("communication:unsafe_tls"),1);
-            if (res != 0) {
-                return 10; // Error downloading file
-            }
-        }
-    }
     return 0;
 }
 

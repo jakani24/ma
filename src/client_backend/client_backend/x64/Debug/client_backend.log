@@ -1,56 +1,5 @@
 ﻿  Quellen werden auf Modulabhängigkeiten überprüft...
-  check_dir.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18): warning C4244: "=": Konvertierung von "wchar_t" in "char", möglicher Datenverlust
-  (Quelldatei „check_dir.cpp“ wird kompiliert)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18):
-  der Vorlageninstanziierungskontext (der älteste zuerst) ist
-  	C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(48,29):
-  	Siehe Verweis auf die gerade kompilierte Instanziierung "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)" der Funktions-Vorlage.
-          with
-          [
-              _Elem=wchar_t,
-              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
-              _Alloc=std::allocator<char>
-          ]
-  		C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\check_dir.cpp(48,29):
-  		Ersten Verweis auf "std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string" in "process_changes" anzeigen
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2600,17):
-  	Siehe Verweis auf die gerade kompilierte Instanziierung "void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)" der Funktions-Vorlage.
-          with
-          [
-              _Size_type=unsigned __int64,
-              _Iter=wchar_t *,
-              _Sent=wchar_t *,
-              _Size=unsigned __int64
-          ]
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2756,18):
-  	Siehe Verweis auf die gerade kompilierte Instanziierung "_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)" der Funktions-Vorlage.
-          with
-          [
-              _OutIt=char *,
-              _Size=unsigned __int64,
-              _InIt=wchar_t *,
-              _SizeTy=unsigned __int64
-          ]
-  
-  check_process.cpp
-  client_backend.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(141,24): warning C4244: "Argument": Konvertierung von "_Rep" in "DWORD", möglicher Datenverlust
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(141,24): warning C4244:         with
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(141,24): warning C4244:         [
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(141,24): warning C4244:             _Rep=__int64
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(141,24): warning C4244:         ]
-  connect.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\connect.cpp(229,37): warning C4267: "Argument": Konvertierung von "size_t" nach "DWORD", Datenverlust möglich
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\connect.cpp(215,11): warning C4101: "dwRead": Unreferenzierte lokale Variable
-  deepscan.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\deepscan.cpp(134,46): warning C4018: ">=": Konflikt zwischen "signed" und "unsigned"
-  local_schedule.cpp
-  log.cpp
-  md5hash.cpp
-  permissions.cpp
-  virus_ctrl.cpp
-  Code wird generiert...
-  LINK : C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe wurde nicht gefunden oder beim letzten inkrementellen Linkvorgang nicht erstellt; vollständiger Link wird durchgeführt.
+  utils.cpp
+C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\utils.cpp(230,42): warning C4101: "e": Unreferenzierte lokale Variable
   client_backend.vcxproj -> C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe
 C:\vcpkg\vcpkg-2023.08.09\scripts\buildsystems\msbuild\vcpkg.targets(228,5): warning : [vcpkg] Failed to gather app local DLL dependencies, program may not run. Set VcpkgApplocalDeps to false in your project file to suppress this warning. PowerShell arguments: -ExecutionPolicy Bypass -noprofile -File "C:\vcpkg\vcpkg-2023.08.09\scripts\buildsystems\msbuild\applocal.ps1" "C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe" "C:\vcpkg\vcpkg-2023.08.09\installed\x64-windows\debug\bin" "client_backend\x64\Debug\client_backend.tlog\client_backend.write.1u.tlog" "client_backend\x64\Debug\vcpkg.applocal.log"

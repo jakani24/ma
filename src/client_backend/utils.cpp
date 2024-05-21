@@ -15,7 +15,8 @@ Functions:
     - get_num_threads(): This function returns the number of threads.
     - set_num_threads(): This function sets the number of threads.
     - thread_safety(): This function checks if the thread safety is enabled.
-
+    - to_lower(): This function converts a string to lowercase.
+    - matches_pattern(): This function checks if a string matches a pattern.
 */
 
 #include "utils.h"
@@ -51,6 +52,48 @@ bool is_valid_path(const std::string& filename) {
 }
 
 
+bool matches_pattern(const std::string& str, const std::string& pattern) {
+    std::string::const_iterator str_it = str.begin();
+    std::string::const_iterator pattern_it = pattern.begin();
+
+    while (str_it != str.end() && pattern_it != pattern.end()) {
+        if (*pattern_it == '*') {
+            // Skip consecutive '*' in the pattern
+            while (pattern_it != pattern.end() && *pattern_it == '*') {
+                ++pattern_it;
+            }
+            if (pattern_it == pattern.end()) {
+                return true; // Trailing '*' matches everything remaining
+            }
+            // Find the next matching character in the str
+            while (str_it != str.end() && tolower(*str_it) != tolower(*pattern_it)) {
+                ++str_it;
+            }
+        }
+        else if (tolower(*str_it) == tolower(*pattern_it)) {
+            ++str_it;
+            ++pattern_it;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // Skip trailing '*' in the pattern
+    while (pattern_it != pattern.end() && *pattern_it == '*') {
+        ++pattern_it;
+    }
+
+    // If we've reached the end of the pattern and str, or the pattern ends with '*', it's a match
+    return pattern_it == pattern.end();
+}
+
+std::string to_lower(const std::string& str) {
+    std::string lower_str = str;
+    std::transform(lower_str.begin(), lower_str.end(), lower_str.begin(),
+        [](unsigned char c) { return std::tolower(c); });
+    return lower_str;
+}
 
 void startup(LPCTSTR lpApplicationName)
 {

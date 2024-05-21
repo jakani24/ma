@@ -441,7 +441,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 std::wstring selectedFile = ofn.lpstrFile; // Use std::wstring for wide characters
                 std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
                 std::string narrowSelectedFile = converter.to_bytes(selectedFile);
-                std::thread(scan_file, hWndTextField, narrowSelectedFile, 0).detach();
+                std::thread(scan_file, hWndTextField, narrowSelectedFile, 1).detach();
             }
 
         }
