@@ -33,7 +33,6 @@ int main(int argc, char* argv[]) {
     log(LOGLEVEL::INFO_NOSEND, "[main()]:Starting main thread.");
     int err = 0;
     printf("welcome to the jakach security tool main thread\n");
-    //exit(0);
     if (load_settings() == 0) {//load the settings from the settings file
         if (argc != 2) {
             if (update_settings("settings") != 0) { //update the settings from the server
@@ -60,6 +59,7 @@ int main(int argc, char* argv[]) {
         Sleep(1000); //wait for the log to be written
         exit(1);
     }
+
     //do self check
     if ((err = selfcheck()) != 0) {
         log(LOGLEVEL::PANIC, "[main()]:This installation of cyberhex failed the self check! Application may be tampered with!", err);

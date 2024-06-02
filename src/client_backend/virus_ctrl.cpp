@@ -30,6 +30,7 @@ Functions:
 // Define a mutex for thread synchronization
 std::mutex virusCtrlMutex;
 
+// Store the path of the infected file in the database
 int virus_ctrl_store(const std::string& path, const std::string& hash, const std::string& id) {
     std::lock_guard<std::mutex> lock(virusCtrlMutex); // Lock the mutex
     std::ofstream file(VIRUS_CTRL_DB + id, std::ios::app);
@@ -44,6 +45,7 @@ int virus_ctrl_store(const std::string& path, const std::string& hash, const std
     }
 }
 
+// Process the infected files based on the settings
 int virus_ctrl_process(const std::string& id) {
     std::lock_guard<std::mutex> lock(virusCtrlMutex); // Lock the mutex
     // Take actions based on settings.

@@ -15,8 +15,11 @@ Code copied from:
 #include <Shldisp.h>
 #include <codecvt>
 
+
+// Unzip the contents of a ZIP file to a specified destination folder
 void unzip(const std::string& source, const std::string& dest)
 {
+
     HRESULT hResult = S_FALSE;
     IShellDispatch* pIShellDispatch = NULL;
     Folder* pToFolder = NULL;
@@ -24,6 +27,7 @@ void unzip(const std::string& source, const std::string& dest)
 
     CoInitialize(NULL);
 
+    // Create an instance of the Shell object
     hResult = CoCreateInstance(CLSID_Shell, NULL, CLSCTX_INPROC_SERVER,
         IID_IShellDispatch, (void**)&pIShellDispatch);
     if (SUCCEEDED(hResult))
@@ -31,18 +35,21 @@ void unzip(const std::string& source, const std::string& dest)
         VariantInit(&variantDir);
         variantDir.vt = VT_BSTR;
         variantDir.bstrVal = SysAllocStringLen(NULL, MultiByteToWideChar(CP_UTF8, 0, dest.c_str(), -1, NULL, 0));
+        // Convert the destination folder path to a wide string
         MultiByteToWideChar(CP_UTF8, 0, dest.c_str(), -1, variantDir.bstrVal, SysStringLen(variantDir.bstrVal));
-
+        // Get the destination folder
         hResult = pIShellDispatch->NameSpace(variantDir, &pToFolder);
 
         if (SUCCEEDED(hResult))
         {
+            // Get the source ZIP file
             Folder* pFromFolder = NULL;
             VariantInit(&variantFile);
             variantFile.vt = VT_BSTR;
             variantFile.bstrVal = SysAllocStringLen(NULL, MultiByteToWideChar(CP_UTF8, 0, source.c_str(), -1, NULL, 0));
             MultiByteToWideChar(CP_UTF8, 0, source.c_str(), -1, variantFile.bstrVal, SysStringLen(variantFile.bstrVal));
 
+            // Get the source folder
             pIShellDispatch->NameSpace(variantFile, &pFromFolder);
 
             FolderItems* fi = NULL;
@@ -56,6 +63,7 @@ void unzip(const std::string& source, const std::string& dest)
             VariantInit(&newV);
             newV.vt = VT_DISPATCH;
             newV.pdispVal = fi;
+            // Extract the contents of the ZIP file to the destination folder
             hResult = pToFolder->CopyHere(newV, variantOpt);
             Sleep(1000);
 
@@ -65,6 +73,7 @@ void unzip(const std::string& source, const std::string& dest)
         pIShellDispatch->Release();
     }
 
+    // Cleanup
     CoUninitialize();
     SysFreeString(variantDir.bstrVal);
     SysFreeString(variantFile.bstrVal);

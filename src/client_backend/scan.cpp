@@ -158,15 +158,6 @@ int search_hash(const std::string& dbname_, const std::string& hash_, const std:
     }
 
 
-   // auto fileIter = fileHandles.find(dbname);
-    //if (fileIter == fileHandles.end() && dbname_.find("c:.jdbf") == std::string::npos) {
-        //log(LOGLEVEL::ERR_NOSEND, "[search_hash()]: File mapping not initialized for ", dbname);
-    //    return 2;
-    //}
-    //else if (fileIter == fileHandles.end()) {
-    //    return 2;
-    //}
-
     // Use fileData for subsequent searches
     DWORD fileSize;
     std::string fileContent;
@@ -267,32 +258,20 @@ void scan_folder(const std::string& directory) {
                     if(debug_mode())
 						log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
 
-                    // Do multithreading here
                     int thread_timeout = 0;
                     //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
                     while (get_num_threads() >= std::thread::hardware_concurrency()) {
                         Sleep(10);
                         thread_timeout++;
-                        //printf("Thread timeout: %d\n", thread_timeout);
                         if (thread_timeout == 100 * 20) {
-                            // If there is no available thread for more than 30 seconds, reset the thread counter
+                            // If there is no available thread for more than 20 seconds, reset the thread counter
                             set_num_threads(0);
                         }
                     }
-                    //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
-                    if (is_valid_path(full_path)) { // Filter out invalid paths and paths with weird characters
-                        std::uintmax_t fileSize = std::filesystem::file_size(full_path);
-                        if (fileSize > 4000000000) { // 4GB
-                            log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: File too large to scan: ", full_path);
-                        }
-                        else {
-                            std::thread scan_thread(scan_file_t, full_path);
-                            scan_thread.detach();
-                        }
-                    }
-                    else {
-                        log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Invalid path: ", full_path);
-                    }
+
+                    std::thread scan_thread(scan_file_t, full_path);
+                    scan_thread.detach();
+                    
                     cnt++;
                     if (cnt % 100 == 0) {
                         printf("Processed %d files;\n", cnt);
@@ -377,16 +356,20 @@ void scan_file_t(const std::string& filepath_) {
     set_num_threads(get_num_threads() + 1);
     thread_local const std::string filepath(filepath_);
     thread_local char* db_path = new char[300];
-    //thread_local char* hash = new char[300];
-    thread_local std::string hash(md5_file_t(filepath));
-    //if (strlen(hash_.c_str()) < 290)
-    //    strcpy_s(hash, 295, hash_.c_str());
-    //else{
-    //    strcpy_s(hash, 295, "");
-    //    log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not calculate hash for file: ", filepath);
-    //}
-    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-    search_hash(db_path, hash, filepath);
+    if(is_valid_path(filepath)){
+        std::uintmax_t fileSize = std::filesystem::file_size(filepath);
+        if (fileSize > 4000000000) { // 4GB
+            log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: File too large to scan: ", filepath);
+        }
+        else {
+            thread_local std::string hash(md5_file_t(filepath));
+            sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+            search_hash(db_path, hash, filepath);
+        }
+    }
+    else {
+        log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Invalid path: ", filepath);
+    }
     set_num_threads(get_num_threads() - 1);
 }
 void scan_process_t(const std::string& filepath_) {

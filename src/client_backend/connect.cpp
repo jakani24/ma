@@ -27,7 +27,7 @@ Functions:
 #include <mutex>
 std::mutex connect_mutex;
 
-//this function is thread safe
+//this function is thread safe and used to send a request to the server. mainly used for log entrys, because it is fast and does not need a response
 int fast_send(const std::string& url, bool ignore_insecure) {
     std::lock_guard<std::mutex> lock(connect_mutex);
     thread_local const std::string url_ = url;
@@ -56,7 +56,7 @@ static size_t write_callback_connect(void* contents, size_t size, size_t nmemb, 
     ((std::string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
 }
-//make this multi thread safe
+//make this multi thread safe, and return the response from the server into a called "out" (param)
 int connect_to_srv(const std::string& url, char* out, int max_len, bool ignore_insecure) {
     CURL* curl;
     CURLcode res;
@@ -90,6 +90,7 @@ size_t write_callback_download(void* contents, size_t size, size_t nmemb, void* 
     return totalSize;
 }
 
+// used to download files from the server
 int download_file_from_srv(const std::string& url, const std::string& output_file_path, bool ignore_insecure, bool do_not_check_cyberhex_cert) {
     char* temp_path = new char[output_file_path.size() + 6];
     strcpy(temp_path, output_file_path.c_str());
@@ -160,6 +161,8 @@ int download_file_from_srv(const std::string& url, const std::string& output_fil
     return 0;
 }
 
+
+// function to encode a URL into url safe format
 std::string url_encode(const std::string& input) {
     static const char* const safe_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~";
     std::string encoded;
@@ -178,6 +181,7 @@ std::string url_encode(const std::string& input) {
     return encoded;
 }
 
+// function to upload a file to the server. not used now, but could be used e.g. to upload malware samples to the server etc
 int upload_to_srv(const std::string& url, const std::string& filepath, bool ignore_insecure) {
     CURL* curl;
     CURLcode res;
@@ -210,6 +214,8 @@ int upload_to_srv(const std::string& url, const std::string& filepath, bool igno
     }
     return 2;
 }
+
+// function to send a message to a named pipe. not used now, but could be used to communicate with other processes. We currently just youse ofstream to write to a file
 int send_to_pipe(const std::string& message) {
     HANDLE hPipe;
     DWORD dwRead;
@@ -236,6 +242,8 @@ int send_to_pipe(const std::string& message) {
 		return 1;
 	}
 }
+
+// function to read a message from a named pipe. not used now, but could be used to communicate with other processes. We currently just youse ifstream to read from a file
 std::string read_from_pipe() {
     HANDLE hPipe;
     DWORD dwRead;

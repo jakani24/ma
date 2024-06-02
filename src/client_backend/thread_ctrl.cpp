@@ -18,6 +18,7 @@ Functions:
 #include "update.h"
 #include "utils.h"
 
+//this function is the function that starts threads on behalf of the scheduler and the desktop app
 int start_thread(const std::string& command) {
     if (can_run_thread()) {
         bool has_run = 0;

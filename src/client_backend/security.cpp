@@ -18,6 +18,8 @@ Functions:
 
 std::mutex fileMutex_sec; // Mutex to synchronize file access
 
+
+// Function to check if the certificate is valid. the certificate is stored in the first line of each settings file. we check them agains the one in the secrets file
 int check_cert(const std::string& cert, const std::string& secrets_path) {
     std::ifstream file(secrets_path);
     if (!file.is_open()) {
@@ -39,6 +41,7 @@ int check_cert(const std::string& cert, const std::string& secrets_path) {
     }
 }
 
+// Function to return the API key from the secrets file
 std::string get_apikey(const std::string& secrets_path) {
     std::ifstream file(secrets_path);
     if (!file.is_open()) {
@@ -58,6 +61,7 @@ std::string get_apikey(const std::string& secrets_path) {
     }
 }
 
+// Function to return the machine ID from the secrets file
 std::string get_machineid(const std::string& secrets_path) {
     std::ifstream file(secrets_path);
     if (!file.is_open()) {
@@ -77,6 +81,7 @@ std::string get_machineid(const std::string& secrets_path) {
     }
 }
 
+// Function to check if the cyberhex files have been tampered with
 bool selfcheck() {
     //hash all the cyberhex files and check if they have been tampered with
     if (md5_file_t(DLL_LIBCRYPTO_PATH) != DLL_LIBCRYPTO_HASH)

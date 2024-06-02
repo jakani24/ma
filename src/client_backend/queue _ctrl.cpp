@@ -22,6 +22,7 @@ int queue_size = 0;
 int queue_start = 0;
 int queue_end = 0;
 
+// Push a string to the queue the string containes the action to be started and the params of this action
 int queue_push(const std::string& str) {
     if (queue_size == queue_limit) {
         return 1; // Queue full
@@ -34,6 +35,7 @@ int queue_push(const std::string& str) {
     }
 }
 
+// Pop a string/action from the queue
 std::string queue_pop() {
     if (queue_size == 0) {
         return "nan"; // Queue empty

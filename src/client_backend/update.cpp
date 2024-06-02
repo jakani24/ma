@@ -164,6 +164,7 @@ int update_settings(const std::string& settings_type) {
     return 0;
 }
 
+//update the settings. if caled by scheduler
 int action_update_settings() {
     // Update the settings
     int err = 0;

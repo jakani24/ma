@@ -12,19 +12,12 @@ Functions:
 #define _WIN32_WINNT 0x0500
 #pragma comment(lib, "advapi32.lib")
 #include "permissions.h"
-#include <mutex> // Include mutex for synchronization
+#include <mutex> // Include mutex for synchronizationddd
 #include <Windows.h>
 #include <io.h> // Include for _chmod function
 
 // Mutex for synchronizing file operations
 std::mutex fileMutex;
-
-/*
-1 create file (as admin)
-2 set file as read only (also as admin)
-file cannot be deleted or modified by anyone. admin can delete
-
-*/
 
 // Mark as read-only
 int protect_file(const char* path) {
@@ -44,7 +37,7 @@ BOOL create_file_protection(SECURITY_ATTRIBUTES* pSA)
     // Define the SDDL for the DACL. This example sets 
     // the following access:
     //     Built-in guests are denied all access.
-    //     Anonymous logon is denied all access.
+    //     Anonymous logon is denied all access.a
     //     Authenticated users are denied all access.
     //     Administrators are allowed full control.
     // Modify these values as needed to generate the proper

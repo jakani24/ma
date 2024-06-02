@@ -44,6 +44,8 @@ void split(const std::string& input, char delimiter, std::string& out1, std::str
         out2 = input.substr(pos + 1);
     }
 }
+
+// Check if the path is valid. It checks if the file exists and if the current process has read access to the file.
 bool is_valid_path(const std::string& filename) {
     if (!has_read_access(filename)) {//this also fails if the file does not exist
 		return 0; // No read access
@@ -51,7 +53,7 @@ bool is_valid_path(const std::string& filename) {
     return 1; // No special character found
 }
 
-
+// Check if a string matches a pattern
 bool matches_pattern(const std::string& str, const std::string& pattern) {
     std::string::const_iterator str_it = str.begin();
     std::string::const_iterator pattern_it = pattern.begin();
@@ -88,6 +90,7 @@ bool matches_pattern(const std::string& str, const std::string& pattern) {
     return pattern_it == pattern.end();
 }
 
+// Convert a string to lowercase
 std::string to_lower(const std::string& str) {
     std::string lower_str = str;
     std::transform(lower_str.begin(), lower_str.end(), lower_str.begin(),
@@ -95,6 +98,7 @@ std::string to_lower(const std::string& str) {
     return lower_str;
 }
 
+// Starts a process in a second, completly decoupled thread. used for the update process
 void startup(LPCTSTR lpApplicationName)
 {
     // additional information
@@ -123,7 +127,7 @@ void startup(LPCTSTR lpApplicationName)
     CloseHandle(pi.hThread);
 }
 
-
+// Get the filename from a path
 std::string get_filename(const std::string& path) {
     auto pos = path.find_last_of("\\");
     if (pos == std::string::npos) {
@@ -136,6 +140,7 @@ std::string get_filename(const std::string& path) {
     }
 }
 
+// Compare two strings case-insensitive
 int strcasecmp(const std::string& s1, const std::string& s2) {
     auto it1 = s1.begin();
     auto it2 = s2.begin();
@@ -149,6 +154,8 @@ int strcasecmp(const std::string& s1, const std::string& s2) {
     return 0;
 }
 
+
+// Kill a process, used by RTP proccess scanner
 void kill_process(const std::string& path) {
     HANDLE hSnapShot = CreateToolhelp32Snapshot(TH32CS_SNAPALL, NULL);
     PROCESSENTRY32 pEntry;
@@ -172,7 +179,7 @@ void kill_process(const std::string& path) {
     CloseHandle(hSnapShot);
 }
 
-
+// Check if a file exists! this function is prety slow, so not used extensivly. Normaly is_valid_path is used instead
 bool file_exists(const std::string& filePath) {
     DWORD fileAttributes = GetFileAttributes(filePath.c_str());
 
@@ -185,6 +192,7 @@ bool file_exists(const std::string& filePath) {
     return (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
 }
 
+// Get the number of running threads! This function is prety slow, so not used extensivly
 int get_num_running_threads() {
     DWORD runningThreads = 0;
     HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
@@ -211,6 +219,7 @@ int get_num_running_threads() {
     return runningThreads;
 }
 
+// Check if the current process has read access to the file
 bool has_read_access(const std::string &path) {
 	// Check if the current process has read access to the file
     FILE* fp;
@@ -221,6 +230,7 @@ bool has_read_access(const std::string &path) {
 	return false;
 }
 
+// Delete all files in a directory
 void delete_all_files(const std::string& directoryPath) {
     for (const auto& entry : fs::directory_iterator(directoryPath)) {
         if (fs::is_regular_file(entry)) {
@@ -233,16 +243,20 @@ void delete_all_files(const std::string& directoryPath) {
     }
 }
 
+// Get the number of threads of the system. measured by a state machine, so maybe incorect
 int get_num_threads() {
     std::lock_guard<std::mutex> lock(numThreadsMutex);
     return num_threads;
 }
+
+// Set the number of threads of the system
 int set_num_threads(int num) {
     std::lock_guard<std::mutex> lock(numThreadsMutex);
     num_threads = num;
     return 0;
 }
 
+// Check if the thread safety is enabled
 bool thread_safety() { //if this is set to false the deepscan funcitons will utilize up to thousands of threads and completely destroy your machine. but it will be fast.
     return true;
 }

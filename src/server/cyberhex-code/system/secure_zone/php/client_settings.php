@@ -482,7 +482,7 @@ load_settings();
 							<label class="form-check-label" for="flexSwitchCheckDefault">Activate Application control (for this to work you must activate rpt process scan too!)</label>
 						</div>
 						<br>
-						<h7>Frolders from where no app is allowed to start:</h7>
+						<h7>Folders from where no app is allowed to start:</h7>
 						<table class="table">
 						<thead>
 						<tr>

@@ -38,6 +38,7 @@ std::string get_loglevel(LOGLEVEL level);
 
 template <typename... Args>
 void log(LOGLEVEL level, const std::string& message, Args&&... args) {
+    //reset the log timeout
     log_timeout_reset_set(log_timeout_reset_get() + 1);
     std::string prefix = get_loglevel(level);
     std::time_t now = std::time(nullptr);
@@ -46,8 +47,9 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     int error = 0;
     std::ostringstream logStream;
     std::ostringstream to_srv;
-    to_srv << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << ";" << prefix << ";" << message;
-    logStream << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << " " << prefix << " " << message;
+    //build the log strings
+    to_srv << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << ";" << prefix << ";" << message; //build the string for the server, use ; as delimiter
+    logStream << std::put_time(&tm, "%Y-%m-%d %H:%M:%S") << "\t" << prefix << "\t" << message; //build the string for the log file
     if constexpr (sizeof...(args) > 0) {
         ((logStream << ' ' << std::forward<Args>(args)), ...);
         ((to_srv << ' ' << std::forward<Args>(args)), ...);
@@ -55,8 +57,9 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
     logStream << std::endl;
     std::string logString = logStream.str();
     std::string to_srv_string = to_srv.str();
-    printf("info from logger: %s", logString.c_str());
+    printf("info from logger: %s", logString.c_str()); //print the log message to the console
     FILE* fp;
+    //write the log message to the appropriate log file
     switch (level) {
     case LOGLEVEL::INFO:
         error = fopen_s(&fp, INFOFILE, "a");
@@ -104,8 +107,8 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             fclose(fp);
         }
     }
-    //printf("info from logger2: %s", logString.c_str());
     if (level != LOGLEVEL::INFO_NOSEND && level != LOGLEVEL::WARN_NOSEND && level != LOGLEVEL::ERR_NOSEND && level != LOGLEVEL::PANIC_NOSEND/* && log_timeout_get() < 5*/) {
+        //send log message to server
         std::string url;
         int res = 0;
         url = get_setting_string("server:server_url");
@@ -116,11 +119,10 @@ void log(LOGLEVEL level, const std::string& message, Args&&... args) {
             url += get_machineid(SECRETS);
             url += "&apikey=";
             url += get_apikey(SECRETS);
-            //printf("sending to srv: %s", url.c_str());
             //send with fastsend in new thread
             std::thread send_thread(fast_send, url, get_setting("communication:unsafe_tls"));
             send_thread.detach();
-            Sleep(10);//in order to wait for the thread to copy the params into its own memory
+            Sleep(5);//in order to wait for the thread to copy the params into its own memory
         }
     }
 

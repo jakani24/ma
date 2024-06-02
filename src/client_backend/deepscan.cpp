@@ -40,7 +40,7 @@ int action_deepscan_is_virus = 0; //flag that is set by the callback function to
 //action_deepscanfolder
 //deepscan_folder
 
-
+// Load YARA rules from a file and compile them
 YR_RULES* load_yara_rules(const char* ruleFilePath, YR_RULES* compiledRules = nullptr) {
     // Create a new compiler
     YR_COMPILER* compiler;
@@ -72,6 +72,8 @@ YR_RULES* load_yara_rules(const char* ruleFilePath, YR_RULES* compiledRules = nu
     fclose(file);
     return compiledRules;
 }
+
+// Initialize YARA rules by loading them from a folder
 void init_yara_rules(const char* folderPath) {
 
     // Stack to store directories to be traversed iteratively
@@ -102,6 +104,8 @@ void init_yara_rules(const char* folderPath) {
 
 std::stack<std::string> deep_directories; // Stack to store directories to be scanned
 
+
+// Scan all files in a folder recursively using first the normal scanner, then the deep scanner
 void deepscan_folder(const std::string& directory) {
     deep_directories.push(directory);
 
@@ -186,6 +190,8 @@ struct Callback_data {
     std::string filepath;
     // You can add more data members here if needed
 };
+
+// Callback function for YARA scan
 int process_callback(YR_SCAN_CONTEXT* context,int message, void* message_data, void* user_data) {
     switch (message) {
         case CALLBACK_MSG_RULE_MATCHING:
@@ -207,6 +213,8 @@ int process_callback(YR_SCAN_CONTEXT* context,int message, void* message_data, v
     }
 	return CALLBACK_CONTINUE;
 }
+
+// Scan a single file using YARA rules (thread-safe)
 bool deepscan_file_t(const std::string& file_path) {
     set_num_threads(get_num_threads() + 1);
     // we do not need to make a new instance of yara rules, because they are global and do not get deleted or modified
@@ -243,6 +251,8 @@ bool deepscan_file_t(const std::string& file_path) {
     return true;
 }
 
+
+// Action function for deepscanfolder
 void action_deepscanfolder(const std::string& folderpath) {
     thread_init();
     thread_local std::string folderpath_(folderpath);

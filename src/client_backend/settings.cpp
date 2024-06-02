@@ -53,8 +53,6 @@ void load_excluded_folders();
 void load_disallowed_start_folders();
 
 int load_settings() {
-    //std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings file operations
-
     std::ifstream file(SETTINGS_DB);
 
     if (!file.is_open()) {
@@ -64,12 +62,11 @@ int load_settings() {
     }
 
     std::string settings_cmd, settings_arg;
-    file>>settings_cmd;//the firs tline is our cert
+    file>>settings_cmd;//the firs tline is our cert, which is used to determine if we can trust this file. This trust check has already been done after the file has been downloaded from the server
     while (file >> settings_cmd) {
         file >> settings_arg;
 
         // Process settings
-        //printf("aaaaaaaa,%s::,%s\n",settings_cmd.c_str(), settings_arg.c_str());
         if (settings_cmd == "virus_ctrl:virus_found:action") {
             if (settings_arg == "remove") {
                 setting_virus_ctrl_virus_found_action = 1;
@@ -106,16 +103,19 @@ int load_settings() {
 
     file.close();
 
+    // Load included and excluded folders (=for RTP)
     load_included_folders();
     load_excluded_folders();
+    // Load disallowed start folders (=folders from where no app is allowed to start)
     load_disallowed_start_folders();
 
     return 0;
 }
 
 // We have two different get_setting functions. One for int and one for std::string return values
+//return the settings which are integer based
 int get_setting(const std::string& setting_name) {
-    std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
+    std::lock_guard<std::mutex> lock(settingsMutex);
 
     if (setting_name == "virus_ctrl:virus_found:action") {
         return setting_virus_ctrl_virus_found_action;
@@ -138,9 +138,9 @@ int get_setting(const std::string& setting_name) {
 
     return -1;
 }
-
+//return the settings which are string based
 std::string get_setting_string(const std::string& setting_name) {
-    std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
+    std::lock_guard<std::mutex> lock(settingsMutex);
 
     if (setting_name == "server:server_url") {
         return setting_server_server_url;
@@ -150,7 +150,7 @@ std::string get_setting_string(const std::string& setting_name) {
 }
 
 void load_included_folders() {
-    std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
+    std::lock_guard<std::mutex> lock(settingsMutex);
 
     std::ifstream file(INCLUDED_FOLDERS);
 
@@ -159,8 +159,9 @@ void load_included_folders() {
         return;
     }
 
+    //the paths are stored as follows in the file "<path>", so we have to parse the text between "" to get the path
     std::string line;
-    std::getline(file, line); // Skip the first line
+    std::getline(file, line); // Skip the first line, because it is the certificate
     while (std::getline(file, line)) {
         size_t start_pos = line.find('"'); // Find the position of the first double quote
         if (start_pos != std::string::npos) {
@@ -175,6 +176,7 @@ void load_included_folders() {
     file.close();
 }
 
+// Load the excluded folders from the excluded folders file, works the same as load_included_folders
 void load_excluded_folders() {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
@@ -201,6 +203,7 @@ void load_excluded_folders() {
     file.close();
 }
 
+// Load the disallowed start folders from the disallowed start folders file, works the same as load_included_folders
 void load_disallowed_start_folders() {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 	std::ifstream file(DISALLOWED_START_FOLDERS);
@@ -226,6 +229,7 @@ void load_disallowed_start_folders() {
 	file.close();
 }
 
+// Check if a folder is included in the included_folders
 bool is_folder_included(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
     std::string lower_path=to_lower(path);
@@ -237,6 +241,7 @@ bool is_folder_included(const std::string& path) {
     return false;
 }
 
+// Check if a folder is excluded in the excluded_folders
 bool is_folder_excluded(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
     std::string lower_path = to_lower(path);
@@ -247,6 +252,8 @@ bool is_folder_excluded(const std::string& path) {
     }
     return false;
 }
+
+// Check if a folder is disallowed in the disallowed start folders. This function also supports patterns like c:\users\*\blabla
 bool is_disallowed_sart_folder(const std::string& path) {
 	std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
     std::string lower_path = to_lower(path);
@@ -259,7 +266,7 @@ bool is_disallowed_sart_folder(const std::string& path) {
 }
 
 
-
+// only for debug purposes, prints the included folders
 void print_inclusions() {
     std::lock_guard<std::mutex> lock(logMutex); // Lock access to log printing
 
@@ -268,24 +275,28 @@ void print_inclusions() {
     }
 }
 
+//return the log timeout. namely for how long we werent able to send a log entry to the server
 int log_timeout_get() {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
     return srv_log_timeout;
 }
 
+//set the log timeout
 void log_timeout_set(int timeout) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
     srv_log_timeout = timeout;
 }
 
+//set the log timeout reset => after how long should the log timeout be reset
 void log_timeout_reset_set(int timeout) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 
     log_timeout_reset = timeout;
 }
 
+//get the log timeout reset
 int log_timeout_reset_get() {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
 

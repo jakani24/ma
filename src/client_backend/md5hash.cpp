@@ -15,12 +15,11 @@ Functions:
 // Define a mutex for thread synchronization
 std::mutex fileMutex_hash;
 
+// Function to hash a file using the MD5 algorithm
 int md5_file(const char* path, char* md5Hash) {
     std::ifstream file(path, std::ios::binary);
 
     if (!file) {
-        // Log the error if needed (uncomment if required)
-        // log(LOGLEVEL::ERR, "[md5_file()]: Could not open file for scanning ", path);
         return 1;
     }
 
@@ -49,13 +48,11 @@ int md5_file(const char* path, char* md5Hash) {
     return 0;
 }
 
+// Function to hash a file using the MD5 algorithm (thread-safe)
 std::string md5_file_t(const std::string& path_) {
     std::string path(path_);
     FILE* fp = fopen(path.c_str(), "rb");
-    //printf("%s\n",path.c_str());
     if (!fp) {
-        // Log the error if needed (uncomment if required)
-        // log(LOGLEVEL::WARN_NOSEND, "[md5_file_t()]: Could not open file for scanning ", path.c_str());
         return "nan"; // Return the path because otherwise, it might crash (if we send a nullptr)
     }
 

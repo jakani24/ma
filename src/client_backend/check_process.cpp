@@ -21,6 +21,7 @@ Functions:
 
 std::mutex mtx; // Declare a mutex for thread synchronization
 
+//function that monitors the processes running on the system
 void monitor_processes() {
     static DWORD previousProcessIds[1024] = { 0 }; // Previous snapshot of process IDs
     DWORD processIds[1024];

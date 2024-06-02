@@ -42,8 +42,6 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
     // Allocate a buffer for the file name and copy the content
     std::wstring fileName(pInfo->FileName, pInfo->FileNameLength / sizeof(wchar_t));
     fileName.push_back(L'\0'); //NULL-terminate the string
-    //if (debug_mode())
-    //    std::wcout<<"[HIGH_ALERT_DEBUG/NO_DISK_WRITE]: file changed " << fileName <<std::endl;
     // Convert wstring to string
     std::string filename_str(fileName.begin(), fileName.end());
     filename_str = "c:\\" + filename_str;
@@ -55,16 +53,9 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
             return;
         }
         else {
-            //int thread_timeout = 0;
-            //while (get_num_threads()-1 >= std::thread::hardware_concurrency()) {
-            //    Sleep(10);
-            //    thread_timeout++;
-            //    if (thread_timeout == 100 * 60) {//if there is for more than 30 seconds no thread available, chances are high, that the threads did not temrinate correctly but aren t running anymore. so set the counter to 0 because else it might just stop the scan.
-            //        set_num_threads(0);
-            //    }
-            //}
             if (debug_mode())
                 log(LOGLEVEL::INFO_NOSEND, "[process_changes()]: File ", filename_str.c_str(), " has been changed. Scanning it for viruses");
+            //start the scan in a separate thread
             std::thread scan_thread(scan_file_t, filename_str);
             scan_thread.detach();
             Sleep(1);
@@ -105,7 +96,7 @@ void monitor_directory(LPCSTR directory) {
         buffer,
         bufferSize,
         TRUE,
-        FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE,
+        FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE, // Notify on file name changes (=file moves) and last write changes
         NULL,
         &overlapped,
         NULL) == 0) {
@@ -132,7 +123,7 @@ void monitor_directory(LPCSTR directory) {
 
                 do {
                     process_changes(pInfo);
-
+                    // Move to the next entry
                     pInfo = reinterpret_cast<FILE_NOTIFY_INFORMATION*>(reinterpret_cast<BYTE*>(pInfo) + pInfo->NextEntryOffset);
 
                 } while (pInfo->NextEntryOffset != 0);
@@ -147,7 +138,7 @@ void monitor_directory(LPCSTR directory) {
                     buffer,
                     bufferSize,
                     TRUE,
-                    FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE,
+                    FILE_NOTIFY_CHANGE_FILE_NAME | FILE_NOTIFY_CHANGE_LAST_WRITE,// Notify on file name changes (=file moves) and last write changes
                     NULL,
                     &overlapped,
                     NULL) == 0) {
