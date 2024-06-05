@@ -2,7 +2,6 @@
 //with db:
 
 require_once 'WebAuthn.php';
-// Assuming you've already established a database connection here
 include "../../../config.php";
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 if ($conn->connect_error) {
@@ -170,7 +169,7 @@ try {
 
         // Authentication success
 		//set sessionso user is authenticated
-		$_SESSION["username"]=$row["username"];
+		$_SESSION["username"]=htmlspecialchars($row["username"]);
 		$_SESSION["login"]=true;
 		$_SESSION["perms"]=$row["perms"];
 		$_SESSION["email"]=$row["email"];

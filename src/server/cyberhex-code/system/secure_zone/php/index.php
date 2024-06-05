@@ -8,7 +8,7 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
     exit();
 }
 
-$username = $_SESSION['username'];
+$username = htmlspecialchars($_SESSION['username']);
 $perms = $_SESSION["perms"];
 if(isset($_GET["page"])){
 	$page=htmlspecialchars($_GET["page"]);
@@ -24,7 +24,7 @@ if(isset($_GET["page"])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	 <title>Cyberhex</title>
+	 <title>Cyberhex (<?php echo(str_replace("_"," ",explode(".",$page))[0]); ?>)</title>
 </head>
 <body>
 	<!-- navbar -->
@@ -98,7 +98,6 @@ if(isset($_GET["page"])){
 					echo("<p>Clients</p>");
 		   ?>
 		  <ul>
-		  <!-- <li><a href="index.php?page=mass_add_clients.php">Mass Add CLients</a></li> -->
 		  <?php
 			if($perms[7]=="1")
 				echo('<li><a href="index.php?page=add_client.php">Add Client</a></li>');

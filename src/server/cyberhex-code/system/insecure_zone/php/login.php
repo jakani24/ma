@@ -296,7 +296,7 @@ async function checkRegistration() {
 									$row = $result->fetch_assoc();
 									if($row["allow_pw_login"]==1){
 										if (password_verify($password, $row['password'])) {
-											$_SESSION["username"]=$username;
+											$_SESSION["username"]=htmlspecialchars($username);
 											$_SESSION["login"]=true;
 											$_SESSION["perms"]=$row["perms"];
 											$_SESSION["email"]=$row["email"];

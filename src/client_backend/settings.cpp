@@ -234,7 +234,7 @@ bool is_folder_included(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
     std::string lower_path=to_lower(path);
     for (int i = 0; i < included_folders_size; i++) {
-        if (lower_path.find(included_folders[i]) != std::string::npos) {
+        if (lower_path.find(included_folders[i]) != std::string::npos or matches_pattern(lower_path, disallowed_start_folders[i])) {
             return true;
         }
     }
@@ -246,7 +246,7 @@ bool is_folder_excluded(const std::string& path) {
     std::lock_guard<std::mutex> lock(settingsMutex); // Lock access to settings variables
     std::string lower_path = to_lower(path);
     for (int i = 0; i < excluded_folders_size; i++) {
-        if (lower_path.find(excluded_folders[i]) != std::string::npos) {
+        if (lower_path.find(excluded_folders[i]) != std::string::npos or matches_pattern(lower_path, disallowed_start_folders[i])) {
             return true;
         }
     }

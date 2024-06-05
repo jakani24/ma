@@ -28,8 +28,10 @@ Functions:
 #include "check_process.h"
 #include "utils.h"
 #include "deepscan.h"
+
+
 int main(int argc, char* argv[]) {
-;
+
     log(LOGLEVEL::INFO_NOSEND, "[main()]:Starting main thread.");
     int err = 0;
     printf("welcome to the jakach security tool main thread\n");
@@ -141,5 +143,7 @@ int main(int argc, char* argv[]) {
             Sleep(1000 - duration.count());
     }
     yr_finalize();
+
+
     return 0;
 }
