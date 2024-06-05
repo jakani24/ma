@@ -39,7 +39,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                     <h4>Dashboard</h4>
                 </div>
                 <div class="card-body" style="overflow-x:auto">
-					<h4>Current Threads</h4>
+					<h4>Current Threats</h4>
 					<!-- table with all log entrys => delete button -->
                     <?php
                         //include db pw
