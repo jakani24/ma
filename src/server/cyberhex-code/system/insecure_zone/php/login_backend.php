@@ -1,4 +1,5 @@
 <?php
+//this file handles the login via passkey
 //with db:
 
 require_once 'WebAuthn.php';
@@ -8,6 +9,8 @@ if ($conn->connect_error) {
 	$success=0;
 	die("Connection failed: " . $conn->connect_error);
 }
+}
+include "../../../api/php/notifications/sendmessage.php"; //to send user notification on login
 try {
     session_start();
 

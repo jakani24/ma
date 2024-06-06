@@ -3,7 +3,7 @@ session_start();
 if(isset($_SESSION["login"])){
 	header("LOCATION:/system/secure_zone/php/index.php");
 }
-include "/api/php/notifications/sendmessage.php"; //to send user notification on login
+include "../../../api/php/notifications/sendmessage.php"; //to send user notification on login
 ?>
 <!DOCTYPE html>
 <html lang="en">
