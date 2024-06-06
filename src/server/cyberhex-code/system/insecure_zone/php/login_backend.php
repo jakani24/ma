@@ -9,7 +9,6 @@ if ($conn->connect_error) {
 	$success=0;
 	die("Connection failed: " . $conn->connect_error);
 }
-}
 include "../../../api/php/notifications/sendmessage.php"; //to send user notification on login
 try {
     session_start();
