@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							?>
 							<label for="pw_login">Allow password logins. (Please make shure you have a passkey, if you disable this!)</label>
 						</div>
-					
+						<br>
 						<div class="form-group">
 							<?php
 								if($_SESSION["send_login_message"]==1){
