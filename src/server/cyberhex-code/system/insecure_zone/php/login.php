@@ -320,7 +320,7 @@ async function checkRegistration() {
 													$username=$row["username"];
 													send_to_user("[LOGIN WARNING]\nHello $username\nSomebody has logged into Cyberhex with your account.\nIf this was you, you can ignore this message. Else please take steps to secure your account!\nIP: $ip\n",$username);
 												}
-												echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
+												//echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
 											}
 											exit();
 										} else {
