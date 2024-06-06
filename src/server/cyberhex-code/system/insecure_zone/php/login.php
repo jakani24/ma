@@ -305,6 +305,15 @@ async function checkRegistration() {
 											$_SESSION["allow_pw_login"]=$row["allow_pw_login"];
 											$_SESSION["send_login_message"]=$row["send_login_message"];
 											$_SESSION["use_2fa"]=$row["use_2fa"];
+											if($_SESSION["use_2fa"]=="1"){
+												$_SESSION["login"]=false; //set the login state to false
+												$_SESSION["2fa_auth"]=true;
+												$pin=mt_rand(100000, 999999);
+												$_SESSION["pin"]=$pin;
+												send_to_user("[2FA-Pin]\nHello $username\nHere is your pin to log into cyberhex: $pin. If you did not try to log in please take steps to secure your account!\nIP: $ip\n",$username);
+												//send the user to 2fa auth page
+												echo '<script>window.location.href = "/system/insecure_zone/php/2fa.php";</script>';
+											}
 											
 											if($_SESSION["send_login_message"]=="1"){
 												$ip = $_SERVER['REMOTE_ADDR'];
