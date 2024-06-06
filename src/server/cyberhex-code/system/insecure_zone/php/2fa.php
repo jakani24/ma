@@ -36,11 +36,12 @@ include "../../../api/php/notifications/sendmessage.php"; //to send user notific
 						<h4>Login to Cyberhex using second factor</h4>
 					</div>
 					<div class="card-body">
-						<form action="login.php" method="post">
+						<form action="2fa.php" method="post">
 							<div class="form-group">
 								<label for="pin">2FA-Pin (sent to you via Telegram):</label>
 								<input type="text" class="form-control" id="pin" name="pin" required>
 							</div>
+							<br>
 							<div class="col">
 									<button style="align:left" type="submit" class="btn btn-primary btn-block">Check pin</button>
 							</div>
