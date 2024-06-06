@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$telegram_id=htmlspecialchars($_POST["telegram_id"]);
 	$pw_login=isset($_POST["pw_login"]);
 	$send_login_message=isset($_POST["send_login_message"]);
+	$use_2fa=isset($_POST["use_2fa"]);
 	// Create connection
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
@@ -32,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	$user_hex_id=bin2hex($username_new);
-	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ?, user_hex_id = ?, send_login_message = ? where username = ?");
-	$stmt->bind_param("sssisis", $email, $username_new,$telegram_id, $pw_login,$user_hex_id, $send_login_message, $username);
+	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ?, user_hex_id = ?, send_login_message = ?, use_2fa = ? where username = ?");
+	$stmt->bind_param("sssisiis", $email, $username_new,$telegram_id, $pw_login,$user_hex_id, $send_login_message, $use_2fa, $username);
 	
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
@@ -47,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION["telegram_id"]=$telegram_id;
 	$_SESSION["allow_pw_login"]=$pw_login;
 	$_SESSION["send_login_message"]=$send_login_message;
+	$_SESSION["use_2fa"]=$use_2fa;
 }
 
 ?>
@@ -105,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='send_login_message' name='send_login_message'>");
 								}
 							?>
-							<label for="send_login_message">Send you a Telegram message when somebody logs in with your account.</label>
+							<label for="send_login_message">Send you a Telegram message when somebody logs in to your account.</label>
 						</div>
 						<br>
 						<div class="form-group">
@@ -116,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='use_2fa' name='use_2fa'>");
 								}
 							?>
-							<label for="use_2fa">Send you a Telegram message with a pin which is additionally needed to log in.</label>
+							<label for="use_2fa">Send you a Telegram message with a pin which is additionally needed to log in. (2fa)</label>
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
