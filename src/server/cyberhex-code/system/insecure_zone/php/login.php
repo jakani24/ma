@@ -312,7 +312,7 @@ async function checkRegistration() {
 												$_SESSION["pin"]=$pin;
 												send_to_user("[2FA-Pin]\nHello $username\nHere is your pin to log into cyberhex: $pin. If you did not try to log in please take steps to secure your account!\nIP: $ip\n",$username);
 												//send the user to 2fa auth page
-												echo '<script>window.location.href = "/system/insecure_zone/php/2fa.php";</script>';
+												//echo '<script>window.location.href = "/system/insecure_zone/php/2fa.php";</script>';
 											}else{
 											
 												if($_SESSION["send_login_message"]=="1"){
@@ -320,7 +320,7 @@ async function checkRegistration() {
 													$username=$row["username"];
 													send_to_user("[LOGIN WARNING]\nHello $username\nSomebody has logged into Cyberhex with your account.\nIf this was you, you can ignore this message. Else please take steps to secure your account!\nIP: $ip\n",$username);
 												}
-												//echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
+												echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
 											}
 											exit();
 										} else {
