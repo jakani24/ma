@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='pw_login' name='pw_login'>");
 								}
 							?>
-							<label for="pw_login">Allow password logins. (Please make shure you have a passkey, if you disable this!)</label>
+							<label for="pw_login">Allow password logins. (Please make shure you have a working passkey, if you disable this!)</label>
 						</div>
 						<br>
 						<div class="form-group">
@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='send_login_message' name='send_login_message'>");
 								}
 							?>
-							<label for="send_login_message">Send you a message when somebody logs in with your account (You need to set your Telegram id for this to work)</label>
+							<label for="send_login_message">Send you a Telegram message when somebody logs in with your account.</label>
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>

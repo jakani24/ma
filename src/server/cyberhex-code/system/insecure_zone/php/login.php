@@ -304,6 +304,8 @@ async function checkRegistration() {
 											$_SESSION["telegram_id"]=$row["telegram_id"];
 											$_SESSION["allow_pw_login"]=$row["allow_pw_login"];
 											$_SESSION["send_login_message"]=$row["send_login_message"];
+											$_SESSION["use_2fa"]=$row["use_2fa"];
+											
 											if($_SESSION["send_login_message"]=="1"){
 												$ip = $_SERVER['REMOTE_ADDR'];
 												$username=$row["username"];

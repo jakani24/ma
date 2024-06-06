@@ -68,6 +68,7 @@
 				user_hex_id VARCHAR(255),
 				credential_id VARBINARY(64),
 				allow_pw_login INT,
+				use_2fa INT,
 				send_login_message INT,
 				public_key TEXT,
 				counter INT

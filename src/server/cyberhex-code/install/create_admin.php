@@ -49,7 +49,7 @@
 								$success=0;
 								die("Connection failed: " . $conn->connect_error);
 							}
-							$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms,allow_pw_login) VALUES (?, ?, ?, ?,1)");
+							$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms,allow_pw_login,send_login_message,use_2fa) VALUES (?, ?, ?, ?,1,0,0)");
 							$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
 							
 							$email=htmlspecialchars($_POST["email"]);
