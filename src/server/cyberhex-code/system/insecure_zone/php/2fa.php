@@ -69,6 +69,7 @@ include "../../../api/php/notifications/sendmessage.php"; //to send user notific
 									$pin=mt_rand(100000, 999999);
 									$_SESSION["pin"]=$pin;
 									$ip = $_SERVER['REMOTE_ADDR'];
+									$username=$_SESSION["username"];
 									send_to_user("[2FA-Pin]\nHello $username\nHere is your pin to log into cyberhex: $pin. If you did not try to log in please take steps to secure your account!\nIP: $ip\n",$username);
 									echo '<div class="alert alert-danger" role="alert">
 													Incorrect pin. A new pin has been sent to you via Telegram. The old pin is no longer valid!
