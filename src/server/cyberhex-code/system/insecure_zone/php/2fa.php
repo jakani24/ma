@@ -45,6 +45,7 @@ include "../../../api/php/notifications/sendmessage.php"; //to send user notific
 							<div class="col">
 									<button style="align:left" type="submit" class="btn btn-primary btn-block">Check pin</button>
 							</div>
+							<br>
 						</form>
 						<!-- php code to verify 2fa pin-->
 						<?php

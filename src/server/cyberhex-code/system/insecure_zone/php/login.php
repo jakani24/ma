@@ -71,7 +71,11 @@ async function checkRegistration() {
                     reloadServerPreview();
                     //window.alert(authenticatorAttestationServerResponse.msg || 'login success');
 					//auth success, send to index
-					window.location.href = "/system/secure_zone/php/index.php";
+					if(authenticatorAttestationServerResponse.msg=="send_to_2fa"){
+						window.location.href = "/system/insecure_zone/php/2fa.php";
+					}else{
+						window.location.href = "/system/secure_zone/php/index.php";
+					}
                 } else {
                     throw new Error(authenticatorAttestationServerResponse.msg);
                 }

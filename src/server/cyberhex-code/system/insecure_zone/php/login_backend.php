@@ -179,14 +179,27 @@ try {
 		$_SESSION["allow_pw_login"]=$row["allow_pw_login"];
 		$_SESSION["send_login_message"]=$row["send_login_message"];
 		$_SESSION["use_2fa"]=$row["use_2fa"];
-		if($_SESSION["send_login_message"]=="1"){
+		
+		$return = new stdClass();
+		$return->success = true;
+		
+		if($_SESSION["use_2fa"]=="1"){
+			unset($_SESSION["login"]); //set the login state to false
+			$_SESSION["2fa_auth"]=true;
+			$pin=mt_rand(100000, 999999);
+			$_SESSION["pin"]=$pin;
 			$ip = $_SERVER['REMOTE_ADDR'];
-			$username=$row["username"];
-			send_to_user("[LOGIN WARNING]\nHello $username\nSomebody has logged into Cyberhex with your account.\nIf this was you, you can ignore this message. Else please take steps to secure your account!\nIP: $ip\n",$username);
+			send_to_user("[2FA-Pin]\nHello $username\nHere is your pin to log into cyberhex: $pin. If you did not try to log in please take steps to secure your account!\nIP: $ip\n",$username);
+			//send the user to 2fa auth page
+			$return->msg="send_to_2fa";
+		}else{
+			if($_SESSION["send_login_message"]=="1"){
+				$ip = $_SERVER['REMOTE_ADDR'];
+				$username=$row["username"];
+				send_to_user("[LOGIN WARNING]\nHello $username\nSomebody has logged into Cyberhex with your account.\nIf this was you, you can ignore this message. Else please take steps to secure your account!\nIP: $ip\n",$username);
+			}
 		}
 		
-        $return = new stdClass();
-        $return->success = true;
         header('Content-Type: application/json');
         print(json_encode($return));
     }
