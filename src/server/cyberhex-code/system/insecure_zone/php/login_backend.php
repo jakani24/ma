@@ -189,6 +189,7 @@ try {
 			$pin=mt_rand(100000, 999999);
 			$_SESSION["pin"]=$pin;
 			$ip = $_SERVER['REMOTE_ADDR'];
+			$username=$row["username"];
 			send_to_user("[2FA-Pin]\nHello $username\nHere is your pin to log into cyberhex: $pin. If you did not try to log in please take steps to secure your account!\nIP: $ip\n",$username);
 			//send the user to 2fa auth page
 			$return->msg="send_to_2fa";
