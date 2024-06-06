@@ -89,6 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<input type="text" class="form-control" id="perms" name="perms" value="<?php echo($perms); ?>" readonly>
 						</div>
 						<div class="form-group">
+							<label for="pw_login">Allow password logins. (Please make shure you have a working passkey, if you disable this!)</label>
 							<?php
 								if($_SESSION["allow_pw_login"]==1){
 									echo("<input type='checkbox' id='pw_login' name='pw_login' checked>");
@@ -96,10 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='pw_login' name='pw_login'>");
 								}
 							?>
-							<label for="pw_login">Allow password logins. (Please make shure you have a working passkey, if you disable this!)</label>
+							
 						</div>
 						<br>
 						<div class="form-group">
+							<label for="send_login_message">Send you a Telegram message when somebody logs in to your account.</label>
 							<?php
 								if($_SESSION["send_login_message"]==1){
 									echo("<input type='checkbox' id='send_login_message' name='send_login_message' checked>");
@@ -107,10 +109,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='send_login_message' name='send_login_message'>");
 								}
 							?>
-							<label for="send_login_message">Send you a Telegram message when somebody logs in to your account.</label>
+							
 						</div>
 						<br>
 						<div class="form-group">
+							<label for="use_2fa">Send you a Telegram message with a pin which is additionally needed to log in. (2fa)</label>
 							<?php
 								if($_SESSION["use_2fa"]==1){
 									echo("<input type='checkbox' id='use_2fa' name='use_2fa' checked>");
@@ -118,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='use_2fa' name='use_2fa'>");
 								}
 							?>
-							<label for="use_2fa">Send you a Telegram message with a pin which is additionally needed to log in. (2fa)</label>
+							
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
