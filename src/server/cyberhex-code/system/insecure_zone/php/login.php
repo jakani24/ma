@@ -306,21 +306,22 @@ async function checkRegistration() {
 											$_SESSION["send_login_message"]=$row["send_login_message"];
 											$_SESSION["use_2fa"]=$row["use_2fa"];
 											if($_SESSION["use_2fa"]=="1"){
-												$_SESSION["login"]=false; //set the login state to false
+												unset($_SESSION["login"]); //set the login state to false
 												$_SESSION["2fa_auth"]=true;
 												$pin=mt_rand(100000, 999999);
 												$_SESSION["pin"]=$pin;
 												send_to_user("[2FA-Pin]\nHello $username\nHere is your pin to log into cyberhex: $pin. If you did not try to log in please take steps to secure your account!\nIP: $ip\n",$username);
 												//send the user to 2fa auth page
 												echo '<script>window.location.href = "/system/insecure_zone/php/2fa.php";</script>';
-											}
+											}else{
 											
-											if($_SESSION["send_login_message"]=="1"){
-												$ip = $_SERVER['REMOTE_ADDR'];
-												$username=$row["username"];
-												send_to_user("[LOGIN WARNING]\nHello $username\nSomebody has logged into Cyberhex with your account.\nIf this was you, you can ignore this message. Else please take steps to secure your account!\nIP: $ip\n",$username);
+												if($_SESSION["send_login_message"]=="1"){
+													$ip = $_SERVER['REMOTE_ADDR'];
+													$username=$row["username"];
+													send_to_user("[LOGIN WARNING]\nHello $username\nSomebody has logged into Cyberhex with your account.\nIf this was you, you can ignore this message. Else please take steps to secure your account!\nIP: $ip\n",$username);
+												}
+												echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
 											}
-											echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
 											exit();
 										} else {
 											echo '<div class="alert alert-danger" role="alert">
