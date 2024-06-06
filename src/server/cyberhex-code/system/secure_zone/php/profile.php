@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 	$user_hex_id=bin2hex($username_new);
 	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ?, user_hex_id = ?, send_login_message = ? where username = ?");
-	$stmt->bind_param("sssissi", $email, $username_new,$telegram_id, $pw_login,$user_hex_id, $send_login_message , $username);
+	$stmt->bind_param("sssisis", $email, $username_new,$telegram_id, $pw_login,$user_hex_id, $send_login_message, $username);
 	
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 									echo("<input type='checkbox' id='send_login_message' name='send_login_message'>");
 								}
 							?>
-							<label for="pw_login">Send you a message when somebody logs in with your account (You need to set your Telegram id for this to work)</label>
+							<label for="send_login_message">Send you a message when somebody logs in with your account (You need to set your Telegram id for this to work)</label>
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
