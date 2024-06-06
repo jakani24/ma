@@ -41,6 +41,9 @@ include "../../../api/php/notifications/sendmessage.php"; //to send user notific
 								<label for="pin">2FA-Pin (sent to you via Telegram):</label>
 								<input type="text" class="form-control" id="pin" name="pin" required>
 							</div>
+							<div class="col">
+									<button style="align:left" type="submit" class="btn btn-primary btn-block">Check pin</button>
+							</div>
 						</form>
 						<!-- php code to verify 2fa pin-->
 						<?php
