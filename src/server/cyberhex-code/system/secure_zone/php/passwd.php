@@ -318,7 +318,6 @@ $email = $_SESSION["email"];
 										  </div>';
 							}
 
-							// Close the connection
 						}
 					?>
 					

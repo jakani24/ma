@@ -3,6 +3,7 @@ session_start();
 if(isset($_SESSION["login"])){
 	header("LOCATION:/system/secure_zone/php/index.php");
 }
+include "/api/php/notifications/sendmessage.php"; //to send user notification on login
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -302,7 +303,11 @@ async function checkRegistration() {
 											$_SESSION["email"]=$row["email"];
 											$_SESSION["telegram_id"]=$row["telegram_id"];
 											$_SESSION["allow_pw_login"]=$row["allow_pw_login"];
-											
+											$_SESSION["send_login_message"]=$row["send_login_message"];
+											if($_SESSION["send_login_message"]=="1"){
+												$ip = $_SERVER['HTTP_CLIENT_IP'];
+												send_to_user("[LOGIN WARNING]\nHello $username\nSomebody has logged into Cyberhex with your account.\nIf this was you, you can ignore this message. Else please take steps to secure your account!\nIP: $ip\n",$username);
+											}
 											echo '<script>window.location.href = "/system/secure_zone/php/index.php";</script>';
 											exit();
 										} else {

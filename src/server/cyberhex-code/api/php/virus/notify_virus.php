@@ -1,6 +1,5 @@
 <?php
 //we need to auth the user => apikey
-//put auth code here afterwards
 include "../accessctrl/check_apikey.php";
 if(check_apikey()!==true){
 	die("no_auth");
@@ -40,6 +39,7 @@ else{
 	
 	$stmt->close();
 	$conn->close();
+	//send the message to every user that has set his telegram key in the settings
 	send("[VIRUS WARNING!]\nhash: $hash\npath: $path\nmachine_id: $machine_id\nmachine_location: $location\naction: $action\n");
 }
 ?>

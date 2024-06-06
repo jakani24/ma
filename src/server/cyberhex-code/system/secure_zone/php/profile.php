@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$username_new=htmlspecialchars($_POST["username"]);
 	$telegram_id=htmlspecialchars($_POST["telegram_id"]);
 	$pw_login=isset($_POST["pw_login"]);
+	$send_login_message=isset($_POST["send_login_message"]);
 	// Create connection
 	$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
@@ -31,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		die("Connection failed: " . $conn->connect_error);
 	}
 	$user_hex_id=bin2hex($username_new);
-	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ?, user_hex_id = ? where username = ?");
-	$stmt->bind_param("sssiss", $email, $username_new,$telegram_id, $pw_login,$user_hex_id , $username);
+	$stmt = $conn->prepare("UPDATE users set email = ?, username = ?, telegram_id = ?, allow_pw_login = ?, user_hex_id = ?, send_login_message = ? where username = ?");
+	$stmt->bind_param("sssiss", $email, $username_new,$telegram_id, $pw_login,$user_hex_id, $send_login_message , $username);
 	
 	$email=htmlspecialchars($_POST["email"]);
 	$username_new=htmlspecialchars($_POST["username"]);
@@ -45,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$_SESSION["email"]=$email;
 	$_SESSION["telegram_id"]=$telegram_id;
 	$_SESSION["allow_pw_login"]=$pw_login;
+	$_SESSION["send_login_message"]=$send_login_message;
 }
 
 ?>
@@ -93,6 +95,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								}
 							?>
 							<label for="pw_login">Allow password logins. (Please make shure you have a passkey, if you disable this!)</label>
+						</div>
+						<br>
+						<div class="form-group">
+							<?php
+								if($_SESSION["send_login_message"]==1){
+									echo("<input type='checkbox' id='send_login_message' name='send_login_message' checked>");
+								}else{
+									echo("<input type='checkbox' id='send_login_message' name='send_login_message'>");
+								}
+							?>
+							<label for="pw_login">Send you a message when somebody logs in with your account (You need to set your Telegram id for this to work)</label>
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
