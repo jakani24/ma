@@ -108,6 +108,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							<label for="send_login_message">Send you a Telegram message when somebody logs in with your account.</label>
 						</div>
 						<br>
+						<div class="form-group">
+							<?php
+								if($_SESSION["use_2fa"]==1){
+									echo("<input type='checkbox' id='use_2fa' name='use_2fa' checked>");
+								}else{
+									echo("<input type='checkbox' id='use_2fa' name='use_2fa'>");
+								}
+							?>
+							<label for="use_2fa">Send you a Telegram message with a pin which is additionally needed to log in.</label>
+						</div>
+						<br>
 						<button type="submit" class="btn btn-primary btn-block">Update</button>
 					</form>
 					<?php
