@@ -186,7 +186,7 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 					
 					</div>
 					<div id="included" style="display:none">
-						<h4>Included signatures</h4>
+						<h4>Included signatures (Jakach signatures are always included and not shown here)</h4>
 						<!-- Table with user defined, included hashes -->
 						<?php
 							//load entrys from excluded db

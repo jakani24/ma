@@ -218,7 +218,7 @@ load_settings();
 							else
 								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\">");
 							?>
-							<label class="form-check-label" for="flexSwitchCheckDefault">Kill processes which are detected to be a virus?</label>
+							<label class="form-check-label" for="flexSwitchCheckDefault">Kill processes which are detected to be a virus</label>
 						</div>
 						<br>
 						<h7>Included folders for RTP folderscanner</h7>
