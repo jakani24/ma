@@ -14,6 +14,7 @@ Functions:
 #include "app_ctrl.h"
 #include "settings.h"
 #include "scan.h"
+#include "deepscan.h"
 #include <mutex> // Include the mutex header
 #include <thread> // Include the thread header
 #include <Windows.h> // Include the Windows header
@@ -75,6 +76,11 @@ void monitor_processes() {
                                 //log(LOGLEVEL::INFO_NOSEND, "[monitor_processes()]: Scanning process: ", path);
                                 std::thread scan_thread(scan_process_t, path);
                                 scan_thread.detach();
+
+                                if (get_setting("rtp_process_scan:use_deepscan")) {
+									std::thread deepscan_thread(deepscan_process_t, path);
+									deepscan_thread.detach();
+								}
                             }
                         }
                     }

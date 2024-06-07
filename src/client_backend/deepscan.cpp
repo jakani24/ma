@@ -214,6 +214,35 @@ int process_callback(YR_SCAN_CONTEXT* context,int message, void* message_data, v
 	return CALLBACK_CONTINUE;
 }
 
+// Callback function for YARA process scan scan
+int process_callback_for_process(YR_SCAN_CONTEXT* context, int message, void* message_data, void* user_data) {
+    switch (message) {
+    case CALLBACK_MSG_RULE_MATCHING:
+    {
+        // Access filepath from CallbackData
+        Callback_data* callback_data = (Callback_data*)user_data;
+
+        // Access filepath from CallbackData
+        std::string filepath = callback_data->filepath;
+        //we calculate the hash of the file so the virus ctrl functions are able to process it
+        std::string hash = md5_file_t(filepath);
+
+        if (get_setting("virus_ctrl:virus_process_found:kill") == 1) {
+            //kill the process
+            kill_process(filepath.c_str());
+            log(LOGLEVEL::VIRUS, "[deepscan_process_t()]: Killing process: ", filepath);
+        }
+
+        virus_ctrl_store(filepath, hash, hash);
+        //afterwards do the processing with that file
+        virus_ctrl_process(hash);
+        action_deepscan_is_virus = 1;
+        break;
+    }
+    }
+    return CALLBACK_CONTINUE;
+}
+
 // Scan a single file using YARA rules (thread-safe)
 bool deepscan_file_t(const std::string& file_path) {
     set_num_threads(get_num_threads() + 1);
@@ -251,6 +280,31 @@ bool deepscan_file_t(const std::string& file_path) {
     return true;
 }
 
+bool deepscan_process_t(const std::string& filepath_) {
+    set_num_threads(get_num_threads() + 1);
+    thread_local const std::string filepath(filepath_);
+    std::ifstream file_stream(filepath, std::ios::binary | std::ios::ate);
+    if (!file_stream.is_open()) {
+        // handle error if file cannot be opened
+        return false;
+    }
+    std::streamsize file_size = file_stream.tellg();
+    file_stream.seekg(0, std::ios::beg);
+    std::vector<char> file_content(file_size);
+    if (!file_stream.read(file_content.data(), file_size)) {
+        // handle error if file content cannot be read
+        return false;
+    }
+    file_stream.close();
+
+    // get globally set yara rules and iterate over them
+    Callback_data* callback_data = new Callback_data();
+    for (YR_RULES* rule : compiled_rules) {
+        callback_data->filepath = filepath_;
+        yr_rules_scan_mem(rule, reinterpret_cast<const uint8_t*>(file_content.data()), file_content.size(), 0, process_callback_for_process, callback_data, 5000);
+    }
+    set_num_threads(get_num_threads() - 1);
+}
 
 // Action function for deepscanfolder
 void action_deepscanfolder(const std::string& folderpath) {

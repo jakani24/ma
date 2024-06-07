@@ -41,6 +41,8 @@ int included_folders_size = 0;
 std::string disallowed_start_folders[1000];
 int disallowed_start_folders_size = 0;
 bool setting_rtp_folder_scan_status = true; // 0=off, 1=on
+bool setting_rtp_folder_scan_use_deepscan = true; // 0=off, 1=on
+bool setting_rtp_process_scan_use_deepscan = true; // 0=off, 1=on
 bool setting_rtp_process_scan_status = true; // 0=off, 1=on
 bool setting_virus_ctrl_virus_process_found_kill = true; // 0=do not kill, 1=kill
 bool setting_ac_status = true; // 0=off, 1=on
@@ -90,6 +92,12 @@ int load_settings() {
         else if (settings_cmd == "rtp_process_scan:status") {
             setting_rtp_process_scan_status = (settings_arg == "true");
         }
+        else if (settings_cmd == "rtp_process_scan:use_deepscan") {
+            setting_rtp_process_scan_use_deepscan = (settings_arg == "true");
+        }
+        else if (settings_cmd == "rtp_folder_scan:use_deepscan") {
+            setting_rtp_folder_scan_use_deepscan = (settings_arg == "true");
+        }
         else if (settings_cmd == "communication:unsafe_tls") {
             setting_communication_unsafe_tls = (settings_arg == "allow");
         }
@@ -128,6 +136,12 @@ int get_setting(const std::string& setting_name) {
     }
     else if (setting_name == "rtp_process_scan:status") {
         return setting_rtp_process_scan_status;
+    }
+    else if (setting_name == "rtp_process_scan:use_deepscan") {
+        return setting_rtp_process_scan_use_deepscan;
+    }
+    else if (setting_name == "rtp_folder_scan:use_deepscan") {
+        return setting_rtp_folder_scan_use_deepscan;
     }
     else if (setting_name == "communication:unsafe_tls") {
         return setting_communication_unsafe_tls;

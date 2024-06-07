@@ -15,6 +15,7 @@ Functions:
 #include "log.h"
 #include "md5hash.h"
 #include "scan.h"
+#include "deepscan.h"
 #include "app_ctrl.h"
 #include "virus_ctrl.h"
 #include "settings.h"
@@ -60,6 +61,10 @@ void process_changes(const FILE_NOTIFY_INFORMATION* pInfo) {
             scan_thread.detach();
             Sleep(1);
 
+            if (get_setting("rtp_folder_scan:use_deepscan")) {
+                std::thread deepscan_thread(deepscan_file_t, filename_str);
+                deepscan_thread.detach();
+            }
         }
     }
 }

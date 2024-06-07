@@ -10,6 +10,8 @@ $setting_virus_ctrl_virus_found_action = "not configured yet";
 $setting_server_server_url="not configured yet";
 $setting_virus_ctrl_virus_process_found_kill=0;
 $setting_rtp_folder_scan_status=0;
+$setting_rtp_folder_scan_use_deepscan=0;
+$setting_rtp_process_scan_use_deepscan=0;
 $setting_rtp_process_scan_status=0;
 $setting_communication_unsafe_tls="not configured yet";
 $setting_ac_status=0;
@@ -32,6 +34,8 @@ if(isset($_GET["settings"])){
 	echo("virus_ctrl:virus_process:found:kill ".$setting_virus_ctrl_virus_process_found_kill."\n");
 	echo("server:server_url ".$setting_server_server_url."\n");
 	echo("rtp_folder_scan:status ".$setting_rtp_folder_scan_status."\n");
+	echo("rtp_folder_scan:use_deepscan ".$setting_rtp_folder_scan_use_deepscan."\n");
+	echo("rtp_process_scan:use_deepscan ".$setting_rtp_process_scan_use_deepscan."\n");
 	echo("rtp_process_scan:status ".$setting_rtp_process_scan_status."\n");
 	echo("communication:unsafe_tls ".$setting_communication_unsafe_tls."\n");
 	echo("application_control:status ".$setting_ac_status."\n");
@@ -125,6 +129,8 @@ function load_settings(){
 	global $setting_virus_ctrl_virus_process_found_kill;
 	global $setting_server_server_url;
 	global $setting_rtp_folder_scan_status;
+	global $setting_rtp_folder_scan_use_deepscan;
+	global $setting_rtp_process_scan_use_deepscan;
 	global $setting_rtp_process_scan_status;
 	global $setting_communication_unsafe_tls;
 	global $setting_ac_status;
@@ -185,6 +191,33 @@ function load_settings(){
 	}
 	$stmt -> close();
 	
+		
+	//get setting: setting_rtp_process_scan_use_deepscan
+	$sql = "SELECT * FROM settings WHERE name = 'setting_rtp_process_scan_use_deepscan'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_rtp_process_scan_use_deepscan=$row["value"];
+	}
+	$stmt -> close();
+	
+	
+	//get setting: setting_rtp_folder_scan_use_deepscan
+	$sql = "SELECT * FROM settings WHERE name = 'setting_rtp_folder_scan_use_deepscan'";
+	$stmt = $conn->prepare($sql);
+	// Execute the statement
+	$stmt->execute();
+	// Get the result
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
+	if($row!==null){
+		$setting_rtp_folder_scan_use_deepscan=$row["value"];
+	}
+	$stmt -> close();	
 		
 	//get setting: setting_server_server_url
 	$sql = "SELECT * FROM settings WHERE name = 'setting_server_server_url'";
