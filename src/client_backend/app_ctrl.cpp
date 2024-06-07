@@ -5,6 +5,7 @@ bool app_stop_ = false;
 bool can_run_thread_ = true;
 bool can_scan_folder_ = true;
 bool debug_mode_ = false;
+bool is_yara_ready_ = false;
 int app_stop() {
 	return app_stop_;
 }
@@ -36,5 +37,13 @@ int debug_mode() {
 int debug_mode_init() {
 	debug_mode_ = true;
 	return debug_mode_;
+}
+
+int set_yara_ready() {
+	is_yara_ready_ = true;
+	return is_yara_ready_;
+}
+int is_yara_ready() {
+	return is_yara_ready_;
 }
 #endif

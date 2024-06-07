@@ -99,6 +99,7 @@ void init_yara_rules(const char* folderPath) {
             }
         }
     }
+    set_yara_ready();
 }
 
 
@@ -107,82 +108,85 @@ std::stack<std::string> deep_directories; // Stack to store directories to be sc
 
 // Scan all files in a folder recursively using first the normal scanner, then the deep scanner
 void deepscan_folder(const std::string& directory) {
-    deep_directories.push(directory);
+    if (is_yara_ready()) {
+        deep_directories.push(directory);
 
-    while (!deep_directories.empty()) {
-        std::string current_dir = deep_directories.top();
-        deep_directories.pop();
+        while (!deep_directories.empty()) {
+            std::string current_dir = deep_directories.top();
+            deep_directories.pop();
 
-        std::string search_path = current_dir + "\\*.*";
-        WIN32_FIND_DATA find_file_data;
-        HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
+            std::string search_path = current_dir + "\\*.*";
+            WIN32_FIND_DATA find_file_data;
+            HANDLE hFind = FindFirstFile(search_path.c_str(), &find_file_data);
 
-        if (hFind != INVALID_HANDLE_VALUE) {
-            do {
-                if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
-                    continue; // Skip the current and parent directories
-                }
-
-                const std::string full_path = current_dir + "\\" + find_file_data.cFileName;
-                if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-                    // If it's a directory, add it to the stack
-                    deep_directories.push(full_path);
-                }
-                else {
-                    if (debug_mode())
-                        log(LOGLEVEL::INFO_NOSEND, "[deepscan_folder()]: Scanning file: ", full_path);
-
-                    // Do multithreading here
-                    int thread_timeout = 0;
-                    //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
-                    while (get_num_threads() >= std::thread::hardware_concurrency() && thread_safety()) {
-                        Sleep(10);
-                        thread_timeout++;
-                        //printf("Thread timeout: %d\n", thread_timeout);
-                        if (thread_timeout == 100 * 20) {
-                            // If there is no available thread for more than 30 seconds, reset the thread counter
-                            set_num_threads(0);
-                        }
+            if (hFind != INVALID_HANDLE_VALUE) {
+                do {
+                    if (strcmp(find_file_data.cFileName, ".") == 0 || strcmp(find_file_data.cFileName, "..") == 0) {
+                        continue; // Skip the current and parent directories
                     }
-                    //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
-                    if (is_valid_path(full_path)) { // Filter out invalid paths and paths with weird characters
-                        std::uintmax_t fileSize = std::filesystem::file_size(full_path);
-                        if (fileSize > 4000000000) { // 4GB
-                            log(LOGLEVEL::INFO_NOSEND, "[deepscan_folder()]: File too large to scan: ", full_path);
-                        }
-                        else {
-                            std::thread scan_thread(deepscan_file_t, full_path);
-                            scan_thread.detach();
-                        }
+
+                    const std::string full_path = current_dir + "\\" + find_file_data.cFileName;
+                    if (find_file_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+                        // If it's a directory, add it to the stack
+                        deep_directories.push(full_path);
                     }
                     else {
-                        log(LOGLEVEL::INFO_NOSEND, "[deepscan_folder()]: Invalid path: ", full_path);
-                    }
-                    deep_cnt++;
-                    if (deep_cnt % 100 == 0) {
-                        printf("Processed %d files;\n", deep_cnt);
-                        //printf("Number of threads: %d\n", num_threads);
-                    }
-                    if (deep_cnt % 100 == 0) {
-                        int actual_threads = get_num_running_threads();
-                        if (get_num_threads() > actual_threads)
-                            set_num_threads(actual_threads);//correct value of threads
-                        printf("Number of threads: %d\n", get_num_threads());
-                        //send progress to com file
-                        std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
-                        if (answer_com.is_open()) {
-                            answer_com << "progress " << (deep_cnt * 100 / (deep_all_files + 1)) << "\n";
-                            answer_com.close();
+                        if (debug_mode())
+                            log(LOGLEVEL::INFO_NOSEND, "[deepscan_folder()]: Scanning file: ", full_path);
+
+                        // Do multithreading here
+                        int thread_timeout = 0;
+                        //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
+                        while (get_num_threads() >= std::thread::hardware_concurrency() && thread_safety()) {
+                            Sleep(10);
+                            thread_timeout++;
+                            //printf("Thread timeout: %d\n", thread_timeout);
+                            if (thread_timeout == 100 * 20) {
+                                // If there is no available thread for more than 30 seconds, reset the thread counter
+                                set_num_threads(0);
+                            }
+                        }
+                        //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
+                        if (is_valid_path(full_path)) { // Filter out invalid paths and paths with weird characters
+                            std::uintmax_t fileSize = std::filesystem::file_size(full_path);
+                            if (fileSize > 4000000000) { // 4GB
+                                log(LOGLEVEL::INFO_NOSEND, "[deepscan_folder()]: File too large to scan: ", full_path);
+                            }
+                            else {
+                                std::thread scan_thread(deepscan_file_t, full_path);
+                                scan_thread.detach();
+                            }
+                        }
+                        else {
+                            log(LOGLEVEL::INFO_NOSEND, "[deepscan_folder()]: Invalid path: ", full_path);
+                        }
+                        deep_cnt++;
+                        if (deep_cnt % 100 == 0) {
+                            printf("Processed %d files;\n", deep_cnt);
+                            //printf("Number of threads: %d\n", num_threads);
+                        }
+                        if (deep_cnt % 100 == 0) {
+                            int actual_threads = get_num_running_threads();
+                            if (get_num_threads() > actual_threads)
+                                set_num_threads(actual_threads);//correct value of threads
+                            printf("Number of threads: %d\n", get_num_threads());
+                            //send progress to com file
+                            std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+                            if (answer_com.is_open()) {
+                                answer_com << "progress " << (deep_cnt * 100 / (deep_all_files + 1)) << "\n";
+                                answer_com.close();
+                            }
                         }
                     }
-                }
-            } while (FindNextFile(hFind, &find_file_data) != 0);
-            FindClose(hFind);
-        }
-        else {
-            log(LOGLEVEL::ERR_NOSEND, "[deepscan_folder()]: Could not open directory: ", current_dir, " while scanning files inside directory.");
+                } while (FindNextFile(hFind, &find_file_data) != 0);
+                FindClose(hFind);
+            }
+            else {
+                log(LOGLEVEL::ERR_NOSEND, "[deepscan_folder()]: Could not open directory: ", current_dir, " while scanning files inside directory.");
+            }
         }
     }
+
 }
 
 
@@ -246,18 +250,53 @@ int process_callback_for_process(YR_SCAN_CONTEXT* context, int message, void* me
 // Scan a single file using YARA rules (thread-safe)
 bool deepscan_file_t(const std::string& file_path) {
     set_num_threads(get_num_threads() + 1);
-    // we do not need to make a new instance of yara rules, because they are global and do not get deleted or modified
-    thread_local std::string file_path_(file_path);
-    // first we scan the file with the normal scanner, which means md5
-    thread_local std::string hash(md5_file_t(file_path));
-    thread_local char* db_path = new char[300];
+    if (is_yara_ready()) {
+        // we do not need to make a new instance of yara rules, because they are global and do not get deleted or modified
+        thread_local std::string file_path_(file_path);
+        // first we scan the file with the normal scanner, which means md5
+        thread_local std::string hash(md5_file_t(file_path));
+        thread_local char* db_path = new char[300];
 
-    sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-    if (search_hash(db_path, hash, file_path) != 1) { // if we already found a match in the database, we do not need to scan the file with yara
-        // Load file into memory
-        std::ifstream file_stream(file_path, std::ios::binary | std::ios::ate);
+        sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+        if (search_hash(db_path, hash, file_path) != 1) { // if we already found a match in the database, we do not need to scan the file with yara
+            // Load file into memory
+            std::ifstream file_stream(file_path, std::ios::binary | std::ios::ate);
+            if (!file_stream.is_open()) {
+                // handle error if file cannot be opened
+                set_num_threads(get_num_threads() - 1);
+                return false;
+            }
+            std::streamsize file_size = file_stream.tellg();
+            file_stream.seekg(0, std::ios::beg);
+            std::vector<char> file_content(file_size);
+            if (!file_stream.read(file_content.data(), file_size)) {
+                // handle error if file content cannot be read
+                set_num_threads(get_num_threads() - 1);
+                return false;
+            }
+            file_stream.close();
+
+            // get globally set yara rules and iterate over them
+            Callback_data* callback_data = new Callback_data();
+            for (YR_RULES* rule : compiled_rules) {
+                callback_data->filepath = file_path_;
+                yr_rules_scan_mem(rule, reinterpret_cast<const uint8_t*>(file_content.data()), file_content.size(), 0, process_callback, callback_data, 5000);
+            }
+        }
+    }
+
+    set_num_threads(get_num_threads() - 1);
+    return true;
+}
+
+bool deepscan_process_t(const std::string& filepath_) {
+    set_num_threads(get_num_threads() + 1);
+    if (is_yara_ready()) {
+        thread_local const std::string filepath(filepath_);
+        std::ifstream file_stream(filepath, std::ios::binary | std::ios::ate);
         if (!file_stream.is_open()) {
             // handle error if file cannot be opened
+            set_num_threads(get_num_threads() - 1);
             return false;
         }
         std::streamsize file_size = file_stream.tellg();
@@ -265,6 +304,7 @@ bool deepscan_file_t(const std::string& file_path) {
         std::vector<char> file_content(file_size);
         if (!file_stream.read(file_content.data(), file_size)) {
             // handle error if file content cannot be read
+            set_num_threads(get_num_threads() - 1);
             return false;
         }
         file_stream.close();
@@ -272,57 +312,33 @@ bool deepscan_file_t(const std::string& file_path) {
         // get globally set yara rules and iterate over them
         Callback_data* callback_data = new Callback_data();
         for (YR_RULES* rule : compiled_rules) {
-            callback_data->filepath = file_path_;
-            yr_rules_scan_mem(rule, reinterpret_cast<const uint8_t*>(file_content.data()), file_content.size(), 0, process_callback, callback_data, 5000);
+            callback_data->filepath = filepath_;
+            yr_rules_scan_mem(rule, reinterpret_cast<const uint8_t*>(file_content.data()), file_content.size(), 0, process_callback_for_process, callback_data, 5000);
         }
-        set_num_threads(get_num_threads() - 1);
     }
-    return true;
-}
 
-bool deepscan_process_t(const std::string& filepath_) {
-    set_num_threads(get_num_threads() + 1);
-    thread_local const std::string filepath(filepath_);
-    std::ifstream file_stream(filepath, std::ios::binary | std::ios::ate);
-    if (!file_stream.is_open()) {
-        // handle error if file cannot be opened
-        return false;
-    }
-    std::streamsize file_size = file_stream.tellg();
-    file_stream.seekg(0, std::ios::beg);
-    std::vector<char> file_content(file_size);
-    if (!file_stream.read(file_content.data(), file_size)) {
-        // handle error if file content cannot be read
-        return false;
-    }
-    file_stream.close();
-
-    // get globally set yara rules and iterate over them
-    Callback_data* callback_data = new Callback_data();
-    for (YR_RULES* rule : compiled_rules) {
-        callback_data->filepath = filepath_;
-        yr_rules_scan_mem(rule, reinterpret_cast<const uint8_t*>(file_content.data()), file_content.size(), 0, process_callback_for_process, callback_data, 5000);
-    }
     set_num_threads(get_num_threads() - 1);
 }
 
 // Action function for deepscanfolder
 void action_deepscanfolder(const std::string& folderpath) {
     thread_init();
-    thread_local std::string folderpath_(folderpath);
-    deep_cnt = 0;
-    deep_all_files = get_num_files(folderpath_);
-    //tell the desktop client that the scan has started
-    std::ofstream answer_com1(ANSWER_COM_PATH, std::ios::app);
-    if (answer_com1.is_open()) {
-        answer_com1 << "start " << deep_all_files << "\n";
-        answer_com1.close();
-    }
-    deepscan_folder(folderpath_);
-    std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
-    if (answer_com.is_open()) {
-        answer_com << "end " << "\"" << "nothing" << "\"" << " " << "nothing" << " " << "nothing" << "\n";
-        answer_com.close();
+    if (is_yara_ready()) {
+        thread_local std::string folderpath_(folderpath);
+        deep_cnt = 0;
+        deep_all_files = get_num_files(folderpath_);
+        //tell the desktop client that the scan has started
+        std::ofstream answer_com1(ANSWER_COM_PATH, std::ios::app);
+        if (answer_com1.is_open()) {
+            answer_com1 << "start " << deep_all_files << "\n";
+            answer_com1.close();
+        }
+        deepscan_folder(folderpath_);
+        std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+        if (answer_com.is_open()) {
+            answer_com << "end " << "\"" << "nothing" << "\"" << " " << "nothing" << " " << "nothing" << "\n";
+            answer_com.close();
+        }
     }
     thread_shutdown();
 }
@@ -330,27 +346,29 @@ void action_deepscanfolder(const std::string& folderpath) {
 //for singlethreaded scans
 void action_deepscanfile(const std::string& filepath_) {
     thread_init();
-    std::string file_path(filepath_);
-    char* db_path = new char[300];
-    action_deepscan_is_virus = 0;
-    //printf("start\n");
-    if (is_valid_path(file_path)) { //filter out invalid paths and paths with weird characters
-        //first scan the file with the normal scanner, which means md5
-        thread_local char* db_path = new char[300];
-        thread_local std::string hash(md5_file_t(file_path));
-        sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
-        if (search_hash(db_path, hash, file_path) != 1) { //if we allready found a match in the database, we do not need to scan the file with yara
-            deepscan_file_t(file_path);
-            if (action_deepscan_is_virus == 0) {
-                std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
-                if (answer_com.is_open()) {
-                    answer_com << "not_found " << "\"" << file_path << "\"" << " " << hash << " " << "no_action_taken" << "\n";
-                    answer_com.close();
+    if (is_yara_ready()) {
+        std::string file_path(filepath_);
+        char* db_path = new char[300];
+        action_deepscan_is_virus = 0;
+        //printf("start\n");
+        if (is_valid_path(file_path)) { //filter out invalid paths and paths with weird characters
+            //first scan the file with the normal scanner, which means md5
+            thread_local char* db_path = new char[300];
+            thread_local std::string hash(md5_file_t(file_path));
+            sprintf_s(db_path, 295, "%s\\%c%c.jdbf", DB_DIR, hash[0], hash[1]);
+            if (search_hash(db_path, hash, file_path) != 1) { //if we allready found a match in the database, we do not need to scan the file with yara
+                deepscan_file_t(file_path);
+                if (action_deepscan_is_virus == 0) {
+                    std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
+                    if (answer_com.is_open()) {
+                        answer_com << "not_found " << "\"" << file_path << "\"" << " " << hash << " " << "no_action_taken" << "\n";
+                        answer_com.close();
+                    }
                 }
             }
         }
+        else
+            log(LOGLEVEL::INFO_NOSEND, "[action_scanfile()]: Invalid path: ", file_path);
     }
-    else
-        log(LOGLEVEL::INFO_NOSEND, "[action_scanfile()]: Invalid path: ", file_path);
     thread_shutdown();
 }

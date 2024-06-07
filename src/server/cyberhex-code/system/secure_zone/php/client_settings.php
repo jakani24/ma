@@ -204,7 +204,7 @@ load_settings();
 							else
 								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"setting_rtp_folder_scan_use_deepscan\" onclick=\"update_switch('setting_rtp_folder_scan_use_deepscan','setting_rtp_folder_scan_use_deepscan')\">");
 							?>
-							<label class="form-check-label" for="setting_rtp_folder_scan_use_deepscan">Check file modifications with deepscan</label>
+							<label class="form-check-label" for="setting_rtp_folder_scan_use_deepscan">Check file modifications additionally with deepscan (Warning: this setting may use much CPU)</label>
 						</div>
 						<div class="form-check form-switch">
 							<?php if($setting_rtp_process_scan_status=="true")
@@ -220,7 +220,7 @@ load_settings();
 							else
 								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"setting_rtp_process_scan_use_deepscan\" onclick=\"update_switch('setting_rtp_process_scan_use_deepscan','setting_rtp_process_scan_use_deepscan')\">");
 							?>
-							<label class="form-check-label" for="setting_rtp_process_scan_use_deepscan">Check processes with deepscan</label>
+							<label class="form-check-label" for="setting_rtp_process_scan_use_deepscan">Check processes additionally with deepscan (Warning: this setting may use much CPU)</label>
 						</div>
 						<br>
 						<h7>Included folders for RTP folderscanner</h7>

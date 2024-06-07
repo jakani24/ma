@@ -9,4 +9,6 @@ int scan_folder_init();
 int scan_folder_shutdown();
 int debug_mode();
 int debug_mode_init();
+int set_yara_ready();
+int is_yara_ready();
 #endif
