@@ -162,16 +162,6 @@ load_settings();
 						  </ul>
 						</div>
 						<br>
-						<h7>Kill processes which are detected to be a virus? (for this to work, you have to enable rtp processs scanner!)</h7>
-						<div class="form-check form-switch">
-							<?php if($setting_virus_ctrl_virus_process_found_kill=="true")
-								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\" checked>");
-							else
-								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\">");
-							?>
-							<label class="form-check-label" for="flexSwitchCheckDefault">Kill process</label>
-						</div>
-						<br>
 						<h7>Allow communication with unsafe ssl cert? (if you are using self signed certs, activate this option)</h7>
 						<div class="dropdown">
 						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -221,6 +211,14 @@ load_settings();
 								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"setting_rtp_process_scan_use_deepscan\" onclick=\"update_switch('setting_rtp_process_scan_use_deepscan','setting_rtp_process_scan_use_deepscan')\">");
 							?>
 							<label class="form-check-label" for="setting_rtp_process_scan_use_deepscan">Check processes additionally with deepscan (Warning: this setting may use much CPU)</label>
+						</div>
+						<div class="form-check form-switch">
+							<?php if($setting_virus_ctrl_virus_process_found_kill=="true")
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\" checked>");
+							else
+								echo ("<input class=\"form-check-input\" type=\"checkbox\" role=\"switch\" id=\"kill_virus_process\" onclick=\"update_switch('kill_virus_process','setting_virus_ctrl_virus_process_found_kill')\">");
+							?>
+							<label class="form-check-label" for="flexSwitchCheckDefault">Kill processes which are detected to be a virus?</label>
 						</div>
 						<br>
 						<h7>Included folders for RTP folderscanner</h7>
