@@ -171,6 +171,7 @@ include "perms_functions.php";
 								echo '<div class="alert alert-success" role="alert">
 											User added successfully!
 										  </div>';
+								log_action("USER::ADD::SUCCESS","User ".$_SESSION["username"]." added another user ($username).",$_SESSION["id"]);
 							}
 						}elseif($block==1){
 							echo '<div class="alert alert-danger" role="alert">

@@ -128,6 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					</form>
 					<?php
 						if(isset($_GET["update"])){
+							log_action("PROFILE::UPDATE::SUCCESS","User ".$_SESSION["username"]." updated his profile.",$_SESSION["id"]);
 							echo '<br><div class="alert alert-success" role="alert">
 										Information updated successfully!
 									  </div>';

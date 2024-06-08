@@ -298,16 +298,19 @@ $email = $_SESSION["email"];
 										$stmt->execute();
 										$stmt->close();
 										$conn->close();
+										log_action("PASSWD::CHANGE::SUCCESS","User ".$_SESSION["username"]." changed his password.",$_SESSION["id"]);
 										echo '<br><div class="alert alert-success" role="alert">
 											Information updated successfully!
 										  </div>';
 										
 									} else {
+										log_action("PASSWD::CHANGE::FAILURE","User ".$_SESSION["username"]." tried to change his password but failed due to wrong password.",$_SESSION["id"]);
 										echo '<div class="alert alert-danger" role="alert">
 												Incorrect password.
 											  </div>';
 									}
 								} else {
+									log_action("PASSWD::CHANGE::FAILURE","User ".$_SESSION["username"]." tried to change his password but failed due to wrong password.",$_SESSION["id"]);
 									echo '<div class="alert alert-danger" role="alert">
 											Incorrect password.
 										  </div>';

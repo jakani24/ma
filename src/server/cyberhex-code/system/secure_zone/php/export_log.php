@@ -94,7 +94,7 @@ $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&tim
 							echo '<div class="alert alert-success" role="alert">
                                                 Log export finished. <a href="/export/cyberhex_log_export.csv" download>Download export</a>
                             </div>';
-							
+							log_action("LOG::ENTRY::EXPORT::SUCCESS","User ".$_SESSION["username"]." exported the log.",$_SESSION["id"]);
 						}
 
 						//now display the normal page

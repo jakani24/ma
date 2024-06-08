@@ -129,6 +129,7 @@ $conn->close();
                         //delete entry if requested and if user has rights to do that
                         if(isset($_GET["delete"])){
                             if($perms[3]!=="1"){
+								log_action("LOG::ENTRY::DELETE::FAILURE","User ".$_SESSION["username"]." tried to delete a log entry but not succeeded because of insufficient permissions.",$_SESSION["id"]);
                                 echo '<div class="alert alert-danger" role="alert">
                                                 You are not allowed to delete log entries. (insufficient permissions)
                                 </div>';
@@ -149,10 +150,12 @@ $conn->close();
                                 echo '<div class="alert alert-success" role="alert">
                                                 Log entry deleted.
                                 </div>';
+								log_action("LOG::ENTRY::DELETE::SUCCESS","User ".$_SESSION["username"]." deleted a log entry.",$_SESSION["id"]);
                             }
                         }
 						if(isset($_GET["delete_all"])){
                             if($perms[3]!=="1"){
+								log_action("LOG::ENTRY::DELETE::FAILURE","User ".$_SESSION["username"]." tried to delete the full log but not succeeded because of insufficient permissions.",$_SESSION["id"]);
                                 echo '<div class="alert alert-danger" role="alert">
                                                 You are not allowed to delete log entries. (insufficient permissions)
                                 </div>';
@@ -171,6 +174,7 @@ $conn->close();
                                 echo '<div class="alert alert-success" role="alert">
                                                 Log deleted.
                                 </div>';
+								log_action("LOG::ENTRY::DELETE::SUCCESS","User ".$_SESSION["username"]." deleted the full log.",$_SESSION["id"]);
                             }
                         }
                         

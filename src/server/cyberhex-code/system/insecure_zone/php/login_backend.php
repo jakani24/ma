@@ -195,6 +195,7 @@ try {
 			//send the user to 2fa auth page
 			$return->msg="send_to_2fa";
 		}else{
+			log_action("LOGIN::SUCCESS","User ".$_SESSION["username"]." logged in with passkey.",$_SESSION["id"]);
 			if($_SESSION["send_login_message"]=="1"){
 				$ip = $_SERVER['REMOTE_ADDR'];
 				$username=$row["username"];

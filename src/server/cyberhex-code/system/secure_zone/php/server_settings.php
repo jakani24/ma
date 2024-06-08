@@ -34,12 +34,15 @@ if ($conn->connect_error) {
 include "client_settings_functions.php";
 if(isset($_GET["update"])){
 	safe_settings();
+	log_action("SERVER_SETTINGS::UPDATE::SUCCESS","User ".$_SESSION["username"]." updated some server settings.",$_SESSION["id"]);
 }
 if(isset($_GET["delete"])){
 	delete_item($_GET["db"],$_GET["delete"]);
+	log_action("SERVER_SETTINGS::DELETE::SUCCESS","User ".$_SESSION["username"]." deleted some server settings.",$_SESSION["id"]);
 }
 if(isset($_GET["add"])){
 	add_item($_GET["add"],$_GET["value"],$_GET["field"]);
+	log_action("SERVER_SETTINGS::ADD::SUCCESS","User ".$_SESSION["username"]." added some server settings.",$_SESSION["id"]);
 }
 load_settings();
 

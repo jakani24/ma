@@ -99,12 +99,15 @@ async function add_item(db,element_id1,field1,element_id2,field2){ //we have two
 	include "database_settings_functions.php";
 	if(isset($_GET["update"])){
 		safe_settings($_GET["db"]);
+		log_action("DB_SETTINGS::UPDATE::SUCCESS","User ".$_SESSION["username"]." updated the database settings.",$_SESSION["id"]);
 	}
 	if(isset($_GET["delete"])){
 		delete_item($_GET["db"],$_GET["delete"]);
+		log_action("DB_SETTINGS::DELETE::SUCCESS","User ".$_SESSION["username"]." deleted some database settings.",$_SESSION["id"]);
 	}
 	if(isset($_GET["add"])){
 		add_item($_GET["add"],$_GET["value1"],$_GET["field1"],$_GET["value2"],$_GET["field2"]);
+		log_action("DB_SETTINGS::ADD::SUCCESS","User ".$_SESSION["username"]." added some database settings.",$_SESSION["id"]);
 	}
 ?>
 <div class="container mt-5">

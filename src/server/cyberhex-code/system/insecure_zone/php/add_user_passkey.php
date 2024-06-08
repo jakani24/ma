@@ -174,6 +174,7 @@ try {
         $return->msg = $msg;
         header('Content-Type: application/json');
         print(json_encode($return));
+		log_action("PASSWD::PASSKEY::ADD","User ".$_SESSION["username"]." added a passkey.",$_SESSION["id"]);
     } 
 
 } catch (Throwable $ex) {

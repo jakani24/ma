@@ -192,11 +192,6 @@ include "perms_functions.php";
 								die("Connection failed: " . $conn->connect_error);
 							}
 							
-							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
-							if ($conn->connect_error) {
-									$success=0;
-									die("Connection failed: " . $conn->connect_error);
-								}
 							$stmt = $conn->prepare("UPDATE users set email=?, username=?,perms=? WHERE id=?");
 							$stmt->bind_param("sssi", $m_email, $m_username, $m_permissions,$m_userid);
 
@@ -210,6 +205,7 @@ include "perms_functions.php";
 							//echo '<div class="alert alert-success" role="alert">
 							//			User updated successfully!
 							//		  </div>';
+							log_action("PROFILE::UPDATE::SUCCESS","User ".$_SESSION["username"]." updated another users profile ($m_username).",$_SESSION["id"]);
 							echo("<script>location.href='user_list.php'; </script>");
 						}elseif($block==1){
 							echo '<div class="alert alert-danger" role="alert">
