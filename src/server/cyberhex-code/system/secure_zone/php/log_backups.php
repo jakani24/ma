@@ -52,7 +52,7 @@ if($perms[2]!=="1"){
 							 foreach ($csvFiles as $file) {
 								$fileCreationTimes[$file] = filectime($file);
 							}
-							asort($fileCreationTimes);
+							arsort($fileCreationTimes);
 							// Loop through each file and print its name
 							foreach ($fileCreationTimes as $file=> $creationTime) {
 								echo("<tr><td>".basename($file)."</td><td><a href='/backup/".basename($file)."' download>Download</a></td></tr>");
