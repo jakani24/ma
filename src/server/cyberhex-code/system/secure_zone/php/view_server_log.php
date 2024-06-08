@@ -131,7 +131,7 @@ $conn->close();
                         $total_pages = ceil(($total_entries) / $page_size);
                         
                         // Query log entries for the current page with filters
-                        $sql = "SELECT * FROM users,server_log WHERE userid=users.id AND username LIKE ? loglevel LIKE ? AND logtext LIKE ? AND time LIKE ? ORDER BY log.id DESC LIMIT ?, ?";
+                        $sql = "SELECT * FROM users,server_log WHERE userid=users.id AND username LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND time LIKE ? ORDER BY log.id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
                        $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
