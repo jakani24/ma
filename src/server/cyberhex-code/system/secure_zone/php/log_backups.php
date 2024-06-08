@@ -43,10 +43,10 @@ if($perms[2]!=="1"){
 						<tr><th>Log backup</th><th>Download</th></tr>
 						<?php
 							// Define the directory to search for .csv (our log backup) files
-							$directory = '/var/www/html/backups';
+							$directory = '/var/www/html/backup/';
 
 							// Use glob to find all .csv files in the specified directory
-							$csvFiles = glob($directory . '/*.csv');
+							$csvFiles = glob($directory . '*.csv');
 
 							// Loop through each file and print its name
 							foreach ($csvFiles as $file) {
