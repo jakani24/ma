@@ -104,6 +104,26 @@
 						Error creating table log: ' . $conn->error .'
 				</div>';
 			}
+			
+			// Create server log table
+			$sql = "CREATE TABLE IF NOT EXISTS server_log (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				logtext VARCHAR(500) NOT NULL,
+				loglevel VARCHAR(255) NOT NULL,
+				userid INT,
+				time VARCHAR(255)
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table log created successfully!
+				</div>';
+			} else {
+				$success=0;
+					echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table log: ' . $conn->error .'
+				</div>';
+			}
 
 			// Create settings table
 			$sql = "CREATE TABLE IF NOT EXISTS settings (

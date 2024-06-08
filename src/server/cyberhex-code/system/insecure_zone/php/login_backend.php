@@ -174,6 +174,7 @@ try {
 		$_SESSION["username"]=htmlspecialchars($row["username"]);
 		$_SESSION["login"]=true;
 		$_SESSION["perms"]=$row["perms"];
+		$_SESSION["id"]=$row["id"];
 		$_SESSION["email"]=$row["email"];
 		$_SESSION["telegram_id"]=$row["telegram_id"];
 		$_SESSION["allow_pw_login"]=$row["allow_pw_login"];
