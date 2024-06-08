@@ -18,7 +18,7 @@ if($perms[2]!=="1"){
 }else{
     $block=0;
 }
-
+include "create_log_backup.php";
 // Handle filter submission
 
 $loglevel = htmlspecialchars(isset($_GET["loglevel"]) ? $_GET["loglevel"] : "");
@@ -138,6 +138,7 @@ $conn->close();
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
+								create_log_backup($conn);
                                 $sql = "DELETE FROM log WHERE id = ?";
                                 $stmt = $conn->prepare($sql);
                                 $stmt->bind_param("i", $id);
@@ -160,6 +161,7 @@ $conn->close();
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
+								create_log_backup($conn);
                                 $sql = "DELETE FROM log";
                                 $stmt = $conn->prepare($sql);
                                 // Execute the statement
