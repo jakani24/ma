@@ -11,6 +11,7 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
+include "../../../api/php/log/add_server_entry.php"; //to log things
 ?>
 <!DOCTYPE html>
 <html lang="en">

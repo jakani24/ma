@@ -8,6 +8,7 @@ if(!isset($_SESSION["2fa_auth"])){ //so only someone who has allready confirmed 
 	exit();
 }
 include "../../../api/php/notifications/sendmessage.php"; //to send user notification on login
+include "../../../api/php/log/add_server_entry.php"; //to log things
 ?>
 <!DOCTYPE html>
 <html lang="en">

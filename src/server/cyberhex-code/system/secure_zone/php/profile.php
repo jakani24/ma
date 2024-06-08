@@ -12,6 +12,7 @@ $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
 $telegram_id=$_SESSION["telegram_id"];
+include "../../../api/php/log/add_server_entry.php"; //to log things
 ?>
 <?php
 //update the info, if provided.

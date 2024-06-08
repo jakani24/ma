@@ -20,6 +20,7 @@ if($perms[0]!=="1"){
 }
 //for the get_perms_str() function
 include "perms_functions.php";
+include "../../../api/php/log/add_server_entry.php"; //to log things
 ?>
 <!DOCTYPE html>
 <html lang="en">

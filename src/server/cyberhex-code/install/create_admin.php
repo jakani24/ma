@@ -8,7 +8,9 @@
 	 <title>Change Password</title>
 </head>
 <body>
-
+<?php
+include "../../../api/php/log/add_server_entry.php"; //to log things
+?>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">

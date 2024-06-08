@@ -21,6 +21,7 @@ if($perms[6]!=="1"){
 //for the get_perms_str() function
 include "perms_functions.php";
 include "../../../config.php";
+include "../../../api/php/log/add_server_entry.php"; //to log things
 //create connection to db
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 

@@ -29,6 +29,7 @@ $machine_location = htmlspecialchars(isset($_GET["machine_location"]) ? $_GET["m
 $filter_query = "&loglevel=$loglevel&logtext=$logtext&machine_id=$machine_id&time=$time&machine_location=$machine_location";
 
 include "../../../config.php";
+include "../../../api/php/log/add_server_entry.php"; //to log things
 //get data for pie chart
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
 if ($conn->connect_error) {
