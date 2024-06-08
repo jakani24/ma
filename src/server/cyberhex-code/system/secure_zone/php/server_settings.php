@@ -25,6 +25,7 @@ $setting_server_server_url="not configured yet";
 $setting_rtp_folder_scan_status=0;
 $setting_rtp_process_scan_status=0;
 include "../../../config.php";
+include "../../../api/php/log/add_server_entry.php"; //to log things
 $conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 if ($conn->connect_error) {
 	$success=0;

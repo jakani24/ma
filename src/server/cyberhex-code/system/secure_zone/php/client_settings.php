@@ -35,6 +35,7 @@ if ($conn->connect_error) {
 }
 //we store all the functions like update,safe,load etc in this file, because else "client_settings.php" will get way to big
 include "client_settings_functions.php";
+include "../../../api/php/log/add_server_entry.php"; //to log things
 if(isset($_GET["update"])){
 	safe_settings();
 	log_action("CLIENT_SETTINGS::UPDATE::SUCCESS","User ".$_SESSION["username"]." updated some client settings.",$_SESSION["id"]);
