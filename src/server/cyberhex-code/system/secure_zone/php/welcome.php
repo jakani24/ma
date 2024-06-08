@@ -19,7 +19,7 @@ $hash = htmlspecialchars(isset($_GET["hash"]) ? $_GET["hash"] : "");
 $action = htmlspecialchars(isset($_GET["action"]) ? $_GET["action"] : "");
 $machine_location = htmlspecialchars(isset($_GET["machine_location"]) ? $_GET["machine_location"] : "");
 $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&machine_location=$machine_location";
-
+include "create_log_backup.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +56,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
+								create_dashboard_backup($conn);
                                 $sql = "DELETE FROM vir_notify WHERE id = ?";
                                 $stmt = $conn->prepare($sql);
                                 $stmt->bind_param("i", $id);
@@ -78,6 +79,7 @@ $filter_query = "&hash=$hash&path=$path&machine_id=$machine_id&action=$action&ma
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
+								create_dashboard_backup($conn);
                                 $sql = "DELETE FROM vir_notify";
                                 $stmt = $conn->prepare($sql);
                                 // Execute the statement
