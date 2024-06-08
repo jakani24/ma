@@ -27,7 +27,6 @@ function create_log_backup($conn){ //the $conn is the linker variable to the db 
 	}
 	fclose($fp);
 	$stmt->close();
-	$conn->close();
 	
 }
 
@@ -57,7 +56,6 @@ function create_dashboard_backup($conn){
 	
 	fclose($fp);
 	$stmt->close();
-	$conn->close();	
 	
 }
 

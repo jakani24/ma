@@ -316,7 +316,7 @@
 			}
 			
 			// Attempt to create the directory where export files will be stored later on
-			if (mkdir("/var/www/html/export", 0777, true)) {
+			/*if (mkdir("/var/www/html/export", 0777, true)) {
 				echo '<br><div class="alert alert-success" role="alert">
 						Created export dir successfully.
 				</div>';
@@ -348,7 +348,7 @@
 				echo '<br><div class="alert alert-danger" role="alert">
 						Error creating backup dir.
 				</div>';
-			}
+			}*/
 
 			if($success!==1){
 				echo '<br><div class="alert alert-danger" role="alert">
