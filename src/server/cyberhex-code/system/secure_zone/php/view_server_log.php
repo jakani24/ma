@@ -42,7 +42,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-     <title>View log</title>
+     <title>View server log</title>
 
 </head>
 <body>
@@ -133,17 +133,13 @@ $conn->close();
                         // Query log entries for the current page with filters
                         $sql = "SELECT * FROM users,server_log WHERE userid=users.id AND username LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND time LIKE ? ORDER BY server_log.id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
-                       $loglevel = "%" . $loglevel . "%";
+						$loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
 						$search_username = "%" . $search_username . "%";
                         $time = "%" . $time . "%";
                         $stmt->bind_param("ssssii", $search_username, $loglevel, $logtext, $time, $offset, $page_size);
                         $stmt->execute();
                         $result = $stmt->get_result();
-                        if($current_page==1){
-							echo("<div id='log_spread' style='width: 700px; height: 350px;'></div>");
-							//echo("<div style='display:none' class='col' id='machine_spread' style='width: 30%; height: auto;'></div></div>");
-						}
                         // Display log entries
                         echo '<table class="table" style="overflow-x:auto">';
                         echo '<thead>';
