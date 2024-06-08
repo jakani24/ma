@@ -47,11 +47,17 @@ if($perms[2]!=="1"){
 
 							// Use glob to find all .csv files in the specified directory
 							$csvFiles = glob($directory . '*.csv');
-
+							$fileCreationTimes = [];
+							//sort the files
+							 foreach ($csvFiles as $file) {
+								$fileCreationTimes[$file] = filectime($file);
+							}
+							asort($fileCreationTimes);
 							// Loop through each file and print its name
-							foreach ($csvFiles as $file) {
+							foreach ($fileCreationTimes as $file) {
 								echo("<tr><td>".basename($file)."</td><td><a href='/backup/".basename($file)."' download>Download</a></td></tr>");
 							}
+ 
 						?>
 					
 					</table>
