@@ -79,6 +79,8 @@ if(isset($_GET["page"])){
 				echo('<li><a href="index.php?page=export_log.php">Export Log</a></li>');
 			if($perms[2]=="1")
 				echo('<li><a href="index.php?page=log_backups.php">Log Backups</a></li>');
+			if($perms[2]=="1")
+				echo('<li><a href="index.php?page=view_server_log.php">Server Log</a></li>');
 			?>
 		  </ul>
 		  <?php
