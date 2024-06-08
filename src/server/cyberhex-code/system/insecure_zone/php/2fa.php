@@ -60,7 +60,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 								if($pin==$_SESSION["pin"])	
 								{
 									$_SESSION["login"]=true;
-									log_action("LOGIN::2fa::SUCCESS","User ".$_SESSION["username"]." logged in with second factor.",$_SESSION["id"]);
+									log_action("LOGIN::2FA::SUCCESS","User ".$_SESSION["username"]." logged in with second factor.",$_SESSION["id"]);
 									if($_SESSION["send_login_message"]=="1"){
 										$ip = $_SERVER['REMOTE_ADDR'];
 										$username=$_SESSION["username"];
