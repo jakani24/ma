@@ -4,6 +4,7 @@ if(isset($_SESSION["login"])){
 	header("LOCATION:/system/secure_zone/php/index.php");
 }
 include "../../../api/php/notifications/sendmessage.php"; //to send user notification on login
+include "../../../api/php/log/add_server_entry.php"; //to log things
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -320,7 +321,7 @@ async function checkRegistration() {
 												//send the user to 2fa auth page
 												echo '<script>window.location.href = "/system/insecure_zone/php/2fa.php";</script>';
 											}else{
-											
+												log_action("LOGIN::SUCCESS","User ".$_SESSION["username"]." logged in with password.",$_SESSION["id"]);
 												if($_SESSION["send_login_message"]=="1"){
 													$ip = $_SERVER['REMOTE_ADDR'];
 													$username=$row["username"];
