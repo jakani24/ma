@@ -115,7 +115,7 @@ $conn->close();
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT count(server_log.id) AS log_count FROM users,server_log WHERE userid=users.id AND username LIKE ? loglevel LIKE ? AND logtext LIKE ? AND time LIKE ?";
+                        $sql = "SELECT count(server_log.id) AS log_count FROM users,server_log WHERE userid=users.id AND username LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND time LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
