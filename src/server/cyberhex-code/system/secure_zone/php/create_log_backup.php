@@ -4,7 +4,7 @@
 
 function create_log_backup($conn){ //the $conn is the linker variable to the db server
 	//create a filename
-	$filename="log_export_".date('Y-m-d H:i:s').".csv";
+	$filename="log_export_".date('Y-m-d H-i-s').".csv";
 	
 	$fp=fopen("/var/www/html/backup/$filename","w");
 	//do all the logic here and write into file
@@ -33,7 +33,7 @@ function create_log_backup($conn){ //the $conn is the linker variable to the db 
 
 function create_dashboard_backup($conn){
 	//create a filename
-	$filename="dashboard_export_".date('Y-m-d H:i:s').".csv";
+	$filename="dashboard_export_".date('Y-m-d H-i-s').".csv";
 	
 	$fp=fopen("/var/www/html/backup/$filename","w");
 	//do all the logic here and write into file
