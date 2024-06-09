@@ -93,7 +93,7 @@ if(isset($_GET["delete_old"])){
                 <div class="card-body" style="overflow-x:auto">
                     <!-- list the log file backups -->
 					<h5>In order to ensure no attacker can delete evidence, you cannot delete these log backups unless they are older then 90 days!</h5>
-					<a href="log_backups.php?delete_old">Delete old log files</a>
+					<a class="btn btn-danger" href="log_backups.php?delete_old">Delete old log files</a>
 					<table class="table">
 						<tr><th>Log backup</th><th>Download</th></tr>
 						<?php
