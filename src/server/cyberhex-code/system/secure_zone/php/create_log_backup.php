@@ -67,22 +67,22 @@ function create_server_log_backup($conn){
 	$fp=fopen("/var/www/html/backup/$filename","w");
 	//do all the logic here and write into file
 	// Query log entries for the export file
-	$sql = "SELECT * FROM machines,vir_notify WHERE machine_name=machine_id ORDER BY vir_notify.id DESC";
+	$sql = "SELECT * FROM users,server_log WHERE (userid=users.id OR userid=-1) ORDER BY server_log.id DESC";
 	$stmt = $conn->prepare($sql);
 
 	$stmt->execute();
 	$result = $stmt->get_result();
 
-	fwrite ($fp,"Entry id;Machine id;Machine Location;Path;Hash;Action taken\n");
+	fwrite ($fp,"Entry id;Loglevel;Logtext;Username;Time\n");
 	//now add entrys
 	while ($row = $result->fetch_assoc()) {
 		fwrite($fp,$row["id"] . ';');
-		fwrite($fp,$row["machine_id"] . ';');
-		fwrite($fp,$row["machine_location"] . ';');
-		fwrite($fp,$row["path"] . ';');
-		fwrite($fp,$row["hash"] . ';');
-		fwrite($fp,$row["action"] . ";\n");
+		fwrite($fp,$row["loglevel"] . ';');
+		fwrite($fp,$row["logtext"] . ';');
+		fwrite($fp,$row["username"] . ';');
+		fwrite($fp,$row["time"] . ';\n');
 	}
+
 	
 	fclose($fp);
 	$stmt->close();
