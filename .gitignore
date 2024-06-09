@@ -50,3 +50,12 @@
 /src/client_backend/.vs
 /src/client_backend/x64
 /src/client_backend/client_backend
+/src/client_frontend/.vs
+/src/client_frontend/x64
+/src/client_frontend/client_frontend
+/src/ma_installer/.vs
+/src/ma_installer/x64
+/src/ma_installer/ma_installer
+/src/ma_uninstaller/.vs
+/src/ma_uninstaller/x64
+/src/ma_uninstaller/ma_uninstaller
