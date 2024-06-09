@@ -28,13 +28,8 @@ $time = htmlspecialchars(isset($_GET["time"]) ? $_GET["time"] : "");
 $filter_query = "&loglevel=$loglevel&logtext=$logtext&username=$search_username&time=$time";
 
 include "../../../config.php";
-//get data for pie chart
-$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE);
-if ($conn->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
-}
 
-$conn->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

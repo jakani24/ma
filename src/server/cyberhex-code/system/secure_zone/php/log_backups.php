@@ -15,6 +15,60 @@ if($perms[2]!=="1"){
     header("location:/system/insecure_zone/php/no_access.php");
     exit();
 }
+
+//to delete old log files
+function delete_old_files($directory, $days) {
+    // Ensure the directory path ends with a slash
+    if (substr($directory, -1) !== DIRECTORY_SEPARATOR) {
+        $directory .= DIRECTORY_SEPARATOR;
+    }
+
+    // Get the current time
+    $now = time();
+	$deleted_files=0;
+    // Open the directory
+    if ($handle = opendir($directory)) {
+        // Loop through each file in the directory
+        while (false !== ($file = readdir($handle))) {
+            // Skip . and .. special entries
+            if ($file !== '.' && $file !== '..') {
+                // Get the full path of the file
+                $filePath = $directory . $file;
+
+                // Check if it's a file (skip directories)
+                if (is_file($filePath)) {
+                    // Get the file's modification time
+                    $fileModTime = filemtime($filePath);
+
+                    // Calculate the file age in seconds
+                    $fileAge = $now - $fileModTime;
+
+                    // Convert the days to seconds and check if the file is older than the specified number of days
+                    if ($fileAge > ($days * 24 * 60 * 60)) {
+                        // Delete the file
+                        unlink($filePath);
+						$deleted_files++;
+                    }
+                }
+            }
+        }
+        // Close the directory handle
+        closedir($handle);
+    }
+	return $deleted_files;
+}
+if(isset($_GET["delete_old"])){
+	if($perms[3]!=="1"){
+		echo '<div class="alert alert-danger" role="alert">
+						You are not allowed to delete log entries. (insufficient permissions)
+		</div>';
+	}else{
+		$deleted_files=delete_old_files("/var/www/html/backup/",90);
+		echo '<div class="alert alert-success" role="alert">
+						Deleted '.$deleted_files.' files.
+		</div>';
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +92,8 @@ if($perms[2]!=="1"){
                 </div>
                 <div class="card-body" style="overflow-x:auto">
                     <!-- list the log file backups -->
-					<h5>In order to ensure no attacker can delete evidence, you cannot delete these log backups!</h5>
+					<h5>In order to ensure no attacker can delete evidence, you cannot delete these log backups unless they are older then 90 days!</h5>
+					<a href="log_backups.php?delete_old">Delete old log files</a>
 					<table class="table">
 						<tr><th>Log backup</th><th>Download</th></tr>
 						<?php
