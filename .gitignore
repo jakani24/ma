@@ -47,3 +47,4 @@
 *.db-shm
 *.db-wal
 *.opendb
+/src/client_backend/.vs
