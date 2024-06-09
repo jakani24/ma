@@ -102,14 +102,16 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							$username=$row["username"];
 							$email=$row["email"];
 							$perms=$row["perms"];
-							echo('<tr>');
-								echo('<td>'.$last_id.'</td>');
-								echo('<td>'.$username.'</td>');
-								echo('<td>'.$email.'</td>');
-								echo('<td>'.$perms.'</td>');
-								echo('<td><a href="manage_user.php?userid='.$last_id.'">manage</a></td>');
-								echo('<td><a href="user_list.php?delete='.$last_id.'">delete</a></td>');
-							echo('</tr>');
+							if($last_id!=1){ //number 1 is the unauthenticated user
+								echo('<tr>');
+									echo('<td>'.$last_id.'</td>');
+									echo('<td>'.$username.'</td>');
+									echo('<td>'.$email.'</td>');
+									echo('<td>'.$perms.'</td>');
+									echo('<td><a href="manage_user.php?userid='.$last_id.'">manage</a></td>');
+									echo('<td><a href="user_list.php?delete='.$last_id.'">delete</a></td>');
+								echo('</tr>');
+							}
 							$stmt->close();
 							$num_of_users--;
 						}
