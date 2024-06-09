@@ -115,7 +115,7 @@ $conn->close();
                         if ($conn->connect_error) {
                             die("Connection failed: " . $conn->connect_error);
                         }
-                        $sql = "SELECT count(server_log.id) AS log_count FROM users,server_log WHERE userid=users.id AND username LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND time LIKE ?";
+                        $sql = "SELECT count(server_log.id) AS log_count FROM users,server_log WHERE (userid=users.id OR userid=0) AND username LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND time LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
@@ -131,7 +131,7 @@ $conn->close();
                         $total_pages = ceil(($total_entries) / $page_size);
                         
                         // Query log entries for the current page with filters
-                        $sql = "SELECT * FROM users,server_log WHERE userid=users.id AND username LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND time LIKE ? ORDER BY server_log.id DESC LIMIT ?, ?";
+                        $sql = "SELECT * FROM users,server_log WHERE (userid=users.id OR userid=0) AND username LIKE ? AND loglevel LIKE ? AND logtext LIKE ? AND time LIKE ? ORDER BY server_log.id DESC LIMIT ?, ?";
                         $stmt = $conn->prepare($sql);
 						$loglevel = "%" . $loglevel . "%";
                         $logtext = "%" . $logtext . "%";
