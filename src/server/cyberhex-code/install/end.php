@@ -26,6 +26,8 @@
 								$success=0;
 							}if(!unlink("create_db.php")){
 								$success=0;
+							}if(!unlink("add_passkey.php")){
+								$success=0;
 							}*/
 							if($success!==1){
 								echo '<br><div class="alert alert-danger" role="alert">
