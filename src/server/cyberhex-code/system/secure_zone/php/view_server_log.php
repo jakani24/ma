@@ -25,7 +25,7 @@ $loglevel = htmlspecialchars(isset($_GET["loglevel"]) ? $_GET["loglevel"] : "");
 $logtext = htmlspecialchars(isset($_GET["logtext"]) ? $_GET["logtext"] : "");
 $search_username = htmlspecialchars(isset($_GET["username"]) ? $_GET["username"] : "");
 $time = htmlspecialchars(isset($_GET["time"]) ? $_GET["time"] : "");
-$filter_query = "&loglevel=$loglevel&logtext=$logtext&username=$username&time=$time";
+$filter_query = "&loglevel=$loglevel&logtext=$logtext&username=$search_username&time=$time";
 
 include "../../../config.php";
 //get data for pie chart
