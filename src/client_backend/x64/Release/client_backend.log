@@ -1,4 +1,0 @@
-﻿  client_backend.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\client_backend.cpp(2,10): fatal  error C1083: Datei (Include) kann nicht geöffnet werden: "openssl/md5.h": No such file or directory
-  md5hash.cpp
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\md5hash.h(3,10): fatal  error C1083: Datei (Include) kann nicht geöffnet werden: "openssl/md5.h": No such file or directory

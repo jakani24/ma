@@ -1,3 +1,0 @@
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.exe
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\libcrypto-3-x64.dll
-C:\Users\janis\Documents\Projekte_mit_c\ma\ma\src\client_backend\x64\Debug\client_backend.vcxproj.CopyComplete
