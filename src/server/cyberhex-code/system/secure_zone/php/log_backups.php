@@ -89,7 +89,7 @@ function delete_old_files($directory, $days) {
 												You are not allowed to delete log entries. (insufficient permissions)
 								</div>';
 							}else{
-								$deleted_files=delete_old_files("/var/www/html/backup/",1);
+								$deleted_files=delete_old_files("/var/www/html/backup/",90);
 								echo '<br><div class="alert alert-success" role="alert">
 												Deleted '.$deleted_files.' files.
 								</div>';
