@@ -51,6 +51,13 @@ include "../api/php/log/add_server_entry.php"; //to log things
 								$success=0;
 								die("Connection failed: " . $conn->connect_error);
 							}
+							
+							//create the unauth user
+							$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms,allow_pw_login,send_login_message,use_2fa) VALUES ('unauth@cyberhex.local', 'not_authenticated_user', 'this_user_does_not_have_a_password', '000000000000000',0,0,0)");
+							$stmt->execute();
+							$stmt->close();
+							
+							
 							$stmt = $conn->prepare("INSERT INTO users (email, username, password,perms,allow_pw_login,send_login_message,use_2fa) VALUES (?, ?, ?, ?,1,0,0)");
 							$stmt->bind_param("ssss", $email, $username, $hash, $permissions);
 							

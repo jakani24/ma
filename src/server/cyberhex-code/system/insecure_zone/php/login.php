@@ -331,7 +331,7 @@ async function checkRegistration() {
 											}
 											exit();
 										} else {
-											log_action("LOGIN::FAILURE","User ".$username." entered wrong password.",-1);
+											log_action("LOGIN::FAILURE","User ".$username." entered wrong password.",1);
 											echo '<div class="alert alert-danger" role="alert">
 													Incorrect username or password.
 												  </div>';
@@ -343,7 +343,7 @@ async function checkRegistration() {
 										  </div>';
 									}
 								} else {
-									log_action("LOGIN::FAILURE","User ".$username." entered unknown username.",-1);
+									log_action("LOGIN::FAILURE","User ".$username." entered unknown username.",1);
 									echo '<div class="alert alert-danger" role="alert">
 											Incorrect username or password.
 										  </div>';
