@@ -80,7 +80,7 @@ function create_server_log_backup($conn){
 		fwrite($fp,$row["loglevel"] . ';');
 		fwrite($fp,$row["logtext"] . ';');
 		fwrite($fp,$row["username"] . ';');
-		fwrite($fp,$row["time"] . ';\n');
+		fwrite($fp,$row["time"] . ";\n");
 	}
 
 	
