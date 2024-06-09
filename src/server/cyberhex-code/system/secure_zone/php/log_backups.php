@@ -57,18 +57,6 @@ function delete_old_files($directory, $days) {
     }
 	return $deleted_files;
 }
-if(isset($_GET["delete_old"])){
-	if($perms[3]!=="1"){
-		echo '<div class="alert alert-danger" role="alert">
-						You are not allowed to delete log entries. (insufficient permissions)
-		</div>';
-	}else{
-		$deleted_files=delete_old_files("/var/www/html/backup/",90);
-		echo '<div class="alert alert-success" role="alert">
-						Deleted '.$deleted_files.' files.
-		</div>';
-	}
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,6 +82,20 @@ if(isset($_GET["delete_old"])){
                     <!-- list the log file backups -->
 					<h5>In order to ensure no attacker can delete evidence, you cannot delete these log backups unless they are older then 90 days!</h5>
 					<a class="btn btn-danger" href="log_backups.php?delete_old">Delete old log files</a>
+					<?php
+					if(isset($_GET["delete_old"])){
+							if($perms[3]!=="1"){
+								echo '<div class="alert alert-danger" role="alert">
+												You are not allowed to delete log entries. (insufficient permissions)
+								</div>';
+							}else{
+								$deleted_files=delete_old_files("/var/www/html/backup/",90);
+								echo '<div class="alert alert-success" role="alert">
+												Deleted '.$deleted_files.' files.
+								</div>';
+							}
+						}
+					?>
 					<table class="table">
 						<tr><th>Log backup</th><th>Download</th></tr>
 						<?php
