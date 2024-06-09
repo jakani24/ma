@@ -85,12 +85,12 @@ function delete_old_files($directory, $days) {
 					<?php
 					if(isset($_GET["delete_old"])){
 							if($perms[3]!=="1"){
-								echo '<div class="alert alert-danger" role="alert">
+								echo '<br><div class="alert alert-danger" role="alert">
 												You are not allowed to delete log entries. (insufficient permissions)
 								</div>';
 							}else{
-								$deleted_files=delete_old_files("/var/www/html/backup/",90);
-								echo '<div class="alert alert-success" role="alert">
+								$deleted_files=delete_old_files("/var/www/html/backup/",1);
+								echo '<br><div class="alert alert-success" role="alert">
 												Deleted '.$deleted_files.' files.
 								</div>';
 							}
