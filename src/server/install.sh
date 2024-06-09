@@ -1,9 +1,9 @@
 #!/bin/bash
 docker volume create cyberhex-db-storage
-mkdir -p /var/www/html/database_srv
-mkdir -p /var/www/html/export
-mkdir -p /var/www/html/import
-chown -R www-data:www-data /var/www/html/export/
-chown -R www-data:www-data /var/www/html/import/
-chown -R www-data:www-data /var/www/html/install/
-chown -R www-data:www-data /var/www/html/database_srv/
+mkdir -p cyberhex-code/database_srv
+mkdir -p cyberhex-code/export
+mkdir -p cyberhex-code/import
+chown -R www-data:www-data cyberhex-code/export/
+chown -R www-data:www-data cyberhex-code/import/
+chown -R www-data:www-data cyberhex-code/install/
+chown -R www-data:www-data cyberhex-code/database_srv/
