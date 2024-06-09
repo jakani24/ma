@@ -69,7 +69,7 @@ $conn->close();
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
-								create_log_backup($conn);
+								create__server_log_backup($conn);
                                 $sql = "DELETE FROM server_log WHERE id = ?";
                                 $stmt = $conn->prepare($sql);
                                 $stmt->bind_param("i", $id);
@@ -92,7 +92,7 @@ $conn->close();
                                 if ($conn->connect_error) {
                                     die("Connection failed: " . $conn->connect_error);
                                 }
-								create_log_backup($conn);
+								create__server_log_backup($conn);
                                 $sql = "DELETE FROM server_log";
                                 $stmt = $conn->prepare($sql);
                                 // Execute the statement
