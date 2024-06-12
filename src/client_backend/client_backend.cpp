@@ -8,6 +8,8 @@ Functions:
 #pragma warning(disable:4996)
 #include <iostream>
 #include <thread>
+#include <windows.h>
+#include <wininet.h>
 #include <curl/curl.h>
 #include <openssl/md5.h>
 #include <yara.h>
@@ -31,7 +33,7 @@ Functions:
 
 
 int main(int argc, char* argv[]) {
-
+    //printf("%d",InternetCheckConnection("https://www.google.com", FLAG_ICC_FORCE_CONNECTION, 0));
     log(LOGLEVEL::INFO_NOSEND, "[main()]:Starting main thread.");
     int err = 0;
     printf("welcome to the jakach security tool main thread\n");
