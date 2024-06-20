@@ -59,19 +59,19 @@ if(isset($_GET["add_todolist"])){
                 <div class="card-body">
 					<ul class="nav nav-tabs">
 					  <li class="nav-item">
-						<a class="nav-link" href="manage_incident.php?show=overview" id="overview_tab">Overview</a>
+						<a class="nav-link" href="manage_incident.php?show=overview&incident_id=<?php echo($_GET["incident_id"]); ?>" id="overview_tab">Overview</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="manage_incident.php?show=evidence" id="evidence_tab">Files / Evidence</a>
+						<a class="nav-link" href="manage_incident.php?show=evidence&incident_id=<?php echo($_GET["incident_id"]); ?>" id="evidence_tab">Files / Evidence</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="manage_incident.php?show=chat" id="chat_tab">Chat</a>
+						<a class="nav-link" href="manage_incident.php?show=chat&incident_id=<?php echo($_GET["incident_id"]); ?>" id="chat_tab">Chat</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="manage_incident.php?show=todo" id="todo_tab">Todo</a>
+						<a class="nav-link" href="manage_incident.php?show=todo&incident_id=<?php echo($_GET["incident_id"]); ?>" id="todo_tab">Todo</a>
 					  </li>
 					  <li class="nav-item">
-						<a class="nav-link" href="manage_incident.php?show=settings" id="settings_tab">Incident Settings</a>
+						<a class="nav-link" href="manage_incident.php?show=settings&incident_id=<?php echo($_GET["incident_id"]); ?>" id="settings_tab">Incident Settings</a>
 					  </li>
 					  
 
