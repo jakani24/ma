@@ -28,6 +28,14 @@ if ($conn->connect_error) {
 
 include "../../../api/php/log/add_server_entry.php"; //to log things
 
+if(isset($_GET["add_todolist"])){
+	$name=htmlspecialchars($_POST["name"]);
+	$sql="INSERT INTO todo_lists (name) VALUES(?)";
+	$stmt->bind_param("s", $name);
+	$name=htmlspecialchars($_POST["name"]);
+	$stmt->execute();
+	$stmt->close();	
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +84,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 						
 					</div>
 					<div id="todo" style="display:none">
-						!!Add todo list!!
+						<a data-bs-target="#add_todo" data-bs-toggle="modal" href="#add_todo" class="btn btn-primary">Add a todo list</a>
 						<?php
 							//list todos from all lists
 							
@@ -117,6 +125,26 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 					</div>
                 </div>
             </div>
+			<div class="modal fade" id="add_todo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+			  <div class="modal-dialog">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Permission Explanation</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				  </div>
+				  <div class="modal-body">
+					<form action="manage_incident.php?add_todolist=true" method="post">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+						<br>
+                        <button type="submit" class="btn btn-primary btn-block">Create todo list</button>
+                    </form>
+				  </div>
+				</div>
+			  </div>
+			</div>
         </div>
     </div>
 </div>
