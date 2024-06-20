@@ -69,6 +69,9 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							$stmt->execute();
 							$stmt->close();
 							$conn->close();
+							//add direcotrys etc
+							
+							
 							echo '<div class="alert alert-success" role="alert">
 										Incident added successfully!
 									  </div>';
