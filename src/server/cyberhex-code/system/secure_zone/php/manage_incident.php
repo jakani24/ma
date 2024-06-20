@@ -76,7 +76,41 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 						
 					</div>
 					<div id="todo" style="display:none">
+						!!Add todo list!!
+						<?php
+							//list todos from all lists
+							
+							//list todos -> list each entry of each todo
+							
+							
+							$sql_lists = "SELECT id, name FROM todo_lists";
+							$result_lists = $conn->query($sql_lists);
+
+							if ($result_lists->num_rows > 0) {
+								// Output data of each to-do list
+								while($list = $result_lists->fetch_assoc()) {
+									echo "<h2>" . $list["name"] . "</h2>";
+
+									$list_id = $list["id"];
+									$sql_entries = "SELECT * FROM entries WHERE belongs_to_list = $list_id";
+									$result_entries = $conn->query($sql_entries);
+
+									if ($result_entries->num_rows > 0) {
+										// Output data of each entry
+										echo "<ul>";
+										while($entry = $result_entries->fetch_assoc()) {
+											echo "<li>" . $entry["text"] . " (Done: " . $entry["done"] . ", Done By: " . $entry["done_by"] . ")</li>";
+										}
+										echo "</ul>";
+									} else {
+										echo "No entries for this list.";
+									}
+								}
+							} else {
+								echo "No to-do lists found.";
+							}
 						
+						?>
 					</div>
 					<div id="settings" style="display:none">
 						
