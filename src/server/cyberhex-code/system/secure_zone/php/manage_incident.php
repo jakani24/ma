@@ -30,7 +30,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 
 if(isset($_GET["add_todolist"])){
 	$name=htmlspecialchars($_POST["name"]);
-	$incident_id=htmlspecialchars($_GET("incident_id"]);
+	$incident_id=htmlspecialchars($_GET["incident_id"]);
 	$sql="INSERT INTO todo_lists (name,belongs_to_incident) VALUES(?,?)";
 	$stmt->bind_param("si", $name,$incident_id);
 	$name=htmlspecialchars($_POST["name"]);
