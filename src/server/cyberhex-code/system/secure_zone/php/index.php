@@ -116,12 +116,10 @@ if(isset($_GET["page"])){
 		   ?>
 		   <ul>
 		  <?php
-			if($perms[9]=="1")
+			if($perms[9]=="1" or $perms[10]=="1")
 				echo('<li><a href="index.php?page=manage_incident.php">View Incidents</a></li>');
-		   ?>
-		  <?php
 			if($perms[10]=="1")
-				echo('<li><a href="index.php?page=manage_incident.php">Manage Incidents</a></li>');
+				echo('<li><a href="index.php?page=add_incident.php">Add Incident</a></li>');
 		   ?>
 		  </ul>
 

@@ -44,7 +44,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Client settings</h4>
+                    <h4>Incident</h4>
                 </div>
                 <div class="card-body">
 					<ul class="nav nav-tabs">
