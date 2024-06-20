@@ -155,7 +155,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				1 Database Settings<br>
 				1 Add Clients<br>
 				1 Client List (manage)<br>
-				1 Reserved for later use
+				1 View Incidents<br>
+				1 Manage Incidents<br>
 			  </div>
 			</div>
 		  </div>

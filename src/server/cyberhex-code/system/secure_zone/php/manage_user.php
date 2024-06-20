@@ -171,6 +171,26 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 									echo('<td><input type="checkbox" name="delete_clients"></td>');
 								?>
 							</tr>
+							<tr>
+							  <th scope="row">10</th>
+							  <td>View Incidents</td>
+							  <?php
+								if($m_permissions[8]=="1")
+									echo('<td><input type="checkbox" name="view_incidents" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="view_incidents"></td>');
+								?>
+							</tr>
+							<tr>
+							  <th scope="row">11</th>
+							  <td>Manage Incidents</td>
+							  <?php
+								if($m_permissions[8]=="1")
+									echo('<td><input type="checkbox" name="manage_incidents" checked></td>');
+								else
+									echo('<td><input type="checkbox" name="manage_incidents"></td>');
+								?>
+							</tr>
 						  </tbody>
 						</table>
 

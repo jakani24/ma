@@ -109,6 +109,17 @@ if(isset($_GET["page"])){
 				echo('<li><a href="index.php?page=client_list.php">Client List</a></li>');
 		   ?>
 		  </ul>
+		  
+		   <?php
+				if($perms[9]=="1")
+					echo("<p>Incidents</p>");
+		   ?>
+		   <ul>
+		  <?php
+			if($perms[9]=="1")
+				echo('<li><a href="index.php?page=manage_incident.php">View / Manage Incidents</a></li>');
+		   ?>
+		  </ul>
 
 		</div>
 

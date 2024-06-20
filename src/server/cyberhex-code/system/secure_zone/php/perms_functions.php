@@ -12,7 +12,9 @@ function get_perm_str(){
 	$p7 = isset( $_POST["database_settings"]);
 	$p8 = isset($_POST["add_clients"]);
 	$p9 = isset($_POST["delete_clients"]);
-	$p10 = "0";
+	$p10 = isset($_POST["view_incidents"]);
+	$p11 = isset($_POST["manage_incidents"]);
+	//$p10 = "0";
 	
 	//init the permission string
 	$perms_str="";
@@ -54,6 +56,10 @@ function get_perm_str(){
 	else
 		$perms_str.="0";
 	if($p10==1)
+		$perms_str.="1";
+	else
+		$perms_str.="0";
+	if($p11==1)
 		$perms_str.="1";
 	else
 		$perms_str.="0";

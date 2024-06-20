@@ -42,7 +42,7 @@ include "../api/php/log/add_server_entry.php"; //to log things
 							$email=htmlspecialchars($_POST["email"]);
 							$username=htmlspecialchars($_POST["username"]);
 							$password=htmlspecialchars($_POST["password"]);
-							$permissions="1111111111";
+							$permissions="11111111111";
 							// Create connection
 							$conn = new mysqli($DB_SERVERNAME, $DB_USERNAME, $DB_PASSWORD,$DB_DATABASE);
 
@@ -64,7 +64,7 @@ include "../api/php/log/add_server_entry.php"; //to log things
 							$email=htmlspecialchars($_POST["email"]);
 							$username=htmlspecialchars($_POST["username"]);
 							$password=$_POST["password"];
-							$permissions="1111111111";
+							$permissions="11111111111";
 							$hash=password_hash($password, PASSWORD_BCRYPT);
 							
 							$stmt->execute();
