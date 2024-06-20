@@ -83,6 +83,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							
 							$conn->close();
 							//add direcotrys etc
+							mkdir("/var/www/html/incidents/$incident_id/");
 							mkdir("/var/www/html/incidents/$incident_id/evidence");
 							
 							echo '<div class="alert alert-success" role="alert">
