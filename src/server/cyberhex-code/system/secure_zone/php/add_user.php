@@ -109,12 +109,12 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							  <td><input type="checkbox" name="delete_clients"></td>
 							</tr>
 							<tr>
-							  <th scope="row">9</th>
+							  <th scope="row">10</th>
 							  <td>View Incidents</td>
 							  <td><input type="checkbox" name="view_incidents"></td>
 							</tr>
 							<tr>
-							  <th scope="row">9</th>
+							  <th scope="row">11</th>
 							  <td>Manage Incidents</td>
 							  <td><input type="checkbox" name="manage_incidents"></td>
 							</tr>

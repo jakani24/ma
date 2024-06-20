@@ -175,7 +175,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							  <th scope="row">10</th>
 							  <td>View Incidents</td>
 							  <?php
-								if($m_permissions[8]=="1")
+								if($m_permissions[9]=="1")
 									echo('<td><input type="checkbox" name="view_incidents" checked></td>');
 								else
 									echo('<td><input type="checkbox" name="view_incidents"></td>');
@@ -185,7 +185,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							  <th scope="row">11</th>
 							  <td>Manage Incidents</td>
 							  <?php
-								if($m_permissions[8]=="1")
+								if($m_permissions[10]=="1")
 									echo('<td><input type="checkbox" name="manage_incidents" checked></td>');
 								else
 									echo('<td><input type="checkbox" name="manage_incidents"></td>');
