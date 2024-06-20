@@ -43,6 +43,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
                             <label for="keyword">Short description / keywords:</label>
                             <input type="text" class="form-control" id="keyword" name="keyword" required>
                         </div>
+						<br>
                         <button type="submit" class="btn btn-primary btn-block">Create incident</button>
                     </form>
 					<br>

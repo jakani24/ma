@@ -87,14 +87,12 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							$last_id=$row["id"];
 							$status=$row["status"];
 							$description=$row["description"];
-							if($last_id!=1){ //number 1 is the unauthenticated user
-								echo('<tr>');
-									echo('<td>'.$last_id.'</td>');
-									echo('<td>'.$status.'</td>');
-									echo('<td>'.$description.'</td>');
-									echo('<td><a href="manage_incident.php?incident_id='.$last_id.'">Goto Incident</a></td>');
-								echo('</tr>');
-							}
+							echo('<tr>');
+								echo('<td>'.$last_id.'</td>');
+								echo('<td>'.$status.'</td>');
+								echo('<td>'.$description.'</td>');
+								echo('<td><a href="manage_incident.php?incident_id='.$last_id.'">Goto Incident</a></td>');
+							echo('</tr>');
 							$stmt->close();
 							$num_of_incidents--;
 						}
