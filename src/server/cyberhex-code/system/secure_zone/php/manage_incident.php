@@ -32,6 +32,7 @@ if(isset($_GET["add_todolist"])){
 	$name=htmlspecialchars($_POST["name"]);
 	$incident_id=htmlspecialchars($_GET["incident_id"]);
 	$sql="INSERT INTO todo_lists (name,belongs_to_incident) VALUES(?,?)";
+	$stmt = $conn->prepare($sql);
 	$stmt->bind_param("si", $name,$incident_id);
 	$name=htmlspecialchars($_POST["name"]);
 	$incident_id=htmlspecialchars($_GET["incident_id"]);
