@@ -105,7 +105,7 @@ if(isset($_GET["add_todolist"])){
 									echo "<h2>" . $list["name"] . "</h2>";
 
 									$list_id = $list["id"];
-									$sql_entries = "SELECT * FROM entries WHERE belongs_to_list = $list_id";
+									$sql_entries = "SELECT * FROM todo_items WHERE belongs_to_list = $list_id";
 									$result_entries = $conn->query($sql_entries);
 
 									if ($result_entries->num_rows > 0) {
