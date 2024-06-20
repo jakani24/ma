@@ -115,12 +115,12 @@ if(isset($_GET["page"])){
 					echo("<p>Incidents</p>");
 		   ?>
 		   <ul>
-		   <ul>
 		  <?php
 			if($perms[9]=="1")
 				echo('<li><a href="index.php?page=manage_incident.php">View Incidents</a></li>');
 		   ?>
 		  </ul>
+		  <ul>
 		  <?php
 			if($perms[10]=="1")
 				echo('<li><a href="index.php?page=manage_incident.php">Manage Incidents</a></li>');
