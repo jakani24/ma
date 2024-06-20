@@ -30,9 +30,11 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 
 if(isset($_GET["add_todolist"])){
 	$name=htmlspecialchars($_POST["name"]);
-	$sql="INSERT INTO todo_lists (name) VALUES(?)";
-	$stmt->bind_param("s", $name);
+	$incident_id=htmlspecialchars($_GET"incident_id"]);
+	$sql="INSERT INTO todo_lists (name,belongs_to_incident) VALUES(?,?)";
+	$stmt->bind_param("si", $name,$incident_id);
 	$name=htmlspecialchars($_POST["name"]);
+	$incident_id=htmlspecialchars($_GET["incident_id"]);
 	$stmt->execute();
 	$stmt->close();	
 }
@@ -91,7 +93,9 @@ if(isset($_GET["add_todolist"])){
 							//list todos -> list each entry of each todo
 							
 							
-							$sql_lists = "SELECT id, name FROM todo_lists";
+							$sql_lists = "SELECT id, name FROM todo_lists WHERE belongs_to_incident = ?";
+							$incident_id=htmlspecialchars($_GET["incident_id"]);
+							$stmt->bind_param("i", $incident_id);
 							$result_lists = $conn->query($sql_lists);
 
 							if ($result_lists->num_rows > 0) {
@@ -133,7 +137,7 @@ if(isset($_GET["add_todolist"])){
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				  </div>
 				  <div class="modal-body">
-					<form action="manage_incident.php?add_todolist=true" method="post">
+					<form action="manage_incident.php?add_todolist=true&incident_id=<?php echo($_GET["incident_id"]); ?>" method="post">
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input type="text" class="form-control" id="name" name="name" required>
