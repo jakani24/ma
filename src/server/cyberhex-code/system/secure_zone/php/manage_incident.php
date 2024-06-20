@@ -96,6 +96,7 @@ if(isset($_GET["add_todolist"])){
 							$sql_lists = "SELECT id, name FROM todo_lists WHERE belongs_to_incident = ?";
 							$incident_id=htmlspecialchars($_GET["incident_id"]);
 							$stmt->bind_param("i", $incident_id);
+							$incident_id=htmlspecialchars($_GET["incident_id"]);
 							$result_lists = $conn->query($sql_lists);
 
 							if ($result_lists->num_rows > 0) {
