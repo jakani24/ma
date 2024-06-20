@@ -68,9 +68,22 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							
 							$stmt->execute();
 							$stmt->close();
+							
+							//get id of this incident
+							$stmt = $conn->prepare("SELECT id FROM incidents WHERE description = ?");
+							$stmt->bind_param("s", $keyword);
+
+							$keyword=htmlspecialchars($_POST["keyword"]);
+							
+							$stmt->execute();
+							$result = $stmt->get_result();
+							$row = $result->fetch_assoc();
+							$incident_id=$row["id"];
+							$stmt->close();
+							
 							$conn->close();
 							//add direcotrys etc
-							
+							mkdir("/var/www/html/incidents/$incident_id/evidence");
 							
 							echo '<div class="alert alert-success" role="alert">
 										Incident added successfully!
