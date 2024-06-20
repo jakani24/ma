@@ -46,7 +46,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
                         <button type="submit" class="btn btn-primary btn-block">Create incident</button>
                     </form>
 					<br>
-					<!-- php code to add user-->
+					<!-- php code to add incidents-->
 					<?php
 						// Check if the form is submitted
 						if ($_SERVER["REQUEST_METHOD"] == "POST" and $block==0) {
@@ -72,6 +72,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 										Incident added successfully!
 									  </div>';
 							log_action("INCIDENT::ADD::SUCCESS","User ".$_SESSION["username"]." added an incident.",$_SESSION["id"]);	
+						}
 					?>
 					
                 </div>
