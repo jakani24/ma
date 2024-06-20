@@ -86,7 +86,9 @@ if(isset($_GET["add_todolist"])){
 						
 					</div>
 					<div id="todo" style="display:none">
+						<br>
 						<a data-bs-target="#add_todo" data-bs-toggle="modal" href="#add_todo" class="btn btn-primary">Add a todo list</a>
+						<br><br>
 						<?php
 							//list todos from all lists
 							
