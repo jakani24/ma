@@ -114,12 +114,12 @@
 
 			if ($conn->query($sql) === TRUE) {
 					echo '<br><div class="alert alert-success" role="alert">
-						Table log created successfully!
+						Table incidents created successfully!
 				</div>';
 			} else {
 				$success=0;
 					echo '<br><div class="alert alert-danger" role="alert">
-						Error creating table log: ' . $conn->error .'
+						Error creating table incidents: ' . $conn->error .'
 				</div>';
 			}
 			
