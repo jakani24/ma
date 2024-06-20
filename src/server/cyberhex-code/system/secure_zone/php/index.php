@@ -116,7 +116,7 @@ if(isset($_GET["page"])){
 		   ?>
 		   <ul>
 		  <?php
-			if($perms[9]=="1")
+			if($perms[10]=="1")
 				echo('<li><a href="index.php?page=manage_incident.php">View / Manage Incidents</a></li>');
 		   ?>
 		  </ul>
