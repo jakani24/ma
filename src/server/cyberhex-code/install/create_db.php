@@ -123,6 +123,45 @@
 				</div>';
 			}
 			
+			// Create todo_items table
+			$sql = "CREATE TABLE IF NOT EXISTS todo_items (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				done INT,
+				done_by INT,
+				belongs_to_list INT,
+				text VARCHAR(500) NOT NULL
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table todo_items created successfully!
+				</div>';
+			} else {
+				$success=0;
+					echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table todo_items: ' . $conn->error .'
+				</div>';
+			}
+			
+			// Create todo lists table
+			$sql = "CREATE TABLE IF NOT EXISTS todo_lists (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				belongs_to_incident INT,
+				name VARCHAR(255) NOT NULL
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table todo_items created successfully!
+				</div>';
+			} else {
+				$success=0;
+					echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table todo_items: ' . $conn->error .'
+				</div>';
+			}
+			
+			
 			// Create server log table
 			$sql = "CREATE TABLE IF NOT EXISTS server_log (
 				id INT AUTO_INCREMENT PRIMARY KEY,
