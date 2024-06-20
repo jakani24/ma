@@ -72,7 +72,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 						echo('<table class="table">');
 						echo('<thead>');
 						echo('<tr>');
-						echo('<th>Incident Id</th><th>Status</th><th>Goto Incident</th>');
+						echo('<th>Incident Id</th><th>Status</th><th>Description</th><th>Goto Incident</th>');
 						echo('</tr>');
 						echo('</thead>');
 						echo('<tbody>');
@@ -86,10 +86,12 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 							$row = $result->fetch_assoc();
 							$last_id=$row["id"];
 							$status=$row["status"];
+							$description=$row["description"];
 							if($last_id!=1){ //number 1 is the unauthenticated user
 								echo('<tr>');
 									echo('<td>'.$last_id.'</td>');
 									echo('<td>'.$status.'</td>');
+									echo('<td>'.$description.'</td>');
 									echo('<td><a href="manage_incident.php?incident_id='.$last_id.'">Goto Incident</a></td>');
 								echo('</tr>');
 							}
