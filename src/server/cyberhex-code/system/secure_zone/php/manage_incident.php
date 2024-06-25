@@ -70,15 +70,10 @@ if(isset($_GET["update_box_id"])){
 if(isset($_GET["upload_evidence"])){
 	$incident_id=htmlspecialchars($_GET["incident_id"]);
     $target_dir = "/var/www/html/incidents/$incident_id/evidence";
-
     $original_filename = basename($_FILES["fileToUpload"]["name"]);
     $new_filename = $original_filename . ".evidence";
     $target_file = $target_dir . $new_filename;
-	if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-		echo "The file " . htmlspecialchars($original_filename) . " has been uploaded as ";
-	} else {
-		echo "Sorry, there was an error uploading your file.";
-	}
+	move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 }
 ?>
 <!DOCTYPE html>
@@ -146,16 +141,33 @@ if(isset($_GET["upload_evidence"])){
 					</div>
 					<div id="evidence" style="display:none">
 						<p>Files uploaded here can not be deleted. You can upload important files that might help authoritys here.</p>
-						<form action="manage_incident.php?show=todo&upload_evidence=true&incident_id=<?php echo($_GET["incident_id"]); ?>" method="post" enctype="multipart/form-data">
+						<form action="manage_incident.php?show=evidence&upload_evidence=true&incident_id=<?php echo($_GET["incident_id"]); ?>" method="post" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="fileToUpload">Select file to upload:</label>
 								<input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload" required>
 							</div>
 							<button type="submit" class="btn btn-primary">Upload file</button>
 						</form>
+						<table class="table">
+						<tr><th>File</th><th>Download</th></tr>
 						<?php
-							//list files for download
+							$incident_id=htmlspecialchars($_GET["incident_id"]);
+							$directory = '/var/www/html/incidents/$incident_id/evidence';
+							$csvFiles = glob($directory . '*.evidence');
+							$fileCreationTimes = [];
+							//sort the files
+							 foreach ($csvFiles as $file) {
+								$fileCreationTimes[$file] = filectime($file);
+							}
+							arsort($fileCreationTimes);
+							// Loop through each file and print its name
+							foreach ($fileCreationTimes as $file=> $creationTime) {
+								echo("<tr><td>".basename($file)."</td><td><a href='/backup/".basename($file)."' download>Download</a></td></tr>");
+							}
+ 
 						?>
+					
+					</table>
 					</div>
 					<div id="chat" style="display:none">
 						
