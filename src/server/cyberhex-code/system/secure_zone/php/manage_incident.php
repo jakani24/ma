@@ -144,6 +144,7 @@ if(isset($_GET["add_todoitem"])){
 												echo("<td>".$entry["text"]."</td>");
 												//display user who checked it
 												$sql="SELECT username FROM users WHERE id=?";
+												$stmt2 = $conn->prepare($sql);
 												$stmt2->bind_param("i", $entry["done_by"]);
 												$stmt2->execute();
 												$result_lists2 = $stmt2->get_result();
