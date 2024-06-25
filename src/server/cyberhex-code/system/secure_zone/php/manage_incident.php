@@ -62,7 +62,7 @@ if(isset($_GET["add_todoitem"])){
 	 <script>
 		function change_status(id,todo_id){
 			box=document.getElementById(id);
-			if(box!=NULL){
+			if(box!=null){
 				var status=box.checked;
 				fetch("manage_incident.php?update_box_id="+todo_id+"&checked="+status);
 			}
