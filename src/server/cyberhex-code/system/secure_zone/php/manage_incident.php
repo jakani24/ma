@@ -66,6 +66,20 @@ if(isset($_GET["update_box_id"])){
 	$stmt->execute();
 	$stmt->close();	
 }
+
+if(isset($_GET["upload_evidence"])){
+	$incident_id=htmlspecialchars($_GET["incident_id"]);
+    $target_dir = "/var/www/html/incidents/$incident_id/evidence";
+
+    $original_filename = basename($_FILES["fileToUpload"]["name"]);
+    $new_filename = $original_filename . ".evidence";
+    $target_file = $target_dir . $new_filename;
+	if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+		echo "The file " . htmlspecialchars($original_filename) . " has been uploaded as ";
+	} else {
+		echo "Sorry, there was an error uploading your file.";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,7 +145,17 @@ if(isset($_GET["update_box_id"])){
 						?>
 					</div>
 					<div id="evidence" style="display:none">
-						
+						<p>Files uploaded here can not be deleted. You can upload important files that might help authoritys here.</p>
+						<form action="manage_incident.php?show=todo&upload_evidence=true&incident_id=<?php echo($_GET["incident_id"]); ?>" method="post" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="fileToUpload">Select file to upload:</label>
+								<input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Upload file</button>
+						</form>
+						<?php
+							//list files for download
+						?>
 					</div>
 					<div id="chat" style="display:none">
 						
