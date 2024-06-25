@@ -39,6 +39,18 @@ if(isset($_GET["add_todolist"])){
 	$stmt->execute();
 	$stmt->close();	
 }
+
+if(isset($_GET["add_todoitem"])){
+	$todoitem=htmlspecialchars($_POST["todoitem"]);
+	$list_id=htmlspecialchars($_GET["list_id"]);
+	$sql="INSERT INTO todo_items (text,done_by,done,belongs_to_list) VALUES(?,0,0,?)";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("si", $todoitem,$list_id);
+	$todoitem=htmlspecialchars($_POST["todoitem"]);
+	$list_id=htmlspecialchars($_GET["list_id"]);
+	$stmt->execute();
+	$stmt->close();	
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,6 +128,9 @@ if(isset($_GET["add_todolist"])){
 									echo("<table class='table'>");
 									echo("<tr><th>Done</th><th>Entry</th><th>Done By</th></tr>");
 									//display form to add a todo entry
+									echo("<tr><td></td>");
+										echo("<td><form action='manage_incident.php?list_id=$list_id&show=todo&add_todoitem=true&incident_id=".<?php echo($_GET["incident_id"]); ?>".' method='POST'><input type='text' class='form-control' id='todoitem' name='todoitem' required></td><td> <button type='submit' class='btn btn-primary btn-block'>Add item</button></form></td>");
+									echo("</tr>");
 									if ($result_entries->num_rows > 0) {
 										// Output data of each entry
 										echo "<ul>";
