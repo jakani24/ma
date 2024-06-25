@@ -173,7 +173,11 @@ if(isset($_GET["upload_evidence"])){
 					</table>
 					</div>
 					<div id="chat" style="display:none">
-						
+						<?php
+							//add message
+							echo("<form action='manage_incident.php?list_id=$list_id&show=chat&add_message=true&incident_id=".$_GET["incident_id"]."' method='POST'><input type='text' class='form-control' id='message' name='message' required><button type='submit' class='btn btn-primary btn-block'>Send message</button></form>");
+							//display messages
+						?>
 					</div>
 					<div id="todo" style="display:none">
 						<br>
