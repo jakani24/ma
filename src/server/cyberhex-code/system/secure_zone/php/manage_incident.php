@@ -155,6 +155,7 @@ if(isset($_GET["upload_evidence"])){
 						<?php
 							$incident_id=htmlspecialchars($_GET["incident_id"]);
 							$directory = "/var/www/html/incidents/$incident_id/evidence/";
+							$webdir="/incidents/$incident_id/evidence/";
 							$csvFiles = glob($directory . '*.evidence');
 							$fileCreationTimes = [];
 							//sort the files
@@ -164,7 +165,7 @@ if(isset($_GET["upload_evidence"])){
 							arsort($fileCreationTimes);
 							// Loop through each file and print its name
 							foreach ($fileCreationTimes as $file=> $creationTime) {
-								echo("<tr><td>".str_replace(".evidence","",basename($file))."</td><td><a href='$directory".basename($file)."' download>Download</a></td></tr>");
+								echo("<tr><td>".str_replace(".evidence","",basename($file))."</td><td><a href='$webdir".basename($file)."' download>Download</a></td></tr>");
 							}
  
 						?>
