@@ -84,7 +84,7 @@ if(isset($_GET["add_message"])){
 	$sent=date("Y-m-d H-i-s");
 	$sql="INSERT INTO chats (belongs_to_incident,text,sent,from_userid) VALUES (?,?,?,?)";
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("iii", $incident_id,$message,$box_id,$sent,$userid);
+	$stmt->bind_param("issi", $incident_id,$message,$sent,$userid);
 	$stmt->execute();
 	$stmt->close();	
 }
