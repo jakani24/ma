@@ -154,7 +154,7 @@ if(isset($_GET["upload_evidence"])){
 						<tr><th>File</th><th>Download</th></tr>
 						<?php
 							$incident_id=htmlspecialchars($_GET["incident_id"]);
-							$directory = '/var/www/html/incidents/$incident_id/evidence';
+							$directory = "/var/www/html/incidents/$incident_id/evidence";
 							$csvFiles = glob($directory . '*.evidence');
 							$fileCreationTimes = [];
 							//sort the files
