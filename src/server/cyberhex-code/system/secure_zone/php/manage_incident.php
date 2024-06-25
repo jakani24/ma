@@ -164,7 +164,7 @@ if(isset($_GET["upload_evidence"])){
 							arsort($fileCreationTimes);
 							// Loop through each file and print its name
 							foreach ($fileCreationTimes as $file=> $creationTime) {
-								echo("<tr><td>".str_replace(".evidence","",basename($file))."</td><td><a href='/backup/".basename($file)."' download>Download</a></td></tr>");
+								echo("<tr><td>".str_replace(".evidence","",basename($file))."</td><td><a href='$directory".basename($file)."' download>Download</a></td></tr>");
 							}
  
 						?>
