@@ -54,7 +54,7 @@ if(isset($_GET["add_todoitem"])){
 }
 
 if(isset($_GET["update_box_id"])){
-	$box_id=htmlspecialchars($_POST["update_box_id"]);
+	$box_id=htmlspecialchars($_GET["update_box_id"]);
 	$status=htmlspecialchars($_GET["checked"]);
 	if($status=="true")
 		$status=1;
