@@ -82,7 +82,7 @@ if(isset($_GET["add_message"])){
 	$incident_id=htmlspecialchars($_GET["incident_id"]);
 	$message=htmlspecialchars($_POST["message"]);
 	$sent=date("Y-m-d H-i-s");
-	$sql="INSERT INTO chats (belongs_to_incident,text,sent,from_userid)";
+	$sql="INSERT INTO chats (belongs_to_incident,text,sent,from_userid) VALUES (?,?,?,?)";
 	$stmt = $conn->prepare($sql);
 	$stmt->bind_param("iii", $incident_id,$message,$box_id,$sent,$userid);
 	$stmt->execute();
