@@ -163,6 +163,26 @@
 				</div>';
 			}
 			
+			// Create chat table
+			$sql = "CREATE TABLE IF NOT EXISTS chats (
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				belongs_to_incident INT,
+				text TEXT NOT NULL,
+				sent VARCHAR(50),
+				from_userid INT
+			)";
+
+			if ($conn->query($sql) === TRUE) {
+					echo '<br><div class="alert alert-success" role="alert">
+						Table todo_items created successfully!
+				</div>';
+			} else {
+				$success=0;
+					echo '<br><div class="alert alert-danger" role="alert">
+						Error creating table todo_items: ' . $conn->error .'
+				</div>';
+			}
+			
 			
 			// Create server log table
 			$sql = "CREATE TABLE IF NOT EXISTS server_log (
