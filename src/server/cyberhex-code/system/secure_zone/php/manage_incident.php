@@ -1,4 +1,6 @@
 <?php
+ini_set('post_max_size', '256M');
+ini_set('upload_max_filesize', '256M');
 session_start();
 
 // Check if the user is logged in
@@ -69,7 +71,7 @@ if(isset($_GET["update_box_id"])){
 
 if(isset($_GET["upload_evidence"])){
 	$incident_id=htmlspecialchars($_GET["incident_id"]);
-    $target_dir = "/var/www/html/incidents/$incident_id/evidence";
+    $target_dir = "/var/www/html/incidents/$incident_id/evidence/";
     $original_filename = basename($_FILES["fileToUpload"]["name"]);
     $new_filename = $original_filename . ".evidence";
     $target_file = $target_dir . $new_filename;
