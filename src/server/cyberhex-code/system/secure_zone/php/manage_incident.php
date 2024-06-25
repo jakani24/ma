@@ -113,6 +113,9 @@ if(isset($_GET["add_todolist"])){
 									$sql_entries = "SELECT * FROM todo_items WHERE belongs_to_list = $list_id";
 									$result_entries = $conn->query($sql_entries);
 
+									echo("<table class='table'>");
+									echo("<tr><th>Done</th><th>Entry</th><th>Done By</th></tr>");
+									//display form to add a todo entry
 									if ($result_entries->num_rows > 0) {
 										// Output data of each entry
 										echo "<ul>";
@@ -120,9 +123,8 @@ if(isset($_GET["add_todolist"])){
 											echo "<li>" . $entry["text"] . " (Done: " . $entry["done"] . ", Done By: " . $entry["done_by"] . ")</li>";
 										}
 										echo "</ul>";
-									} else {
-										echo "No entries for this list.";
-									}
+									} 
+									echo("</table>");
 								}
 							} else {
 								echo "No to-do lists found.";
@@ -143,7 +145,7 @@ if(isset($_GET["add_todolist"])){
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				  </div>
 				  <div class="modal-body">
-					<form action="manage_incident.php?add_todolist=true&incident_id=<?php echo($_GET["incident_id"]); ?>" method="post">
+					<form action="manage_incident.php?show=todo&add_todolist=true&incident_id=<?php echo($_GET["incident_id"]); ?>" method="post">
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input type="text" class="form-control" id="name" name="name" required>
