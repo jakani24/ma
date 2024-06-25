@@ -146,9 +146,9 @@ if(isset($_GET["add_todoitem"])){
 											echo("<tr>");
 												//display status
 												if($entry["done"]==1)
-													echo("<td><input class='form-check-input' type='checkbox' id='todoitem".$entry["id"]."' onclick='change_status(\"todoitem".$entry["id"]."\","..$entry["id"].")' checked></td>");
+													echo("<td><input class='form-check-input' type='checkbox' id='todoitem".$entry["id"]."' onclick='change_status(\"todoitem".$entry["id"]."\",".$entry["id"].")' checked></td>");
 												else
-													echo("<td><input class='form-check-input' type='checkbox' id='todoitem".$entry["id"]."' onclick='change_status(\"todoitem".$entry["id"]."\","..$entry["id"].")'></td>");
+													echo("<td><input class='form-check-input' type='checkbox' id='todoitem".$entry["id"]."' onclick='change_status(\"todoitem".$entry["id"]."\",".$entry["id"].")'></td>");
 												//display text
 												echo("<td>".$entry["text"]."</td>");
 												//display user who checked it
