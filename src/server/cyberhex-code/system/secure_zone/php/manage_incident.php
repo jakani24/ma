@@ -208,7 +208,7 @@ if(isset($_GET["add_message"])){
 								$date=$list["sent"];
 								$sql="SELECT username FROM users WHERE id=?";
 								$stmt2 = $conn->prepare($sql);
-								$stmt2->bind_param("i", $entry["done_by"]);
+								$stmt2->bind_param("i", $list["from_userid"]);
 								$stmt2->execute();
 								$result_lists2 = $stmt2->get_result();
 								$user = $result_lists2->fetch_assoc();
