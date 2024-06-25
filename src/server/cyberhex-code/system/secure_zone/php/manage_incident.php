@@ -175,7 +175,7 @@ if(isset($_GET["upload_evidence"])){
 					<div id="chat" style="display:none">
 						<?php
 							//add message
-							echo("<form action='manage_incident.php?show=chat&add_message=true&incident_id=".$_GET["incident_id"]."' method='POST' style='width:70%'><input type='text' class='form-control' id='message' name='message' required><button type='submit' class='btn btn-primary btn-block' style='width:25%'>Send message</button></form>");
+							echo("<div><form action='manage_incident.php?show=chat&add_message=true&incident_id=".$_GET["incident_id"]."' method='POST' style='width:70%'><input type='text' class='form-control' id='message' name='message' required><button type='submit' class='btn btn-primary btn-block' style='width:25%'>Send message</button></form></div>");
 							//display messages
 						?>
 					</div>
