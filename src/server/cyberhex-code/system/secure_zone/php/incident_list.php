@@ -91,7 +91,7 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 								echo('<td>'.$last_id.'</td>');
 								echo('<td>'.$status.'</td>');
 								echo('<td>'.$description.'</td>');
-								echo('<td><a href="manage_incident.php?incident_id='.$last_id.'">Goto Incident</a></td>');
+								echo('<td><a href="manage_incident.php?incident_id='.$last_id.'&show=overview">Goto Incident</a></td>');
 							echo('</tr>');
 							$stmt->close();
 							$num_of_incidents--;
