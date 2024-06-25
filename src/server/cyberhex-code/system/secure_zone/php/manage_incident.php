@@ -196,7 +196,7 @@ if(isset($_GET["add_message"])){
 							//display messages
 							echo("<h4>Messages</h4>");
 							$sql="SELECT * FROM chats WHERE belongs_to_incident = ?";
-							$stmt = $conn->prepare($sql_lists);
+							$stmt = $conn->prepare($sql);
 							$incident_id=htmlspecialchars($_GET["incident_id"]);
 							$stmt->bind_param("i", $incident_id);
 							$stmt->execute();
