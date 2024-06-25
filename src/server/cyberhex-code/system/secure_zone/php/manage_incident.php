@@ -59,6 +59,15 @@ if(isset($_GET["add_todoitem"])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	 <title>Change Password</title>
+	 <script>
+		function change_status(id,todo_id){
+			box=document.getElementById(id);
+			if(box!=NULL){
+				var status=box.checked;
+				fetch("manage_incident.php?update_box_id="+todo_id+"&checked="+status);
+			}
+		}
+	 </script>
 </head>
 <body>
 
@@ -137,9 +146,9 @@ if(isset($_GET["add_todoitem"])){
 											echo("<tr>");
 												//display status
 												if($entry["done"]==1)
-													echo("<td><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='myFunction()' checked></td>");
+													echo("<td><input class='form-check-input' type='checkbox' id='todoitem".$entry["id"]."' onclick='change_status(\"todoitem".$entry["id"]."\","..$entry["id"].")' checked></td>");
 												else
-													echo("<td><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='myFunction()'></td>");
+													echo("<td><input class='form-check-input' type='checkbox' id='todoitem".$entry["id"]."' onclick='change_status(\"todoitem".$entry["id"]."\","..$entry["id"].")'></td>");
 												//display text
 												echo("<td>".$entry["text"]."</td>");
 												//display user who checked it
