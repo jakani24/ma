@@ -77,6 +77,17 @@ if(isset($_GET["upload_evidence"])){
     $target_file = $target_dir . $new_filename;
 	move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 }
+
+if(isset($_GET["add_message"])){
+	$incident_id=htmlspecialchars($_GET["incident_id"]);
+	$message=htmlspecialchars($_POST["message"]);
+	$sent=date("Y-m-d H-i-s");
+	$sql="INSERT INTO chats (belongs_to_incident,text,sent,from_userid)";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("iii", $incident_id,$message,$box_id,$sent,$userid);
+	$stmt->execute();
+	$stmt->close();	
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -183,6 +194,28 @@ if(isset($_GET["upload_evidence"])){
 								</form>
 							</div>");						
 							//display messages
+							echo("<h4>Messages</h4>");
+							$sql="SELECT * FROM chats WHERE belongs_to_incident = ?";
+							$stmt = $conn->prepare($sql_lists);
+							$incident_id=htmlspecialchars($_GET["incident_id"]);
+							$stmt->bind_param("i", $incident_id);
+							$stmt->execute();
+							$result_lists = $stmt->get_result();
+							echo("<table class='table'>");
+							echo("<tr><th>Message</th><th>From</th><th>Date</th></tr>");
+							while($list = $result_lists->fetch_assoc()) {
+								$message=$list["text"];
+								$date=$list["sent"];
+								$sql="SELECT username FROM users WHERE id=?";
+								$stmt2 = $conn->prepare($sql);
+								$stmt2->bind_param("i", $entry["done_by"]);
+								$stmt2->execute();
+								$result_lists2 = $stmt2->get_result();
+								$user = $result_lists2->fetch_assoc();
+								$from=$user["username"];
+								echo("<tr><td>$message</td><td>$from</td><td>$date</td></tr>");
+							}
+							echo("</table>");
 						?>
 					</div>
 					<div id="todo" style="display:none">
