@@ -11,6 +11,7 @@ if (!isset($_SESSION['username']) or !isset($_SESSION["login"])) {
 $username = $_SESSION['username'];
 $perms = $_SESSION["perms"];
 $email = $_SESSION["email"];
+$userid= $_SESSION["id"];
 if($perms[9]!=="1" && $perms[10]!=="1"){
 	header("location:/system/insecure_zone/php/no_access.php");
 	$block=1;
@@ -48,6 +49,20 @@ if(isset($_GET["add_todoitem"])){
 	$stmt->bind_param("si", $todoitem,$list_id);
 	$todoitem=htmlspecialchars($_POST["todoitem"]);
 	$list_id=htmlspecialchars($_GET["list_id"]);
+	$stmt->execute();
+	$stmt->close();	
+}
+
+if(isset($_GET["update_box_id"])){
+	$box_id=htmlspecialchars($_POST["update_box_id"]);
+	$status=htmlspecialchars($_GET["checked"]);
+	if($status=="true")
+		$status=1;
+	else
+		$status=0;
+	$sql="UPDATE todo_items SET done = ?, done_by = ? WHERE id = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("iii", $status,$userid,$box_id);
 	$stmt->execute();
 	$stmt->close();	
 }
