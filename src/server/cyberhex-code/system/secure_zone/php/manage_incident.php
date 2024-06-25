@@ -88,6 +88,16 @@ if(isset($_GET["add_message"])){
 	$stmt->execute();
 	$stmt->close();	
 }
+
+if(isset($_GET["close_incident"])){
+	$incident_id=htmlspecialchars($_GET["incident_id"]);
+	$closed=date("Y-m-d H-i-s");
+	$sql="UPDATE incidents SET status='closed', closed = ? WHERE id = ?";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param("is", $closed,$incident_id);
+	$stmt->execute();
+	$stmt->close();	
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -281,7 +291,8 @@ if(isset($_GET["add_message"])){
 						?>
 					</div>
 					<div id="settings" style="display:none">
-						
+						<br>
+						<a data-bs-target="#close" data-bs-toggle="modal" href="#close" class="btn btn-danger">Close incident</a>
 					</div>
                 </div>
             </div>
@@ -289,7 +300,7 @@ if(isset($_GET["add_message"])){
 			  <div class="modal-dialog">
 				<div class="modal-content">
 				  <div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Permission Explanation</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Add todo list</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				  </div>
 				  <div class="modal-body">
@@ -301,6 +312,20 @@ if(isset($_GET["add_message"])){
 						<br>
                         <button type="submit" class="btn btn-primary btn-block">Create todo list</button>
                     </form>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<div class="modal fade" id="close" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+			  <div class="modal-dialog">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Close incident</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				  </div>
+				  <div class="modal-body">
+					<a href="manage_incident.php?show=settings&close_incident=true&incident_id=<?php echo($_GET["incident_id"]); ?>" class="btn btn-danger">Close incident</a>
+                       
 				  </div>
 				</div>
 			  </div>
