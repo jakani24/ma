@@ -114,7 +114,21 @@ if(isset($_GET["update_box_id"])){
 
 					</ul>
 					<div id="overview" style="display:none">
-						
+						<h4>Incident #<?php echo($_GET["incident_id"]); ?></h4>
+						<?php
+							//get some info about the incident from the db
+							$sql="SELECT * FROM incidents WHERE id = ?";
+							$stmt = $conn->prepare($sql);
+							$incident_id=htmlspecialchars($_GET["incident_id"]);
+							$stmt->bind_param("i", $incident_id);
+							$stmt->execute();
+							$results = $stmt->get_result();
+							$data = $results->fetch_assoc();
+							echo("<p>Status: ".$data["status"]."</p>");
+							echo("<p>Description: ".$data["description"]."</p>");
+							echo("<p>Opened: ".$data["opened"]."</p>");
+							echo("<p>Closed: ".$data["closed"]."</p>");
+						?>
 					</div>
 					<div id="evidence" style="display:none">
 						
@@ -127,11 +141,6 @@ if(isset($_GET["update_box_id"])){
 						<a data-bs-target="#add_todo" data-bs-toggle="modal" href="#add_todo" class="btn btn-primary">Add a todo list</a>
 						<br><br>
 						<?php
-							//list todos from all lists
-							
-							//list todos -> list each entry of each todo
-							
-							
 							$sql_lists = "SELECT id, name FROM todo_lists WHERE belongs_to_incident = ?";
 							$stmt = $conn->prepare($sql_lists);
 							$incident_id=htmlspecialchars($_GET["incident_id"]);

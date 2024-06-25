@@ -61,8 +61,9 @@ include "../../../api/php/log/add_server_entry.php"; //to log things
 									$success=0;
 									die("Connection failed: " . $conn->connect_error);
 								}
-							$stmt = $conn->prepare("INSERT INTO incidents (description, status) VALUES (?, 'open')");
-							$stmt->bind_param("s", $keyword);
+							$date=date("Y-m-d");
+							$stmt = $conn->prepare("INSERT INTO incidents (description, status, opened) VALUES (?, 'open', ?)");
+							$stmt->bind_param("ss", $keyword,$date);
 
 							$keyword=htmlspecialchars($_POST["keyword"]);
 							

@@ -109,7 +109,9 @@
 			$sql = "CREATE TABLE IF NOT EXISTS incidents (
 				id INT AUTO_INCREMENT PRIMARY KEY,
 				status VARCHAR(50) NOT NULL,
-				description VARCHAR(255) NOT NULL
+				description VARCHAR(255) NOT NULL,
+				opened VARCHAR(50),
+				closed VARCHAR(50)
 			)";
 
 			if ($conn->query($sql) === TRUE) {
