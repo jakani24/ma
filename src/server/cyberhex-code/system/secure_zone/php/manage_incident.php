@@ -97,6 +97,7 @@ if(isset($_GET["close_incident"])){
 	$stmt->bind_param("si", $closed,$incident_id);
 	$stmt->execute();
 	$stmt->close();	
+	header("Location: incident_list.php");
 }
 ?>
 <!DOCTYPE html>
