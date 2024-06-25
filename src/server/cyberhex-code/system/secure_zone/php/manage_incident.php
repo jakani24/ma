@@ -133,30 +133,28 @@ if(isset($_GET["add_todoitem"])){
 									echo("</tr>");
 									if ($result_entries->num_rows > 0) {
 										// Output data of each entry
-										echo("<tr>");
-											//display status
-											if($entry["done"]==1)
-												echo("<td><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='myFunction()' checked></td>");
-											else
-												echo("<td><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='myFunction()'></td>");
-											//display text
-											echo("<td>".$entry["text"]."</td>");
-											//display user who checked it
-											$sql="SELECT username FROM users WHERE id=?";
-											$stmt->bind_param("i", $entry["done_by"]);
-											$stmt->execute();
-											$user = $result_lists->fetch_assoc();
-											if($entry["done"]==1)
-												echo("<td>".$user["username"]."</td>");
-											else
-												echo("<td></td>");
-										echo("</tr>");
-										
-										echo "<ul>";
 										while($entry = $result_entries->fetch_assoc()) {
-											echo "<li>" . $entry["text"] . " (Done: " . $entry["done"] . ", Done By: " . $entry["done_by"] . ")</li>";
+											echo("<tr>");
+												//display status
+												if($entry["done"]==1)
+													echo("<td><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='myFunction()' checked></td>");
+												else
+													echo("<td><input class='form-check-input' type='checkbox' id='flexCheckDefault' onclick='myFunction()'></td>");
+												//display text
+												echo("<td>".$entry["text"]."</td>");
+												//display user who checked it
+												$sql="SELECT username FROM users WHERE id=?";
+												$stmt2->bind_param("i", $entry["done_by"]);
+												$stmt2->execute();
+												$result_lists2 = $stmt2->get_result();
+												$user = $result_lists2->fetch_assoc();
+												if($entry["done"]==1)
+													echo("<td>".$user["username"]."</td>");
+												else
+													echo("<td></td>");
+												$stmt2->close();
+											echo("</tr>");
 										}
-										echo "</ul>";
 									} 
 									echo("</table>");
 								}
