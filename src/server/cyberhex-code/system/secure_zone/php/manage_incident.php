@@ -94,7 +94,7 @@ if(isset($_GET["close_incident"])){
 	$closed=date("Y-m-d H-i-s");
 	$sql="UPDATE incidents SET status='closed', closed = ? WHERE id = ?";
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("is", $closed,$incident_id);
+	$stmt->bind_param("si", $closed,$incident_id);
 	$stmt->execute();
 	$stmt->close();	
 }
