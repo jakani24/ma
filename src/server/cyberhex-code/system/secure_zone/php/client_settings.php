@@ -225,7 +225,7 @@ load_settings();
 							<label class="form-check-label" for="flexSwitchCheckDefault">Kill processes which are detected to be a virus</label>
 						</div>
 						<br>
-						<h7>Included folders for RTP folderscanner</h7>
+						<h7>Included folders for RTP</h7>
 						<table class="table">
 						<thead>
 						<tr>
@@ -261,7 +261,7 @@ load_settings();
 						?>
 						</tbody>
 						</table>
-						<h7>Excluded folders for RTP folderscanner</h7>
+						<h7>Excluded folders for RTP</h7>
 						<table class="table">
 						<thead>
 						<tr>
