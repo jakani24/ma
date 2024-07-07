@@ -4,6 +4,7 @@ services:
   cyberhex-db:
     image: mysql:latest
     container_name: cyberhex-db
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 1234
     networks:
@@ -16,6 +17,7 @@ services:
     build:
       context: .
       dockerfile: srv_dockerfile
+    restart: unless-stopped
     container_name: cyberhex-srv
     networks:
       cyberhex-network:
