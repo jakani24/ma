@@ -13,23 +13,23 @@ Functions:
 #include <curl/curl.h>
 #include <openssl/md5.h>
 #include <yara.h>
-#include "app_ctrl.h"
-#include "md5hash.h"
-#include "connect.h"
-#include "scan.h"
-#include "queue_ctrl.h"
-#include "well_known.h"
-#include "local_com.h"
-#include "local_schedule.h"
-#include "log.h"
-#include "thread_ctrl.h"
-#include "settings.h"
-#include "check_dir.h"
-#include "virus_ctrl.h"
-#include "update.h"
-#include "check_process.h"
-#include "utils.h"
-#include "deepscan.h"
+#include "app_ctrl.h"               //includes functions for controlling the application
+#include "md5hash.h"                //includes functions for hashing files
+#include "connect.h"                //includes functions for connecting to the server
+#include "scan.h"                   //includes functions for scanning files and folders
+#include "queue_ctrl.h"             //includes functions for controlling the queue
+#include "well_known.h"             //includes well known paths and file names e.g. com files
+#include "local_com.h"              //includes functions for handling local com files
+#include "local_schedule.h"         //includes functions for handling local schedule files
+#include "log.h"                    //includes functions for logging
+#include "thread_ctrl.h"            //includes functions for controlling threads
+#include "settings.h"               //includes functions for loading and updating settings
+#include "check_dir.h"              //includes functions for checking directories
+#include "virus_ctrl.h"             //includes functions for controlling viruses and removing them
+#include "update.h"                 //includes functions for updating the application
+#include "check_process.h"          //includes functions for checking processes and killing them
+#include "utils.h"                  //includes utility functions and non classified functions
+#include "deepscan.h"               //includes functions for deep scanning files
 
 
 int main(int argc, char* argv[]) {

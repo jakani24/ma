@@ -148,7 +148,15 @@ void deepscan_folder(const std::string& directory) {
                         }
                         //log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: Scanning file: ", full_path);
                         if (is_valid_path(full_path)) { // Filter out invalid paths and paths with weird characters
-                            std::uintmax_t fileSize = std::filesystem::file_size(full_path);
+                            std::uintmax_t fileSize = 0;
+                            try {
+                                fileSize = std::filesystem::file_size(full_path);
+                            }
+                            catch (std::filesystem::filesystem_error& e) {
+                                log(LOGLEVEL::ERR_NOSEND, "[deepscan_folder()]: Could not get file size for file: ", full_path);
+                            }
+
+                            //std::uintmax_t fileSize = std::filesystem::file_size(full_path);
                             if (fileSize > 4000000000) { // 4GB
                                 log(LOGLEVEL::INFO_NOSEND, "[deepscan_folder()]: File too large to scan: ", full_path);
                             }

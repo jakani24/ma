@@ -356,8 +356,16 @@ void scan_file_t(const std::string& filepath_) {
     set_num_threads(get_num_threads() + 1);
     thread_local const std::string filepath(filepath_);
     thread_local char* db_path = new char[300];
-    if(is_valid_path(filepath)){
-        std::uintmax_t fileSize = std::filesystem::file_size(filepath);
+	if (is_valid_path(filepath)) { //filter out invalid paths and paths with weird characters
+        std::uintmax_t fileSize = 0;
+        try {
+            fileSize = std::filesystem::file_size(filepath);
+		}
+		catch (std::filesystem::filesystem_error& e) {
+			log(LOGLEVEL::ERR_NOSEND, "[scan_file_t()]: Could not get file size for file: ", filepath);
+            set_num_threads(get_num_threads() - 1);
+			return;
+		}
         if (fileSize > 4000000000) { // 4GB
             log(LOGLEVEL::INFO_NOSEND, "[scan_folder()]: File too large to scan: ", filepath);
         }
