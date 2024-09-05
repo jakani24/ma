@@ -44,7 +44,7 @@ std::string queue_pop() {
         std::string ret = queue[queue_end-1];
         queue_end = (queue_end - 1) % queue_limit;
         queue_size--;
-        return ret; // Success
+        return ret;
     }
 }
 

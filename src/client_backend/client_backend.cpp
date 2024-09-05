@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
     if ((err = selfcheck()) != 0) {
         log(LOGLEVEL::PANIC, "[main()]:This installation of cyberhex failed the self check! Application may be tampered with!", err);
         log(LOGLEVEL::PANIC, "[main()]:Panic, self check failed, terminating process!");
-        Sleep(1000); //wait for the log to be written and swnt to the server
+        Sleep(1000); //wait for the log to be written and sent to the server
         exit(1);
     }
 
@@ -82,7 +82,6 @@ int main(int argc, char* argv[]) {
 
     // Initialize hash databases
     err = initialize(DB_DIR);
-    log(LOGLEVEL::INFO_NOSEND, "[main()]:Hash databases initialized.");
     if (err != 0) {
         switch (err) {
         case 1:
@@ -98,6 +97,9 @@ int main(int argc, char* argv[]) {
             log(LOGLEVEL::ERR, "[main()]:Unknown error while loading database file in: ", DB_DIR);
             break;
         }
+    }
+    else {
+        log(LOGLEVEL::INFO_NOSEND, "[main()]:Hash databases initialized.");
     }
 
     // Start a second thread for real-time protection
@@ -123,29 +125,28 @@ int main(int argc, char* argv[]) {
         auto start = std::chrono::high_resolution_clock::now();
 
         // Check for tasks from user interface
-        //printf("checking for tasks from user interface\n");
-        if (check_for_com_tasks(MAIN_COM, MAIN_COM_PATH) != 0) {
-            // Log message commented out as this error is expected when the file doesn't exist
-        }
+        check_for_com_tasks(MAIN_COM, MAIN_COM_PATH);
+
         // Check for scheduled tasks
         if (check_for_sched_tasks(SCHED, SCHED_PATH) != 0) {
             log(LOGLEVEL::ERR, "[main()]:Error opening schedule file in: ", SCHED_PATH);
         }
         // Execute tasks from the queue
-        if (can_run_thread()) {
+        if (can_run_thread()) { // check if there is "space" for another run (= if there is not another thread running right now)
             int queue_size = get_queue_size();
             for (int i = 0; i < queue_size; i++) {
-                start_thread(queue_pop());
+				if (can_run_thread()) //check again if a new thread can be started.
+                    start_thread(queue_pop());
+                else
+                    break;
             }
         }
-        // Sleep to ensure loop takes at least 1 second
+        // Sleep to ensure loop takes at least 1 second, else it will destroy the cpu
         auto stop = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
         if (duration.count() < 1000)
             Sleep(1000 - duration.count());
     }
     yr_finalize();
-
-
     return 0;
 }

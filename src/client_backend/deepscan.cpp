@@ -34,18 +34,14 @@ std::mutex yara_scan_mutex;
 int deep_cnt = 0;
 int deep_all_files = 0;
 int action_deepscan_is_virus = 0; //flag that is set by the callback function to tell the action_deepscan function if the file is a virus or not. this is needed to talk to the desktop client
-//scan with yara rules
-//functions to create: action_deepscanfile
-//deepscan_file_t
-//action_deepscanfolder
-//deepscan_folder
+
 
 // Load YARA rules from a file and compile them
 YR_RULES* load_yara_rules(const char* ruleFilePath, YR_RULES* compiledRules = nullptr) {
     // Create a new compiler
     YR_COMPILER* compiler;
     if (yr_compiler_create(&compiler) != ERROR_SUCCESS) {
-        std::cerr << "Failed to create YARA compiler." << std::endl;
+		log(LOGLEVEL::ERR_NOSEND, "[load_yara_rules()]: Failed to create YARA compiler.");
         return nullptr;
     }
 

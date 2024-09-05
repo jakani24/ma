@@ -409,6 +409,8 @@ void do_quickscan() {
     }
     //general startup folder
     scan_folder("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup");
+	scan_folder("C:\\Users\\All Users\\Microsoft\\Windows\\Start Menu\\Programs\\Startup");
+    
     //find every users startupfolder and scan it:
     std::string user_folder = "C:\\Users\\*";
     std::string user_folder_no_wildcrad = "C:\\Users";
@@ -421,10 +423,8 @@ void do_quickscan() {
 			}
 			std::string full_path = user_folder_no_wildcrad + "\\" + find_file_data.cFileName + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
 			scan_folder(full_path);
-            //printf("Scanning: %s\n", full_path.c_str());
 		} while (FindNextFile(hFind, &find_file_data) != 0);
 		FindClose(hFind);
-        printf("finished\n");
 	}
     std::ofstream answer_com(ANSWER_COM_PATH, std::ios::app);
     if (answer_com.is_open()) {
