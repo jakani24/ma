@@ -19,6 +19,7 @@ Functions:
 std::mutex fileMutex_sec; // Mutex to synchronize file access
 
 
+
 // Function to check if the certificate is valid. the certificate is stored in the first line of each settings file. we check them agains the one in the secrets file
 int check_cert(const std::string& cert, const std::string& secrets_path) {
     std::ifstream file(secrets_path);
